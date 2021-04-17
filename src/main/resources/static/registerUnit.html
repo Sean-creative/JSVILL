@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            width: 940px;
+        }
+        nav {
+            float: left;
+        }
+        nav dl dt {
+            margin-top: 30px;
+        }
+        nav dl dd {
+            margin: 0px;
+        }
+        nav dl dd ul li {
+            font-size: 11px;
+            margin-top: 3px;
+        }
+        section {
+            float: right;
+        }
+        .input-container input {
+            border: none;
+            box-sizing: border-box;
+            outline: 0;
+            padding: .75rem;
+            position: relative;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../lib/datepicker.css">
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script  src="../lib/datepicker.js"></script>
+<script>
+    $(function() {
+        //input을 datepicker로 선언
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd' //달력 날짜 형태
+            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+            ,changeYear: true //option값 년 선택 가능
+            ,changeMonth: true //option값  월 선택 가능
+            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+            ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+            ,buttonText: "선택" //버튼 호버 텍스트
+            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+            ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+        });
+
+        //초기값을 오늘 날짜로 설정해줘야 합니다.
+        $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+    });
+</script>
+
+<!--<script type="text/javascript"> $(document).ready(function () { $.datepicker.setDefaults($.datepicker.regional['ko']); $( "#startDate" ).datepicker({ changeMonth: true, changeYear: true, nextText: '다음 달', prevText: '이전 달', dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'], dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], dateFormat: "yymmdd", maxDate: 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가) onClose: function( selectedDate ) { //시작일(startDate) datepicker가 닫힐때 //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정 $("#endDate").datepicker( "option", "minDate", selectedDate ); } }); $( "#endDate" ).datepicker({ changeMonth: true, changeYear: true, nextText: '다음 달', prevText: '이전 달', dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'], dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], dateFormat: "yymmdd", maxDate: 0, // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가) onClose: function( selectedDate ) { // 종료일(endDate) datepicker가 닫힐때 // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정 $("#startDate").datepicker( "option", "maxDate", selectedDate ); } }); }); </script>-->
+
+
+
+
+<header style="margin-top:15px;width:100%;height:50px;">
+    <div style="display:inline-block;padding-left:30px;color:#1dc078;font-weight:bold;font-size:30px;">
+        JS Vill
+    </div>
+    <img style="float: right" src="../image/headerIcon2.png">
+    <img style="float: right" src="../image/headerIcon1.png">
+    <div style="display:inline-block;float:right;width:300px;height:40px;background:#C2F6DE;">
+        <img style="float: right" src="../image/headerIcon0.png">
+    </div>
+</header>
+
+<nav style="width:20%;height:100%;background:#1dc078;">
+    <dl style="padding-left:20px;margin:0;list-style:none;color:white;">
+        <dt>건물 관리</dt>
+        <dd>
+            <ul style="    padding: 0px 19px;    margin: 2px;">
+                <li>건물</li>
+                <li>입주자</li>
+            </ul>
+        </dd>
+
+        <dt>커뮤니티</dt>
+        <dt>주차 관리</dt>
+        <dt>공과금 관리</dt>
+        <dt>빌라 달력</dt>
+    </dl>
+</nav>
+
+<section style="width:75%;height:100%;padding:10px 0;">
+    <div style="color:#1dc078;font-weight:bold;">건물 관리 / [JS Vill] 호실 등록</div>
+
+    <div style="position:relative;margin-top:30px;padding: 15px 20px 10px 15px;border: 1px solid black;">
+        <div style="position: absolute;padding:0 10px;top:-13px;left:7px;background:white;text-align: center">
+            호수
+        </div>
+        <div>
+            <input type="text" style="width:100%;height:30px;border:none;background:lightgray">
+        </div>
+    </div>
+
+    <div style="position:relative;margin-top:30px;padding: 15px 20px 10px 15px;border: 1px solid black;">
+        <div style="position: absolute;padding:0 10px;top:-13px;left:7px;background:white;text-align: center">
+            보증금/월세/관리비
+        </div>
+        <div style="display: flex">
+            <div style="flex:2;width:100%;background: aquamarine;">
+                보증금
+                <div>
+                    <input type="text" placeholder="0" style="width:20%;height:30px;border:none;background:lightgray;">
+                    <span style="margin-left:5px;">만원</span>
+                </div>
+            </div>
+            <div style="flex:1;width:100%;background: fuchsia;">
+                계약 만료일
+                <input type="text" style="width:100%;height:30px;border:none;background:lightgray">
+                <input id="datepicker" >
+
+                <input id="txtDate">
+                <script>
+                    $('#txtDate').datepicker();
+                </script>
+            </div>
+        </div>
+        <div style="display: flex;margin-top: 20px;">
+            <div style="flex:2;width:100%;background: aquamarine;">
+                월세
+                <div>
+                    <input type="text" placeholder="0" style="width:20%;height:30px;border:none;background:lightgray;">
+                    <span style="margin-left:5px;">만원</span>
+                </div>
+            </div>
+            <div style="flex:1;width:100%;background: fuchsia;">
+                월세/관리비/납부일
+                <input type="text" style="width:100%;height:30px;border:none;background:lightgray">
+            </div>
+        </div>
+    </div>
+
+    <div style="position:relative;margin-top:30px;padding: 15px 20px 10px 15px;border: 1px solid black;">
+        <div style="position: absolute;padding:0 10px;top:-13px;left:7px;background:white;text-align: center">
+            공과금
+        </div>
+        <div>
+            <input type="checkbox">공과금을 임대인이 납부
+        </div>
+        <div>
+            <input type="text" style="width:100%;height:30px;border:none;background:lightgray">
+        </div>
+    </div>
+
+    <div style="position:relative;margin-top:30px;padding: 15px 20px 10px 15px;border: 1px solid black;">
+        <div style="position: absolute;padding:0 10px;top:-13px;left:7px;background:white;text-align: center">
+            차량
+        </div>
+        <div>
+            <input type="text" style="width:100%;height:30px;border:none;background:lightgray">
+        </div>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <span style="color:#1dc078;font-weight:bold;">건물 형태</span>
+        <div><select style="border:none;background:#C2F6DE">
+            <option>빌라</option>
+        </select>
+            <div style="color:#1dc078;font-size: small">※ 빌라 이외의 다른 건물 유형들은 이후 런칭 예정입니다.</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <span style="color:#1dc078;font-weight:bold;">건물 주소</span>
+        <div>
+            <div><span style="color:#1dc078;">도로명 주소 또는 지번주소</span></div>
+            <input type="text" style="border:none;background:#C2F6DE">
+        </div>
+        <div>
+            <div><span style="color:#1dc078;">우편번호</span></div>
+            <input type="text" style="border:none;background:#C2F6DE">
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
