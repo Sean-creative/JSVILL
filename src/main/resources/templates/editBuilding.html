@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>빌딩 수정 페이지</title>
+</head>
+<body>
+<style>
+  body {margin:0}
+  html,body {width:100vw;height:100vh}
+  input:focus {outline:none;}
+  .main-content {width:calc(100vw - 40px);height:calc(100vh - 130px);padding:20px 20px}
+  .header {display:flex;position:relative;width:100vw;height:60px}
+  .info {margin:40px 0}
+  .info > p {font-size:15px;font-weight:bold;margin:10px 0}
+  input {border:none;height:30px}
+  textarea {width:350px;height:50px;border:none;background-color:#f6f6f6}
+  .cancelBtn {padding:5px 10px;border:1px solid black;font-size:12px}
+  .registerBtn {padding:5px 10px;border:1px solid rgb(29, 192, 120);font-size:12px;color:white;background-color:rgb(29, 192, 120)}
+</style>
+
+  <header>
+    <div class="header" style="height:60px">
+      <div style="font-size:25px;font-weight:bold;padding:10px 20px;color:#23c17a">JS Vill</div>
+      <div style="position:absolute;right:0;padding:10px;display:flex;justify-content:space-around;width:35vw;max-width:600px">
+        <div style="display:flex;padding:1px 10px;background-color:#c2f6de"><input id="keyword" type="text" style="background-color:#c2f6de;width:400px;height:40px;border:0;padding:0;font-size:25px">
+          <span style="background-color:#c2f6de"><img id="search" src="image/search.png" style="width:35px;height:35px;margin-right:10px"></span>
+        </div>
+        <img src="image/bell.png" style="width:37px;height:37px">
+        <img src="image/image2.png" style="width:37px;height:37px">
+      </div>
+    </div>
+  </header>
+
+  <section class="main-content">
+    <h3>건물관리</h3>
+        <article>
+          <div class="info">
+              <p>건물 이름</p>
+              <div type="text" style="height:30px;width:200px;background-color:#f6f6f6">지민 빌딩</div>
+          </div>
+          <div class="info">
+              <p>건물 타입</p>
+              <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">빌라</div>
+              <span style="font-size:10px">※빌라 이외의 다른 건물타입들은 이후 런칭 예정입니다.</span>
+          </div>
+          <div class="info">
+              <p>건물 주소</p>
+              <input type="text" value="10893" style="width:80px;background-color:#f6f6f6"><span style="margin-left:10px;background-color:grey;width:25px;color:white;font-size:15px;padding:5px 5px">주소 찾기</span>
+              <div style="margin-top:15px">
+                  <input type="text" value="경기도 파주시 금바위로" style="display:inline-block;width:350px;background-color:#f6f6f6;font-size:12px"/>
+                  <input type="text" value="가람마을 8단지 810동 1803호" style="margin-left:15px;display:inline-block;width:350px;background-color:#f6f6f6;font-size:12px"/>
+              </div>
+          </div>
+          <div class="info">
+              <p>비고</p>
+              <textarea>에엥</textarea>
+          </div>
+            <span class="cancelBtn">취소</span> <span class="registerBtn">수정</span>
+        </article>
+  </section>
+
+
+<script>
+  let menu1 = document.getElementById("menu1");
+  menu1.addEventListener("click", function(){
+    console.log('menu1');
+  })
+  let search = document.getElementById("search");
+  search.addEventListener("click", function(){
+    let keyword = document.getElementById("keyword").value
+    alert(keyword);
+  })
+
+</script>
+</body>
+</html>

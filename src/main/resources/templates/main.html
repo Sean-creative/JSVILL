@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>메인페이지</title>
+</head>
+<body>
+<style>
+  body {margin:0}
+  html,body {width:100vw;height:100vh}
+  input:focus {outline:none;}
+  .main-content { background-color:rgb(29, 192, 120);width:100vw;height:calc(100vh - 130px) }
+  .main-content > article > div { font-size:30px;font-weight:bold;color:white}
+  .header {display:flex;position:relative;width:100vw;height:60px}
+  .foot-menu {display:flex;justify-content:center;width:100vw;height:70px}
+  .foot-menu > div {width:130px;text-align:center;border:3px solid #CED4DA;border-radius:30px;padding:10px 10px;margin:10px 10px;color:#495057;font-weight:bold}
+  .foot-menu > div:hover{color:rgb(29, 192, 120);border:3px solid rgb(29, 192, 120)}
+</style>
+
+  <header>
+    <div class="header" style="height:60px">
+      <div style="font-size:25px;font-weight:bold;padding:10px 20px;color:#23c17a">JS Vill</div>
+      <div style="position:absolute;right:0;padding:10px;display:flex;justify-content:space-around;width:35vw;max-width:600px">
+        <div style="display:flex;padding:1px 10px;background-color:#f6f6f6"><input id="keyword" type="text" style="background-color:#f6f6f6;width:400px;height:40px;border:0;padding:0;font-size:25px">
+          <span style="background-color:#f6f6f6"><img id="search" src="image/search.png" style="width:35px;height:35px;margin-right:10px"></span>
+        </div>
+        <img src="image/bell.png" style="width:37px;height:37px">
+        <img src="image/image2.png" style="width:37px;height:37px">
+      </div>
+    </div>
+  </header>
+
+  <section class="main-content">
+    <article>
+      <div style="padding-left:50px;padding-top:100px;">
+        <div style="margin-top:20px">JS Vill</div>
+        <div style="margin-top:20px">고양이만 집사인가?</div>
+        <div style="margin-top:20px">고양이 말고 JS Vill을 고용한다면?</div>
+        <div style="margin-top:20px">당신의 주택을 편리하게 관리해 보세요</div>
+        <div style="margin-top:20px">:)</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="foot-menu">
+    <div name="menu">주택/임차인 관리</div>
+    <div name="menu">커뮤니티</div>
+    <div name="menu">주차관리</div>
+    <div name="menu">주차관리</div>
+    <div name="menu">공과금 관리</div>
+    <div name="menu">빌라 달력</div>
+  </section>
+
+<script>
+  let menu1 = document.getElementById("menu1");
+  menu1.addEventListener("click", function(){
+    console.log('menu1');
+  })
+  let search = document.getElementById("search");
+  search.addEventListener("click", function(){
+    let keyword = document.getElementById("keyword").value
+    alert(keyword);
+  })
+
+</script>
+</body>
+</html>
