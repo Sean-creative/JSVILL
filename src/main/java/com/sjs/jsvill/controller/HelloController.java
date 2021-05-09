@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
-    @GetMapping("registerUnit")
-    public String hello(Model model) {
-//        model.addAttribute("data", "hello!!");
-        return "registerUnit";
-    }
+//    @GetMapping("registerUnit")
+//    public String hello(Model model) {
+////        model.addAttribute("data", "hello!!");
+//        return "registerUnit";
+//    }
 
     @GetMapping("hello-mvc")
     public String helloMvc(@RequestParam("name") String name, Model model) {
