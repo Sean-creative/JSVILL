@@ -43,24 +43,27 @@
   </section>
 
   <section class="foot-menu">
-    <div name="menu">주택/임차인 관리</div>
-    <div name="menu">커뮤니티</div>
-    <div name="menu">주차관리</div>
-    <div name="menu">주차관리</div>
-    <div name="menu">공과금 관리</div>
-    <div name="menu">빌라 달력</div>
+    <div id="menu">주택/임차인 관리</div>
+    <div class="menu">커뮤니티</div>
+    <div class="menu">주차관리</div>
+    <div class="menu">주차관리</div>
+    <div class="menu">공과금 관리</div>
+    <div class="menu">빌라 달력</div>
   </section>
 
 <script>
-  let menu1 = document.getElementById("menu1");
-  menu1.addEventListener("click", function(){
-    console.log('menu1');
-  })
-  let search = document.getElementById("search");
-  search.addEventListener("click", function(){
-    let keyword = document.getElementById("keyword").value
-    alert(keyword);
-  })
+  window.onload = function() {
+
+    let menu = document.getElementById("menu");
+    menu.addEventListener("click", function () {
+      console.log('menu');
+    })
+    let search = document.getElementById("search");
+    search.addEventListener("click", function () {
+      let keyword = document.getElementById("keyword").value
+      alert(keyword);
+    })
+  }
 
 </script>
 </body>
