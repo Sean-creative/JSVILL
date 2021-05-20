@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16,8 +15,10 @@
   .foot-menu {display:flex;justify-content:center;width:100vw;height:70px}
   .foot-menu > div {width:130px;text-align:center;border:3px solid #CED4DA;border-radius:30px;padding:10px 10px;margin:10px 10px;color:#495057;font-weight:bold}
   .foot-menu > div:hover{color:rgb(29, 192, 120);border:3px solid rgb(29, 192, 120)}
+  a:link{color:black}
+  a:hover{color:rgb(29, 192, 120)}
 </style>
-<!--<a href="/members/new">회원 가입</a>-->
+
   <header>
     <div class="header" style="height:60px">
       <div style="font-size:25px;font-weight:bold;padding:10px 20px;color:#23c17a">JS Vill</div>
@@ -42,9 +43,9 @@
       </div>
     </article>
   </section>
-
+<!--<a href="/members/new">회원 가입</a>-->
   <section class="foot-menu">
-    <div id="menu">주택/임차인 관리</div>
+    <div id="menu"><a style="text-decoration:none" href="/registerBuilding">주택/임차인 관리</a></div>
     <div class="menu">커뮤니티</div>
     <div class="menu">주차관리</div>
     <div class="menu">주차관리</div>
