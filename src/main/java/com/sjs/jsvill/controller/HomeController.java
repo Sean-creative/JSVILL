@@ -12,6 +12,11 @@ public class HomeController {
         return "main/main";
     }
 
+    @GetMapping("manageBuilding")
+    public String manageBuilding() {
+        return "buildingManagement/manageBuilding";
+    }
+
     @GetMapping("editBuilding")
     public String editBuilding() {
         return "buildingManagement/editBuilding";
@@ -36,4 +41,6 @@ public class HomeController {
     public String communityWrite() {
         return "community/communityWrite";
     }
+
+
 }
