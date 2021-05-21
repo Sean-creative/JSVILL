@@ -1,6 +1,7 @@
 package com.sjs.jsvill.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -13,7 +14,8 @@ public class HomeController {
     }
 
     @GetMapping("manageBuilding")
-    public String manageBuilding() {
+    public String manageBuilding(Model model) {
+        model.addAttribute("name","sean님 환영합니다!");
         return "buildingManagement/manageBuilding";
     }
 
