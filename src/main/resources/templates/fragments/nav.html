@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<footer th:fragment="footerFragment">
-    <div style="border: 1px solid gold">
-        Footer영역입니다.
-    </div>
-</footer>
+<nav th:fragment="navFragment"
+     style="width:15%;height:100%;background:#1dc078;color:white;font-size:20px;font-weight:bold">
+    <link rel="stylesheet" href="css/nav.css" />
+    <dl style="padding-left:20px;margin:0;list-style:none">
+        <dt><a style="text-decoration:none" href="/registerBuilding">건물 관리</a></dt>
+        <dd>
+            <ul style="padding:0px 19px;margin:2px">
+                <li><a style="text-decoration:none" href="/registerBuilding">건물</a></li>
+                <li><a style="text-decoration:none" href="/registerBuilding">입주자</a></li>
+            </ul>
+        </dd>
+
+        <dt>커뮤니티</dt>
+        <dt>주차 관리</dt>
+        <dt>공과금 관리</dt>
+        <dt>빌라 달력</dt>
+    </dl>
+</nav>
 </html>

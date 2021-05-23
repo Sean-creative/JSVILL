@@ -1,148 +1,42 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/includeNavLayout}"
+>
 <head>
-    <meta charset="UTF-8">
     <title>빌딩 등록 페이지</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="css/manageBuilding.css"/>
+    <script>
+        // let menu1 = document.getElementById("menu1");
+        // menu1.addEventListener("click", function(){
+        //   console.log('menu1');
+        // })
+        // let search = document.getElementById("search");
+        // search.addEventListener("click", function(){
+        //   let keyword = document.getElementById("keyword").value
+        //   alert(keyword);
+        // })
 
-    <style>
-        nav {
-            float: left;
-        }
-
-        nav dl dt {
-            margin-top: 30px;
-        }
-
-        nav dl dd {
-            margin: 0px;
-        }
-
-        nav dl dd ul li {
-            font-size: 15px;
-            margin-top: 3px;
-        }
-
-        section {
-            float: right;
-        }
-
-        .input-container input {
-            border: none;
-            box-sizing: border-box;
-            outline: 0;
-            padding: .75rem;
-            position: relative;
-            width: 100%;
-        }
-
-        body {
-            margin: 0;
-            height: 100%;
-            width: 940px
-        }
-
-        html, body {
-            width: 100vw;
-            height: 100vh
-        }
-
-        input:focus {
-            outline: none;
-        }
-
-        .main-content {
-            width: 70%;
-            height: calc(100vh - 130px);
-            padding: 20px 20px
-        }
-
-        .header {
-            display: flex;
-            position: relative;
-            width: 100vw;
-            height: 60px
-        }
-
-        .infoClass {
-            font-size: 15px;
-            font-weight: bold;
-            margin: 10px 0
-        }
-
-        input {
-            border: none;
-            height: 30px
-        }
-
-        textarea {
-            width: 350px;
-            height: 50px;
-            border: none;
-            background-color: #f6f6f6
-        }
-
-        .cancelBtn {
-            padding: 5px 10px;
-            border: 1px solid black;
-            font-size: 12px
-        }
-
-        .registerBtn {
-            padding: 5px 10px;
-            border: 1px solid rgb(29, 192, 120);
-            font-size: 12px;
-            color: white;
-            background-color: rgb(29, 192, 120)
-        }
-
-        a:link{color:white}
-        a:hover{color:white}
-        a:visited{color:white}
-    </style>
+    </script>
+    <!--<style>-->
+    <!--    .btn {cursor:pointer;}-->
+    <!--</style>-->
+    <!--<img src="경로" alt="" class="btn" onclick="clickBtn(); />-->
 </head>
-<!--<style>-->
-<!--    .btn {cursor:pointer;}-->
-<!--</style>-->
-<!--<img src="경로" alt="" class="btn" onclick="clickBtn(); />-->
-<body>
-<header>
-    <div class="header" style="height:60px">
-        <div style="font-size:25px;font-weight:bold;padding:10px 20px;color:#23c17a">JS Vill</div>
-        <div style="position:absolute;right:0;padding:10px;display:flex;justify-content:space-around;width:35vw;max-width:600px">
-            <div style="display:flex;padding:1px 10px;background-color:#c2f6de"><input id="keyword" type="text"
-                                                                                       style="background-color:#c2f6de;width:400px;height:40px;border:0;padding:0;font-size:25px">
-                <span style="background-color:#c2f6de"><img id="search" src="image/search.png"
-                                                            style="width:35px;height:35px;margin-right:10px"></span>
-            </div>
-            <img src="image/bell.png" style="width:37px;height:37px">
-            <img src="image/image2.png" style="width:37px;height:37px">
-        </div>
-    </div>
-</header>
-
-<nav style="width:20%;height:100%;background:#1dc078;color:white;font-size:20px;font-weight:bold">
-    <dl style="padding-left:20px;margin:0;list-style:none">
-        <dt><a style="text-decoration:none" href="/registerBuilding">건물 관리</a></dt>
-        <dd>
-            <ul style="padding:0px 19px;margin:2px">
-                <li><a style="text-decoration:none" href="/registerBuilding">건물</a></li>
-                <li><a style="text-decoration:none" href="/registerBuilding">입주자</a></li>
-            </ul>
-        </dd>
-
-        <dt>커뮤니티</dt>
-        <dt>주차 관리</dt>
-        <dt>공과금 관리</dt>
-        <dt>빌라 달력</dt>
-    </dl>
-</nav>
-<section class="main-content">
+<div layout:fragment="content" class="main-content">
     <p th:text="${name}"></p>
     <h3>건물관리</h3>
-    <p>2개의 건물</p>
-    <article>
-
-        <div style="height:323px;display:flex;padding:10px 0;border:1px solid black">
+    <div style="display:flex;justify-content:space-between">
+        <span style="line-height:40px">2개의 건물</span>
+        <a href="registerBuilding"
+           style="float:right;padding:10px 20px;background-color:#7F7F7F;font-weight:bold;color:white;">
+            건물등록
+        </a>
+    </div>
+    <div style="margin-top:10px">
+        <div style="display:flex;padding:10px 0;border:1px solid black;margin-top:50px">
             <div style="flex:3;padding:0 30px">
                 <div style="padding:20px 0">
                     도화동 스테이트빌[빌라]
@@ -162,9 +56,9 @@
                     <div>관리비 합계 매달 : 50만원</div>
                 </div>
             </div>
-            <div style="flex:2;padding:0 30px;border-left:1px solid black">
+            <div style="flex:2;padding:0 30px;border-left:1px solid black;text-align:center">
                 <div style="padding:20px 0">6개의 호실</div>
-                <div style="display:flex;flex-flow: column wrap;height:75%">
+                <div style="display:flex;flex-flow:column wrap;height:265px;align-content:space-around">
                     <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
                         101호
                     </div>
@@ -192,80 +86,10 @@
                     <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
                         401호
                     </div>
+
                 </div>
             </div>
         </div>
-
-
-
-        <div style="height:323px;display:flex;padding:10px 0;border:1px solid black;margin-top:50px">
-            <div style="flex:3;padding:0 30px">
-                <div style="padding:20px 0">
-                    도화동 스테이트빌[빌라]
-                    <div style="float:right">
-                        <button>수정</button>
-                        <button>삭제</button>
-                    </div>
-                </div>
-                <div style="border-top:1px solid black;padding:20px 0">
-                    서울 강서구 가로 공원로 173 / 07718 <br> <br>
-                    재개발 대상
-                </div>
-                <div style="border-top:1px solid black;padding:20px 0;line-height:33px">
-                    <div>7명의 입주자</div>
-                    <div>보증금 합계 : 3억 5000만원</div>
-                    <div>월세 합계 : 매달 300만원</div>
-                    <div>관리비 합계 매달 : 50만원</div>
-                </div>
-            </div>
-            <div style="flex:2;padding:0 30px;border-left:1px solid black">
-                <div style="padding:20px 0">6개의 호실</div>
-                <div style="display:flex;flex-flow: column wrap;height:75%">
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        101호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        102호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        103호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        201호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        202호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        203호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        301호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        302호
-                    </div>
-                    <div style="background-color:#1dc078;font-size:16px;color:white;margin-top:10px;text-align:center;width:100px;height:35px;line-height:35px;font-weight:bold">
-                        401호
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
-</section>
-
-
-<script>
-    // let menu1 = document.getElementById("menu1");
-    // menu1.addEventListener("click", function(){
-    //   console.log('menu1');
-    // })
-    // let search = document.getElementById("search");
-    // search.addEventListener("click", function(){
-    //   let keyword = document.getElementById("keyword").value
-    //   alert(keyword);
-    // })
-
-</script>
-</body>
+    </div>
+</div>
 </html>

@@ -1,0 +1,17 @@
+nav {
+    float: left;
+    padding-left: 20px;
+}
+
+nav dl dt {
+    margin-top: 30px;
+}
+
+nav dl dd {
+    margin: 0px;
+}
+
+nav dl dd ul li {
+    font-size: 15px;
+    margin-top: 3px;
+}
