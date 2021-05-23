@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="headerFragment">
-    <div style="border: 1px solid green">
-        header.html 입니다.
+    <style>
+        .header {
+            display: flex;
+            position: relative;
+            width: 100vw;
+            height: 60px
+        }
+    </style>
+    <div class="header" style="height:60px">
+        <div style="font-size:25px;font-weight:bold;padding:10px 20px;color:#23c17a">JS Vill</div>
+        <div style="position:absolute;right:0;padding:10px;display:flex;justify-content:space-around;width:35vw;max-width:600px">
+            <div style="display:flex;padding:1px 10px;background-color:#f6f6f6"><input id="keyword" type="text" style="background-color:#f6f6f6;width:400px;height:40px;border:0;padding:0;font-size:25px">
+                <span style="background-color:#f6f6f6"><img id="search" src="image/search.png" style="width:35px;height:35px;margin-right:10px"></span>
+            </div>
+            <img src="image/bell.png" style="width:37px;height:37px">
+            <img src="image/image2.png" style="width:37px;height:37px">
+        </div>
     </div>
 </header>
 </html>

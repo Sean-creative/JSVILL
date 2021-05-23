@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html
+        lagn="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <!--contents.html의 head태그가 렌더링 될 때, 자동으로 includeNavLayout.html head 태그에 추가 된다.(치환이 아니라 추가 된다.)-->
+    <meta charset="UTF-8" />
+<!--    <link-->
+<!--            rel="stylesheet"-->
+<!--            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"-->
+<!--    />-->
+<!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+
+</head>
+
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div layout:fragment="content"></div>
+
+</html>

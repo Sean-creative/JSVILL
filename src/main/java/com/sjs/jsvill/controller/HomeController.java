@@ -2,45 +2,42 @@ package com.sjs.jsvill.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-//메인 컨트롤러
-//메인 컨트롤러2
-    @GetMapping("/")
+    @RequestMapping("/")
     public String home() {
         return "main/main";
     }
 
-    @GetMapping("manageBuilding")
+    @RequestMapping("manageBuilding")
     public String manageBuilding(Model model) {
         model.addAttribute("name","sean님 환영합니다!");
         return "buildingManagement/manageBuilding";
     }
 
-    @GetMapping("editBuilding")
+    @RequestMapping("editBuilding")
     public String editBuilding() {
         return "buildingManagement/editBuilding";
     }
 
-    @GetMapping("registerBuilding")
+    @RequestMapping("registerBuilding")
     public String registerBuilding() {
         return "buildingManagement/registerBuilding";
     }
 
-    @GetMapping("registerUnit")
+    @RequestMapping("registerUnit")
     public String registerUnit() {
         return "buildingManagement/registerUnit";
     }
 
-    @GetMapping("community")
+    @RequestMapping("community")
     public String community() {
         return "community/community";
     }
 
-    @GetMapping("communityWrite")
+    @RequestMapping("communityWrite")
     public String communityWrite() {
         return "community/communityWrite";
     }
