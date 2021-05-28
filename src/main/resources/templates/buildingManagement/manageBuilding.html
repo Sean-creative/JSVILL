@@ -26,17 +26,17 @@
     <!--<img src="경로" alt="" class="btn" onclick="clickBtn(); />-->
 </head>
 <div layout:fragment="content" class="main-content">
-    <p th:text="${name}"></p>
-    <h3>건물관리</h3>
+    <div th:text="${name}"></div>
+    <h3 style="margin-bottom:10px">건물관리</h3>
     <div style="display:flex;justify-content:space-between">
-        <span style="line-height:40px">2개의 건물</span>
+        <span style="line-height:25px">2개의 건물</span>
         <a href="registerBuilding"
-           style="float:right;padding:10px 20px;background-color:#7F7F7F;font-weight:bold;color:white;">
+           style="float:right;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">
             건물등록
         </a>
     </div>
-    <div style="margin-top:10px">
-        <div style="display:flex;padding:10px 0;border:1px solid black;margin-top:50px">
+    <div>
+        <div style="display:flex;padding:10px 0;border:1px solid black;margin-top:10px">
             <div style="flex:3;padding:0 30px">
                 <div style="padding:20px 0">
                     도화동 스테이트빌[빌라]
