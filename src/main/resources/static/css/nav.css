@@ -1,7 +1,7 @@
 nav {
     float: left;
     width: 15%;
-    height: 100%;
+    height: calc(100vh - 60px);
     background: #1dc078;
     color: white;
     font-size: 17px;
