@@ -6,19 +6,26 @@
 >
 <head>
     <!--contents.html의 head태그가 렌더링 될 때, 자동으로 includeNavLayout.html head 태그에 추가 된다.(치환이 아니라 추가 된다.)-->
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <style>
-	    html, body {width: 100vw;height: 100vh;margin:0}
-	    .main-content {width: 65%;height: calc(100vh - 130px);padding: 20px 20px;margin-left: 18%}
+        html, body, .container {margin: 0;width: 100vw;height: 100vh}
+        header {flex: 0.7}
+        .content {width: 65%;padding: 20px 20px;margin-left: 18%}
+        .content a:link {text-decoration: none}
+        .content a:hover {text-decoration: none}
+        .content a:visited {text-decoration: none}
     </style>
 </head>
 
-<header th:replace="fragments/header :: headerFragment"></header>
-<nav th:replace="fragments/nav :: navFragment"></nav>
+<div class="container" style="display: flex;flex-direction: column">
+    <header th:replace="fragments/header :: headerFragment"></header>
+    <div style="flex:10">
+        <nav th:replace="fragments/nav :: navFragment"></nav>
+        <div layout:fragment="content"></div>
+    </div>
 
-<div layout:fragment="content"></div>
-
-<!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->
+    <!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->
+</div>
 </html>

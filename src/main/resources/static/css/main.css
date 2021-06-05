@@ -1,46 +1,8 @@
-body {
-    margin: 0
-}
-html, body {
-    width: 100vw;
-    height: 100vh
-}
-input:focus {
-    outline: none;
-}
-.main-content {
-    background-color: rgb(29, 192, 120);
-    height: calc(100vh - 24.55vh);
-    font-size: 30px;
-    font-weight: bold;
-    color: white
-}
-.foot-menu {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    height: 70px
-}
-.foot-menu > div {
-    width: 130px;
-    text-align: center;
-    border: 3px solid #CED4DA;
-    border-radius: 30px;
-    padding: 10px 10px;
-    margin: 10px 10px;
-    color: #495057;
-    font-weight: bold
-}
-.foot-menu > div:hover {
-    color: rgb(29, 192, 120);
-    border: 3px solid rgb(29, 192, 120)
-}
-a:link {
-    color: #495057;
-}
-a:visited {
-    color: #495057;
-}
-a:hover {
-    color: rgb(29, 192, 120)
-}
+.content{display: flex;flex-direction: column}
+.content .main {flex:15;padding-left: 50px;padding-top: 100px;background-color: rgb(29, 192, 120);font-size: 30px;font-weight: bold;color: white}
+.content .foot-menu {flex:1;display: flex;justify-content: center;width: 100vw;height: 70px}
+.content .foot-menu > div {width: 130px;text-align: center;border: 3px solid #CED4DA;border-radius: 30px;padding: 10px 10px;margin: 10px 10px;color: #495057;font-weight: bold}
+.content .foot-menu > div:hover {color: rgb(29, 192, 120);border: 3px solid rgb(29, 192, 120)}
+.content a:link {color: #495057}
+.content a:visited {color: #495057}
+.content a:hover {color: rgb(29, 192, 120)}

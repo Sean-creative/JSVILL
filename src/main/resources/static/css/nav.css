@@ -1,7 +1,7 @@
-nav {float: left;width: 15%;height: calc(100vh - 60px);background: #1dc078;color: white;font-size: 17px;font-weight: bold}
+nav {float: left;width: 15%;height: 100%;background: #1dc078;color: white;font-size: 17px;font-weight: bold}
 nav dl dt {margin-top: 30px;}
 nav dl dd {margin: 0px;}
-nav dl dd ul li {font-size: 15px;margin-top: 3px;}
-a:link {color: white;text-decoration: none}
-a:hover {color: white;text-decoration: none}
-a:visited {color: white;text-decoration: none}
+nav dl dd ul li {font-size: 13px;margin-top: 3px;}
+nav a:link {color: white;text-decoration: none}
+nav a:hover {color: white;text-decoration: none}
+nav a:visited {color: white;text-decoration: none}
