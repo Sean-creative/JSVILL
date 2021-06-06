@@ -20,6 +20,9 @@ public class BuildingController {
 
     @RequestMapping("registerBuilding")
     public String registerBuilding() {
+
+
+
         return "buildingManagement/registerBuilding";
     }
 
