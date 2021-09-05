@@ -13,4 +13,5 @@ public interface MemoRepository  extends JpaRepository<Memo, Long> {
 
     Page<Memo> findByMnoBetween(Long from, Long to, Pageable pageable);
 
+    void deleteMemoByMnoLessThan(Long num);
 }
