@@ -1,104 +1,117 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-    <title>호실등록</title>
-    <style>
-        html, body {
-            margin: 0;
-            height: 100%;
-            width: 940px;
-        }
-        nav {
-            float: left;
-        }
-        nav dl dt {
-            margin-top: 30px;
-        }
-        nav dl dd {
-            margin: 0px;
-        }
-        nav dl dd ul li {
-            font-size: 11px;
-            margin-top: 3px;
-        }
-        section {
-            float: right;
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="/css/community.css"/>
+    <title>커뮤니티</title>
 </head>
 <body>
 <!--바뀔 수 있음-->
+<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 
-<header style="margin-top:15px;width:100%;height:50px;">
-    <div style="display:inline-block;padding-left:30px;color:#1dc078;font-weight:bold;font-size:30px;">
-        JS Vill
-    </div>
-    <img style="float: right" src="../../static/image/headerIcon2.png">
-    <img style="float: right" src="../../static/image/headerIcon1.png">
-    <div style="display:inline-block;float:right;width:300px;height:40px;background:#C2F6DE;">
-        <img style="float: right" src="../../static/image/headerIcon0.png">
-    </div>
-</header>
+        <div class="pageTitle">커뮤니티 / 공지사항</div>
+        <div style="display:flex;justify-content:space-between;margin-top:20px;justify-content:flex-end">
+            <a href="/community/register" class="btn">글쓰기</a>
+        </div>
 
-<nav style="width:20%;height:100%;background:#1dc078;">
-    <dl style="padding-left:20px;margin:0;list-style:none;color:white;">
-        <dt>건물 관리</dt>
-        <dd>
-            <ul style="    padding: 0px 19px;    margin: 2px;">
-                <li>건물</li>
-                <li>입주자</li>
-            </ul>
-        </dd>
-        <dt>커뮤니티</dt>
-        <dt>주차 관리</dt>
-        <dt>공과금 관리</dt>
-        <dt>빌라 달력</dt>
-    </dl>
-</nav>
+        <form action="/guestbook/list" method="get" id="searchForm" style="margin:15px 0 20px 0">
+            <div class="input-group">
+                <input type="hidden" name="page" value="1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="type" style="border-top-right-radius:0;border-bottom-right-radius:0">
+                        <option value="t" selected="true">제목</option>
+                        <option value="c">내용</option>
+                        <option value="w">작성자</option>
+                        <option value="tc">제목 + 내용</option>
+                        <option value="tcw">제목 + 내용 + 작성자</option>
+                    </select>
+                </div>
 
-<section style="width:75%;height:100%;padding:10px 0;">
-    <div style="font-size:18px;color:#1dc078;font-weight:bold;">커뮤니티</div>
+                <input class="form-control" name="keyword" style="margin-left:-1px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0">
+                <div style="display:flex;margin-left:1px" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search"
+                            style="margin-left:-2px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0">
+                        Search
+                    </button>
+                    <button class="btn btn-outline-secondary btn-clear"
+                            style="margin-left:-1px;border-top-left-radius:0;border-bottom-left-radius:0">Clear
+                    </button>
+                </div>
+            </div>
+        </form>
 
-    <div style="margin-top: 30px;">
-        <span>공지사항</span>
-        <button style="margin-left:15px;padding:3px 15px;border:1px solid #1DC078;outline: 0;background: #1DC078;color: white; float: right;">글쓰기</button>
-    </div>
-    <div>
-        <table style="margin-top:10px;width: 100%;height: 4cm;border-collapse : collapse;">
-            <tr style="border:1px solid black" >
-                <td border="1px"align="center" width="10%"><strong>번호</strong></td>
-                <td align="left" width="10%"><strong>분류</strong></td>
-                <td align="left" width="70%"><strong>제목</strong></td>
-                <td align="left" width="10%"><strong>등록일</strong></td>
+        <table class="table table-striped" style="margin-top:12px">
+            <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">분류</th>
+                <th scope="col">제목</th>
+                <th scope="col" class="middle">등록일</th>
+                <th scope="col" class="middle">조회</th>
             </tr>
-            <tr style="border:1px solid black" >
-                <td align="center">3</td>
-                <td align="left">납부</td>
-                <td align="left" >[필독] 공과금 미납자</td>
-                <td align="left">21/04/02</td>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">
+                    <a href="/community/read">1</a>
+                </th>
+                <td>일반</td>
+                <td>JS VIll 많이 써주세요 ^_^</td>
+                <td class="middle">21.04.01 16:00</td>
+                <td class="middle">4</td>
             </tr>
-            <tr style="border:1px solid black" >
-                <td align="center">2</td>
-                <td align="left">일반</td>
-                <td align="left">월세 인상 안내</td>
-                <td align="left">21/04/02</td>
+
+            <tr>
+                <th scope="row">
+                    <a>2</a>
+                </th>
+                <td>납부</td>
+                <td>[필독] 공과금 인상 안내</td>
+                <td class="middle">21.04.01 18:00</td>
+                <td class="middle">2</td>
             </tr>
-            <tr style="border:1px solid black" >
-                <td align="center">1</td>
-                <td align="left">일반</td>
-                <td align="left">JS Vill많이 써주세요^~^</td>
-                <td align="left">21/04/01</td>
-            </tr>
+            </tbody>
         </table>
-    </div>
-</section>
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item">
+                <a class="page-link" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">Next</a>
+            </li>
+        </ul><!--추가되는 태그 끝-->
+
+
+        <script th:inline="javascript">
+            var msg = [[${msg}]];
+            console.log(msg);
+
+            if (msg) {
+                $(".modal").modal();
+            }
+
+            var searchForm = $("#searchForm");
+            $('.btn-secondary').click(function (e) {
+                searchForm.submit();
+            })
+            $('.btn-clear').click(function (e) {
+                searchForm.empty().submit();
+            })
+        </script>
+
+    </th:block>
+</th:block>
+
 </body>
 </html>

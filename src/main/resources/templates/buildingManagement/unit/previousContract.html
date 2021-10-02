@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이전 계약 내역</title>
+    <meta charset="UTF-8"/>
+    <!--    <link rel="stylesheet" href="/css/detailUnit.css"/>-->
+    <link rel="stylesheet" href="/css/community.css"/>
+</head>
+<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="pageTitle">건물관리/ [명일동 JSVILL]/ [101호]/ 이전 계약 내역</div>
+        <div style="font-size:12px;margin-top:10px;color:gray">※ 공실인 경우, 계약일을 수정해 이전 계약을 현재 계약으로 되돌릴 수 있습니다.</div>
+
+        <form action="/guestbook/list" method="get" id="searchForm" style="margin:15px 0 20px 0">
+            <div style="display:flex;align-items:center;justify-content:flex-end">
+                <div style="color:gray;font-size:16px">정렬</div>
+                <div class="input-group" style="width:150px;margin-left:10px">
+                    <select class="custom-select" name="type"
+                            style="border-top-right-radius:0;border-bottom-right-radius:0">
+                        <option value="t" selected="true">종료 최근 순</option>
+                        <option value="c">종료 오래된 순</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped" style="margin-top:12px">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">계약일</th>
+                <th scope="col">세대주</th>
+                <th scope="col"></th>
+<!--                <th scope="col" class="middle">등록일</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>V</td>
+                <td>2019.05.31 ~ 2020.05.31</td>
+                <td>강성현</td>
+                <td class="middle">
+                    <a href="/community/register" class="btn">글쓰기</a>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    <a>2</a>
+                </th>
+                <td>납부</td>
+                <td>[필독] 공과금 인상 안내</td>
+                <td class="middle">21.04.01 18:00</td>
+                <td class="middle">2</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </th:block>
+</th:block>

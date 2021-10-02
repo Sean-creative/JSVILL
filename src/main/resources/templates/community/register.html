@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/registerBuilding.css"/>
+    <title>커뮤니티</title>
+</head>
+<body>
+
+<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+
+        <div class="pageTitle">커뮤니티 / 글쓰기</div>
+
+        <div class="info">
+            <span class="subTitle" style="bottom:72px">건물 타입</span>
+            <div style="display:flex">
+                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">빌라</div>
+                <div style="font-size:13px;width:40px;text-align:center;border:3px solid gray;border-radius:30px;padding:5px 10px;color:#495057;margin-left:15px">납부</div>
+            </div>
+
+        </div>
+
+        <div class="info">
+            <div class="subTitle">건물 이름</div>
+            <input type="text" style="background-color:#f6f6f6;width: 100%"/>
+        </div>
+
+        <div class="info">
+            <span class="subTitle" style="bottom:77px;width:133px">비고 (선택 입력) </span>
+            <textarea></textarea>
+        </div>
+        <div style="margin-top:20px;display:flex;justify-content:flex-end">
+            <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+            <button type="button" class="registerBtn">등록</button>
+        </div>
+    </th:block>
+</th:block>
+
+</body>
+</html>

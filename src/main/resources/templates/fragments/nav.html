@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <nav th:fragment="navFragment">
-    <link rel="stylesheet" href="css/nav.css" />
-    <dl style="padding-left:20px;margin:0;list-style:none">
-        <dt><a style="text-decoration:none" href="/manageBuilding">건물 관리</a></dt>
+    <link rel="stylesheet" href="/css/nav.css" />
+    <dl>
+        <dt>건물 관리</dt>
         <dd>
-            <ul style="padding:0px 19px;margin:2px">
-                <li><a style="text-decoration:none" href="/registerBuilding">건물</a></li>
-                <li><a style="text-decoration:none" href="/registerBuilding">입주자</a></li>
+            <ul style="line-height:25px;list-style:inside">
+                <li><a href="/buildingManagement/manage">건물</a></li>
+                <li><a href="/buildingManagement/residents">입주자</a></li>
             </ul>
         </dd>
-
-        <dt>커뮤니티</dt>
+        <dt><a href="/community/community">커뮤니티</a></dt>
         <dt>주차 관리</dt>
         <dt>공과금 관리</dt>
         <dt>빌라 달력</dt>

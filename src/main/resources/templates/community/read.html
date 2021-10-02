@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <title>커뮤니티</title>
+</head>
+<body>
+
+<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+
+        <div class="pageTitle">커뮤니티 / 공지사항 / 1(글제목)</div>
+        <div style="display:flex;justify-content:space-between;margin-top:20px;justify-content:flex-end">
+            <a href="/buildingManagement/building/register" class="btn">수정</a>
+            <a href="/buildingManagement/building/register" class="btn" style="margin-left:10px">삭제</a>
+        </div>
+
+        <div class="info" style="margin-top:20px;padding:15px 18px 18px 18px">
+            <div style="line-height:25px">
+                <div style="font-size:13px">일반</div>
+                <div style="font-size:16px;font-weight:bold">월세인상준비</div>
+                <div style="display:flex;font-size:13px">
+                    <div>2021.04.02 16:00</div><div style="margin-left:25px">조회 3</div>
+                </div>
+            </div>
+            <hr style="margin-top:20px">
+            <div style="margin-top:20px;line-height:40px">
+                부득이한 사정으로 인해 2021년 5월 1일부로 월세를 5만원 씩 인상합니다.<br>
+                많은 협조 부탁드립니다.
+            </div>
+        </div>
+        <div style="margin-top:20px">
+            <a href="/community/community" style="text-decoration:underline;color:gray">커뮤니티 메인으로</a>
+        </div>
+
+
+    </th:block>
+</th:block>
+
+</body>
+</html>

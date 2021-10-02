@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JSVILL Main Page</title>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <script>
+        window.onload = function () {
+            let menu = document.getElementById("menu");
+            menu.addEventListener("click", function () {
+                console.log('menu');
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <div class="main">
+        <div>JS Vill</div>
+        <div>고양이만 집사인가?</div>
+        <div>고양이 말고 JS Vill을 고용한다면?</div>
+        <div>당신의 주택을 편리하게 관리해 보세요</div>
+        <div>:)</div>
+    </div>
+
+    <ul class="foot-menu">
+        <li class="menu">
+            <a class="tab" href="/buildingManagement/manage">빌라 관리</a>
+        </li>
+        <li class="menu">
+            <a class="tab" href="/community/community">커뮤니티</a>
+        </li>
+        <li class="menu">
+            <a class="tab" href="/buildingManagement/manage">주차 관리</a>
+        </li>
+        <li class="menu">
+            <a class="tab" href="/buildingManagement/manage">공과금 관리</a>
+        </li>
+        <li class="menu">
+            <a class="tab" href="/buildingManagement/manage">빌라 달력</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

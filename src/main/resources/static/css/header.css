@@ -1,4 +1,4 @@
-.header {display: flex;position: relative;}
-.header a:link {color: #23c17a;text-decoration: none}
-.header a:visited {color: #23c17a;text-decoration: none}
-.header a:hover {color: #23c17a;text-decoration: none}
+.header {display:flex;position:relative;justify-content:space-between;padding:10px 25px;align-items:center;width:95%}
+.header a:link {color:#23c17a}
+.header a:visited {color:#23c17a}
+.header a:hover {color:#23c17a}
