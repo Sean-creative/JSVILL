@@ -42,6 +42,9 @@
                     <a href="/community/register" class="btn">수정</a>
                 </td>
             </tr>
+            <tr id="toggle1_1" style="display:none">
+                <td colspan="4">TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST </td>
+            </tr>
 
             <tr>
                 <th id="toggle2">🐵</th>
@@ -57,14 +60,16 @@
 
         <script>
             let toggle = document.getElementById("toggle1");
+            let toggle1_1 = document.getElementById("toggle1_1");
             let swtich = true;
-            toggle.addEventListener("click", function(){
-                if(swtich) {
+            toggle.addEventListener("click", function () {
+                if (swtich) {
                     toggle.textContent = "🙊";
+                    toggle1_1.style.display = "contents"
                     swtich = false;
-                }
-                else {
+                } else {
                     toggle.innerText = "🐵";
+                    toggle1_1.style.display = "none"
                     swtich = true;
                 }
                 console.log(swtich);
