@@ -18,6 +18,9 @@ public class UnitController {
     @PostMapping("register")
     public void register(String str) {log.info("register - post : " + str);}
 
+    @RequestMapping("edit")
+    public void edit() {log.info("edit");}
+
     @RequestMapping("communityWrite")
     public void communityWrite() {log.info("communityWrite");}
 
@@ -26,4 +29,7 @@ public class UnitController {
 
     @GetMapping("/previousContract")
     public void previousContract() {log.info("previousContract");}
+
+    @GetMapping("/contractRegister")
+    public void contractRegister() {log.info("contractRegister");}
 }

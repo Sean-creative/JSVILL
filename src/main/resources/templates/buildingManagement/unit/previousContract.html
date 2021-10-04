@@ -31,31 +31,45 @@
                 <th scope="col">계약일</th>
                 <th scope="col">세대주</th>
                 <th scope="col"></th>
-<!--                <th scope="col" class="middle">등록일</th>-->
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>V</td>
+                <th id="toggle1">🐵</th>
                 <td>2019.05.31 ~ 2020.05.31</td>
                 <td>강성현</td>
                 <td class="middle">
-                    <a href="/community/register" class="btn">글쓰기</a>
+                    <a href="/community/register" class="btn">수정</a>
                 </td>
             </tr>
 
             <tr>
-                <th scope="row">
-                    <a>2</a>
-                </th>
-                <td>납부</td>
-                <td>[필독] 공과금 인상 안내</td>
-                <td class="middle">21.04.01 18:00</td>
-                <td class="middle">2</td>
+                <th id="toggle2">🐵</th>
+                <td>2020.05.31 ~ 2021.05.31</td>
+                <td>김선우</td>
+                <td class="middle">
+                    <a href="/community/register" class="btn">수정</a>
+                </td>
             </tr>
             </tbody>
         </table>
+        <a onClick=history.back(); style="color:gray;text-decoration:underline">호실 상세로 이동</a>
 
+        <script>
+            let toggle = document.getElementById("toggle1");
+            let swtich = true;
+            toggle.addEventListener("click", function(){
+                if(swtich) {
+                    toggle.textContent = "🙊";
+                    swtich = false;
+                }
+                else {
+                    toggle.innerText = "🐵";
+                    swtich = true;
+                }
+                console.log(swtich);
+            })
+        </script>
 
     </th:block>
 </th:block>

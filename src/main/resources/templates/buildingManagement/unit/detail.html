@@ -8,7 +8,7 @@
 <th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리/ [명일동 JSVILL]/ [101호]</div>
-        <a href="registerBuilding" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
+        <a href="/buildingManagement/unit/contractRegister" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
             계약추가
         </a>
         <div style="display:flex;margin-top:40px">
@@ -16,7 +16,7 @@
                 <div class="info" style="flex:1">
                     <div class="subTitle">호실 정보</div>
                     <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
-                        <a class="btn">수정</a>
+                        <a class="btn" href="/buildingManagement/unit/edit">수정</a>
                         <a class="btn" style="margin-left:8px">삭제</a>
                     </div>
                     <div class="infoInner" style="display:flex;margin-top:15px;padding:15px 5px">

@@ -16,10 +16,10 @@ input:-ms-input-placeholder {color:#000}
 input::-webkit-input-placeholder {color:#000}
 input::-moz-placeholder {color:#000}
 input::-moz-placeholder {color:#000}
-.wrapper {position:relative;height:45px}
-.ion-calendar {position:absolute;right:13px;top:6px}
+.wrapper {position:relative}
+.ion-calendar {position:absolute;right:25px;top:8px}
 /* input */
-#datepicker {border:1px solid #c6e2f7;border-radius:5px;width:80%;height:65%;font-size:16px;text-align:center;cursor:pointer}
+#datepicker {border:1px solid #c6e2f7;border-radius:5px;width:80%;height:30px;font-size:16px;text-align:center;cursor:pointer}
 #datepicker:hover {background-color:#eaf7ff}
 #datepicker:focus {outline:none}
 /* calendar table */
