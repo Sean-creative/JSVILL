@@ -32,4 +32,7 @@ public class UnitController {
 
     @GetMapping("/contractRegister")
     public void contractRegister() {log.info("contractRegister");}
+
+    @GetMapping("/contractEdit")
+    public void contractEdit() {log.info("contractEdit");}
 }

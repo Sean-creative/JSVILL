@@ -26,6 +26,8 @@ public class CommunityController {
     @GetMapping("/register")
     public void register() {log.info("register");}
 
+    @GetMapping("/edit")
+    public void edit() {log.info("edit");}
 
 //    @GetMapping("/community")
 //    public void list(PageRequestDTO pageRequestDTO, Model model){
