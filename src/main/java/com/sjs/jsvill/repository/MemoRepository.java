@@ -1,6 +1,6 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Memo;
+import com.sjs.jsvill.entity.sample.Memo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

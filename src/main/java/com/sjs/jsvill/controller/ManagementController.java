@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ManagementController {
 
-    @RequestMapping("manage")
+    @GetMapping("manage")
     public void manage(Model model) {
         model.addAttribute("name", "sean님 환영합니다!");
     }
