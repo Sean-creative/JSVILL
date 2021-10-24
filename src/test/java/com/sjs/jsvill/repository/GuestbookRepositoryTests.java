@@ -3,7 +3,7 @@ package com.sjs.jsvill.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sjs.jsvill.entity.sample.Guestbook;
-import com.sjs.jsvill.entity.QGuestbook;
+import com.sjs.jsvill.entity.sample.QGuestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
