@@ -17,7 +17,7 @@ public class Unit extends BaseEntity {
     private Long unit_rowid;
 
     @Column(length = 100, nullable = false)
-    private Long building_rowid;
+    private Long group_rowid;
 
     @Column(length = 100, nullable = false)
     private Long option_rowid;
@@ -28,27 +28,11 @@ public class Unit extends BaseEntity {
     @Column(length = 100, nullable = false)
     private Long tenant_rowid;
 
-    @Column(length = 64, nullable = false)
-    private String title;
-
     @Column(length = 100, nullable = false)
-    private Long deposit;
+    private String addr2;
 
-    @Column(length = 100, nullable = false)
-    private Long monthly;
 
-    @Column(length = 100)
-    private Long managementfees;
-
-    @Column(length = 100, nullable = false)
-    private String paymentdate;
 
     @Column(length = 100)
     private String note;
-
-
-
-    public void changeTitle(String title) {
-        this.title = title;
-    }
 }
