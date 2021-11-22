@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="group")
+@Table(name="`group`")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -35,7 +35,4 @@ public class Group extends BaseEntity {
     @Column(length = 100, nullable = false)
     private String memo;
 
-    public void changeTitle(String title) {
-        this.title = title;
-    }
 }

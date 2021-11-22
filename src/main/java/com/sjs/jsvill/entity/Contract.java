@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name="contract")
 @Getter
 @Builder
 @AllArgsConstructor

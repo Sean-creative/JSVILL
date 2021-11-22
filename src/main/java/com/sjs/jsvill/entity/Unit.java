@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name="unit")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -30,8 +31,6 @@ public class Unit extends BaseEntity {
 
     @Column(length = 100, nullable = false)
     private String addr2;
-
-
 
     @Column(length = 100)
     private String note;

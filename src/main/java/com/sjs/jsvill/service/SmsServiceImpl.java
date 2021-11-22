@@ -1,26 +1,13 @@
 package com.sjs.jsvill.service;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.sjs.jsvill.dto.GuestbookDTO;
-import com.sjs.jsvill.dto.PageRequestDTO;
-import com.sjs.jsvill.dto.PageResultDTO;
-import com.sjs.jsvill.entity.sample.Guestbook;
-import com.sjs.jsvill.entity.sample.QGuestbook;
-import com.sjs.jsvill.repository.GuestbookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.Optional;
-import java.util.function.Function;
 
 @Service //스프링에서 빈으로 처리되도록
 @Log4j2
