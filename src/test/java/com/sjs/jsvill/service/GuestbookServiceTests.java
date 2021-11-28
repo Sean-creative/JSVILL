@@ -1,6 +1,5 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.GuestbookDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

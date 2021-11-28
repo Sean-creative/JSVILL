@@ -17,22 +17,23 @@ public class Group extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long group_rowid;
 
-    @Column(length = 100, nullable = false)
-    private Long member_rowid;
+    @ManyToOne
+    @JoinColumn(name = "member_rowid")
+    private Member member;
 
-    @Column(length = 100, nullable = false)
-    private Integer _grouptype_rowid;
+    @ManyToOne
+    @JoinColumn(name = "_grouptype_rowid")
+    private _GroupType groupType ;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 64, nullable = false)
     private String title;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private String addr1;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 10, nullable = false)
     private String postnum;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private String memo;
-
 }
