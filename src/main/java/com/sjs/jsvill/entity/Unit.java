@@ -17,21 +17,22 @@ public class Unit extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unit_rowid;
 
-    @Column(length = 100, nullable = false)
-    private Long group_rowid;
+    @ManyToOne
+    @JoinColumn(name = "group_rowid")
+    private Group group;
 
-    @Column(length = 100, nullable = false)
-    private Long option_rowid;
+//    @ManyToOne
+//    @JoinColumn(name = "option_rowid")
+//    private Option option_rowid;
 
-    @Column(length = 100, nullable = false)
-    private Long car_rowid;
+//    @ManyToOne
+//    @JoinColumn(name = "car_rowid")
+//    private Car car;
 
-    @Column(length = 100, nullable = false)
-    private Long tenant_rowid;
+//    @ManyToOne
+//    @JoinColumn(name = "tenant_rowid")
+//    private Tenant tenant ;
 
     @Column(length = 100, nullable = false)
     private String addr2;
-
-    @Column(length = 100)
-    private String note;
 }

@@ -17,8 +17,9 @@ public class Contract extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contract_rowid;
 
-    @Column(length = 100, nullable = false)
-    private Long unit_rowid;
+    @ManyToOne
+    @JoinColumn(name = "unit_rowid")
+    private Unit unit;
 
     @Column(length = 100, nullable = false)
     private String title;

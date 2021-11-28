@@ -23,7 +23,7 @@ public class Group extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "_grouptype_rowid")
-    private _GroupType groupType ;
+    private _GroupType groupType;
 
     @Column(length = 64, nullable = false)
     private String title;
