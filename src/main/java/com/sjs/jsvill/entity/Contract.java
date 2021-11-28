@@ -21,6 +21,18 @@ public class Contract extends BaseEntity {
     @JoinColumn(name = "unit_rowid")
     private Unit unit;
 
+    //    @ManyToOne
+//    @JoinColumn(name = "option_rowid")
+//    private Option option_rowid;
+
+//    @ManyToOne
+//    @JoinColumn(name = "car_rowid")
+//    private Car car;
+
+//    @ManyToOne
+//    @JoinColumn(name = "tenant_rowid")
+//    private Tenant tenant ;
+
     @Column(length = 100, nullable = false)
     private String title;
 

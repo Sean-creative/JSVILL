@@ -5,22 +5,22 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="unit")
+@Table(name="option")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Unit extends BaseEntity {
+public class Option extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long unit_rowid;
+    private Long option_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "group_rowid")
-    private Group group;
+    @JoinColumn(name = "movein_rowid")
+    private MoveIn moveIn;
 
-    @Column(length = 100, nullable = false)
-    private String addr2;
+    @Column(length = 64, nullable = false)
+    private String title;
 }
