@@ -1,5 +1,6 @@
 package com.sjs.jsvill.controller;
 
+import com.sjs.jsvill.dto.GroupManageResDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,9 @@ public class ManagementController {
 
     @GetMapping("manage")
     public void manage(Model model) {
+
         model.addAttribute("name", "sean님 환영합니다!");
+        model.addAttribute("result", new GroupManageResDTO());
     }
 
     @GetMapping("residents")

@@ -18,11 +18,11 @@ public class Group extends BaseEntity {
     private Long group_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "member_rowid")
+    @JoinColumn(name = "member_rowid", nullable = false)
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "_grouptype_rowid")
+    @JoinColumn(name = "_grouptype_rowid", nullable = false)
     private _GroupType groupType;
 
     @Column(length = 64, nullable = false)

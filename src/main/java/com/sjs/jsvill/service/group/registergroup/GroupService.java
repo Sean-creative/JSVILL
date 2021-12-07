@@ -11,7 +11,7 @@ public interface GroupService {
         Group group = Group.builder()
                 .group_rowid(dto.getGroup_rowid())
                 .member(dto.getMember())
-                .group_rowid(dto.getGroup_rowid())
+                .groupType(dto.getGroupType())
                 .title(dto.getTitle())
                 .addr1(dto.getAddr1())
                 .postnum(dto.getPostnum())
