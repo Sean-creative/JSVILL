@@ -6,18 +6,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class GuestbookServiceTests {
 
-    @Autowired
-    private GuestbookService service;
-
-    @Test
-    public void testRegister() {
-        GuestbookDTO guestbookDTO = GuestbookDTO.builder()
-                .title("Sample Title")
-                .content("Sample Content")
-                .writer("user0")
-                .build();
-        System.out.println(service.register(guestbookDTO));
-    }
+//    @Autowired
+//    private GuestbookService service;
+//
+//    @Test
+//    public void testRegister() {
+//        GuestbookDTO guestbookDTO = GuestbookDTO.builder()
+//                .title("Sample Title")
+//                .content("Sample Content")
+//                .writer("user0")
+//                .build();
+//        System.out.println(service.register(guestbookDTO));
+//    }
 //    @Test
 //    public void testList(){
 //

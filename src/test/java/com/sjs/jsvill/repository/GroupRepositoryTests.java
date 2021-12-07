@@ -1,6 +1,7 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class GroupRepositoryTests {
         IntStream.rangeClosed(1, 3).forEach(i -> {
             Group group = Group.builder()
                     .group_rowid(Integer.toUnsignedLong(i))
-                    .groupType(_GroupType.builder()._grouptype_rowid(1L)
-                    .title("zz").build())
+                    .member(Member.builder().member_rowid(1L).build())
+                    .groupType(_GroupType.builder()._grouptype_rowid(10L).build())
                     .title("Test-title...." + i)
                     .addr1("Test-addr1...." + i)
-                    .postnum("Test-postnum...." + i)
+                    .postnum("Test-p" + i)
                     .memo("Test-memo...." + i)
                     .build();
             System.out.println(groupRepository.save(group));
