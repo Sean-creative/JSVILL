@@ -18,7 +18,7 @@ public class SMSController {
     public String send() {
         log.info("================sms - send==================");
         smsService.sendSms();
-        return "/buildingManagement/manage";
+        return "/groupManagement/manage";
     }
 }
 

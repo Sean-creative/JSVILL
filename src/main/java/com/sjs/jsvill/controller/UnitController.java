@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
-@RequestMapping("/buildingManagement/unit")
+@RequestMapping("/groupManagement/unit")
 @Log4j2
 @RequiredArgsConstructor
 public class UnitController {

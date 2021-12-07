@@ -21,17 +21,21 @@ public class Contract extends BaseEntity {
     @JoinColumn(name = "unit_rowid")
     private Unit unit;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "option_rowid")
-//    private Option option_rowid;
+    @ManyToOne
+    @JoinColumn(name = "option_rowid")
+    private Option option;
 
-//    @ManyToOne
-//    @JoinColumn(name = "car_rowid")
-//    private Car car;
+    @ManyToOne
+    @JoinColumn(name = "car_rowid")
+    private Car car;
 
-//    @ManyToOne
-//    @JoinColumn(name = "tenant_rowid")
-//    private Tenant tenant ;
+    @ManyToOne
+    @JoinColumn(name = "tenant_rowid")
+    private Tenant tenant;
+
+    @ManyToOne
+    @JoinColumn(name = "_contracttype_rowid")
+    private _ContractType contractType;
 
     @Column(length = 100, nullable = false)
     private String title;
@@ -42,16 +46,16 @@ public class Contract extends BaseEntity {
     @Column(length = 100, nullable = false)
     private String enddate;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private Boolean isprogressing;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private Long deposit;
 
-    @Column(length = 100, nullable = false)
-    private Long monthly;
+    @Column(nullable = false)
+    private Long rentfee;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private Long managementfees;
 
     @Column(length = 100, nullable = false)

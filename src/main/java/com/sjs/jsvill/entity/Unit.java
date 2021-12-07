@@ -1,5 +1,6 @@
 package com.sjs.jsvill.entity;
 
+import com.querydsl.core.annotations.Config;
 import lombok.*;
 
 import javax.persistence.*;

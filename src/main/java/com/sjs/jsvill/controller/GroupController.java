@@ -7,18 +7,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/buildingManagement/building")
+@RequestMapping("/groupManagement/group")
 @Log4j2
 @RequiredArgsConstructor
-public class BuildingController {
+public class GroupController {
 
     @RequestMapping("edit")
     public void edit() {
-        log.info("editBuilding");
+        log.info("editgroup");
     }
 
     @RequestMapping("register")
     public void register() {
-        log.info("registerBuilding");
+        log.info("registergroup");
     }
 }

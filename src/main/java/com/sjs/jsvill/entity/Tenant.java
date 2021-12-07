@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tenant")
+@Table(name="`tenant`")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -27,6 +27,6 @@ public class Tenant extends BaseEntity {
     @Column(length = 64, nullable = false)
     private String phone;
 
-    @Column(length = 1, nullable = false)
+    @Column(nullable = false)
     private Integer ishead;
 }

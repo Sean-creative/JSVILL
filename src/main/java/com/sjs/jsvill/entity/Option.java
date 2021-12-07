@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="option")
+@Table(name="`option`")
 @Getter
 @Builder
 @AllArgsConstructor

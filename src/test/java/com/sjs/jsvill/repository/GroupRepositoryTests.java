@@ -1,6 +1,7 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity._GroupType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +18,9 @@ public class GroupRepositoryTests {
     public void insertDummies() {
         IntStream.rangeClosed(1, 3).forEach(i -> {
             Group group = Group.builder()
-                    .member_rowid(Integer.toUnsignedLong(i))
-                    ._grouptype_rowid(i)
+                    .group_rowid(Integer.toUnsignedLong(i))
+                    .groupType(_GroupType.builder()._grouptype_rowid(1L)
+                    .title("zz").build())
                     .title("Test-title...." + i)
                     .addr1("Test-addr1...." + i)
                     .postnum("Test-postnum...." + i)
