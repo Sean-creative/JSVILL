@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>빌딩 등록</title>
+    <title>건물 등록</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="/css/registerGroup.css"/>
 </head>
@@ -9,36 +9,36 @@
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / 건물등록</div>
 
-        <div class="info">
-            <div class="subTitle">건물 이름</div>
-            <input type="text" style="background-color:#f6f6f6;width: 100%"/>
-        </div>
-        <div class="info">
-            <span class="subTitle" style="bottom:72px">건물 타입</span>
-            <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
-                빌라
+        <form th:action="@{/groupManagement/group/register}" th:method="post">
+            <div class="info">
+                <div class="subTitle">건물 이름</div>
+                <input type="text" name="title" style="background-color:#f6f6f6;width: 100%"/>
             </div>
-            <div style="font-size:10px;margin:10px 0 0 5px">※ 빌라 이외의 다른 건물타입들은 이후 런칭 예정입니다.</div>
-        </div>
-        <div class="info">
-            <span class="subTitle" style="bottom:145px">건물 주소</span>
-            <input type="text" placeholder="우편번호" style="width:45%;background-color:#f6f6f6;padding-left:10px">
-            <span style="margin-left:10px;background-color:grey;width:25px;color:white;font-size:15px;padding:5px 5px">주소 찾기</span>
-            <div style="margin-top:15px">
-                <input type="text" placeholder="도로명 주소"
-                       style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px"/>
-                <input type="text" placeholder="지번 주소"
-                       style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px;margin-top:15px"/>
+            <div class="info">
+                <span class="subTitle" style="bottom:72px">건물 타입</span>
+                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
+                    빌라
+                </div>
+                <div style="font-size:10px;margin:10px 0 0 5px">※ 빌라 이외의 다른 건물타입들은 이후 런칭 예정입니다.</div>
             </div>
-        </div>
-        <div class="info">
-            <span class="subTitle" style="bottom:77px;width:133px">비고 (선택 입력) </span>
-            <textarea></textarea>
-        </div>
-        <div style="margin-top: 20px">
-            <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
-            <button type="button" class="registerBtn">등록</button>
-        </div>
+            <div class="info">
+                <span class="subTitle" style="bottom:145px">건물 주소</span>
+                <input type="text" name="postnum" placeholder="우편번호" style="width:45%;background-color:#f6f6f6;padding-left:10px">
+                <span style="margin-left:10px;background-color:grey;width:25px;color:white;font-size:15px;padding:5px 5px">주소 찾기</span>
+                <div style="margin-top:15px">
+                    <input type="text" name="addr1" placeholder="도로명 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px"/>
+                    <input type="text" placeholder="지번 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px;margin-top:15px"/>
+                </div>
+            </div>
+            <div class="info">
+                <span class="subTitle" name="memo" style="bottom:77px;width:133px">비고 (선택 입력) </span>
+                <textarea></textarea>
+            </div>
+            <div style="margin-top: 20px">
+                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                <button type="submit" class="registerBtn">등록</button>
+            </div>
+        </form>
 
     </th:block>
 </th:block>
