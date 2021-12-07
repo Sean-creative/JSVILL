@@ -32,14 +32,14 @@ public class GroupRepositoryTests {
 
 //    @Test
 //    public void updateTest() {
-//        Optional<Guestbook> result = buildingRepository.findById(300L);
+//        Optional<Guestbook> result = groupRepository.findById(300L);
 //
 //        //존재하는 번호로 테스트
 //        if(result.isPresent()){
 //            Guestbook guestbook = result.get();
 //            guestbook.changeTitle("Changed Title....");
 //            guestbook.changeContent("Changed Content...");
-//            buildingRepository.save(guestbook);
+//            groupRepository.save(guestbook);
 //        }
 //    }
 //
@@ -51,7 +51,7 @@ public class GroupRepositoryTests {
 //        BooleanBuilder builder = new BooleanBuilder(); //2
 //        BooleanExpression expression = qGuestbook.title.contains(keyword); //3
 //        builder.and(expression); //4
-//        Page<Guestbook> result = buildingRepository.findAll(builder, pageable); //5
+//        Page<Guestbook> result = groupRepository.findAll(builder, pageable); //5
 //
 //        result.stream().forEach(guestbook -> {
 //            System.out.println(guestbook);
@@ -69,7 +69,7 @@ public class GroupRepositoryTests {
 //        BooleanExpression exAll = exTitle.or(exContent); // 1---------------
 //        builder.and(exAll); //2----------
 //        builder.and(qGuestbook.gno.gt(0L)); //3-------------------
-//        Page<Guestbook> result = buildingRepository.findAll(builder, pageable);
+//        Page<Guestbook> result = groupRepository.findAll(builder, pageable);
 //
 //        result.stream().forEach(guestbook -> {
 //            System.out.println(guestbook);
