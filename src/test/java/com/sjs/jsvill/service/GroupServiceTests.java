@@ -3,7 +3,7 @@ package com.sjs.jsvill.service;
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
-import com.sjs.jsvill.service.group.registergroup.GroupService;
+import com.sjs.jsvill.service.group.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -3,6 +3,7 @@ package com.sjs.jsvill.repository;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
+import com.sjs.jsvill.repository.group.GroupRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

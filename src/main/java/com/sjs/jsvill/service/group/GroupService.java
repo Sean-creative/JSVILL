@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service.group.registergroup;
+package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.Group;

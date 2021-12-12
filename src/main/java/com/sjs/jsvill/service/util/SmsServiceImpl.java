@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.service.util;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

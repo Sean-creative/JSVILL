@@ -1,8 +1,8 @@
-package com.sjs.jsvill.service.group.registergroup;
+package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.Group;
-import com.sjs.jsvill.repository.GroupRepository;
+import com.sjs.jsvill.repository.group.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

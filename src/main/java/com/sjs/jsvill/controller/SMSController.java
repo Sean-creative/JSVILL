@@ -1,6 +1,6 @@
 package com.sjs.jsvill.controller;
 
-import com.sjs.jsvill.service.SmsService;
+import com.sjs.jsvill.service.util.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
