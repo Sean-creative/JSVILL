@@ -7,7 +7,11 @@ import com.sjs.jsvill.repository.group.GroupRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -30,6 +34,19 @@ public class GroupRepositoryTests {
                     .build();
             System.out.println(groupRepository.save(group));
         });
+    }
+
+    @Test
+    public void testGroupWithAll() {
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "mno"));
+        Member member = Member.builder().member_rowid(1L).build();
+        List<Object> result = groupRepository.getGroupWithAll(member);
+//        System.out.println(result.toString());
+
+        for (Object objects : result) {
+            System.out.println("---------");
+            System.out.println(objects.toString());
+        }
     }
 
 //    @Test
