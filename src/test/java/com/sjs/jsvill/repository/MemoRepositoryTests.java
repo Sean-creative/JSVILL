@@ -1,13 +1,21 @@
 package com.sjs.jsvill.repository;
 
+import com.sjs.jsvill.entity.Memo;
+import com.sjs.jsvill.repository.test.MemoRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.jdo.annotations.Transactional;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 public class MemoRepositoryTests {
 
-//    @Autowired
-//    MemoRepository memoRepository;
-//
+    @Autowired
+    MemoRepository memoRepository;
+
 //    @Test
 //    public void testClass() {
 //        System.out.println(memoRepository.getClass().getName());
@@ -36,16 +44,16 @@ public class MemoRepositoryTests {
 //            System.out.println(memo);
 //        }
 //    }
-//
-//    @Transactional
-//    @Test
-//    public void testSelect2() {
-//        Long mno = 40L;
-//        Memo memo = memoRepository.getById(mno);
-//        System.out.println("==================================");
-//        System.out.println(memo);
-//    }
-//
+
+    @Transactional
+    @Test
+    public void testSelect2() {
+        Long mno = 40L;
+        Memo memo = memoRepository.getById(mno);
+        System.out.println("==================================");
+        System.out.println(memo);
+    }
+
 //    @Test
 //    public void testUpdate() {
 //        //내부적으로 해당 엔티티의 @Id값이 일치하는지를 확인해서 insert 혹은 update작업을 처리
