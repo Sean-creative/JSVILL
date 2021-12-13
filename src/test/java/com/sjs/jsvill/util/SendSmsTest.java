@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.util;
 
 
 import net.nurigo.java_sdk.api.Message;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.HashMap;
 
 @SpringBootTest
-public class SendSms {
+public class SendSmsTest {
 
     @Test
     public void sendSms() {
