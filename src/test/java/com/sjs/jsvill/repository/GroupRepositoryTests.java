@@ -7,11 +7,11 @@ import com.sjs.jsvill.repository.group.GroupRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -38,14 +38,14 @@ public class GroupRepositoryTests {
 
     @Test
     public void testGroupWithAll() {
-        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "mno"));
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("group_rowid").descending());
         Member member = Member.builder().member_rowid(1L).build();
-        List<Object> result = groupRepository.getGroupWithAll(member);
+        Page<Object[]> result = groupRepository.getGroupWithAll(pageRequest, 1L);
 //        System.out.println(result.toString());
 
-        for (Object objects : result) {
+        for (Object[] arr : result) {
             System.out.println("---------");
-            System.out.println(objects.toString());
+            System.out.println(Arrays.toString(arr));
         }
     }
 
