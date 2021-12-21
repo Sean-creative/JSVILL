@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class GroupManageResDTO {
+public class GroupManageDTO {
 
     private class Group {
         private String title; //명일동 제이에스빌[빌라]

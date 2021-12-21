@@ -1,11 +1,17 @@
 package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
+import com.sjs.jsvill.dto.PageRequestDTO;
+import com.sjs.jsvill.dto.PageResultDTO;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.repository.group.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Function;
 
 @Service
 @Log4j2
@@ -24,4 +30,15 @@ public class GroupServiceImpl implements GroupService {
         repository.save(entity);
         return entity.getGroup_rowid();
     }
+
+//    @Override
+//    public PageResultDTO<GroupDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
+//        log.info(pageRequestDTO);
+//
+//        Function<Object[], GroupDTO> fn = (en -> entityToDTO((Group)en[0]));
+//
+//        Page<Object[]> result = repository.getGroupWithAll(pageRequestDTO.getPageable(Sort.by("group_rowid").descending()));
+//        
+//        return
+//    }
 }
