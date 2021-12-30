@@ -22,18 +22,6 @@ public class Contract extends BaseEntity {
     private Unit unit;
 
     @ManyToOne
-    @JoinColumn(name = "option_rowid")
-    private Option option;
-
-    @ManyToOne
-    @JoinColumn(name = "car_rowid")
-    private Car car;
-
-    @ManyToOne
-    @JoinColumn(name = "tenant_rowid")
-    private Tenant tenant;
-
-    @ManyToOne
     @JoinColumn(name = "_contracttype_rowid")
     private _ContractType contractType;
 

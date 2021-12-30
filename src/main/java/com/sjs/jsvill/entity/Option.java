@@ -18,8 +18,8 @@ public class Option extends BaseEntity {
     private Long option_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "movein_rowid")
-    private MoveIn moveIn;
+    @JoinColumn(name = "contract_rowid")
+    private Contract contract;
 
     @Column(length = 64, nullable = false)
     private String title;

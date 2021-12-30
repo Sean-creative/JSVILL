@@ -18,8 +18,8 @@ public class Tenant extends BaseEntity {
     private Long tenant_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "unit_rowid")
-    private Unit unit;
+    @JoinColumn(name = "contract_rowid")
+    private Contract contract;
 
     @Column(length = 64, nullable = false)
     private String title;
