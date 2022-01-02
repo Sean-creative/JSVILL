@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"unit_rowid", "contract_rowid"})
 public class MoveIn extends BaseEntity {
 
     @Id

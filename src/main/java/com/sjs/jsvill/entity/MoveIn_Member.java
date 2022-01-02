@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"member", "moveIn"})
 public class MoveIn_Member extends BaseEntity {
 
     @Id

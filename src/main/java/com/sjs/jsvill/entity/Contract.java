@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"unit", "contractType"})
 public class Contract extends BaseEntity {
 
     @Id

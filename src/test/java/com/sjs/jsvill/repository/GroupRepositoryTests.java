@@ -1,6 +1,7 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.GroupMember;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
 import com.sjs.jsvill.repository.group.GroupRepository;
@@ -25,7 +26,7 @@ public class GroupRepositoryTests {
         IntStream.rangeClosed(1, 3).forEach(i -> {
             Group group = Group.builder()
                     .group_rowid(Integer.toUnsignedLong(i))
-                    .member(Member.builder().member_rowid(1L).build())
+                    .groupMember(GroupMember.builder().groupmember_rowid(1L).build())
                     .groupType(_GroupType.builder()._grouptype_rowid(10L).build())
                     .title("Test-title...." + i)
                     .addr1("Test-addr1...." + i)

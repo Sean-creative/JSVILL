@@ -14,7 +14,7 @@ public interface GroupService {
     default Group dtoToEntity(GroupDTO dto) {
         Group group = Group.builder()
                 .group_rowid(dto.getGroup_rowid())
-                .member(dto.getMember())
+                .groupMember(dto.getGroupMember())
                 .groupType(dto.getGroupType())
                 .title(dto.getTitle())
                 .addr1(dto.getAddr1())
@@ -27,7 +27,7 @@ public interface GroupService {
     default GroupDTO entityToDTO(Group group) {
         GroupDTO groupDTO = GroupDTO.builder()
                 .group_rowid(group.getGroup_rowid())
-                .member(group.getMember())
+                .groupMember(group.getGroupMember())
                 .groupType(group.getGroupType())
                 .title(group.getTitle())
                 .addr1(group.getAddr1())

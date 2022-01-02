@@ -1,5 +1,6 @@
 package com.sjs.jsvill.dto;
 
+import com.sjs.jsvill.entity.GroupMember;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import javax.persistence.ManyToOne;
 @Data
 public class GroupDTO {
     private Long group_rowid;
-    private Member member;
+    private GroupMember groupMember;
     private _GroupType groupType;
     private String title;
     private String addr1;
