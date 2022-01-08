@@ -1,4 +1,4 @@
-package com.sjs.jsvill.repository.unit;
+package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;

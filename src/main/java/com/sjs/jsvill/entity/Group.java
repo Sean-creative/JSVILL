@@ -10,16 +10,12 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"groupMember", "groupType"})
+@ToString(exclude = "groupType")
 public class Group extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long group_rowid;
-
-    @ManyToOne
-    @JoinColumn(name = "groupmember_rowid", nullable = false)
-    private GroupMember groupMember;
 
     @ManyToOne
     @JoinColumn(name = "_grouptype_rowid", nullable = false)

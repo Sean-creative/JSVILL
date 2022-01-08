@@ -1,9 +1,7 @@
 package com.sjs.jsvill.service;
 
 import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._GroupType;
-import com.sjs.jsvill.service.group.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +15,6 @@ public class GroupServiceTests {
     @Test
     public void testRegister() {
         GroupDTO groupDTO = GroupDTO.builder()
-                .member(Member.builder().member_rowid(1L).build())
                 .groupType(_GroupType.builder()._grouptype_rowid(10L).build())
                 .title("title")
                 .addr1("addr1")

@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="`groupmember`")
+@Table(name="groupmember")
 @Getter
 @Builder
 @AllArgsConstructor
