@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="`unit`")
+@Table(name="unit")
 @Getter
 @Builder
 @AllArgsConstructor
