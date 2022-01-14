@@ -1,17 +1,16 @@
 package com.sjs.jsvill.entity;
 
-import com.querydsl.core.annotations.Config;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="unit")
+@Table(name="`unit`")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"group"})
+@ToString(exclude = "group")
 public class Unit extends BaseEntity {
 
     @Id
@@ -19,7 +18,7 @@ public class Unit extends BaseEntity {
     private Long unit_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "group_rowid")
+    @JoinColumn(name = "group_rowid", nullable = false)
     private Group group;
 
     @Column(length = 100, nullable = false)

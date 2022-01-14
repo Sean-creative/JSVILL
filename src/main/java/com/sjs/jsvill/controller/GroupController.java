@@ -1,7 +1,6 @@
 package com.sjs.jsvill.controller;
 
 import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.entity._GroupType;
 import com.sjs.jsvill.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,7 +31,7 @@ public class GroupController {
         log.info("dto..." + dto);
 
         //일단은 타입과 멤버는 이걸로 고정
-        dto.setGroupType(_GroupType.builder()._grouptype_rowid(10L).build());
+        dto.setGroupType_rowid(1L);
 
         Long gno = service.register(dto);
         log.info("result", gno);

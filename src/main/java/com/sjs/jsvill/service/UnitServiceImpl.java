@@ -1,8 +1,8 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.entity.Group;
-import com.sjs.jsvill.repository.GroupRepository;
+import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.entity.Unit;
+import com.sjs.jsvill.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -10,20 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 @Log4j2
 @RequiredArgsConstructor //의존성 자동 주입 -> repository가 자동 주입
-public class UnitServiceImpl implements GroupService {
+public class UnitServiceImpl implements UnitService {
 
-    private final GroupRepository repository; //반드시 final로 선언
+    private final UnitRepository unitRepository; //반드시 final로 선언
+
     @Override
-    public Long register(GroupDTO dto) {
-        log.info("DTO-------------");
+    public Long register(UnitDTO dto) {
+        log.info("DTO-------------" );
         log.info(dto);
-
-        Group entity = dtoToEntity(dto);
-        log.info(entity);
-
-        repository.save(entity);
-        return entity.getGroup_rowid();
+        Unit unit = dtoToEntity(dto);
+        unitRepository.save(unit);
+        return unit.getUnit_rowid();
     }
+
 
 //    @Override
 //    public PageResultDTO<GroupDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {

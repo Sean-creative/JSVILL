@@ -1,7 +1,6 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Group;
-import com.sjs.jsvill.entity.GroupMember;
 import com.sjs.jsvill.entity._GroupType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +13,11 @@ public class GroupRepositoryTests {
 
     @Autowired
     private GroupRepository groupRepository;
-    @Autowired
-    private _GroupTypeRepository groupTypeRepository;
 
     @Test
-    public void insertGroup() {
-        _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).title("villa").build();
-        _GroupType groupType2 = _GroupType.builder()._grouptype_rowid(20L).title("apartment").build();
-        System.out.println(groupTypeRepository.save(groupType));
-        System.out.println(groupTypeRepository.save(groupType2));
+    public void testRegister() {
+        _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
+        _GroupType groupType2 = _GroupType.builder()._grouptype_rowid(20L).build();
 
         IntStream.rangeClosed(1, 3).forEach(i -> {
             //_GroupType은 이미 등록이 되어있는 상태이고, rowid로 사용해야함

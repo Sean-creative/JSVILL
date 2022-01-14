@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor //의존성 자동 주입 -> repository가 자동 주입
 public class GroupServiceImpl implements GroupService {
 
-    private final GroupRepository repository; //반드시 final로 선언
+    private final GroupRepository groupRepository; //반드시 final로 선언
+
     @Override
     public Long register(GroupDTO dto) {
         log.info("DTO-------------");
@@ -21,7 +22,7 @@ public class GroupServiceImpl implements GroupService {
         Group entity = dtoToEntity(dto);
         log.info(entity);
 
-        repository.save(entity);
+        groupRepository.save(entity);
         return entity.getGroup_rowid();
     }
 

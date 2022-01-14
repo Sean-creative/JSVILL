@@ -1,12 +1,9 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity._GroupType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.stream.IntStream;
 
 @SpringBootTest
 public class _GroupTypeRepositoryTests {
@@ -16,6 +13,7 @@ public class _GroupTypeRepositoryTests {
 
     @Test
     public void testRegister() {
+        System.out.println("groupTypeRepository : " + groupTypeRepository.toString());
        _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).title("villa").build();
         _GroupType groupType2 = _GroupType.builder()._grouptype_rowid(20L).title("apartment").build();
         System.out.println(groupTypeRepository.save(groupType));

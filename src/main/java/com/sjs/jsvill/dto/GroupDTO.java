@@ -21,8 +21,8 @@ import javax.persistence.ManyToOne;
 @Data
 public class GroupDTO {
     private Long group_rowid;
-    private GroupMember groupMember;
-    private _GroupType groupType;
+    private Long groupMember_rowid;
+    private Long groupType_rowid;
     private String title;
     private String addr1;
     private String postnum;
