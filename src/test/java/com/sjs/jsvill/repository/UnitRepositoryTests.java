@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @SpringBootTest
 public class UnitRepositoryTests {
@@ -21,10 +21,14 @@ public class UnitRepositoryTests {
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
         Group group = Group.builder().group_rowid(1L).groupType(groupType).build();
 
-        IntStream.rangeClosed(1, 3).forEach(i -> {
+        LongStream.rangeClosed(1, 3).forEach(i -> {
             Unit unit = Unit.builder()
                     .group(group)
                     .addr2("addr2" + i)
+                    .deposit(i)
+                    .rentfee(i)
+                    .managementfees(i)
+                    .paymentday(i)
                     .build();
             System.out.println(unitRepository.save(unit));
         });

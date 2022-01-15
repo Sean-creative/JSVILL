@@ -16,6 +16,10 @@ public interface UnitService {
                 .unit_rowid(dto.getUnit_rowid())
                 .group(group)
                 .addr2(dto.getAddr2())
+                .deposit(dto.getDeposit())
+                .rentfee(dto.getRentfee())
+                .managementfees(dto.getManagementfees())
+                .paymentday(dto.getPaymentday())
                 .build();
         return unit;
     }
@@ -25,6 +29,10 @@ public interface UnitService {
                 .unit_rowid(unit.getUnit_rowid())
                 .group_rowid(unit.getGroup().getGroup_rowid())
                 .addr2(unit.getAddr2())
+                .deposit(unit.getDeposit())
+                .rentfee(unit.getRentfee())
+                .managementfees(unit.getManagementfees())
+                .paymentday(unit.getPaymentday())
                 .build();
         return unitDTO;
     }

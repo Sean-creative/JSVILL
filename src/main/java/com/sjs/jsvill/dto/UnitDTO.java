@@ -13,4 +13,8 @@ public class UnitDTO {
     private Long unit_rowid;
     private Long group_rowid;
     private String addr2;
+    private Long deposit;
+    private Long rentfee;
+    private Long managementfees;
+    private Long paymentday;
 }

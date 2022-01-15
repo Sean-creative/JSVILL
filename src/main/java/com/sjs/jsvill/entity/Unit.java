@@ -23,4 +23,16 @@ public class Unit extends BaseEntity {
 
     @Column(length = 100, nullable = false)
     private String addr2;
+
+    @Column(nullable = false)
+    private Long deposit;
+
+    @Column(nullable = false)
+    private Long rentfee;
+
+    @Column(nullable = false)
+    private Long managementfees;
+
+    @Column(length = 100, nullable = false)
+    private Long paymentday;
 }

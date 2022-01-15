@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @SpringBootTest
 public class UnitServiceTests {
@@ -15,11 +15,15 @@ public class UnitServiceTests {
 
     @Test
     public void testRegister() {
-        IntStream.rangeClosed(1, 3).forEach( i -> {
+        LongStream.rangeClosed(1, 3).forEach(i -> {
             UnitDTO unitDTO = UnitDTO.builder()
-                    .unit_rowid(Integer.toUnsignedLong(i))
+                    .unit_rowid(i)
                     .group_rowid(1L)
                     .addr2("addr2" + i)
+                    .deposit(i)
+                    .rentfee(i)
+                    .managementfees(i)
+                    .paymentday(i)
                     .build();
             System.out.println(unitService.register(unitDTO));
         });
