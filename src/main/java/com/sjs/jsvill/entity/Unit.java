@@ -35,4 +35,7 @@ public class Unit extends BaseEntity {
 
     @Column(length = 100, nullable = false)
     private Long paymentday;
+
+    @Column(nullable = false)
+    private String memo;
 }

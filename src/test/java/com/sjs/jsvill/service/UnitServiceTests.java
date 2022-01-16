@@ -24,6 +24,7 @@ public class UnitServiceTests {
                     .rentfee(i)
                     .managementfees(i)
                     .paymentday(i)
+                    .memo("memo" + i)
                     .build();
             System.out.println(unitService.register(unitDTO));
         });

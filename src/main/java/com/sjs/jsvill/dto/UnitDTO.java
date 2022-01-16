@@ -17,4 +17,5 @@ public class UnitDTO {
     private Long rentfee;
     private Long managementfees;
     private Long paymentday;
+    private String memo;
 }

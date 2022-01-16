@@ -29,6 +29,7 @@ public class UnitRepositoryTests {
                     .rentfee(i)
                     .managementfees(i)
                     .paymentday(i)
+                    .memo("memo" + i)
                     .build();
             System.out.println(unitRepository.save(unit));
         });

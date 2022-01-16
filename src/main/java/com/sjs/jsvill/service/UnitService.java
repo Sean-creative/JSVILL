@@ -20,6 +20,7 @@ public interface UnitService {
                 .rentfee(dto.getRentfee())
                 .managementfees(dto.getManagementfees())
                 .paymentday(dto.getPaymentday())
+                .memo(dto.getMemo())
                 .build();
         return unit;
     }
@@ -33,6 +34,7 @@ public interface UnitService {
                 .rentfee(unit.getRentfee())
                 .managementfees(unit.getManagementfees())
                 .paymentday(unit.getPaymentday())
+                .memo(unit.getMemo())
                 .build();
         return unitDTO;
     }
