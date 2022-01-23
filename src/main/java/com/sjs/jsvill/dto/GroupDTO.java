@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 public class GroupDTO {
     private Long group_rowid;
-    private Long groupMember_rowid;
     private Long groupType_rowid;
     private String title;
     private String addr1;
@@ -22,10 +21,14 @@ public class GroupDTO {
     private String memo;
     private String completiondate;
 
-    private Long totalDeposit; //총보증금
-    private Long totalRentfee; //금액(월세)
-    private Long totalManagementfees; //관리비
-    private Long totalTenantCnt; //입주자 총 수
+    @Builder.Default
+    private Long totalDeposit = 0L; //총보증금
+    @Builder.Default
+    private Long totalRentfee= 0L; //금액(월세)
+    @Builder.Default
+    private Long totalManagementfees = 0L; //관리비
+    @Builder.Default
+    private Long totalTenantCnt = 0L; //입주자 총 수
 
     @Builder.Default
     private List<UnitDTO> unitDTOList = new ArrayList<>();

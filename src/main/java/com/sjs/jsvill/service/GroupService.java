@@ -52,23 +52,25 @@ public interface GroupService {
                 .memo(group.getMemo())
                 .completiondate(group.getCompletiondate())
                 .build();
-        List<UnitDTO> unitDTOList =  unitList.stream().map(unit -> UnitDTO.builder()
-        .unit_rowid(unit.getUnit_rowid())
-                .group_rowid(unit.getGroup().getGroup_rowid())
-                .addr2(unit.getAddr2())
-                .deposit(unit.getDeposit())
-                .rentfee(unit.getRentfee())
-                .managementfees(unit.getManagementfees())
-                .paymentday(unit.getPaymentday())
-                .memo(unit.getMemo())
-        .build()
-        ).collect(Collectors.toList());
-        groupDTO.setUnitDTOList(unitDTOList);
 
-        groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
-        groupDTO.setTotalRentfee(unitList.stream().mapToLong(Unit::getRentfee).sum());
-        groupDTO.setTotalManagementfees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
-        groupDTO.setTotalTenantCnt(10L);
+        if(unitList.get(0) != null) {
+            List<UnitDTO> unitDTOList = unitList.stream().map(unit -> UnitDTO.builder()
+                    .unit_rowid(unit.getUnit_rowid())
+                    .group_rowid(unit.getGroup().getGroup_rowid())
+                    .addr2(unit.getAddr2())
+                    .deposit(unit.getDeposit())
+                    .rentfee(unit.getRentfee())
+                    .managementfees(unit.getManagementfees())
+                    .paymentday(unit.getPaymentday())
+                    .memo(unit.getMemo())
+                    .build()
+            ).collect(Collectors.toList());
+            groupDTO.setUnitDTOList(unitDTOList);
+            groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
+            groupDTO.setTotalRentfee(unitList.stream().mapToLong(Unit::getRentfee).sum());
+            groupDTO.setTotalManagementfees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
+            groupDTO.setTotalTenantCnt(10L);
+        }
 
         return groupDTO;
     }

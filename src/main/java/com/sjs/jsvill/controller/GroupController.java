@@ -31,10 +31,8 @@ public class GroupController {
 
     @PostMapping("register")
     public String registerPost(GroupDTO dto, RedirectAttributes redirectAttributes) {
+        //일단 멤버는 이걸로 고정;
         log.info("dto..." + dto);
-
-        //일단은 타입과 멤버는 이걸로 고정
-        dto.setGroupMember_rowid(1L);
 
         Long gno = groupService.register(dto);
         log.info("result", gno);

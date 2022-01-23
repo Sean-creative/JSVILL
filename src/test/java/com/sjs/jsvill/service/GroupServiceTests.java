@@ -16,11 +16,12 @@ public class GroupServiceTests {
     @Test
     public void testRegister() {
         GroupDTO groupDTO = GroupDTO.builder()
-                .groupType_rowid(5L)
+                .groupType_rowid(10L)
                 .title("title")
                 .addr1("addr1")
                 .postnum("postnum")
                 .memo("moemo")
+                .completiondate("completiondate")
                 .build();
         System.out.println(groupService.register(groupDTO));
     }
