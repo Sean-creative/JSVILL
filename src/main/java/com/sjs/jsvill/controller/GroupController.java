@@ -34,7 +34,7 @@ public class GroupController {
         log.info("dto..." + dto);
 
         //일단은 타입과 멤버는 이걸로 고정
-        dto.setGroupMember_rowid(7L);
+        dto.setGroupMember_rowid(1L);
 
         Long gno = groupService.register(dto);
         log.info("result", gno);

@@ -24,6 +24,7 @@ public interface GroupService {
                 .addr1(dto.getAddr1())
                 .postnum(dto.getPostnum())
                 .memo(dto.getMemo())
+                .completiondate(dto.getCompletiondate())
                 .build();
         return group;
     }

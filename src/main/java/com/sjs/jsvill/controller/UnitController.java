@@ -26,7 +26,7 @@ public class UnitController {
         log.info("dto..." + dto);
 
         //일단은 타입과 멤버는 이걸로 고정
-        dto.setGroup_rowid(7L);
+        dto.setGroup_rowid(1L);
 
         Long gno = unitService.register(dto);
         log.info("result", gno);

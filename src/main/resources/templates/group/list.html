@@ -12,7 +12,7 @@
 
         <div style="display:flex;justify-content:space-between">
             <span style="line-height:25px"><span th:text="${#lists.size(result)}"></span>개의 건물</span>
-            <a href="/groupManagement/group/register"
+            <a href="/group/register"
                style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">
                 건물등록
             </a>
@@ -41,12 +41,12 @@
             <div style="flex:1.1;padding:0 40px 15px 40px;border-left:1px solid black;text-align:center">
                 <div style="position:relative;padding:15px 0 20px 0">
                     [[${#lists.size(dto.unitDTOList)}]]개의 호실
-                    <a href="/groupManagement/unit/register" style="position:absolute;line-height:22px;font-size:12px;right:0px;top:13.5px;padding:0 6px;background-color:#7F7F7F;font-weight:bold">
+                    <a href="/unit/register" style="position:absolute;line-height:22px;font-size:12px;right:0px;top:13.5px;padding:0 6px;background-color:#7F7F7F;font-weight:bold">
                         호실등록
                     </a>
                 </div>
                 <div style="display:flex;flex-flow:row wrap;justify-content:space-between">
-                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/templates/unit/detail(uno =${unit.unit_rowid})}" class="unit">
+                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/detail(uno =${unit.unit_rowid})}" class="unit">
                         [[${unit.addr2}]]
                     </a>
                 </div>

@@ -9,7 +9,7 @@
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / 건물등록</div>
 
-        <form th:action="@{/templates/group/register}" th:method="post">
+        <form th:action="@{/group/register}" th:method="post">
             <div class="info">
                 <div class="subTitle">건물 이름</div>
                 <input type="text" name="title" style="background-color:#f6f6f6;width: 100%"/>
@@ -30,6 +30,10 @@
                     <input type="text" name="addr1" placeholder="도로명 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px"/>
                     <input type="text" placeholder="지번 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px;margin-top:15px"/>
                 </div>
+            </div>
+            <div class="info">
+                <div class="subTitle">준공일</div>
+                <input type="text" name="completiondate" style="background-color:#f6f6f6;width: 100%"/>
             </div>
             <div class="info">
                 <span class="subTitle"  style="bottom:77px;width:133px">비고 (선택 입력) </span>
