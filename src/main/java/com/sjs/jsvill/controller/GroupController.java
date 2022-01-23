@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("group")
 @Log4j2
 @RequiredArgsConstructor
 public class GroupController {
