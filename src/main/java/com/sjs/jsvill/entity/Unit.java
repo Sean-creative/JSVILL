@@ -17,7 +17,7 @@ public class Unit extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unit_rowid;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "group_rowid", nullable = false)
     private Group group;
 
@@ -25,16 +25,16 @@ public class Unit extends BaseEntity {
     private String addr2;
 
     @Column(nullable = false)
-    private Long deposit;
+    private Long deposit; //보증금
 
     @Column(nullable = false)
-    private Long rentfee;
+    private Long rentfee; //월세
 
     @Column(nullable = false)
-    private Long managementfees;
+    private Long managementfees; //관리비
 
     @Column(length = 100, nullable = false)
-    private Long paymentday;
+    private Long paymentday; //납부일
 
     @Column(nullable = false)
     private String memo;

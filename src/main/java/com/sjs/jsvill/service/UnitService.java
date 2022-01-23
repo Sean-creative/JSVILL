@@ -15,7 +15,7 @@ public interface UnitService {
         Unit unit = Unit.builder()
                 .unit_rowid(dto.getUnit_rowid())
                 .group(group)
-                .addr2(dto.getAddr2())
+                .addr2(dto.getAddr2().replace("호", "")+"호")
                 .deposit(dto.getDeposit())
                 .rentfee(dto.getRentfee())
                 .managementfees(dto.getManagementfees())

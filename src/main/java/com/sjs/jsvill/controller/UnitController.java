@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/groupManagement/unit")
+@RequestMapping("/unit")
 @Log4j2
 @RequiredArgsConstructor
 public class UnitController {
@@ -30,7 +30,7 @@ public class UnitController {
 
         Long gno = unitService.register(dto);
         log.info("result", gno);
-        return "redirect:/groupManagement/manage";
+        return "redirect:/group/list";
 
     }
 

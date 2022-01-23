@@ -1,13 +1,17 @@
 package com.sjs.jsvill.service;
 
 import com.sjs.jsvill.dto.GroupDTO;
+import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity._GroupType;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public interface GroupService {
     Long register(GroupDTO dto);
-
-//    PageResultDTO<GroupDTO, Object[]>getList(PageRequestDTO pageRequestDTO); //목록처리
+    List<GroupDTO> getList(Long member_rowid);
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Group dtoToEntity(GroupDTO dto) {
@@ -33,6 +37,38 @@ public interface GroupService {
                 .postnum(group.getPostnum())
                 .memo(group.getMemo())
                 .build();
+        return groupDTO;
+    }
+
+    //unit이 여러개일 때
+    default GroupDTO entitiesToDTO(Group group, List<Unit> unitList) {
+        GroupDTO groupDTO = GroupDTO.builder()
+                .group_rowid(group.getGroup_rowid())
+                .groupType_rowid(group.getGroupType().get_grouptype_rowid())
+                .title(group.getTitle())
+                .addr1(group.getAddr1())
+                .postnum(group.getPostnum())
+                .memo(group.getMemo())
+                .completiondate(group.getCompletiondate())
+                .build();
+        List<UnitDTO> unitDTOList =  unitList.stream().map(unit -> UnitDTO.builder()
+        .unit_rowid(unit.getUnit_rowid())
+                .group_rowid(unit.getGroup().getGroup_rowid())
+                .addr2(unit.getAddr2())
+                .deposit(unit.getDeposit())
+                .rentfee(unit.getRentfee())
+                .managementfees(unit.getManagementfees())
+                .paymentday(unit.getPaymentday())
+                .memo(unit.getMemo())
+        .build()
+        ).collect(Collectors.toList());
+        groupDTO.setUnitDTOList(unitDTOList);
+
+        groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
+        groupDTO.setTotalRentfee(unitList.stream().mapToLong(Unit::getRentfee).sum());
+        groupDTO.setTotalManagementfees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
+        groupDTO.setTotalTenantCnt(10L);
+
         return groupDTO;
     }
 }

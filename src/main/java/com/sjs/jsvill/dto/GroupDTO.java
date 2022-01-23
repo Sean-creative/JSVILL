@@ -1,19 +1,12 @@
 package com.sjs.jsvill.dto;
 
-import com.sjs.jsvill.entity.GroupMember;
-import com.sjs.jsvill.entity.Member;
-import com.sjs.jsvill.entity._GroupType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -27,4 +20,13 @@ public class GroupDTO {
     private String addr1;
     private String postnum;
     private String memo;
+    private String completiondate;
+
+    private Long totalDeposit; //총보증금
+    private Long totalRentfee; //금액(월세)
+    private Long totalManagementfees; //관리비
+    private Long totalTenantCnt; //입주자 총 수
+
+    @Builder.Default
+    private List<UnitDTO> unitDTOList = new ArrayList<>();
 }

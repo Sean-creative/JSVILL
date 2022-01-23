@@ -2,10 +2,14 @@ package com.sjs.jsvill.service;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -19,11 +23,31 @@ public class GroupServiceImpl implements GroupService {
         log.info("DTO-------------");
         log.info(dto);
 
-        Group entity = dtoToEntity(dto);
-        log.info(entity);
+        Group group = dtoToEntity(dto);
+        log.info(group);
 
-        groupRepository.save(entity);
-        return entity.getGroup_rowid();
+        groupRepository.save(group);
+        return group.getGroup_rowid();
+    }
+
+    @Override
+    public List<GroupDTO> getList(Long member_rowid) {
+        List<Group> groupList = groupRepository.getGroupWithMember(1L);
+//        Map<Long, List<Unit>> groupMap = new HashMap();
+        List<GroupDTO> groupDTOList = new ArrayList<>();
+
+        for (Group group : groupList) {
+//            System.out.println("group : " + group);
+            List<Unit> unitList = groupRepository.getGroupWithUnit(group.getGroup_rowid());
+//            for (Unit unit : unitList) {
+//                System.out.println("unit : " + unit);
+//            }
+//            groupMap.put(group.getGroup_rowid(), unitList);
+//            System.out.println(groupMap.get(group.getGroup_rowid()));
+
+            groupDTOList.add(entitiesToDTO(group, unitList));
+        }
+        return groupDTOList;
     }
 
 //    @Override

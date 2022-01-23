@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 public class GroupServiceTests {
 
@@ -21,6 +23,24 @@ public class GroupServiceTests {
                 .memo("moemo")
                 .build();
         System.out.println(groupService.register(groupDTO));
+    }
+
+//    @Test
+//    public void getList(){
+//        List<GroupDTO> objArr =  groupService.getList(1L);
+//        List<Group> groupList = (List<Group>) objArr[0];
+//        Map<Long, List<Unit>> groupMap = (Map<Long, List<Unit>>) objArr[1];
+//        for(Group group : groupList) {
+//            System.out.println("group: " + group);
+//            System.out.println(groupMap.get(group.getGroup_rowid()));
+//        }
+//    }
+    @Test
+    public void getList(){
+        List<GroupDTO> groupDTOList =  groupService.getList(1L);
+        for(GroupDTO groupDTO : groupDTOList) {
+            System.out.println("groupDTO: " + groupDTO.toString());
+        }
     }
 //    @Test
 //    public void testList(){

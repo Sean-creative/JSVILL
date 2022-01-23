@@ -32,4 +32,7 @@ public class Group extends BaseEntity {
 
     @Column(nullable = false)
     private String memo;
+
+    @Column(length = 32, nullable = false)
+    private String completiondate;
 }

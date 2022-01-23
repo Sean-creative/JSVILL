@@ -17,8 +17,8 @@ public class SMSController {
     @RequestMapping("/send")
     public String send() {
         log.info("================sms - send==================");
-        smsService.sendSms();
-        return "/groupManagement/manage";
+//        smsService.sendSms();
+        return "list";
     }
 }
 
