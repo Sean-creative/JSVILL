@@ -61,6 +61,15 @@ public class GroupServiceImpl implements GroupService {
         return groupDTOList;
     }
 
+    @Override
+    @Transactional
+    public Long remove(Long group_rowid) {
+        groupMemberRepository.deleteByGroup(group_rowid);
+        groupRepository.deleteById(group_rowid);
+        return group_rowid;
+    }
+
+
 //    @Override
 //    public PageResultDTO<GroupDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
 //        log.info(pageRequestDTO);

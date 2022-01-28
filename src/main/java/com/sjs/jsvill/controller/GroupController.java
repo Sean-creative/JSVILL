@@ -43,4 +43,13 @@ public class GroupController {
     public void list(Model model) {
         model.addAttribute("result", groupService.getList(1L));
     }
+
+    @PostMapping("/remove")
+    public String remove(long group_rowid, RedirectAttributes redirectAttributes){
+
+        log.info("group_rowid: " + group_rowid);
+        log.info("??? : " + groupService.remove(group_rowid));
+        redirectAttributes.addFlashAttribute("msg", group_rowid);
+        return "redirect:/group/list";
+    }
 }

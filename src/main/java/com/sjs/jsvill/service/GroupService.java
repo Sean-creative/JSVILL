@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public interface GroupService {
     Long register(GroupDTO dto);
     List<GroupDTO> getList(Long member_rowid);
+    Long remove(Long group_rowid);
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Group dtoToEntity(GroupDTO dto) {

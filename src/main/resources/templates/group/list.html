@@ -23,8 +23,11 @@
                 <div style="padding:25px 0">
                     [[${dto.title}]][빌라]
                     <div style="float:right">
-                        <button>수정</button>
-                        <button>삭제</button>
+                        <form action="/group/modify" method="post">
+                            <input type="hidden" name="group_rowid" th:value="${dto.group_rowid}">
+                            <button>수정</button>
+                            <button th:formaction="@{/group/remove}">삭제</button>
+                        </form>
                     </div>
                 </div>
                 <div style="border-top:1px solid black;padding:25px 0">
