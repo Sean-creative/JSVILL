@@ -5,6 +5,7 @@ import com.sjs.jsvill.service.UnitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +20,16 @@ public class UnitController {
     private final UnitService unitService;
 
     @GetMapping("register")
-    public void register() {log.info("register");}
+    public void register(int group_rowid, Model model) {
+        log.info("group_rowid : " + group_rowid);
+        model.addAttribute("group_rowid", group_rowid);
+    }
 
     @PostMapping("register")
     public String register(UnitDTO dto, RedirectAttributes redirectAttributes) {
         log.info("dto..." + dto);
 
-        //일단은 타입과 멤버는 이걸로 고정
-        dto.setGroup_rowid(1L);
+        //TODO 로그인이 유지가 되면 컨트롤러에서 넣어줘도 상관없음
 
         Long gno = unitService.register(dto);
         log.info("result", gno);
