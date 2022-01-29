@@ -9,23 +9,16 @@ public interface MemberService {
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Member dtoToEntity(MemberDTO dto) {
         Member member = Member.builder()
-                .member_rowid(dto.getMember_rowid())
-                .userid(dto.getUserid())
-                .email(dto.getEmail())
-                .pw(dto.getPw())
-                .username(dto.getUsername())
+                ._memberType(dto.get_memberType_rowid()) //관리자or세입자
+                .name(dto.getName()) //이름
                 .build();
         return member;
     }
 
-    default MemberDTO entityToDTO(Member member) {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .member_rowid(member.getMember_rowid())
-                .userid(member.getUserid())
-                .email(member.getEmail())
-                .pw(member.getPw())
-                .username(member.getUsername())
-                .build();
-        return memberDTO;
-    }
+//    default MemberDTO entityToDTO(Member member) {
+//        MemberDTO memberDTO = MemberDTO.builder()
+//                .member_rowid(member.getMember_rowid())
+//                .build();
+//        return memberDTO;
+//    }
 }
