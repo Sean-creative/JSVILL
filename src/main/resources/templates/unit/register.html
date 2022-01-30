@@ -16,21 +16,19 @@
         <div class="pageTitle">건물관리 / [JS Vill] 호실등록</div>
         <form action="/unit/register" method="post">
             <div class="info">
-                <div class="subTitle">호수</div>
+                <label for="addr2" class="subTitle">호수</label>
                 <div>
-                    <input type="text" name="addr2" placeholder="101" style="width:100%;height:30px;border:none;background:#F6F6F6">
+                    <input type="number" name="addr2" placeholder="ex) 101" id="addr2" class="check" style="width:100%;height:30px;border:none;background:#F6F6F6">
                 </div>
             </div>
 
             <div class="info">
-                <div class="subTitle">
-                    보증금/월세/관리비
-                </div>
+                <div class="subTitle">보증금/월세/관리비</div>
                 <div style="display: flex">
                     <div style="flex:2">
-                        보증금
+                        <label for="deposit">보증금</label>
                         <div style="margin-top:10px">
-                            <input type="text" name="deposit" placeholder="0" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                            <input type="number" name="deposit" value="1000" id="deposit" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                             <span style="margin-left:5px">만원</span>
                         </div>
                     </div>
@@ -40,79 +38,123 @@
                 <div style="display:flex;margin-top:20px">
                     <div style="display:flex; flex:2">
                         <div style="flex:1;width:100%">
-                            월세
+                            <label for="rentfee">월세</label>
                             <div style="margin-top:10px">
-                                <input type="text" name="rentfee" placeholder="0" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="rentfee" value="30" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
                         <div style="flex:2;width:100%">
-                            관리비
+                            <label for="managementfees">관리비</label>
                             <div style="margin-top:10px">
-                                <input type="text" name="managementfees" placeholder="0" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="managementfees" value="5" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
                     </div>
                     <div style="flex:1;width:100%">
-                        월세/관리비/납부일
+                        <label for="paymentday">납부일</label>
                         <div style="margin-top:10px">
-                            매달<input type="text" name="paymentday" placeholder="1" style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
+                            매달<input type="number" name="paymentday" value="1" id="paymentday" class="check"
+                                     style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
                         </div>
                     </div>
                 </div>
             </div>
 
 
-
             <div class="info">
-                <div class="subTitle">비고</div>
+                <label for="memo" class="subTitle">비고</label>
                 <div>
-                    <textarea name="memo" style="width:100%;height:100px;border:none;background:#F6F6F6"></textarea>
+                    <textarea name="memo" id="memo" placeholder="(선택사항)" style="width:100%;height:100px;border:none;background:#F6F6F6"></textarea>
                 </div>
             </div>
 
             <div style="margin-top:20px">
-                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
-                <button type="submit" class="registerBtn">등록</button>
+                <input type="hidden" name="group_rowid" th:value="${group_rowid}">
+                <button type="reset" class="cancelBtn" style="cursor:pointer">취소</button>
+                <button type="button" class="registerBtn" style="cursor:pointer">등록</button>
             </div>
         </form>
     </th:block>
 </th:block>
-<!--<script>-->
-<!--    $.datepicker.setDefaults({-->
-<!--        closeText: "닫기",-->
-<!--        prevText: "이전달",-->
-<!--        nextText: "다음달",-->
-<!--        currentText: "오늘",-->
-<!--        monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",-->
-<!--            "7월", "8월", "9월", "10월", "11월", "12월"-->
-<!--        ],-->
-<!--        monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",-->
-<!--            "7월", "8월", "9월", "10월", "11월", "12월"-->
-<!--        ],-->
-<!--        dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],-->
-<!--        dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],-->
-<!--        dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],-->
-<!--        weekHeader: "주",-->
-<!--        dateFormat: "yy년 m월 d일",-->
-<!--        firstDay: 0,-->
-<!--        isRTL: false,-->
-<!--        showMonthAfterYear: true,-->
-<!--        yearSuffix: "년"-->
-<!--    })-->
-<!--    $("#datepicker").datepicker({-->
-<!--        minDate: 0,-->
-<!--        /* to use in wix */-->
-<!--        onSelect: function (selected, event) {-->
-<!--            console.log(selected);-->
-<!--            /*-->
-<!--             * wix-send-messages from html component-->
-<!--             * https://support.wix.com/en/article/working-with-the-html-component-in-wix-code-->
-<!--             */-->
-<!--            window.parent.postMessage(selected, "*");-->
-<!--        }-->
-<!--    })-->
-<!--</script>-->
+<script th:inline="javascript">
+    const scriptTag = /[~^&()|<>?]/;
+    const actionForm = $("form"); //form 태그 객체
+    $(".cancelBtn").click(function () {
+        history.back()
+    });
+    $(".registerBtn").click(function () {
+        //TODO 클릭 했을 때는 class인 애들을 다 모아서 반복문 돌리면서 p태그에 공백인지 확인해야함?
+        if($("input[name=addr2]").val()=="") window.alert('호수를 입력해주세요!')
+        else actionForm.submit()
+    });
+
+    $(function () {
+        $('.check').on('change', function () {
+            const thisVal = $(this).val();
+            console.log("thisVal.length", thisVal.length)
+            console.log("thisVal.value", thisVal)
+            console.log("spaceCheck.test(thisVal)", spaceCheck.test(thisVal))
+            let checkText = "";
+            switch ($(this).attr("name")) {
+                case "addr2":
+                    if (thisVal.length == 0) {
+                        checkText = "호수를 입력해주세요.";
+                    } else if (thisVal.length > 10) {
+                        checkText = "10글자 이내로 입력해주세요.";
+                    }
+                    break;
+            }
+            console.log("checkText : " + checkText)
+            if (checkText != "") {
+                $(this).siblings("p").html(checkText);
+                $(this).siblings("p").addClass("vali");
+                $(this).siblings("p").slideDown();
+            } else {
+                $(this).siblings("p").slideUp(function () {
+                    $(this).removeClass("vali");
+                });
+            }
+        })
+    })
+
+</script>
+<!--달력 계산해주는 함수
+<script>
+    $.datepicker.setDefaults({
+        closeText: "닫기",
+        prevText: "이전달",
+        nextText: "다음달",
+        currentText: "오늘",
+        monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
+            "7월", "8월", "9월", "10월", "11월", "12월"
+        ],
+        monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",
+            "7월", "8월", "9월", "10월", "11월", "12월"
+        ],
+        dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+        dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+        dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+        weekHeader: "주",
+        dateFormat: "yy년 m월 d일",
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: true,
+        yearSuffix: "년"
+    })
+    $("#datepicker").datepicker({
+        minDate: 0,
+        /* to use in wix */
+        onSelect: function (selected, event) {
+            console.log(selected);
+            /*
+             * wix-send-messages from html component
+             * https://support.wix.com/en/article/working-with-the-html-component-in-wix-code
+             */
+            window.parent.postMessage(selected, "*");
+        }
+    })
+</script>-->
 </body>
 </html>
