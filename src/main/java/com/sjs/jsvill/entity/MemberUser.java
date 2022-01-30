@@ -22,9 +22,6 @@ public class MemberUser extends BaseEntity {
     private Member member_rowid;
 
     @Column(length = 64, nullable = false)
-    private String userid;
-
-    @Column(length = 64, nullable = false)
     private String phone;
 
     @Column(length = 64, nullable = false)
