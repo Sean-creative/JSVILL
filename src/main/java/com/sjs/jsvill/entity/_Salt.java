@@ -18,7 +18,7 @@ public class _Salt extends BaseEntity {
     private Long _salt_rowid;
 
     @Column(length = 5, nullable = false)
-    private char id;
+    private String id;
 
     @Column(length = 255, nullable = false)
     private String salt;
