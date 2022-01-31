@@ -1,8 +1,9 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.MemberDTO;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.repository.MemberRepository;
+import com.sjs.jsvill.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

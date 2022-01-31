@@ -1,12 +1,9 @@
 package com.sjs.jsvill.service.member;
 
 
-import com.sjs.jsvill.dto.MemberDTO;
 import com.sjs.jsvill.dto.member.MemberAdminDTO;
 import com.sjs.jsvill.entity.Member;
-import com.sjs.jsvill.entity._MemberType;
 import com.sjs.jsvill.entity._Salt;
-import com.sjs.jsvill.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

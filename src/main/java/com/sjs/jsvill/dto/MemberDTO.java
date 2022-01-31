@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberDTO {
-    private _MemberType _memberType_rowid;
+    private Long _memberType_rowid;
     private String name;
 }

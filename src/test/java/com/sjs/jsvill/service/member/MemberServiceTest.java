@@ -2,8 +2,6 @@ package com.sjs.jsvill.service.member;
 
 
 import com.sjs.jsvill.dto.MemberDTO;
-import com.sjs.jsvill.entity._MemberType;
-import com.sjs.jsvill.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +17,9 @@ public class MemberServiceTest {
 
     @Test
     public void testRegister() {
-        _MemberType mt = _MemberType.builder()._membertype_rowid(10L).build();
         IntStream.rangeClosed(1, 3).forEach(i -> {
             MemberDTO memberDTO = MemberDTO.builder()
-                    ._memberType_rowid(mt)
+                    ._memberType_rowid(10L)
                     .name("username---------" +i)
                     .build();
             System.out.println(memberService.register(memberDTO));
