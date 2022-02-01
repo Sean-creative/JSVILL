@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberAdminDTO {
-    private Member memberR;
+    private Long memberR;
     private String userId;
     private String pw;
-    private _Salt saltId;
+    private String saltId;
 }

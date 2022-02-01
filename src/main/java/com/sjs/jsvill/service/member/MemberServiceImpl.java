@@ -17,11 +17,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Long register(MemberDTO dto) {
-        log.info("DTO-------------" );
-        log.info(dto);
+        //log.info("DTO-------------" );
+        //log.info(dto);
         Member member = dtoToEntity(dto);
-        memberRepository.save(member);
-        return member.getMember_rowid();
+        Member returnMember = memberRepository.save(member);
+        return returnMember.getMember_rowid();
     }
 
 //    @Override

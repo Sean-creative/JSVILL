@@ -19,9 +19,9 @@ public class MemberAdmin extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberadmin_rowid;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member_rowid")
-    private Member member_rowid;
+    private Member member;
 
     @Column(length = 64, nullable = false)
     private String userid;
@@ -31,6 +31,6 @@ public class MemberAdmin extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private _Salt salt_id;
+    private _Salt salt;
 
 }
