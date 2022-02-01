@@ -17,9 +17,9 @@ public class MemberUser extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberuser_rowid;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member_rowid")
-    private Member member_rowid;
+    private Member member;
 
     @Column(length = 64, nullable = false)
     private String phone;

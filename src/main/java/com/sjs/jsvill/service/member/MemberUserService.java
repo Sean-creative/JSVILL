@@ -10,7 +10,6 @@ public interface MemberUserService {
 
     default MemberUser dtoToEntity(MemberUserDTO dto) {
         MemberUser memberUser = MemberUser.builder()
-                .member_rowid(dto.getMemberR())
                 .phone(dto.getPhone())
                 .pin(dto.getPin())
                 .build();

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberUserDTO {
-    private Member memberR;
+    private Long memberR;
     private String phone;
     private String pin;
 }

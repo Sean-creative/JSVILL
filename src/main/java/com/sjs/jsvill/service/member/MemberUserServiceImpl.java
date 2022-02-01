@@ -2,9 +2,11 @@ package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.member.MemberAdminDTO;
 import com.sjs.jsvill.dto.member.MemberUserDTO;
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.MemberAdmin;
 import com.sjs.jsvill.entity.MemberUser;
 import com.sjs.jsvill.repository.MemberAdminRepository;
+import com.sjs.jsvill.repository.MemberRepository;
 import com.sjs.jsvill.repository.MemberUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,11 +18,18 @@ import org.springframework.stereotype.Service;
 public class MemberUserServiceImpl implements MemberUserService {
 
     private final MemberUserRepository memberUserRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public Long register(MemberUserDTO dto) {
         log.info("member admin dto");
-        MemberUser memberUser = dtoToEntity(dto);
+        Member member = memberRepository.getById(dto.getMemberR());
+        MemberUser memberUser = MemberUser.builder()
+                    .member(member)
+                    .phone(dto.getPhone())
+                    .pin(dto.getPin())
+                    .build();
+        //MemberUser memberUser = dtoToEntity(dto);
         memberUserRepository.save(memberUser);
         return memberUser.getMemberuser_rowid();
     }
