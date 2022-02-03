@@ -17,7 +17,7 @@ public class GroupDTO {
     private Long groupType_rowid;
     private String title;
     private String addr1;
-    private String postnum;
+    private String postNum;
     private String memo;
     private String completiondate;
 

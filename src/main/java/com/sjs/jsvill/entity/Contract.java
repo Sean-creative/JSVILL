@@ -47,5 +47,5 @@ public class Contract extends BaseEntity {
     private Long managementfees;
 
     @Column(length = 100, nullable = false)
-    private String paymentday;
+    private Long paymentday;
 }

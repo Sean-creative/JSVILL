@@ -28,11 +28,27 @@ public class Group extends BaseEntity {
     private String addr1;
 
     @Column(length = 10, nullable = false)
-    private String postnum;
+    private String postNum;
 
     @Column(nullable = false)
     private String memo;
 
     @Column(length = 32, nullable = false)
     private String completiondate;
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+    public void changeAddr1(String addr1){
+        this.addr1 = addr1;
+    }
+    public void changePostNum(String postNum){
+        this.postNum = postNum;
+    }
+    public void changeMemo(String memo){
+        this.memo = memo;
+    }
+    public void changeCompletionDate(String completiondate){
+        this.completiondate = completiondate;
+    }
 }

@@ -17,7 +17,6 @@ public class UnitRepositoryTests {
 
     @Test
     public void testRegister() {
-
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
         Group group = Group.builder().group_rowid(1L).groupType(groupType).build();
 
@@ -34,6 +33,4 @@ public class UnitRepositoryTests {
             System.out.println(unitRepository.save(unit));
         });
     }
-
-
 }

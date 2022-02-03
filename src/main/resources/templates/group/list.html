@@ -25,7 +25,7 @@
                     <div style="float:right">
                         <form action="/group/modify" method="post">
                             <input type="hidden" name="group_rowid" th:value="${dto.group_rowid}">
-                            <button>수정</button>
+                            <button formmethod="get" th:formaction="@{/group/edit(group_rowid=${dto.group_rowid})}">수정</button>
                             <button th:formaction="@{/group/remove}">삭제</button>
                         </form>
                     </div>
@@ -49,7 +49,7 @@
                     </a>
                 </div>
                 <div style="display:flex;flex-flow:row wrap;justify-content:space-between">
-                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/detail(uno=${unit.unit_rowid})}" class="unit">
+                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(uno=${unit.unit_rowid})}" class="unit">
                         [[${unit.addr2}]]
                     </a>
                 </div>

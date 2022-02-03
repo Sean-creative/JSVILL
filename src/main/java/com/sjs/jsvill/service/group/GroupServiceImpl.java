@@ -1,12 +1,10 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.entity.Group;
-import com.sjs.jsvill.entity.GroupMember;
-import com.sjs.jsvill.entity.Member;
-import com.sjs.jsvill.entity.Unit;
+import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.GroupMemberRepository;
 import com.sjs.jsvill.repository.GroupRepository;
+import com.sjs.jsvill.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -22,6 +21,7 @@ public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository; //반드시 final로 선언
     private final GroupMemberRepository groupMemberRepository;
+    private final UnitRepository unitRepository;
 
     @Override
     @Transactional
@@ -43,19 +43,15 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<GroupDTO> getList(Long member_rowid) {
         List<Group> groupList = groupRepository.getGroupWithMember(member_rowid);
-//        Map<Long, List<Unit>> groupMap = new HashMap();
         List<GroupDTO> groupDTOList = new ArrayList<>();
 
         for (Group group : groupList) {
-            System.out.println("group : " + group);
+//            System.out.println("group : " + group);
             List<Unit> unitList = groupRepository.getGroupWithUnit(group.getGroup_rowid());
-            for (Unit unit : unitList) {
-                System.out.println("unit : " + unit);
-            }
-                System.out.println("unitList : " + unitList);
-//            groupMap.put(group.getGroup_rowid(), unitList);
-//            System.out.println(groupMap.get(group.getGroup_rowid()));
-
+//            for (Unit unit : unitList) {
+//                System.out.println("unit : " + unit);
+//            }
+//                System.out.println("unitList : " + unitList);
             groupDTOList.add(entitiesToDTO(group, unitList));
         }
         return groupDTOList;
@@ -64,9 +60,32 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public Long remove(Long group_rowid) {
+        //삭제해야할 것들 -> groupMember, group, unit
         groupMemberRepository.deleteByGroup(group_rowid);
         groupRepository.deleteById(group_rowid);
+        unitRepository.deleteByGroupRowid(group_rowid);
         return group_rowid;
+    }
+
+    @Override
+    public Group get(Long group_rowid) {
+        Optional<Group> group = groupRepository.findById(group_rowid);
+        return group.get();
+    }
+
+    @Transactional
+    @Override
+    public void modify(GroupDTO groupDTO) {
+        Group group = groupRepository.getById(groupDTO.getGroup_rowid());
+
+        if(group != null) {
+            group.changeTitle(groupDTO.getTitle());
+            group.changeAddr1(groupDTO.getAddr1());
+            group.changePostNum(groupDTO.getPostNum());
+            group.changeMemo(groupDTO.getMemo());
+            group.changeCompletionDate(groupDTO.getCompletiondate());
+            groupRepository.save(group);
+        }
     }
 
 

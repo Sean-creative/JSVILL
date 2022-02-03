@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.dto.UnitDTO;
@@ -13,6 +13,8 @@ public interface GroupService {
     Long register(GroupDTO dto);
     List<GroupDTO> getList(Long member_rowid);
     Long remove(Long group_rowid);
+    Group get(Long group_rowid);
+    void modify(GroupDTO groupDTO);
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Group dtoToEntity(GroupDTO dto) {
@@ -23,7 +25,7 @@ public interface GroupService {
                 .groupType(groupType)
                 .title(dto.getTitle())
                 .addr1(dto.getAddr1())
-                .postnum(dto.getPostnum())
+                .postNum(dto.getPostNum())
                 .memo(dto.getMemo())
                 .completiondate(dto.getCompletiondate())
                 .build();
@@ -36,7 +38,7 @@ public interface GroupService {
                 .groupType_rowid(group.getGroupType().get_grouptype_rowid())
                 .title(group.getTitle())
                 .addr1(group.getAddr1())
-                .postnum(group.getPostnum())
+                .postNum(group.getPostNum())
                 .memo(group.getMemo())
                 .build();
         return groupDTO;
@@ -49,7 +51,7 @@ public interface GroupService {
                 .groupType_rowid(group.getGroupType().get_grouptype_rowid())
                 .title(group.getTitle())
                 .addr1(group.getAddr1())
-                .postnum(group.getPostnum())
+                .postNum(group.getPostNum())
                 .memo(group.getMemo())
                 .completiondate(group.getCompletiondate())
                 .build();
@@ -70,7 +72,8 @@ public interface GroupService {
             groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
             groupDTO.setTotalRentfee(unitList.stream().mapToLong(Unit::getRentfee).sum());
             groupDTO.setTotalManagementfees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
-            groupDTO.setTotalTenantCnt(10L);
+            //TODO 계약쪽 해결되면 고칠 것!
+            groupDTO.setTotalTenantCnt(0L);
         }
 
         return groupDTO;

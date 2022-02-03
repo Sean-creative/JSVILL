@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -30,7 +31,7 @@ public class GroupRepositoryTests {
                     .groupType(groupType)
                     .title("Test-title...." + i)
                     .addr1("Test-addr1...." + i)
-                    .postnum("T-p" + i)
+                    .postNum("T-p" + i)
                     .memo("Test-memo...." + i)
                     .build();
             System.out.println(groupRepository.save(group));
@@ -69,7 +70,11 @@ public class GroupRepositoryTests {
         }
     }
 
-
+    @Test
+    public void read() {
+        Optional<Group> group = groupRepository.findById(29L);
+        System.out.println("group : " + group.get());
+    }
 
 
 //    @Test

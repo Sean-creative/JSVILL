@@ -1,9 +1,11 @@
 package com.sjs.jsvill.service;
 
 import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.service.unit.UnitService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.stream.LongStream;
 
@@ -28,6 +30,12 @@ public class UnitServiceTests {
                     .build();
             System.out.println(unitService.register(unitDTO));
         });
+    }
+
+    @Test
+    @Commit
+    public void delete() {
+
     }
 //    @Test
 //    public void testList(){

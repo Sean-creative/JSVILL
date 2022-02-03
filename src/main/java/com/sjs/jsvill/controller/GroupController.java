@@ -1,7 +1,7 @@
 package com.sjs.jsvill.controller;
 
 import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.service.GroupService;
+import com.sjs.jsvill.service.group.GroupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,9 +19,17 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @RequestMapping("edit")
-    public void edit() {
-        log.info("editgroup");
+    @GetMapping("edit")
+    public void edit(long group_rowid, Model model) {
+        log.info("group_rowid: " + group_rowid);
+        //TODO 해당 그룹의 정보를 전달해줘야함 jpa-read로 쉽게 전달할 수 있을듯?
+        model.addAttribute("result" , groupService.get(group_rowid));
+    }
+    @PostMapping("edit")
+    public String edit(GroupDTO groupDTO, RedirectAttributes redirectAttributes){
+        log.info("groupDTO : " + groupDTO);
+        groupService.modify(groupDTO);
+        return "redirect:/group/list";
     }
 
     @GetMapping("register")
@@ -36,7 +44,7 @@ public class GroupController {
 
         Long gno = groupService.register(dto);
         log.info("result", gno);
-            return "redirect:/group/list";
+        return "redirect:/group/list";
     }
 
     @GetMapping("list")

@@ -1,7 +1,7 @@
 package com.sjs.jsvill.controller;
 
 import com.sjs.jsvill.dto.UnitDTO;
-import com.sjs.jsvill.service.UnitService;
+import com.sjs.jsvill.service.unit.UnitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -28,9 +28,7 @@ public class UnitController {
     @PostMapping("register")
     public String register(UnitDTO dto, RedirectAttributes redirectAttributes) {
         log.info("dto..." + dto);
-
         //TODO 로그인이 유지가 되면 컨트롤러에서 넣어줘도 상관없음
-
         Long gno = unitService.register(dto);
         log.info("result", gno);
         return "redirect:/group/list";
@@ -43,8 +41,14 @@ public class UnitController {
     @RequestMapping("communityWrite")
     public void communityWrite() {log.info("communityWrite");}
 
-    @RequestMapping("detail")
-    public void detail(int uno) {log.info("uno: " + uno);}
+
+    @GetMapping("read")
+    public void read(Long unit_rowid, Model model){
+        log.info("bno: " + unit_rowid);
+        UnitDTO unitDTO = unitService.get(unit_rowid);
+        log.info(unitDTO);
+        model.addAttribute("result", unitDTO);
+    }
 
     @GetMapping("/previousContract")
     public void previousContract() {log.info("previousContract");}
