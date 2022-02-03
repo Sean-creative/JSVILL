@@ -1,4 +1,4 @@
-package com.sjs.jsvill.dto;
+package com.sjs.jsvill.dto.member;
 
 import com.sjs.jsvill.entity._MemberType;
 import lombok.AllArgsConstructor;

@@ -1,11 +1,13 @@
 package com.sjs.jsvill.service.member;
 
-import com.sjs.jsvill.dto.MemberDTO;
+import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._MemberType;
 
 public interface MemberService {
     Long register(MemberDTO dto);
+
+    Member get(String phone);
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Member dtoToEntity(MemberDTO dto) {
