@@ -33,4 +33,10 @@ public class MemberUserServiceImpl implements MemberUserService {
         memberUserRepository.save(memberUser);
         return memberUser.getMemberuser_rowid();
     }
+
+    @Override
+    public MemberUser get(String phone) {
+        MemberUser user = memberUserRepository.findByPhone(phone);
+        return user;
+    }
 }

@@ -2,11 +2,13 @@ package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.member.MemberAdminDTO;
 import com.sjs.jsvill.dto.member.MemberUserDTO;
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.MemberAdmin;
 import com.sjs.jsvill.entity.MemberUser;
 
 public interface MemberUserService {
     Long register(MemberUserDTO dto);
+    MemberUser get(String phone);
 
     default MemberUser dtoToEntity(MemberUserDTO dto) {
         MemberUser memberUser = MemberUser.builder()

@@ -2,6 +2,7 @@ package com.sjs.jsvill.controller.member;
 
 import com.sjs.jsvill.dto.member.MemberUserDTO;
 import com.sjs.jsvill.entity.Member;
+import com.sjs.jsvill.entity.MemberUser;
 import com.sjs.jsvill.service.member.MemberService;
 import com.sjs.jsvill.service.member.MemberUserService;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class CtlMemberCheck {
 
-    private final MemberService memberService;
+    private final MemberUserService memberUserService;
 
     @ResponseBody
     @RequestMapping("/member/check/{phone}")
     public boolean action(@PathVariable("phone") String phone) {
         boolean result = false;
-        Member member = memberService.get(phone);
-        if(member!=null) result = true;
+        MemberUser user = memberUserService.get(phone);
+        if(user!=null) result = true;
         return result;
     }
 }

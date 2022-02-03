@@ -23,11 +23,7 @@ public class MemberServiceImpl implements MemberService {
         return returnMember.getMember_rowid();
     }
 
-    @Override
-    public Member get(String phone) {
-        Member member = memberRepository.findByPhone(phone);
-        return member;
-    }
+
 
 //    @Override
 //    public PageResultDTO<MemberDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
