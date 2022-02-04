@@ -1,8 +1,16 @@
 package com.sjs.jsvill.service.unit;
 
+import com.sjs.jsvill.dto.ContractDTO;
+import com.sjs.jsvill.dto.OptionDTO;
 import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.Option;
 import com.sjs.jsvill.entity.Unit;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public interface UnitService {
     Long register(UnitDTO dto);
@@ -36,6 +44,49 @@ public interface UnitService {
                 .managementfees(unit.getManagementfees())
                 .paymentday(unit.getPaymentday())
                 .memo(unit.getMemo())
+                .build();
+        return unitDTO;
+    }
+
+    default UnitDTO entityToDTOWithContract(Unit unit, List<Contract> contractList, List<Option> optionList, String title) {
+        List<ContractDTO> contractDTOList = new ArrayList<>();
+        List<OptionDTO> optionDTOList = new ArrayList<>();
+        if(!contractList.isEmpty()) {
+            contractDTOList = contractList.stream().map(contract -> ContractDTO.builder()
+                    .unit_rowid(contract.getUnit().getUnit_rowid())
+                    ._contracttype_rowid(contract.getContractType().get_contracttype_rowid())
+                    .title(contract.getTitle())
+                    .startdate(contract.getStartdate())
+                    .enddate(contract.getEnddate())
+                    .isprogressing(contract.getIsprogressing())
+                    .deposit(contract.getDeposit())
+                    .rentfee(contract.getRentfee())
+                    .managementfees(contract.getManagementfees())
+                    .paymentday(contract.getPaymentday())
+                    .build()
+            ).collect(Collectors.toList());
+        }
+        if(!optionList.isEmpty()) {
+            optionDTOList = optionList.stream().map(option -> OptionDTO.builder()
+                    .option_rowid(option.getOption_rowid())
+                    .contract_rowid(option.getContract().getContract_rowid())
+                    .title(option.getTitle())
+                    .build()
+            ).collect(Collectors.toList());
+        }
+
+        UnitDTO unitDTO = UnitDTO.builder()
+                .unit_rowid(unit.getUnit_rowid())
+                .group_rowid(unit.getGroup().getGroup_rowid())
+                .addr2(unit.getAddr2())
+                .deposit(unit.getDeposit())
+                .rentfee(unit.getRentfee())
+                .managementfees(unit.getManagementfees())
+                .paymentday(unit.getPaymentday())
+                .memo(unit.getMemo())
+                .groupTitle(title)
+                .contractDTOList(contractDTOList)
+                .optionDTOList(optionDTOList)
                 .build();
         return unitDTO;
     }

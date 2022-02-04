@@ -33,6 +33,13 @@ public class UnitServiceTests {
     }
 
     @Test
+    public void get() {
+        UnitDTO unitDTO = unitService.get(1L);
+        System.out.println(unitDTO.toString());
+    }
+
+
+    @Test
     @Commit
     public void delete() {
 

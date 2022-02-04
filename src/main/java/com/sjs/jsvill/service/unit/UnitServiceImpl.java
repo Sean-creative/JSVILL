@@ -5,12 +5,14 @@ import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Option;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.repository.ContractRepository;
+import com.sjs.jsvill.repository.GroupRepository;
 import com.sjs.jsvill.repository.OptionRepository;
 import com.sjs.jsvill.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor //의존성 자동 주입 -> repository가 자동 주입
 public class UnitServiceImpl implements UnitService {
 
+    private final GroupRepository groupRepository;
     private final UnitRepository unitRepository; //반드시 final로 선언
     private final ContractRepository contractRepository;
     private final OptionRepository optionRepository;
@@ -32,18 +35,17 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
+    @Transactional
     public UnitDTO get(Long unit_rowid) {
+        Unit unit = unitRepository.getById(unit_rowid);
         List<Contract> contractList =  contractRepository.findByUnit(unit_rowid);
-        //TODO 지금 계약중인 계약 하나 가져와서 -> contract_rowid
+        //지금 계약중인 계약 하나(contract_rowid) 가져와서 -> 옵션을 찾는다.
         long contract_rowid = contractList.stream().filter(c->c.getIsprogressing()).findFirst().get().getContract_rowid();
         log.info("contract_rowid : " + contract_rowid);
         List<Option> optionList = optionRepository.findByContract(contract_rowid);
-        for (Option option : optionList) {
-            System.out.println("option : " + option);
-        }
-
-
-        return new UnitDTO();
+        for (Option option : optionList) System.out.println("option : " + option);
+        UnitDTO unitDTO = entityToDTOWithContract(unit, contractList ,optionList, unit.getGroup().getTitle());
+        return unitDTO;
     }
 
 
