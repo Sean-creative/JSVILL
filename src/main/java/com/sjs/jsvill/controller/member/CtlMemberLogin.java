@@ -1,6 +1,7 @@
 package com.sjs.jsvill.controller.member;
 
 import com.sjs.jsvill.dto.member.MemberLoginDTO;
+import com.sjs.jsvill.dto.member.MemberUserLoginDTO;
 import com.sjs.jsvill.entity.MemberUser;
 import com.sjs.jsvill.service.member.MemberUserService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,10 @@ public class CtlMemberLogin {
 
     @ResponseBody
     @RequestMapping("/member/login/{phone}")
-    public MemberUser action(@PathVariable("phone") String phone, @RequestBody MemberLoginDTO memberLogin) {
-        MemberUser memberUser = memberUserService.login(phone, memberLogin);
+    public MemberUserLoginDTO action(@PathVariable("phone") String phone, @RequestBody MemberLoginDTO memberLogin) {
+        MemberUserLoginDTO memberUser = memberUserService.login(phone, memberLogin);
         if(memberUser==null) { //memberUser가 없다면, 빈 MemberUser 객체를 만들기
-            memberUser = new MemberUser();
+            memberUser = new MemberUserLoginDTO();
         }
        return memberUser;
     }

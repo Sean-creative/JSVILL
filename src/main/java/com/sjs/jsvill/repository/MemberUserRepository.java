@@ -1,7 +1,5 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.dto.member.MemberLoginDTO;
-import com.sjs.jsvill.entity.MemberAdmin;
 import com.sjs.jsvill.entity.MemberUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
