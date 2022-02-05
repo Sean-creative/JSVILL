@@ -7,7 +7,7 @@
 </head>
 <th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <div class="pageTitle">건물관리/ [명일동 JSVILL]/ [101호]</div>
+        <div class="pageTitle">건물관리 / [[${result.groupAddr}]] [[${result.groupTitle}]] / [[${result.addr2}]]</div>
         <a href="/unit/contractRegister" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
             계약추가
         </a>
@@ -25,30 +25,27 @@
                         </div>
                         <div style="border-left:2px solid gray;padding:0 20px">
                             <div style="font-weight:bold">보증금</div>
-                            <div style="margin-top:10px">5000만원</div>
+                            <div style="margin-top:10px">[[${result.deposit}]]만원</div>
 
                             <div style="display:flex;margin-top:30px">
                                 <div>
                                     <div style="font-weight:bold">월세/관라비</div>
-                                    <div style="margin-top:10px">30만원/10만원</div>
+                                    <div style="margin-top:10px">[[${result.rentfee}]]만원/[[${result.managementfees}]]만원</div>
                                 </div>
                                 <div style="margin-left:40px">
                                     <div style="font-weight:bold">납부일</div>
-                                    <div style="margin-top:10px">매달 1일</div>
+                                    <div style="margin-top:10px">매달 [[${result.paymentday}]]일</div>
                                 </div>
                             </div>
                         </div>
                         <div style="border-left:2px solid gray;padding:0 20px">
                             <div style="font-weight:bold">비고</div>
-                            <div style="margin-top:10px">강아지 키움</div>
+                            <div style="margin-top:10px">[[${result.memo}]]</div>
                         </div>
                     </div>
                     <div class="infoInner" style="margin-top:30px;line-height:25px;padding:0 8px">
-                        <div style="font-weight:bold;padding:5px 10px">4개의 옵션</div>
-                        <div style="border-top:2px solid gray;padding:5px 10px">전자레인지 (파손됨)</div>
-                        <div style="border-top:2px solid gray;padding:5px 10px">냉장고</div>
-                        <div style="border-top:2px solid gray;padding:5px 10px">인덕션</div>
-                        <div style="border-top:2px solid gray;padding:5px 10px">침대</div>
+                        <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(result.optionDTOList)}]]개의 옵션</div>
+                        <div th:each="option:${result.optionDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${option.title}]]</div>
                     </div>
                 </div>
                 <div style="margin-top:10px">

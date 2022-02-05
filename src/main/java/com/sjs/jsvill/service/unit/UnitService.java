@@ -48,9 +48,10 @@ public interface UnitService {
         return unitDTO;
     }
 
-    default UnitDTO entityToDTOWithContract(Unit unit, List<Contract> contractList, List<Option> optionList, String title) {
+    default UnitDTO entityToDTOWithContract(Unit unit, List<Contract> contractList, List<Option> optionList) {
         List<ContractDTO> contractDTOList = new ArrayList<>();
         List<OptionDTO> optionDTOList = new ArrayList<>();
+        Group group = unit.getGroup();
         if(!contractList.isEmpty()) {
             contractDTOList = contractList.stream().map(contract -> ContractDTO.builder()
                     .unit_rowid(contract.getUnit().getUnit_rowid())
@@ -84,7 +85,8 @@ public interface UnitService {
                 .managementfees(unit.getManagementfees())
                 .paymentday(unit.getPaymentday())
                 .memo(unit.getMemo())
-                .groupTitle(title)
+                .groupTitle(group.getTitle())
+                .groupAddr(group.getAddr1())
                 .contractDTOList(contractDTOList)
                 .optionDTOList(optionDTOList)
                 .build();

@@ -44,7 +44,7 @@ public class UnitServiceImpl implements UnitService {
         log.info("contract_rowid : " + contract_rowid);
         List<Option> optionList = optionRepository.findByContract(contract_rowid);
         for (Option option : optionList) System.out.println("option : " + option);
-        UnitDTO unitDTO = entityToDTOWithContract(unit, contractList ,optionList, unit.getGroup().getTitle());
+        UnitDTO unitDTO = entityToDTOWithContract(unit, contractList ,optionList);
         return unitDTO;
     }
 

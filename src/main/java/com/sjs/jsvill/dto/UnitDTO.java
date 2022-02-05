@@ -23,6 +23,7 @@ public class UnitDTO {
     private String memo; //비고
 
     private String groupTitle;//건물이름
+    private String groupAddr;//건물주소
 
     //계약리스트
     private List<ContractDTO> contractDTOList = new ArrayList<>();
