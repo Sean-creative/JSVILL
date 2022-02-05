@@ -1,6 +1,7 @@
 package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.member.MemberAdminDTO;
+import com.sjs.jsvill.dto.member.MemberLoginDTO;
 import com.sjs.jsvill.dto.member.MemberUserDTO;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.MemberAdmin;
@@ -37,6 +38,12 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Override
     public MemberUser get(String phone) {
         MemberUser user = memberUserRepository.findByPhone(phone);
+        return user;
+    }
+
+    @Override
+    public MemberUser login(String phone, MemberLoginDTO memberUser) {
+        MemberUser user = memberUserRepository.findByPhoneAndPin(memberUser.getPhone(), memberUser.getPin());
         return user;
     }
 }
