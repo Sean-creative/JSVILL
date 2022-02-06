@@ -28,5 +28,5 @@ public class Tenant extends BaseEntity {
     private String phone;
 
     @Column(nullable = false)
-    private Integer ishead;
+    private Boolean ishead;
 }

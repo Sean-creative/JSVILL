@@ -32,7 +32,6 @@ public class UnitController {
         Long gno = unitService.register(dto);
         log.info("result", gno);
         return "redirect:/group/list";
-
     }
 
     @RequestMapping("edit")
@@ -53,9 +52,4 @@ public class UnitController {
     @GetMapping("/previousContract")
     public void previousContract() {log.info("previousContract");}
 
-    @GetMapping("/contractRegister")
-    public void contractRegister() {log.info("contractRegister");}
-
-    @GetMapping("/contractEdit")
-    public void contractEdit() {log.info("contractEdit");}
 }
