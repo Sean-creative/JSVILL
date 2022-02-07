@@ -18,10 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Log4j2
 @RequiredArgsConstructor
 public class ContractController {
-
     private final ContractService contractService;
     private final UnitService unitService;
-
 
     @GetMapping("/register")
     public void register(Long unit_rowid, Model model) {
@@ -32,9 +30,9 @@ public class ContractController {
     }
     @PostMapping("register")
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
-        log.info("dto..." + contractDTO);
+        log.info("ContractDTO..." + contractDTO);
 //        contractService.register(contractDTO);
-        return "redirect:/group/list";
+        return "redirect:/unit/read?unit_rowid="+contractDTO.getUnit_rowid();
     }
 
     @GetMapping("/edit")

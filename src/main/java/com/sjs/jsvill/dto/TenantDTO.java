@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class TenantDTO {
     private String title;
     private String phone;
-    private Boolean ishead;
+    private Boolean isHead;
 }

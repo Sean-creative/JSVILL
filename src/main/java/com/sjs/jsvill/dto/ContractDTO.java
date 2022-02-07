@@ -26,6 +26,6 @@ public class ContractDTO {
     private Long paymentday; //납부일
 
 
-    private List<CarDTO> carDTOList = new ArrayList<>();
     private List<TenantDTO> tenantDTOList = new ArrayList<>();
+    private List<CarDTO> carDTOList = new ArrayList<>();
 }
