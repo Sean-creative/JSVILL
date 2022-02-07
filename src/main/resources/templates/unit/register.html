@@ -4,10 +4,6 @@
     <title>호실 등록</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/registerUnit.css"/>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 </head>
 <body>
 
@@ -76,83 +72,20 @@
                 <button type="button" class="registerBtn" style="cursor:pointer">등록</button>
             </div>
         </form>
+        <script>
+            const scriptTag = /[~^&()|<>?]/;
+            const actionForm = $("form"); //form 태그 객체
+            $(".cancelBtn").click(function () {
+                history.back()
+            });
+            $(".registerBtn").click(function () {
+                //TODO 클릭 했을 때는 class인 애들을 다 모아서 반복문 돌리면서 p태그에 공백인지 확인해야함?
+                if($("input[name=addr2]").val()=="") window.alert('호수를 입력해주세요!')
+                else actionForm.submit()
+            });
+        </script>
     </th:block>
 </th:block>
-<script th:inline="javascript">
-    const scriptTag = /[~^&()|<>?]/;
-    const actionForm = $("form"); //form 태그 객체
-    $(".cancelBtn").click(function () {
-        history.back()
-    });
-    $(".registerBtn").click(function () {
-        //TODO 클릭 했을 때는 class인 애들을 다 모아서 반복문 돌리면서 p태그에 공백인지 확인해야함?
-        if($("input[name=addr2]").val()=="") window.alert('호수를 입력해주세요!')
-        else actionForm.submit()
-    });
 
-    $(function () {
-        $('.check').on('change', function () {
-            const thisVal = $(this).val();
-            console.log("thisVal.length", thisVal.length)
-            console.log("thisVal.value", thisVal)
-            let checkText = "";
-            switch ($(this).attr("name")) {
-                case "addr2":
-                    if (thisVal.length == 0) {
-                        checkText = "호수를 입력해주세요.";
-                    } else if (thisVal.length > 10) {
-                        checkText = "10글자 이내로 입력해주세요.";
-                    }
-                    break;
-            }
-            console.log("checkText : " + checkText)
-            if (checkText != "") {
-                $(this).siblings("p").html(checkText);
-                $(this).siblings("p").addClass("vali");
-                $(this).siblings("p").slideDown();
-            } else {
-                $(this).siblings("p").slideUp(function () {
-                    $(this).removeClass("vali");
-                });
-            }
-        })
-    })
-</script>
-<!--달력 계산해주는 함수
-<script>
-    $.datepicker.setDefaults({
-        closeText: "닫기",
-        prevText: "이전달",
-        nextText: "다음달",
-        currentText: "오늘",
-        monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
-            "7월", "8월", "9월", "10월", "11월", "12월"
-        ],
-        monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",
-            "7월", "8월", "9월", "10월", "11월", "12월"
-        ],
-        dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
-        dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
-        dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-        weekHeader: "주",
-        dateFormat: "yy년 m월 d일",
-        firstDay: 0,
-        isRTL: false,
-        showMonthAfterYear: true,
-        yearSuffix: "년"
-    })
-    $("#datepicker").datepicker({
-        minDate: 0,
-        /* to use in wix */
-        onSelect: function (selected, event) {
-            console.log(selected);
-            /*
-             * wix-send-messages from html component
-             * https://support.wix.com/en/article/working-with-the-html-component-in-wix-code
-             */
-            window.parent.postMessage(selected, "*");
-        }
-    })
-</script>-->
 </body>
 </html>
