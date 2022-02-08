@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-public class CtlApiLetterWp {
+public class CtlApiLetterW {
 
-    @RequestMapping("/letter/wp")
+    @RequestMapping("/letter/w")
     public String appLetter() {
         log.info("user letter");
         return "/app/letter";
