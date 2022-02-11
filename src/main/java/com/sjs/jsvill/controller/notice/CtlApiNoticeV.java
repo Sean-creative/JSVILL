@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CtlApiNoticeV {
 
     @RequestMapping("/notice/v")
-    public String appHome() {
+    public String appNoticeV() {
         log.info("user noticeDetail");
         return "/app/noticeDetail";
     }
