@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-public class CtlApiBoard {
+public class CtlApiBoardW {
 
-    @RequestMapping("/board")
-    public String appBoard() {
-        log.info("user board");
+    @RequestMapping("/board/w")
+    public String appBoardW() {
+        log.info("user board w");
         return "/app/letter";
     }
 
