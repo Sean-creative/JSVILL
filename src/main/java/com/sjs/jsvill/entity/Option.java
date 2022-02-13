@@ -19,8 +19,9 @@ public class Option extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "contract_rowid")
-    private Contract contract;
+    private Contarct contarct;
 
+    //이름은 List이지만 ,로 구분하는 string 값으로 들어가 있음
     @Column(length = 64, nullable = false)
-    private String title;
+    private String optionList;
 }

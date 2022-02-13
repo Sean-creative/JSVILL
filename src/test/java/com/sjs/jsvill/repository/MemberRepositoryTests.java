@@ -1,6 +1,5 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._MemberType;
 import org.junit.jupiter.api.Test;

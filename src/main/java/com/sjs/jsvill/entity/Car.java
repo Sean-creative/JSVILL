@@ -10,17 +10,19 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"contract"})
+@ToString(exclude = {"tenant"})
 public class Car extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long car_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "contract_rowid")
-    private Contract contract;
+    @JoinColumn(name = "tenant_rowid")
+    private Tenant tenant;
 
     @Column(length = 64, nullable = false)
     private String title;
+
+    @Column(length = 64, nullable = false)
+    private String number;
 }

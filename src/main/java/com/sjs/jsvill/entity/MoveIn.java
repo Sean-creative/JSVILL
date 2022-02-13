@@ -23,7 +23,7 @@ public class MoveIn extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "contract_rowid")
-    private Contract contract;
+    private Contarct contarct;
 
     @Column(nullable = false)
     private String note;

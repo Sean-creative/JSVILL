@@ -13,9 +13,4 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     Integer deleteByGroupRowid(@Param("group_rowid") Long group_rowid);
 
 
-//    @Query("SELECT b, w, count(r) " +
-//            " FROM Board b LEFT JOIN b.writer w " +
-//            " LEFT OUTER JOIN Reply r ON r.board = b" +
-//            " WHERE b.bno = :bno")
-//    Object getBoardByBno(@Param("bno") Long bno);
 }

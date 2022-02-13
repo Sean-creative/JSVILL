@@ -10,23 +10,26 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"contract"})
+@ToString(exclude = {"unit"})
 public class Tenant extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tenant_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "contract_rowid")
-    private Contract contract;
+    @JoinColumn(name = "unit_rowid")
+    private Unit unit;
 
     @Column(length = 64, nullable = false)
     private String title;
 
-    @Column(length = 64, nullable = false)
+    @Column(length = 64, nullable = false, unique = true)
     private String phone;
 
-    @Column(nullable = false)
-    private Boolean ishead;
+    @Column (nullable = false)
+    private boolean isContractor;
+
+    @ManyToOne
+    @JoinColumn(name = "_livingtype_rowid", nullable = false)
+    private _LivingType livingType;
 }

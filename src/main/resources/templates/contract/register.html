@@ -1,137 +1,101 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <title>계약 등록</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/hibitant/registerHabitant.css"/>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--    <title>계약 등록</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <link rel="stylesheet" href="/css/contarct/registertenant.css"/>-->
+<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-</head>
-<body>
-
-<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
-    <th:block th:fragment="content">
-        <div class="pageTitle">건물관리 / [[${result.groupTitle}]] / [[${result.addr2}]] / 계약 등록</div>
-        <form action="/contract/register" method="post">
-            <div class="info">
-                <div class="subTitle">
-                    계약일
-                </div>
-                <div style="display:flex;align-items:center;text-align: center;">
-                    <div style="flex:1">
-                        계약 시작일
-                        <div class="wrapper" style="margin-top:10px">
-                            <input type="text" id="datepicker" placeholder="날짜를 선택하세요." readonly="true"/>
-                            <i class="ion-calendar"></i>
-                        </div>
-                    </div>
-                    <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
-                    <div style="flex:1">
-                        계약 만료일
-                        <div class="wrapper" style="margin-top:10px">
-                            <input type="text" id="datepicker" placeholder="날짜를 선택하세요." readonly="true"/>
-                            <i class="ion-calendar"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">-->
+<!--    <th:block th:fragment="content">-->
+<!--        <div class="pageTitle">건물관리 / [[${result.groupTitle}]] / [[${result.addr2}]] / 계약 등록</div>-->
+<!--        <form action="/contarct/register" method="post">-->
+<!--            <div class="info">-->
+<!--                <div class="subTitle">-->
+<!--                    계약일-->
+<!--                </div>-->
+<!--                <div style="display:flex;align-items:center;text-align: center;">-->
+<!--                    <div style="flex:1">-->
+<!--                        계약 시작일-->
+<!--                        <div class="wrapper" style="margin-top:10px">-->
+<!--                            <input type="date" style="border:1px solid black;border-radius:8px">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>-->
+<!--                    <div style="flex:1">-->
+<!--                        계약 만료일-->
+<!--                        <div class="wrapper" style="margin-top:10px">-->
+<!--                            <input type="date" style="border:1px solid black;border-radius:8px">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
 
-            <div class="info">
-                <div class="subTitle">
-                    입주자
-                </div>
-                <div style="display:flex;align-items: center;justify-content: space-between">
-                    <div style="width:82%;display:flex;align-items:center">
-                        <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
-                        <input type="text" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
-                        <input type="checkbox" name="tenantDTOList[0].isHead" style="height:fit-content;margin-left:20px;background:#F6F6F6"><span style="margin-left:5px">세대주</span>
-                    </div>
-                    <button type="button" class="tenantAddBtn" style="padding:5px;background:gray;border:none;color:white;margin-left:20px">+입주자 추가</button>
-                </div>
-                <div class="tenantAddSection"></div>
-                <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
+<!--            <div class="info">-->
+<!--                <div class="subTitle">-->
+<!--                    입주자-->
+<!--                </div>-->
+<!--                <div style="display:flex;align-items: center;justify-content: space-between">-->
+<!--                    <div style="width:82%;display:flex;align-items:center">-->
+<!--                        <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">-->
+<!--                        <input type="text" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">-->
+<!--                        <input type="checkbox" name="tenantDTOList[0].isHead" style="height:fit-content;margin-left:20px;background:#F6F6F6"><span style="margin-left:5px">세대주</span>-->
+<!--                    </div>-->
+<!--                    <button type="button" class="tenantAddBtn" style="padding:5px;background:gray;border:none;color:white;margin-left:20px">+입주자 추가</button>-->
+<!--                </div>-->
+<!--                <div class="tenantAddSection"></div>-->
+<!--                <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>-->
 
-            </div>
+<!--            </div>-->
 
-            <div class="info">
-                <div class="subTitle">차량</div>
-                <div>
-                    차량 번호
-                    <div style="display:flex;margin-top:10px">
-                        <input name="carDTOList[0].title" type="text" style="width:82%;background:#F6F6F6">
-                        <button type="button" class="carAddBtn" style="padding:5px;background:gray;border:none;color:white;margin-left:20px">+차량 추가</button>
-                    </div>
-                    <div class="carAddSection"></div>
-                </div>
-            </div>
+<!--            <div class="info">-->
+<!--                <div class="subTitle">차량</div>-->
 
-            <div style="margin-top:20px">
-                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
-                <input type="hidden" name="unit_rowid" th:value="${result.unit_rowid}">
-                <button class="registerBtn">등록</button>
-            </div>
-        </form>
-    </th:block>
-</th:block>
-<script th:inline="javascript">
-    let tenantCnt = 0
-    let carCnt = 0
-    $(".tenantAddBtn").on("click", function (e) {
-        let str = $(".tenantAddSection").html()
-        str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="tenantDTOList['+tenantCnt+'].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
-            '                        <input type="text" name="tenantDTOList['+tenantCnt+'].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
-            '                        <input type="checkbox" name="tenantDTOList['+tenantCnt+'].isHead" style="height:fit-content;margin-left:20px;background:#F6F6F6"><span style="margin-left:5px">세대주</span>\n' +
-            '                    </div>'
-        $(".tenantAddSection").html(str)
-        tenantCnt++
-    })
+<!--                <div style="display:flex;align-items: center;justify-content: space-between;margin-top:10px">-->
+<!--                    <div style="width:82%;display:flex;align-items:center">-->
+<!--                        <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="margin-left:20px;background:#F6F6F6">-->
+<!--                        <input type="text" name="carDTOList[0].title" placeholder="차종" style="background:#F6F6F6">-->
+<!--                        <input type="text" name="carDTOList[0].phone" placeholder="차주 연락처" style="margin-left:20px;background:#F6F6F6">-->
+<!--                    </div>-->
+<!--                    <button type="button" class="carAddBtn" style="padding:5px;background:gray;border:none;color:white;margin-left:20px">+차량 추가</button>-->
+<!--                </div>-->
+<!--                <div class="carAddSection"></div>-->
+<!--            </div>-->
 
-    $(".carAddBtn").on("click", function (e) {
-        let str = $(".carAddSection").html()
-        str += ' <div style="display:flex;margin-top:10px">\n' +
-            '                        <input type="text" name="carDTOList['+carCnt+'].title"style="width:82%;background:#F6F6F6">\n' +
-            '                    </div>'
-        $(".carAddSection").html(str)
-        carCnt++
-    })
+<!--            <div style="margin-top:20px">-->
+<!--                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>-->
+<!--                <input type="hidden" name="unit_rowid" th:value="${result.unit_rowid}">-->
+<!--                <button class="registerBtn">등록</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </th:block>-->
+<!--</th:block>-->
+<!--<script th:inline="javascript">-->
+<!--    let tenantCnt = 0-->
+<!--    let carCnt = 0-->
+<!--    $(".tenantAddBtn").on("click", function (e) {-->
+<!--        let str = $(".tenantAddSection").html()-->
+<!--        str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +-->
+<!--            '                        <input type="text" name="tenantDTOList['+tenantCnt+'].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +-->
+<!--            '                        <input type="text" name="tenantDTOList['+tenantCnt+'].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +-->
+<!--            '                    </div>'-->
+<!--        $(".tenantAddSection").html(str)-->
+<!--        tenantCnt++-->
+<!--    })-->
 
-    $.datepicker.setDefaults({
-        closeText: "닫기",
-        prevText: "이전달",
-        nextText: "다음달",
-        currentText: "오늘",
-        monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
-            "7월", "8월", "9월", "10월", "11월", "12월"
-        ],
-        monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월",
-            "7월", "8월", "9월", "10월", "11월", "12월"
-        ],
-        dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
-        dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
-        dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-        weekHeader: "주",
-        dateFormat: "yy년 m월 d일",
-        firstDay: 0,
-        isRTL: false,
-        showMonthAfterYear: true,
-        yearSuffix: "년"
-    })
-    $("#datepicker").datepicker({
-        minDate: 0,
-        /* to use in wix */
-        onSelect: function (selected, event) {
-            console.log(selected);
-            /*
-             * wix-send-messages from html component
-             * https://support.wix.com/en/article/working-with-the-html-component-in-wix-code
-             */
-            window.parent.postMessage(selected, "*");
-        }
-    })
-</script>
-</body>
-</html>
+<!--    $(".carAddBtn").on("click", function (e) {-->
+<!--        let str = $(".carAddSection").html()-->
+<!--        str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +-->
+<!--            '                        <input type="text" name="carDTOList['+carCnt+'].number" placeholder="차량번호" style="margin-left:20px;background:#F6F6F6">\n' +-->
+<!--            '                        <input type="text" name="carDTOList['+carCnt+'].title" placeholder="차종" style="background:#F6F6F6">\n' +-->
+<!--            '                        <input type="text" name="carDTOList['+carCnt+'].phone" placeholder="차주 연락처" style="margin-left:20px;background:#F6F6F6">\n' +-->
+<!--            '                    </div>'-->
+<!--        $(".carAddSection").html(str)-->
+<!--        carCnt++-->
+<!--    })-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

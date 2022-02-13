@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class CarDTO {
     private String title;
+    private String number;
 }

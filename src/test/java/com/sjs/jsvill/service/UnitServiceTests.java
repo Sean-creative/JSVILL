@@ -19,13 +19,13 @@ public class UnitServiceTests {
     public void testRegister() {
         LongStream.rangeClosed(1, 3).forEach(i -> {
             UnitDTO unitDTO = UnitDTO.builder()
-                    .unit_rowid(i)
-                    .group_rowid(1L)
+                    .unitRowid(i)
+                    .groupRowid(1L)
                     .addr2("addr2" + i)
                     .deposit(i)
-                    .rentfee(i)
-                    .managementfees(i)
-                    .paymentday(i)
+                    .rentFee(i)
+                    .managementFees(i)
+                    .paymentDay(i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitService.register(unitDTO));

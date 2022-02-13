@@ -42,12 +42,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<GroupDTO> getList(Long member_rowid) {
-        List<Group> groupList = groupRepository.getGroupWithMember(member_rowid);
+        List<Group> groupList = groupRepository.getGroupWithAll(member_rowid);
         List<GroupDTO> groupDTOList = new ArrayList<>();
 
         for (Group group : groupList) {
 //            System.out.println("group : " + group);
-            List<Unit> unitList = groupRepository.getGroupWithUnit(group.getGroup_rowid());
+            List<Unit> unitList = groupRepository.getUnitWithGroup(group.getGroup_rowid());
 //            for (Unit unit : unitList) {
 //                System.out.println("unit : " + unit);
 //            }
@@ -76,14 +76,14 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     @Override
     public void modify(GroupDTO groupDTO) {
-        Group group = groupRepository.getById(groupDTO.getGroup_rowid());
+        Group group = groupRepository.getById(groupDTO.getGroupRowid());
 
         if(group != null) {
             group.changeTitle(groupDTO.getTitle());
             group.changeAddr1(groupDTO.getAddr1());
             group.changePostNum(groupDTO.getPostNum());
             group.changeMemo(groupDTO.getMemo());
-            group.changeCompletionDate(groupDTO.getCompletiondate());
+            group.changeCompletionDate(groupDTO.getCompletionDate());
             groupRepository.save(group);
         }
     }

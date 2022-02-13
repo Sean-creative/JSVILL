@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -21,10 +20,9 @@ public class GroupRepositoryTests {
     @Test
     public void testRegister() {
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
-        _GroupType groupType2 = _GroupType.builder()._grouptype_rowid(20L).build();
         Member member = Member.builder().member_rowid(1L).build();
 
-        //그룹을 만들때 GroupMember도 같이 만들어야한다.
+        //1. 그룹을 만들때 GroupMember도 같이 save해야한다.
         IntStream.rangeClosed(1, 2).forEach(i -> {
             //_GroupType은 이미 등록이 되어있는 상태이고, rowid로 사용해야함
             Group group = Group.builder()
@@ -33,6 +31,7 @@ public class GroupRepositoryTests {
                     .addr1("Test-addr1...." + i)
                     .postNum("T-p" + i)
                     .memo("Test-memo...." + i)
+                    .completiondate("Test-completiondate...." + i)
                     .build();
             System.out.println(groupRepository.save(group));
 
@@ -45,8 +44,8 @@ public class GroupRepositoryTests {
     }
 
     @Test
-    public void getGroupWithUnit() {
-        List<Unit> result = groupRepository.getGroupWithUnit(1L);
+    public void getUnitWithGroup() {
+        List<Unit> result = groupRepository.getUnitWithGroup(1L);
         System.out.println("result.length : " + result.size());
         for (Unit unit : result) {
             System.out.println("unit : " + unit);
@@ -64,7 +63,7 @@ public class GroupRepositoryTests {
 
     @Test
     public void getGroupWithMember() {
-        List<Group> result = groupRepository.getGroupWithMember(1L);
+        List<Group> result = groupRepository.getGroupWithAll(1L);
         for (Group arr : result) {
             System.out.println("arr : " + arr);
         }
@@ -72,8 +71,10 @@ public class GroupRepositoryTests {
 
     @Test
     public void read() {
-        Optional<Group> group = groupRepository.findById(29L);
-        System.out.println("group : " + group.get());
+        Object[] arr = groupRepository.getGroupList(1L);
+
+        System.out.println(arr[0].toString());
+        System.out.println(arr[1].toString());
     }
 
 

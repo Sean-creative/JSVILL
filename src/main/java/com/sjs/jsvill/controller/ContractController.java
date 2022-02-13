@@ -32,7 +32,7 @@ public class ContractController {
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
         log.info("ContractDTO..." + contractDTO);
 //        contractService.register(contractDTO);
-        return "redirect:/unit/read?unit_rowid="+contractDTO.getUnit_rowid();
+        return "redirect:/unit/read?unit_rowid=1";
     }
 
     @GetMapping("/edit")

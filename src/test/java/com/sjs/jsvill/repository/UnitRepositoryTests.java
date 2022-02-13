@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -16,7 +17,7 @@ public class UnitRepositoryTests {
     private UnitRepository unitRepository;
 
     @Test
-    public void testRegister() {
+    public void register() {
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
         Group group = Group.builder().group_rowid(1L).groupType(groupType).build();
 
@@ -32,5 +33,11 @@ public class UnitRepositoryTests {
                     .build();
             System.out.println(unitRepository.save(unit));
         });
+    }
+
+    @Transactional
+    @Test
+    public void delete() {
+        System.out.println(unitRepository.deleteByGroupRowid(3L));
     }
 }
