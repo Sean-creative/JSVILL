@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
+
     @Query("select c from Car c where c.tenant.tenant_rowid=:tenant_rowid")
     List<Car> findByTenant(@Param("tenant_rowid") Long tenant_rowid);
 }
