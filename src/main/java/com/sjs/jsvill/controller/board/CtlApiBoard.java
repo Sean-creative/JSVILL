@@ -21,10 +21,7 @@ public class CtlApiBoard {
     @ResponseBody
     public List<BoardResDTO> appBoard() {
         log.info("user board");
-
         List<BoardResDTO> result = boardService.getBoardList();
-        System.out.print("controller size----" + result.size());
-
         return result;
     }
 

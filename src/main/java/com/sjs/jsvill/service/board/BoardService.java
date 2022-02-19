@@ -6,6 +6,7 @@ import com.sjs.jsvill.dto.board.BoardResDTO;
 import com.sjs.jsvill.entity.Board;
 import com.sjs.jsvill.entity.Member;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,10 @@ public interface BoardService {
             Board eBoard = list.get(i);
             BoardResDTO dBoard = BoardResDTO.builder()
                     .contents(eBoard.getContents())
-                    .regDate(""+eBoard.getRegDate())
-                    .writer(""+eBoard.getMember_rowid().getName())
+                    .regDate(eBoard.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                    .writer(eBoard.getMember_rowid().getName())
+                    .isDeleted("1".equals(eBoard.getIsdeleted()))
+                    .isAdmin(10==eBoard.getMember_rowid().get_memberType().get_membertype_rowid())
                     .build();
             returnList.add(dBoard);
         }

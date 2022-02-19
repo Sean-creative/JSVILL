@@ -26,9 +26,10 @@ public class CtlApiBoardWp {
         log.info("user board wp");
         Long result = 0L;
         MemberUser user = memberUserService.get(phone);
-
+        System.out.println(phone);
+        System.out.println(user.getMember().getName());
         if(user!=null) {
-            dto.setMemberR(user.getMemberuser_rowid());
+            dto.setMemberR(user.getMember().getMember_rowid());
             result = boardService.register(dto);
         }
         return result;

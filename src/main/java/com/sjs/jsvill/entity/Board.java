@@ -22,6 +22,9 @@ public class Board extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String contents;
 
+    @Column
+    private String isdeleted; //삭제됨 1 삭제 안됨 0
+
     @ManyToOne
     @JoinColumn(name = "member_rowid")
     private Member member_rowid;
