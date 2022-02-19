@@ -19,14 +19,12 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Long register(BoardDTO dto) {
-        Board board = dtoToEntity(dto);
-        Board returnBoard = boardRepository.save(board);
-        return returnBoard.getBoard_rowid();
+        return boardRepository.save(dtoToEntity(dto)).getBoard_rowid();
     }
 
     @Override
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
+    public List<BoardResDTO> getBoardList() {
+        return dtoListToEntity(boardRepository.findAll());
     }
 
 }
