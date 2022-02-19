@@ -20,10 +20,10 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping("edit")
-    public void edit(long group_rowid, Model model) {
-        log.info("group_rowid: " + group_rowid);
+    public void edit(long groupRowid, Model model) {
+        log.info("groupRowid: " + groupRowid);
         //TODO 해당 그룹의 정보를 전달해줘야함 jpa-read로 쉽게 전달할 수 있을듯?
-        model.addAttribute("result" , groupService.get(group_rowid));
+        model.addAttribute("result" , groupService.get(groupRowid));
     }
     @PostMapping("edit")
     public String edit(GroupDTO groupDTO, RedirectAttributes redirectAttributes){
@@ -53,11 +53,11 @@ public class GroupController {
     }
 
     @PostMapping("/remove")
-    public String remove(long group_rowid, RedirectAttributes redirectAttributes){
+    public String remove(long groupRowid, RedirectAttributes redirectAttributes){
 
-        log.info("group_rowid: " + group_rowid);
-        log.info("??? : " + groupService.remove(group_rowid));
-        redirectAttributes.addFlashAttribute("msg", group_rowid);
+        log.info("groupRowid: " + groupRowid);
+        log.info("??? : " + groupService.remove(groupRowid));
+        redirectAttributes.addFlashAttribute("msg", groupRowid);
         return "redirect:/group/list";
     }
 }

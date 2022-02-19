@@ -10,15 +10,11 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"unit"})
+@ToString(exclude = {"_livingtype"})
 public class Tenant extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tenant_rowid;
-
-    @ManyToOne
-    @JoinColumn(name = "unit_rowid", nullable = false)
-    private Unit unit;
 
     @Column(length = 64, nullable = false)
     private String title;
@@ -28,8 +24,6 @@ public class Tenant extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "_livingtype_rowid", nullable = false)
-    private _LivingType livingType;
+    private _LivingType _livingtype;
 
-    @Column(name = "tenantmaster_rowid", nullable = false)
-    private String tenantmaster_rowid;
 }

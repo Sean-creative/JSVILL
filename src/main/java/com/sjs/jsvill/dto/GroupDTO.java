@@ -24,7 +24,7 @@ public class GroupDTO {
     @Builder.Default
     private Long totalDeposit = 0L; //총보증금
     @Builder.Default
-    private Long totalRentfee= 0L; //금액(월세)
+    private Long totalRentFee = 0L; //금액(월세)
     @Builder.Default
     private Long totalManagementFees = 0L; //관리비
     @Builder.Default

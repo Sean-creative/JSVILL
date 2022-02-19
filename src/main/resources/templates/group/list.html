@@ -25,32 +25,32 @@
                     [[${dto.title}]][빌라]
                     <div style="float:right">
                         <form action="/group/modify" method="post">
-                            <input type="hidden" name="group_rowid" th:value="${dto.group_rowid}">
-                            <button formmethod="get" th:formaction="@{/group/edit(group_rowid=${dto.group_rowid})}">수정</button>
+                            <input type="hidden" name="groupRowid" th:value="${dto.groupRowid}">
+                            <button formmethod="get" th:formaction="@{/group/edit(groupRowid=${dto.groupRowid})}">수정</button>
                             <button th:formaction="@{/group/remove}">삭제</button>
                         </form>
                     </div>
                 </div>
                 <div style="border-top:1px solid black;padding:25px 0">
                     [[${dto.addr1}]]<br><br>
-                    준공년 - [[${dto.completiondate}]]
+                    준공년 - [[${dto.completionDate}]]
                 </div>
                 <div style="border-top:1px solid black;padding:25px 0;line-height:33px">
                     <div>[[${dto.totalTenantCnt}]]명의 입주자</div>
                     <div>보증금 합계 : [[${dto.totalDeposit}]]</div>
-                    <div>월세 합계 : 매달 [[${dto.totalRentfee}]]만원</div>
-                    <div>관리비 합계 매달 : [[${dto.totalManagementfees}]]만원</div>
+                    <div>월세 합계 : 매달 [[${dto.totalRentFee}]]만원</div>
+                    <div>관리비 합계 매달 : [[${dto.totalManagementFees}]]만원</div>
                 </div>
             </div>
             <div style="flex:1.1;padding:0 40px 15px 40px;border-left:1px solid black;text-align:center">
                 <div style="position:relative;padding:15px 0 20px 0">
                     [[${#lists.size(dto.unitDTOList)}]]개의 호실
-                    <a th:href="@{/unit/register(group_rowid=${dto.group_rowid})}" style="position:absolute;line-height:22px;font-size:12px;right:0px;top:13.5px;padding:0 6px;background-color:#7F7F7F;font-weight:bold">
+                    <a th:href="@{/unit/register(groupRowid=${dto.groupRowid})}" style="position:absolute;line-height:22px;font-size:12px;right:0px;top:13.5px;padding:0 6px;background-color:#7F7F7F;font-weight:bold">
                         호실등록
                     </a>
                 </div>
                 <div style="display:flex;flex-flow:row wrap;justify-content:space-between">
-                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(unit_rowid=${unit.unit_rowid})}" class="unit">
+                    <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(unitRowid=${unit.unitRowid})}" class="unit">
                         [[${unit.addr2}]]
                     </a>
                 </div>

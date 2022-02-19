@@ -15,7 +15,7 @@ public class GroupMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupmember_rowid;
+    private Long group_member_rowid;
 
     @ManyToOne
     @JoinColumn(name = "member_rowid", nullable = false)

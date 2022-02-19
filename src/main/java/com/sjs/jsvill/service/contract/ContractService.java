@@ -21,7 +21,7 @@ public interface ContractService {
 //        Unit unit = Unit.builder().unit_rowid(contractDTO.gettenantRowid()).build();
         _ContractType contractType = _ContractType.builder()._contracttype_rowid(contractDTO.get_contracttypeRowid()).build();
         Contarct contarct = Contarct.builder()
-                .contractType(contractType)
+                ._contracttype(contractType)
                 .startdate(contractDTO.getStartDate())
                 .enddate(contractDTO.getEndDate())
                 .deposit(contractDTO.getDeposit())

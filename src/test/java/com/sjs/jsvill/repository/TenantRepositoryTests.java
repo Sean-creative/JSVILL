@@ -1,7 +1,6 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Tenant;
-import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity._LivingType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +17,16 @@ public class TenantRepositoryTests {
 
     @Test
     public void register() {
-        Unit unit = Unit.builder().unit_rowid(1L).build();
+        //1. 세입자가 한명인 호실일 때
 
         LongStream.rangeClosed(1, 3).forEach(i -> {
             Tenant tenant = Tenant.builder()
-                    .unit(unit)
-                    .title("title" + i)
+                    .title("title")
                     .phone(UUID.randomUUID().toString())
-                    .livingType(_LivingType.builder()._livingtype_rowid(i*10).build())
+                    ._livingtype(_LivingType.builder()._livingtype_rowid(10L).build())
                     .build();
             System.out.println(tenantRepository.save(tenant));
         });
-    }
 
 //    @Test
 //    public void findByUnit() {
@@ -39,4 +36,5 @@ public class TenantRepositoryTests {
 //            System.out.println("contract : " + contarct);
 //        }
 //    }
+    }
 }

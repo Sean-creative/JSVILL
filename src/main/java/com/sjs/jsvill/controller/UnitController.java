@@ -20,9 +20,9 @@ public class UnitController {
     private final UnitService unitService;
 
     @GetMapping("register")
-    public void register(int group_rowid, Model model) {
-        log.info("group_rowid : " + group_rowid);
-        model.addAttribute("group_rowid", group_rowid);
+    public void register(int groupRowid, Model model) {
+        log.info("groupRowid : " + groupRowid);
+        model.addAttribute("groupRowid", groupRowid);
     }
 
     @PostMapping("register")
@@ -42,9 +42,9 @@ public class UnitController {
 
 
     @GetMapping("read")
-    public void read(Long unit_rowid, Model model){
-        log.info("bno: " + unit_rowid);
-        UnitDTO unitDTO = unitService.get(unit_rowid);
+    public void read(Long unitRowid, Model model){
+        log.info("bno: " + unitRowid);
+        UnitDTO unitDTO = unitService.get(unitRowid);
         log.info(unitDTO);
         model.addAttribute("result", unitDTO);
     }

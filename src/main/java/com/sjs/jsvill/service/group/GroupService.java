@@ -22,7 +22,7 @@ public interface GroupService {
 
         Group group = Group.builder()
                 .group_rowid(dto.getGroupRowid())
-                .groupType(groupType)
+                ._grouptype(groupType)
                 .title(dto.getTitle())
                 .addr1(dto.getAddr1())
                 .postNum(dto.getPostNum())
@@ -35,7 +35,7 @@ public interface GroupService {
     default GroupDTO entityToDTO(Group group) {
         GroupDTO groupDTO = GroupDTO.builder()
                 .groupRowid(group.getGroup_rowid())
-                .groupTypeRowid(group.getGroupType().get_grouptype_rowid())
+                .groupTypeRowid(group.get_grouptype().get_grouptype_rowid())
                 .title(group.getTitle())
                 .addr1(group.getAddr1())
                 .postNum(group.getPostNum())
@@ -48,7 +48,7 @@ public interface GroupService {
     default GroupDTO entitiesToDTO(Group group, List<Unit> unitList) {
         GroupDTO groupDTO = GroupDTO.builder()
                 .groupRowid(group.getGroup_rowid())
-                .groupTypeRowid(group.getGroupType().get_grouptype_rowid())
+                .groupTypeRowid(group.get_grouptype().get_grouptype_rowid())
                 .title(group.getTitle())
                 .addr1(group.getAddr1())
                 .postNum(group.getPostNum())
@@ -70,7 +70,7 @@ public interface GroupService {
             ).collect(Collectors.toList());
             groupDTO.setUnitDTOList(unitDTOList);
             groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
-            groupDTO.setTotalRentfee(unitList.stream().mapToLong(Unit::getRentfee).sum());
+            groupDTO.setTotalRentFee(unitList.stream().mapToLong(Unit::getRentfee).sum());
             groupDTO.setTotalManagementFees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
             //TODO 계약쪽 해결되면 고칠 것!
             groupDTO.setTotalTenantCnt(0L);

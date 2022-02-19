@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"tenant", "contractType"})
+@ToString(exclude = {"unit", "_contracttype"})
 public class Contarct extends BaseEntity {
 
     @Id
@@ -18,12 +18,12 @@ public class Contarct extends BaseEntity {
     private Long contract_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "tenant_rowid")
-    private Tenant tenant;
+    @JoinColumn(name = "unit_rowid")
+    private Unit unit;
 
     @ManyToOne
     @JoinColumn(name = "_contracttype_rowid")
-    private _ContractType contractType;
+    private _ContractType _contracttype;
 
     @Column(length = 100, nullable = false)
     private String startdate;

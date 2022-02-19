@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "groupType")
+@ToString(exclude = "_grouptype")
 public class Group extends BaseEntity {
 
     @Id
@@ -19,7 +19,7 @@ public class Group extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "_grouptype_rowid", nullable = false)
-    private _GroupType groupType;
+    private _GroupType _grouptype;
 
     @Column(length = 64, nullable = false)
     private String title;

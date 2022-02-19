@@ -19,7 +19,7 @@ public class UnitRepositoryTests {
     @Test
     public void register() {
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
-        Group group = Group.builder().group_rowid(1L).groupType(groupType).build();
+        Group group = Group.builder().group_rowid(1L)._grouptype(groupType).build();
 
         LongStream.rangeClosed(1, 3).forEach(i -> {
             Unit unit = Unit.builder()

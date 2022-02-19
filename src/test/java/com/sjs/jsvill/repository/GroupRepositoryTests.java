@@ -26,7 +26,7 @@ public class GroupRepositoryTests {
         IntStream.rangeClosed(1, 2).forEach(i -> {
             //_GroupType은 이미 등록이 되어있는 상태이고, rowid로 사용해야함
             Group group = Group.builder()
-                    .groupType(groupType)
+                    ._grouptype(groupType)
                     .title("Test-title...." + i)
                     .addr1("Test-addr1...." + i)
                     .postNum("T-p" + i)
