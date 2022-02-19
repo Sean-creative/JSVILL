@@ -25,7 +25,6 @@ public class TenantRepositoryTests {
                     .unit(unit)
                     .title("title" + i)
                     .phone(UUID.randomUUID().toString())
-                    .isContractor(1==i)
                     .livingType(_LivingType.builder()._livingtype_rowid(i*10).build())
                     .build();
             System.out.println(tenantRepository.save(tenant));
