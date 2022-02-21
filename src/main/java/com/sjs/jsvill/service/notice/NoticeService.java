@@ -1,21 +1,33 @@
 package com.sjs.jsvill.service.notice;
 
 
-import com.sjs.jsvill.dto.board.BoardDTO;
-import com.sjs.jsvill.dto.board.BoardResDTO;
 import com.sjs.jsvill.dto.notice.NoticeDTO;
 import com.sjs.jsvill.dto.notice.NoticeResDTO;
-import com.sjs.jsvill.entity.Board;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.Notice;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface NoticeService {
     Long register(NoticeDTO dto);
+    NoticeResDTO get(String noticeR);
     List<NoticeResDTO> getNoticeList();
+
+    default NoticeResDTO entityToDto(Notice notice) {
+        NoticeResDTO nDTO = NoticeResDTO.builder()
+                .title(notice.getTitle())
+                .contents(notice.getContents())
+                .writer(notice.getMember_rowid().getName())
+                .regDate(notice.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                .viewCnt(notice.getViewcnt())
+                .build();
+        return nDTO;
+    }
+
+
     default Notice dtoToEntity(NoticeDTO dto){
         Member member = Member.builder().member_rowid(dto.getMemberR()).build();
         Notice notice = Notice.builder()
