@@ -1,10 +1,7 @@
 package com.sjs.jsvill.repository.member;
 
 import com.sjs.jsvill.entity.Member;
-import com.sjs.jsvill.entity.MemberAdmin;
 import com.sjs.jsvill.entity.MemberUser;
-import com.sjs.jsvill.entity._Salt;
-import com.sjs.jsvill.repository.MemberAdminRepository;
 import com.sjs.jsvill.repository.MemberUserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
