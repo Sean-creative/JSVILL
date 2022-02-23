@@ -1,6 +1,6 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Contarct;
+import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.ContractTenant;
 import com.sjs.jsvill.entity.Tenant;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.stream.LongStream;
 
 @SpringBootTest
-public class ContarctTenantRepositoryTests {
+public class ContractTenantRepositoryTests {
 
     @Autowired
     private ContractTenantRepository contractTenantRepository;
@@ -18,7 +18,7 @@ public class ContarctTenantRepositoryTests {
     @Test
     public void testRegister() {
         //A계약에 3개의 세입자를 추가
-        Contarct contarct = Contarct.builder().contract_rowid(1L).build();
+        Contract contarct = Contract.builder().contract_rowid(1L).build();
         LongStream.rangeClosed(1, 3).forEach(i -> {
             ContractTenant contractTenant = ContractTenant.builder()
                     .contract(contarct)

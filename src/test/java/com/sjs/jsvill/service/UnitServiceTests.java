@@ -34,7 +34,7 @@ public class UnitServiceTests {
 
     @Test
     public void get() {
-        UnitDTO unitDTO = unitService.get(1L);
+        UnitDTO unitDTO = unitService.getWithContractList(1L);
         System.out.println(unitDTO.toString());
     }
 

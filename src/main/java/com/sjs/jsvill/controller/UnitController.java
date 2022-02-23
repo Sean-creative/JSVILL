@@ -44,7 +44,7 @@ public class UnitController {
     @GetMapping("read")
     public void read(Long unitRowid, Model model){
         log.info("bno: " + unitRowid);
-        UnitDTO unitDTO = unitService.get(unitRowid);
+        UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         log.info(unitDTO);
         model.addAttribute("result", unitDTO);
     }

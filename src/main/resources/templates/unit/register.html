@@ -36,14 +36,14 @@
                         <div style="flex:1;width:100%">
                             <label for="rentfee">월세</label>
                             <div style="margin-top:10px">
-                                <input type="number" name="rentfee" value="30" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="rentFee" value="30" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
                         <div style="flex:2;width:100%">
                             <label for="managementfees">관리비</label>
                             <div style="margin-top:10px">
-                                <input type="number" name="managementfees" value="5" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="managementFees" value="5" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                     <div style="flex:1;width:100%">
                         <label for="paymentday">납부일</label>
                         <div style="margin-top:10px">
-                            매달<input type="number" name="paymentday" value="1" id="paymentday" class="check"
+                            매달<input type="number" name="paymentDay" value="1" id="paymentday" class="check"
                                      style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
                         </div>
                     </div>
@@ -67,7 +67,7 @@
             </div>
 
             <div style="margin-top:20px">
-                <input type="hidden" name="group_rowid" th:value="${group_rowid}">
+                <input type="hidden" name="groupRowid" th:value="${groupRowid}">
                 <button type="reset" class="cancelBtn" style="cursor:pointer">취소</button>
                 <button type="button" class="registerBtn" style="cursor:pointer">등록</button>
             </div>

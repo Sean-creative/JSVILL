@@ -19,7 +19,7 @@ public class ContractTenant extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "contract_rowid", nullable = false)
-    private Contarct contract;
+    private Contract contract;
 
     @ManyToOne
     @JoinColumn(name = "tenant_rowid", nullable = false)

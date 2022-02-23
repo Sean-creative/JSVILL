@@ -29,7 +29,4 @@ public class UnitDTO {
     private List<ContractDTO> contractDTOList = new ArrayList<>();
     //현재 계약의 옵션리스트
     private List<OptionDTO> optionDTOList = new ArrayList<>();
-
-
-
 }

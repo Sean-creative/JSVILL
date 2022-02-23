@@ -1,16 +1,17 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Contarct;
+import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity._ContractType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.stream.LongStream;
 
 @SpringBootTest
-public class ContarctRepositoryTests {
+public class ContractRepositoryTests {
 
     @Autowired
     private ContractRepository contractRepository;
@@ -21,7 +22,7 @@ public class ContarctRepositoryTests {
         _ContractType contractType = _ContractType.builder()._contracttype_rowid(10L).build();
 
         LongStream.rangeClosed(1, 3).forEach(i -> {
-            Contarct contarct = Contarct.builder()
+            Contract contarct = Contract.builder()
                     .unit(unit)
                     ._contracttype(contractType)
                     .startdate("startdate" + i)
@@ -35,11 +36,11 @@ public class ContarctRepositoryTests {
         });
     }
 
-//    @Test
-//    public void findByUnit() {
-//        List<Contarct> result = contractRepository.findContarctByUnit(1L);
-//        System.out.println("result.length : " + result.size());
-//
-//        result.forEach(i -> System.out.println(i));
-//    }
+    @Test
+    public void findContarctByUnitNotOld() {
+        List<Contract> result = contractRepository.findContarctByUnitNotOld(1L);
+        System.out.println("result.length : " + result.size());
+
+        result.forEach(i -> System.out.println(i));
+    }
 }

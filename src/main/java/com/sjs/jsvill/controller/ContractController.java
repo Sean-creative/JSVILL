@@ -24,7 +24,7 @@ public class ContractController {
     @GetMapping("/register")
     public void register(Long unit_rowid, Model model) {
         log.info("unit_rowid: " + unit_rowid);
-        UnitDTO unitDTO = unitService.get(unit_rowid);
+        UnitDTO unitDTO = unitService.getWithContractList(unit_rowid);
         log.info(unitDTO);
         model.addAttribute("result", unitDTO);
     }

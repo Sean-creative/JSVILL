@@ -6,7 +6,7 @@ import com.sjs.jsvill.entity.Unit;
 
 public interface UnitService {
     Long register(UnitDTO dto);
-    UnitDTO get(Long unit_rowid);
+    UnitDTO getWithContractList(Long unit_rowid);
 
 //    PageResultDTO<UnitDTO, Object[]>getList(PageRequestDTO pageRequestDTO); //목록처리
 
