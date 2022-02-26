@@ -30,8 +30,8 @@ public class CarRepositoryTests {
     }
 
     @Test
-    public void findByTenant() {
-        List<Car> result = carRepository.findByTenant(5L);
+    public void findByCar() {
+        List<Car> result = carRepository.findByCar(1L);
         System.out.println("result.length : " + result.size());
 
         result.forEach(i -> System.out.println(i));

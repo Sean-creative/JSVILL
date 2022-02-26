@@ -35,14 +35,18 @@ public class UnitServiceTests {
     @Test
     public void get() {
         UnitDTO unitDTO = unitService.getWithContractList(1L);
-        System.out.println(unitDTO.toString());
+        System.out.println("unitDTO : " + unitDTO);
     }
 
 
     @Test
     @Commit
     public void delete() {
+    }
 
+    @Test
+    public void test() {
+        unitService.test();
     }
 //    @Test
 //    public void testList(){

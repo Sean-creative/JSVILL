@@ -3,6 +3,8 @@ package com.sjs.jsvill.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name="option")
@@ -24,4 +26,10 @@ public class Option extends BaseEntity {
     //이름은 List이지만 ,로 구분하는 string 값으로 들어가 있음
     @Column(length = 64, nullable = false)
     private String optionList;
+
+    // 침대, 냉장고, TV 라고 하면 -> ,로 분리해서 배열로 줘야한다
+    public List<String> csvToList(String csv) {
+        String[] tokens = csv.split(",");
+        return Arrays.asList(tokens);
+    }
 }

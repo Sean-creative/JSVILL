@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.LongStream;
 
@@ -18,7 +19,6 @@ public class TenantRepositoryTests {
     @Test
     public void register() {
         //1. 세입자가 한명인 호실일 때
-
         LongStream.rangeClosed(1, 3).forEach(i -> {
             Tenant tenant = Tenant.builder()
                     .title("title")
@@ -27,14 +27,14 @@ public class TenantRepositoryTests {
                     .build();
             System.out.println(tenantRepository.save(tenant));
         });
+    }
 
-//    @Test
-//    public void findByUnit() {
-//        List<Contarct> result = contractRepository.findByUnit(1L);
-//        System.out.println("result.length : " + result.size());
-//        for (Contarct contarct : result) {
-//            System.out.println("contract : " + contarct);
-//        }
-//    }
+    @Test
+    public void findByUnit() {
+        List<Tenant> result = tenantRepository.findByContract(1L);
+        System.out.println("result.length : " + result.size());
+        for (Tenant tenant : result) {
+            System.out.println("tenant : " + tenant);
+        }
     }
 }

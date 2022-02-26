@@ -1,8 +1,13 @@
 package com.sjs.jsvill.service.contract;
 
+import com.sjs.jsvill.dto.CarDTO;
 import com.sjs.jsvill.dto.ContractDTO;
+import com.sjs.jsvill.dto.OptionDTO;
+import com.sjs.jsvill.dto.TenantDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity._ContractType;
+
+import java.util.List;
 
 public interface ContractService {
 //    void register(ContractDTO contractDTO);
@@ -19,7 +24,7 @@ public interface ContractService {
         // 4. option에 insert
 
 //        Unit unit = Unit.builder().unit_rowid(contractDTO.gettenantRowid()).build();
-        _ContractType contractType = _ContractType.builder()._contracttype_rowid(contractDTO.get_contracttypeRowid()).build();
+        _ContractType contractType = _ContractType.builder()._contracttype_rowid(contractDTO.get_contractTypeRowid()).build();
         Contract contract = Contract.builder()
                 ._contracttype(contractType)
                 .startdate(contractDTO.getStartDate())
@@ -32,24 +37,24 @@ public interface ContractService {
         return contract;
     }
 
-//    default ContractDTO entityToDTO(Contarct contarct, List<CarDTO> carDTOList, List<tenantDTO> tenantDTOList) {
-//        ContractDTO contractDTO = ContractDTO.builder()
-//                .contractRowid(contarct.getContract_rowid())
-//                .tenantRowid(contarct.getUnit().getUnit_rowid())
-//                ._contracttypeRowid(contarct.getContractType().get_contracttype_rowid())
-//                .title(contarct.getTitle())
-//                .startdate(contarct.getStartdate())
-//                .enddate(contarct.getEnddate())
-//                .isprogressing(contarct.getIsprogressing())
-//                .deposit(contarct.getDeposit())
-//                .rentfee(contarct.getRentfee())
-//                .managementfees(contarct.getManagementfees())
-//                .paymentday(contarct.getPaymentday())
-//                .carDTOList(carDTOList)
-//                .tenantDTOList(tenantDTOList)
-//                .build();
-//        return contractDTO;
-//    }
+    //하나의 계약에 각종 리스트들을 넣어줄것임
+    default ContractDTO entityToDTO(Contract contarct, List<CarDTO> carDTOList, List<TenantDTO> tenantDTOList, OptionDTO optionDTO) {
+        ContractDTO contractDTO = ContractDTO.builder()
+                .contractRowid(contarct.getContract_rowid())
+                .unitRowid(contarct.getUnit().getUnit_rowid())
+                ._contractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
+                .startDate(contarct.getStartdate())
+                .endDate(contarct.getEnddate())
+                .deposit(contarct.getDeposit())
+                .rentFee(contarct.getRentfee())
+                .managementFees(contarct.getManagementfees())
+                .paymentDay(contarct.getPaymentday())
+                .carDTOList(carDTOList)
+                .tenantDTOList(tenantDTOList)
+                .optionDTO(optionDTO)
+                .build();
+        return contractDTO;
+    }
 //
 //    //contract 여러개일 때
 //    default List<ContractDTO> entitiesToDTO(List<Contarct> contarctList) {

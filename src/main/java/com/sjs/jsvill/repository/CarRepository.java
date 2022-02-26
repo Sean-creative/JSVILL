@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    @Query("select c from Car c where c.tenant.tenant_rowid=:tenant_rowid")
-    List<Car> findByTenant(@Param("tenant_rowid") Long tenant_rowid);
+    @Query("select c2 from ContractTenant c1 inner join Car c2 on c1.tenant=c2.tenant where c1.contract.contract_rowid=:contract_rowid")
+    List<Car> findByCar(@Param("contract_rowid") Long contract_rowid);
+
 }

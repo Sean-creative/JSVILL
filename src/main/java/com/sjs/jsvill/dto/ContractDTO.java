@@ -5,14 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class ContractDTO {
     private Long contractRowid;
-    private Long tenantRowid;
-    private Long _contracttypeRowid;
+    private Long unitRowid;
+    private Long _contractTypeRowid;
     private String startDate;
     private String endDate;
     private Long deposit; //보증금
@@ -20,6 +23,7 @@ public class ContractDTO {
     private Long managementFees; //관리비
     private Long paymentDay; //납부일
 
-//    private List<TenantDTO> tenantDTOList = new ArrayList<>();
-//    private List<CarDTO> carDTOList = new ArrayList<>();
+    private List<TenantDTO> tenantDTOList = new ArrayList<>();
+    private List<CarDTO> carDTOList = new ArrayList<>();
+    private OptionDTO optionDTO = new OptionDTO();
 }

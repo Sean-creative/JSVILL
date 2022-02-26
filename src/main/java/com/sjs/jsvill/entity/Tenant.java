@@ -22,6 +22,9 @@ public class Tenant extends BaseEntity {
     @Column(length = 64, nullable = false, unique = true)
     private String phone;
 
+    @Column(nullable = false)
+    private Boolean iscontractor;
+
     @ManyToOne
     @JoinColumn(name = "_livingtype_rowid", nullable = false)
     private _LivingType _livingtype;

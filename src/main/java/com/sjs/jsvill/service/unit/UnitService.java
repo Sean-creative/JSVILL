@@ -8,7 +8,7 @@ public interface UnitService {
     Long register(UnitDTO dto);
     UnitDTO getWithContractList(Long unit_rowid);
 
-//    PageResultDTO<UnitDTO, Object[]>getList(PageRequestDTO pageRequestDTO); //목록처리
+    void test();
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Unit dtoToEntity(UnitDTO dto) {
@@ -26,6 +26,7 @@ public interface UnitService {
         return unit;
     }
 
+    //단순히 호실만 다룰 때
     default UnitDTO entityToDTO(Unit unit) {
         UnitDTO unitDTO = UnitDTO.builder()
                 .unitRowid(unit.getUnit_rowid())
@@ -40,7 +41,8 @@ public interface UnitService {
         return unitDTO;
     }
 
-//    default UnitDTO entityToDTOWithContract(Unit unit, List<Contarct> contarctList, List<Option> optionList) {
+    //여기에 재료를 쏟아 부으면 너무 과부하가 걸릴까 걱정 -> 역할을 분리하고자 unit빼고는 DTO를 받는게 낫겠다.
+//    default UnitDTO entityToDTOWithContract(Unit unit, List<Contract> contarctList) {
 //        List<ContractDTO> contractDTOList = new ArrayList<>();
 //        List<OptionDTO> optionDTOList = new ArrayList<>();
 //        Group group = unit.getGroup();
