@@ -1,7 +1,8 @@
-package com.sjs.jsvill.repository;
+package com.sjs.jsvill.repository.member;
 
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity._MemberType;
+import com.sjs.jsvill.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

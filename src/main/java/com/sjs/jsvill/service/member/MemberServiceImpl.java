@@ -1,6 +1,6 @@
-package com.sjs.jsvill.service;
+package com.sjs.jsvill.service.member;
 
-import com.sjs.jsvill.dto.MemberDTO;
+import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +16,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Long register(MemberDTO dto) {
-        log.info("DTO-------------" );
-        log.info(dto);
+        //log.info("DTO-------------" );
+        //log.info(dto);
         Member member = dtoToEntity(dto);
-        memberRepository.save(member);
-        return member.getMember_rowid();
+        Member returnMember = memberRepository.save(member);
+        return returnMember.getMember_rowid();
     }
+
+
 
 //    @Override
 //    public PageResultDTO<MemberDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {

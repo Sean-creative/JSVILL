@@ -1,6 +1,5 @@
-package com.sjs.jsvill.dto;
+package com.sjs.jsvill.dto.member;
 
-import com.sjs.jsvill.entity._MemberType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MemberDTO {
-    private _MemberType _memberTypeRowid;
-    private String name;
+public class MemberUserLoginDTO {
+    private Long memberR;
+    private String phone;
 }

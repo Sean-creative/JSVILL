@@ -1,4 +1,4 @@
-package com.sjs.jsvill.dto;
+package com.sjs.jsvill.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TenantDTO {
-    private Long tenantR;
-    private String title;
+public class MemberLoginDTO {
     private String phone;
-    private int isContractor;
-    private String livingType;
+    private String pin;
 }

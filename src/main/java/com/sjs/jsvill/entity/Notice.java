@@ -29,8 +29,8 @@ public class Notice extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String contents;
 
-    @Column(name = "viewcnt")
-    private String viewcnt;
+    @Column(name = "viewcnt", columnDefinition = "integer default 0")
+    private int viewcnt;
 
     @CreatedDate
     @Column(name = "regdate", updatable = false)

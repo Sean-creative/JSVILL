@@ -1,5 +1,7 @@
-package com.sjs.jsvill.dto;
+package com.sjs.jsvill.dto.member;
 
+import com.sjs.jsvill.entity.Member;
+import com.sjs.jsvill.entity._Salt;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TenantDTO {
-    private Long tenantR;
-    private String title;
+public class MemberUserDTO {
+    private Long memberR;
     private String phone;
-    private int isContractor;
-    private String livingType;
+    private String pin;
 }

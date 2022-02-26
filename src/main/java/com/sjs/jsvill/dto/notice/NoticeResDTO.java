@@ -1,4 +1,4 @@
-package com.sjs.jsvill.dto;
+package com.sjs.jsvill.dto.notice;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TenantDTO {
-    private Long tenantR;
+public class NoticeResDTO {
+    private String writer;
     private String title;
-    private String phone;
-    private int isContractor;
-    private String livingType;
+    private String contents;
+    private int viewCnt;
+    private String regDate;
 }
