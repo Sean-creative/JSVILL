@@ -68,10 +68,10 @@ public class UnitServiceImpl implements UnitService {
 
             List<CarDTO> carDTOList = carService.entitiesToDTO(carList);
             List<TenantDTO> tenantDTOList = tenantService.entitiesToDTO(tenantList);
-            OptionDTO optionDTo = optionService.entityToDTO(option);
+//            OptionDTO optionDTo = optionService.entityToDTO(option);
 
             //TODO ContractDTOList 만들기,
-            contractService.entityToDTO(contract, carDTOList, tenantDTOList, optionDTo);
+//            contractService.entityToDTO(contract, carDTOList, tenantDTOList, optionDTo);
 
         }
 
@@ -88,7 +88,8 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public void test() {
         log.info(1);
-        optionService.entityToDTO(new Option());
+        Option option = Option.builder().optionList("zzzzz,ㄴㅇㄴㅇㄹㅇㄹㅇㄹ").build();
+        Option.entityToDTO(option);
         log.info(2);
     }
 

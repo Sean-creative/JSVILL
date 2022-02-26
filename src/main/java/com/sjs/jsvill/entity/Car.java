@@ -25,4 +25,6 @@ public class Car extends BaseEntity {
 
     @Column(length = 64, nullable = false)
     private String number;
+
+
 }

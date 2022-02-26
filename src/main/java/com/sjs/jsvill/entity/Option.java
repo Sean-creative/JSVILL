@@ -1,5 +1,6 @@
 package com.sjs.jsvill.entity;
 
+import com.sjs.jsvill.dto.OptionDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,5 +32,14 @@ public class Option extends BaseEntity {
     public List<String> csvToList(String csv) {
         String[] tokens = csv.split(",");
         return Arrays.asList(tokens);
+    }
+
+    public static OptionDTO entityToDTO(Option option) {
+        OptionDTO optionDTO = new OptionDTO();
+        if (option != null) {
+            optionDTO.setOptionRowid(option.getOption_rowid());
+            optionDTO.setOptionList(option.csvToList(option.getOptionList()));
+        }
+        return optionDTO;
     }
 }

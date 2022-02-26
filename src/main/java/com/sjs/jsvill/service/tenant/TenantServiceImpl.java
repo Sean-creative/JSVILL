@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @RequiredArgsConstructor
 public class TenantServiceImpl implements TenantService{
+
 }

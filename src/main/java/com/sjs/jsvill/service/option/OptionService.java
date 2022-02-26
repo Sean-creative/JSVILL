@@ -1,8 +1,5 @@
 package com.sjs.jsvill.service.option;
 
-import com.sjs.jsvill.dto.OptionDTO;
-import com.sjs.jsvill.entity.Option;
-
 public interface OptionService {
 
 //    default Contract dtoToEntity(ContractDTO contractDTO) {
@@ -19,12 +16,5 @@ public interface OptionService {
 //        return contract;
 //    }
 
-    default OptionDTO entityToDTO(Option option) {
-        OptionDTO optionDTO = new OptionDTO();
-        if (option != null) {
-            optionDTO.setOptionRowid(option.getOption_rowid());
-            optionDTO.setOptionList(option.csvToList(option.getOptionList()));
-        }
-        return optionDTO;
-    }
+
 }
