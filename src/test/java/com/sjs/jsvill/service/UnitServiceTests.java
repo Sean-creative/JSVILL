@@ -44,10 +44,6 @@ public class UnitServiceTests {
     public void delete() {
     }
 
-    @Test
-    public void test() {
-        unitService.test();
-    }
 //    @Test
 //    public void testList(){
 //        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();

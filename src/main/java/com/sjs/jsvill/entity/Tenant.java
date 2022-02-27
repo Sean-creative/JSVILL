@@ -1,8 +1,12 @@
 package com.sjs.jsvill.entity;
 
+import com.sjs.jsvill.dto.TenantDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="tenant")
@@ -29,4 +33,17 @@ public class Tenant extends BaseEntity {
     @JoinColumn(name = "_livingtype_rowid", nullable = false)
     private _LivingType _livingtype;
 
+
+    public static List<TenantDTO> entitiesToDTO(List<Tenant> tenantList) {
+        List<TenantDTO> tenantDTOList = new ArrayList<>();
+        if(!tenantList.isEmpty()) {
+            tenantDTOList = tenantList.stream().map(tenant -> TenantDTO.builder()
+                            .title(tenant.getTitle())
+                            .phone(tenant.getPhone())
+//                    .isContractor(tenant.get())
+                            .build()
+            ).collect(Collectors.toList());
+        }
+        return tenantDTOList;
+    }
 }

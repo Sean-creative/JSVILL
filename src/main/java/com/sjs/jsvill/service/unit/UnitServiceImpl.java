@@ -3,15 +3,12 @@ package com.sjs.jsvill.service.unit;
 import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.*;
-import com.sjs.jsvill.service.car.CarService;
-import com.sjs.jsvill.service.contract.ContractService;
-import com.sjs.jsvill.service.option.OptionService;
-import com.sjs.jsvill.service.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,10 +23,6 @@ public class UnitServiceImpl implements UnitService {
     private final TenantRepository tenantRepository;
     private final CarRepository carRepository;
 
-    private final ContractService contractService;
-    private final CarService carService;
-    private final TenantService tenantService;
-    private final OptionService optionService;
 
 
     @Override
@@ -45,7 +38,7 @@ public class UnitServiceImpl implements UnitService {
     @Transactional
     public UnitDTO getWithContractList(Long unit_rowid) {
         Unit unit = unitRepository.getById(unit_rowid);
-        List<ContractDTO> contractDTOList;
+        List<ContractDTO> contractDTOList = new ArrayList<>();
 
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
         List<Contract> contarctList =  contractRepository.findContarctByUnitNotOld(unit_rowid);
@@ -66,31 +59,20 @@ public class UnitServiceImpl implements UnitService {
             carList.forEach(i -> System.out.println("car : " + i));
 
 
-            List<CarDTO> carDTOList = carService.entitiesToDTO(carList);
-            List<TenantDTO> tenantDTOList = tenantService.entitiesToDTO(tenantList);
-//            OptionDTO optionDTo = optionService.entityToDTO(option);
+            List<CarDTO> carDTOList = Car.entitiesToDTO(carList);
+            List<TenantDTO> tenantDTOList = Tenant.entitiesToDTO(tenantList);
+            OptionDTO optionDTo = Option.entityToDTO(option);
 
             //TODO ContractDTOList 만들기,
-//            contractService.entityToDTO(contract, carDTOList, tenantDTOList, optionDTo);
+            contractDTOList.add(Contract.entityToDTO(contract, carDTOList, tenantDTOList, optionDTo));
 
         }
 
 
-//        UnitDTO unitDTO = entityToDTOWithContract(unit, contarctList,optionList);
+        UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
 
         ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
-
-
-        UnitDTO unitDTO = entityToDTO(unit);
         return unitDTO;
-    }
-
-    @Override
-    public void test() {
-        log.info(1);
-        Option option = Option.builder().optionList("zzzzz,ㄴㅇㄴㅇㄹㅇㄹㅇㄹ").build();
-        Option.entityToDTO(option);
-        log.info(2);
     }
 
 

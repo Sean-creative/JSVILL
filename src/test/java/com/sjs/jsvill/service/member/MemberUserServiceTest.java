@@ -1,15 +1,11 @@
 package com.sjs.jsvill.service.member;
 
 
-import com.sjs.jsvill.dto.member.MemberAdminDTO;
 import com.sjs.jsvill.dto.member.MemberUserDTO;
 import com.sjs.jsvill.entity.Member;
-import com.sjs.jsvill.entity._Salt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.stream.IntStream;
 
 @SpringBootTest
 public class MemberUserServiceTest {
@@ -23,7 +19,7 @@ public class MemberUserServiceTest {
         Member member = Member.builder().member_rowid(8L).build();
         //IntStream.rangeClosed(1, 3).forEach(i -> {
             MemberUserDTO memberUserDTO = MemberUserDTO.builder()
-                    .memberR(member)
+//                    .memberR(member)
                     .phone("01044445555")
                     .pin("0099")
                     .build();

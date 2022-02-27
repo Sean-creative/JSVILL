@@ -21,7 +21,7 @@ public class MemberUserRepositoryTests {
         Member member = Member.builder().member_rowid(8L).build();
         //IntStream.rangeClosed(1, 3).forEach(i -> {
             MemberUser memberUser = MemberUser.builder()
-                    .member_rowid(member)
+//                    .member_rowid(member)
                     .phone("01032223333")
                     .pin("1111")
                     .build();
