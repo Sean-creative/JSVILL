@@ -5,6 +5,7 @@ import com.sjs.jsvill.dto.UnitDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -61,6 +62,10 @@ public class Unit extends BaseEntity {
     //여기에 재료를 쏟아 부으면 너무 과부하가 걸릴까 걱정 -> 역할을 분리하고자 unit빼고는 DTO를 받는게 낫겠다.
     public static  UnitDTO entityToDTOWithContract(Unit unit, List<ContractDTO> contractDTOList) {
         Group group = unit.getGroup();
+        List<String> optionList = new ArrayList<>();
+        if(!contractDTOList.isEmpty()){
+            optionList = contractDTOList.get(0).getOptionDTO().getOptionList();
+        }
 
         UnitDTO unitDTO = UnitDTO.builder()
                 .unitRowid(unit.getUnit_rowid())
@@ -74,6 +79,7 @@ public class Unit extends BaseEntity {
                 .groupTitle(group.getTitle())
                 .groupAddr(group.getAddr1())
                 .contractDTOList(contractDTOList)
+                .optionList(optionList)
                 .build();
         return unitDTO;
     }

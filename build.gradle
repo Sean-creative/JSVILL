@@ -40,8 +40,6 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 
 
-
-
 	compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 }
 test {

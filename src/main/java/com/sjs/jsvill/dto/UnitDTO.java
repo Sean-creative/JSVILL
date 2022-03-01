@@ -27,4 +27,5 @@ public class UnitDTO {
 
     //계약리스트
     private List<ContractDTO> contractDTOList = new ArrayList<>();
+    private List<String> optionList = new ArrayList<>();
 }

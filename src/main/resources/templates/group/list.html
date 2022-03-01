@@ -13,10 +13,7 @@
         <div style="display:flex;justify-content:space-between">
             <!--타임리프의 #을 써준 이유는 -> 정해진 함수를 사용하기 위함이다.-->
             <span style="line-height:25px"><span th:text="${#lists.size(result)}"></span>개의 건물</span>
-            <a href="/group/register"
-               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">
-                건물등록
-            </a>
+            <a href="/group/register" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">건물등록</a>
         </div>
 
         <div th:each="dto:${result}" style="display:flex;padding:10px 0;border:1px solid black;margin-top:10px">
@@ -24,10 +21,10 @@
                 <div style="padding:25px 0">
                     [[${dto.title}]][빌라]
                     <div style="float:right">
-                        <form action="/group/modify" method="post">
+                        <form action="/group/remove" method="post">
                             <input type="hidden" name="groupRowid" th:value="${dto.groupRowid}">
-                            <button formmethod="get" th:formaction="@{/group/edit(groupRowid=${dto.groupRowid})}">수정</button>
-                            <button th:formaction="@{/group/remove}">삭제</button>
+                            <button formmethod="get" th:formaction="@{/group/edit}">수정</button>
+                            <button>삭제</button>
                         </form>
                     </div>
                 </div>

@@ -54,7 +54,6 @@ public class GroupController {
 
     @PostMapping("/remove")
     public String remove(long groupRowid, RedirectAttributes redirectAttributes){
-
         log.info("groupRowid: " + groupRowid);
         log.info("??? : " + groupService.remove(groupRowid));
         redirectAttributes.addFlashAttribute("msg", groupRowid);

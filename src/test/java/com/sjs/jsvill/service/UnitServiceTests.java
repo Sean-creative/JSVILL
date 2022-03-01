@@ -1,5 +1,7 @@
 package com.sjs.jsvill.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.unit.UnitService;
 import org.junit.jupiter.api.Test;
@@ -35,9 +37,14 @@ public class UnitServiceTests {
     @Test
     public void get() {
         UnitDTO unitDTO = unitService.getWithContractList(1L);
-        System.out.println("unitDTO : " + unitDTO);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String userAsString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(unitDTO);
+            System.out.println("userAsString : " + userAsString);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
-
 
     @Test
     @Commit

@@ -23,8 +23,6 @@ public class UnitServiceImpl implements UnitService {
     private final TenantRepository tenantRepository;
     private final CarRepository carRepository;
 
-
-
     @Override
     public Long register(UnitDTO dto) {
         log.info("DTO-------------" );
@@ -45,32 +43,16 @@ public class UnitServiceImpl implements UnitService {
         for (Contract contract : contarctList) {
             Long contractRowid = contract.getContract_rowid();
             List<Option> optionList = optionRepository.findByContract(contractRowid);
-            //옵션이 하나도 없다면? 이걸 쿼리로 했어야 하는데, 괜히 끌고 들어와서 고생이네
-            //TODO 옵션이 하나도 없으면 어떻게 하지?
-            Option option = null;
-            if(!optionList.isEmpty()) option = optionList.get(0);
-
             List<Tenant> tenantList = tenantRepository.findByContract(contractRowid);
             List<Car> carList = carRepository.findByCar(contractRowid);
 
-            contarctList.forEach(i -> System.out.println("contract : " + i));
-            System.out.println("option : " + option);
-            tenantList.forEach(i -> System.out.println("tenant : " + i));
-            carList.forEach(i -> System.out.println("car : " + i));
-
-
             List<CarDTO> carDTOList = Car.entitiesToDTO(carList);
             List<TenantDTO> tenantDTOList = Tenant.entitiesToDTO(tenantList);
-            OptionDTO optionDTo = Option.entityToDTO(option);
+            OptionDTO optionDTO = Option.entityToDTO(optionList);
 
-            //TODO ContractDTOList 만들기,
-            contractDTOList.add(Contract.entityToDTO(contract, carDTOList, tenantDTOList, optionDTo));
-
+            contractDTOList.add(Contract.entityToDTO(contract, carDTOList, tenantDTOList, optionDTO));
         }
-
-
         UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
-
         ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
         return unitDTO;
     }
