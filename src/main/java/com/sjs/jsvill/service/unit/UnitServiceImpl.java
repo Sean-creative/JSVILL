@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -25,7 +26,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public Long register(UnitDTO dto) {
-        log.info("DTO-------------" );
+        log.info("DTO-------------");
         log.info(dto);
         Unit unit = dtoToEntity(dto);
         unitRepository.save(unit);
@@ -39,7 +40,7 @@ public class UnitServiceImpl implements UnitService {
         List<ContractDTO> contractDTOList = new ArrayList<>();
 
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
-        List<Contract> contarctList =  contractRepository.findContarctByUnitNotOld(unit_rowid);
+        List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unit_rowid);
         for (Contract contract : contarctList) {
             Long contractRowid = contract.getContract_rowid();
             List<Option> optionList = optionRepository.findByContract(contractRowid);
@@ -55,6 +56,37 @@ public class UnitServiceImpl implements UnitService {
         UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
         ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
         return unitDTO;
+    }
+
+    @Override
+    public Unit get(Long unitRowid) {
+        Optional<Unit> unit = unitRepository.findById(unitRowid);
+        return unit.get();
+    }
+
+    @Transactional
+    @Override
+    public void modify(UnitDTO unitDTO) {
+        Unit unit = unitRepository.getById(unitDTO.getUnitRowid());
+
+        System.out.println("unitDTO.getAddr2() : " + unitDTO.getAddr2());
+
+        if (unit != null) {
+            unit.changeAddr2(unitDTO.getAddr2());
+            unit.changeDeposit(unitDTO.getDeposit());
+            unit.changeRentfee(unitDTO.getRentFee());
+            unit.changeManagemnetfees(unitDTO.getManagementFees());
+            unit.changePaymentday(unitDTO.getPaymentDay());
+            unit.changeMemo(unitDTO.getMemo());
+            unitRepository.save(unit);
+        }
+    }
+
+    @Override
+    public void remove(Long unit_rowid) {
+        //unit을 삭제하면 그에 해당하는 계약도 삭제되어야 한다.
+
+        unitRepository.getById(unit_rowid);
     }
 
 

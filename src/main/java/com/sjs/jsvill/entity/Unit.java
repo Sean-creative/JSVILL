@@ -26,7 +26,7 @@ public class Unit extends BaseEntity {
     private Group group;
 
     @Column(length = 100, nullable = false)
-    private String addr2;
+    private String addr2; // 호수
 
     @Column(nullable = false)
     private Long deposit; //보증금
@@ -41,8 +41,14 @@ public class Unit extends BaseEntity {
     private Long paymentday; //납부일
 
     @Column(nullable = false)
-    private String memo;
+    private String memo; // 메모 (선택적)
 
+    public void changeAddr2(String addr2) { this.addr2 = addr2; }
+    public void changeDeposit(Long deposit) { this.deposit = deposit; }
+    public void changeRentfee(Long rentfee) { this.rentfee = rentfee; }
+    public void changeManagemnetfees(Long managementfees) { this.managementfees = managementfees; }
+    public void changePaymentday(Long paymentday) { this.paymentday = paymentday; }
+    public void changeMemo(String memo) { this.memo = memo; }
 
     //단순히 호실만 다룰 때
     public static UnitDTO entityToDTO(Unit unit) {

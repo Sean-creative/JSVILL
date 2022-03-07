@@ -22,9 +22,9 @@ public class ContractController {
     private final UnitService unitService;
 
     @GetMapping("/register")
-    public void register(Long unit_rowid, Model model) {
-        log.info("unit_rowid: " + unit_rowid);
-        UnitDTO unitDTO = unitService.getWithContractList(unit_rowid);
+    public void register(Long unitRowid, Model model) {
+        log.info("unitRowid: " + unitRowid);
+        UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         log.info(unitDTO);
         model.addAttribute("result", unitDTO);
     }
@@ -32,7 +32,7 @@ public class ContractController {
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
         log.info("ContractDTO..." + contractDTO);
 //        contractService.register(contractDTO);
-        return "redirect:/unit/read?unit_rowid=1";
+        return "redirect:/unit/read?unitRowid=1";
     }
 
     @GetMapping("/edit")

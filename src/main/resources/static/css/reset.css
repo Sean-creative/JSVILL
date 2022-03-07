@@ -1,3 +1,7 @@
+
+/*디폴트로 잡혀있는 값들중에 필요없는것들을 다시 설정해주는 CSS*/
+
+/*밑의 내용이 적용되면 input의 왼쪽 오른쪽이 안맞을 것임 -> 오른쪽 여백 수정해줘야함*/
 input, textarea {padding-left:10px}
 
 html, body, div, span, applet, object, iframe,

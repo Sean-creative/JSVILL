@@ -1,7 +1,10 @@
 package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.entity.*;
+import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.GroupMember;
+import com.sjs.jsvill.entity.Member;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.repository.GroupMemberRepository;
 import com.sjs.jsvill.repository.GroupRepository;
 import com.sjs.jsvill.repository.UnitRepository;
@@ -61,6 +64,7 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public Long remove(Long group_rowid) {
         //삭제해야할 것들 -> groupMember, group, unit
+        //TODO 그룹이 삭제되면 호실들에게 속한 계약도 삭제되어야 한다.
         groupMemberRepository.deleteByGroup(group_rowid);
         groupRepository.deleteById(group_rowid);
         unitRepository.deleteByGroupRowid(group_rowid);

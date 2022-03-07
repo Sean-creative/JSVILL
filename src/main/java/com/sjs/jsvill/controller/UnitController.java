@@ -25,8 +25,6 @@ public class UnitController {
         model.addAttribute("groupRowid", groupRowid);
     }
 
-
-
     @PostMapping("register")
     public String register(UnitDTO dto, RedirectAttributes redirectAttributes) {
         log.info("dto..." + dto);
@@ -36,16 +34,24 @@ public class UnitController {
         return "redirect:/group/list";
     }
 
-    @RequestMapping("edit")
-    public void edit() {log.info("edit");}
+    @GetMapping("edit")
+    public void edit(long unitRowid, Model model) {
+        log.info("edit");
+        model.addAttribute("result" , unitService.get(unitRowid));
+    }
+
+    @PostMapping("edit")
+    public String edit(UnitDTO unitDTO, RedirectAttributes redirectAttributes) {
+        unitService.modify(unitDTO);
+        return "redirect:/unit/read?unitRowid="+unitDTO.getUnitRowid();
+    }
 
     @RequestMapping("communityWrite")
     public void communityWrite() {log.info("communityWrite");}
 
     @PostMapping("/remove")
     public String remove(long unitRowid, RedirectAttributes redirectAttributes){
-        log.info("unitRowid: " + unitRowid);
-//        log.info("??? : " + groupService.remove(unitRowid));
+        unitService.remove(unitRowid);
         redirectAttributes.addFlashAttribute("msg", unitRowid);
         return "redirect:/group/list";
     }
