@@ -16,8 +16,8 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     List<Unit> getUnitWithGroup(@Param("group_rowid") Long group_rowid);
 
     //해당 그룹의 총합을 계산해주는 쿼리
-    @Query("select count(u), sum(u.deposit), sum(u.rentfee), sum(u.managementfees) from Group g LEFT JOIN Unit u On u.group=g where g.group_rowid=:group_rowid group by g")
-    Object getGroupWithUnitGroupBy(@Param("group_rowid") Long group_rowid);
+//    @Query("select count(u), sum(u.deposit), sum(u.rentfee), sum(u.managementfees) from Group g LEFT JOIN Unit u On u.group=g where g.group_rowid=:group_rowid group by g")
+//    Object getGroupWithUnitGroupBy(@Param("group_rowid") Long group_rowid);
 
     //해당 멤버가 가지고 있는 그룹을 가져오는 쿼리
     @Query("select g from Group g LEFT JOIN GroupMember gm On gm.group=g where gm.member.member_rowid=:member_rowid")

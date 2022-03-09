@@ -49,12 +49,18 @@ public class Contract extends BaseEntity {
     private Long paymentday;
 
 
+    public void changeDeposit(Long deposit) { this.deposit = deposit; }
+    public void changeRentfee(Long rentfee) { this.rentfee = rentfee; }
+    public void changeManagemnetfees(Long managementfees) { this.managementfees = managementfees; }
+    public void changePaymentday(Long paymentday) { this.paymentday = paymentday; }
+
+
     //하나의 계약에 각종 리스트들을 넣어줄것임
     public static ContractDTO entityToDTO(Contract contarct, List<CarDTO> carDTOList, List<TenantDTO> tenantDTOList, OptionDTO optionDTO) {
         ContractDTO contractDTO = ContractDTO.builder()
                 .contractRowid(contarct.getContract_rowid())
                 .unitRowid(contarct.getUnit().getUnit_rowid())
-                ._contractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
+                .ContractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
                 .startDate(contarct.getStartdate())
                 .endDate(contarct.getEnddate())
                 .deposit(contarct.getDeposit())

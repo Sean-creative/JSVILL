@@ -25,10 +25,6 @@ public class UnitServiceTests {
                     .unitRowid(i)
                     .groupRowid(1L)
                     .addr2("addr2" + i)
-                    .deposit(i)
-                    .rentFee(i)
-                    .managementFees(i)
-                    .paymentDay(i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitService.register(unitDTO));
@@ -65,7 +61,7 @@ public class UnitServiceTests {
         System.out.println("Before unit : " + unit);
 
         unit.changeAddr2("주소 바꿨다!");
-        unit.changeDeposit(999L);
+//        unit.changeDeposit(999L);
         UnitDTO unitDTO = Unit.entityToDTO(unit);
         System.out.println("unitDTO : " + unitDTO);
 

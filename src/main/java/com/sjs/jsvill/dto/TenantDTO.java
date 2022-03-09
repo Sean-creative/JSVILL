@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TenantDTO {
-    private Long tenantR;
+    private Long tenantRowid;
     private String title;
     private String phone;
-    private int isContractor;
+    private Boolean isContractor;
     private String livingType;
 }

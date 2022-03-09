@@ -56,7 +56,7 @@ public class UnitController {
         return "redirect:/group/list";
     }
 
-    @GetMapping("read")
+    @GetMapping("/read")
     public void read(Long unitRowid, Model model){
         log.info("bno: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);

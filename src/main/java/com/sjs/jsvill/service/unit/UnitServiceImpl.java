@@ -73,10 +73,6 @@ public class UnitServiceImpl implements UnitService {
 
         if (unit != null) {
             unit.changeAddr2(unitDTO.getAddr2());
-            unit.changeDeposit(unitDTO.getDeposit());
-            unit.changeRentfee(unitDTO.getRentFee());
-            unit.changeManagemnetfees(unitDTO.getManagementFees());
-            unit.changePaymentday(unitDTO.getPaymentDay());
             unit.changeMemo(unitDTO.getMemo());
             unitRepository.save(unit);
         }

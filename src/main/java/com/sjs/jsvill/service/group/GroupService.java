@@ -61,17 +61,13 @@ public interface GroupService {
                     .unitRowid(unit.getUnit_rowid())
                     .groupRowid(unit.getGroup().getGroup_rowid())
                     .addr2(unit.getAddr2())
-                    .deposit(unit.getDeposit())
-                    .rentFee(unit.getRentfee())
-                    .managementFees(unit.getManagementfees())
-                    .paymentDay(unit.getPaymentday())
                     .memo(unit.getMemo())
                     .build()
             ).collect(Collectors.toList());
             groupDTO.setUnitDTOList(unitDTOList);
-            groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
-            groupDTO.setTotalRentFee(unitList.stream().mapToLong(Unit::getRentfee).sum());
-            groupDTO.setTotalManagementFees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
+//            groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
+//            groupDTO.setTotalRentFee(unitList.stream().mapToLong(Unit::getRentfee).sum());
+//            groupDTO.setTotalManagementFees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
             //TODO 계약쪽 해결되면 고칠 것!
             groupDTO.setTotalTenantCnt(0L);
         }

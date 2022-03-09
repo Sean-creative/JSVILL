@@ -25,10 +25,6 @@ public class UnitRepositoryTests {
             Unit unit = Unit.builder()
                     .group(group)
                     .addr2("addr2" + i)
-                    .deposit(i)
-                    .rentfee(i)
-                    .managementfees(i)
-                    .paymentday(i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitRepository.save(unit));

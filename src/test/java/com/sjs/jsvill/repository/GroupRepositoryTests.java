@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -53,12 +52,12 @@ public class GroupRepositoryTests {
         }
     }
 
-    @Test
-    public void getGroupWithUnitGroupBy() {
-        Object result = groupRepository.getGroupWithUnitGroupBy(1L);
-        Object[] arr = (Object[]) result;
-        System.out.println(Arrays.toString(arr));
-    }
+//    @Test
+//    public void getGroupWithUnitGroupBy() {
+//        Object result = groupRepository.getGroupWithUnitGroupBy(1L);
+//        Object[] arr = (Object[]) result;
+//        System.out.println(Arrays.toString(arr));
+//    }
 
 
     @Test

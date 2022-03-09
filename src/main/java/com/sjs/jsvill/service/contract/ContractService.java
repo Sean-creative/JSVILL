@@ -19,7 +19,7 @@ public interface ContractService {
         // 4. option에 insert
 
 //        Unit unit = Unit.builder().unit_rowid(contractDTO.gettenantRowid()).build();
-        _ContractType contractType = _ContractType.builder()._contracttype_rowid(contractDTO.get_contractTypeRowid()).build();
+        _ContractType contractType = _ContractType.builder()._contracttype_rowid(contractDTO.getContractTypeRowid()).build();
         Contract contract = Contract.builder()
                 ._contracttype(contractType)
                 .startdate(contractDTO.getStartDate())

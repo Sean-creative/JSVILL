@@ -4,6 +4,7 @@ import com.sjs.jsvill.dto.ContractDTO;
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.contract.ContractService;
 import com.sjs.jsvill.service.unit.UnitService;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -23,16 +24,13 @@ public class ContractController {
 
     @GetMapping("/register")
     public void register(Long unitRowid, Model model) {
-        log.info("unitRowid: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
-        log.info(unitDTO);
         model.addAttribute("result", unitDTO);
     }
     @PostMapping("register")
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
-        log.info("ContractDTO..." + contractDTO);
-//        contractService.register(contractDTO);
-        return "redirect:/unit/read?unitRowid=1";
+        Json.stringToJson(contractDTO);
+        return "redirect:/unit/read?unitRowid="+contractDTO.getUnitRowid();
     }
 
     @GetMapping("/edit")

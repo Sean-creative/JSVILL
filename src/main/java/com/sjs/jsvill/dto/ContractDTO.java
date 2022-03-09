@@ -15,7 +15,7 @@ import java.util.List;
 public class ContractDTO {
     private Long contractRowid;
     private Long unitRowid;
-    private Long _contractTypeRowid;
+    private Long ContractTypeRowid;
     private String startDate;
     private String endDate;
     private Long deposit; //보증금
