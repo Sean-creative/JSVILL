@@ -41,7 +41,7 @@
                 <div style="display:flex;align-items: center;justify-content: space-between">
                     <div style="width:82%;display:flex;align-items:center">
                         <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
-                        <input type="text" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
+                        <input type="text" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
                         <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
                         <span style="margin-left:5px">세대주</span>
@@ -102,6 +102,15 @@
             </div>
 
             <div class="info">
+                <div class="subTitle">계약 종류</div>
+                <div class="contractType">
+                    <input type="radio" name="contractTypeRowid" id="10" th:value=10><label for="10">전세</label>
+                    <input type="radio" name="contractTypeRowid" id="20" th:value=20><label for="20">반전세</label>
+                    <input type="radio" name="contractTypeRowid" id="30" th:value=30><label for="30">월세</label>
+                </div>
+            </div>
+
+            <div class="info">
                 <div class="subTitle">옵션</div>
                 <div style="display:flex;align-items:center;margin-top:10px">
                     <input type="text" name="optionDTO.optionList[0]" placeholder="옵션" style="width:200px;background:#F6F6F6">
@@ -110,17 +119,41 @@
                 <div class="optionAddSection"></div>
             </div>
 
-            <div style="margin-top:30px">
+            <div style="margin:30px 0 40px 0;float:right">
                 <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
-                <input type="hidden" name="contractTypeRowid" th:value=10>
-                <button class="registerBtn">등록</button>
+                <button class="registerBtn" onclick="phoneValiCheck(event)">등록</button>
+            </div>
+
+            <div id="resultDiv">
+                <p th:if="${msg}!=null" th:text="${msg}"></p>
             </div>
         </form>
     </th:block>
 </th:block>
 
 <script th:inline="javascript">
+    function phoneValiCheck(e) {
+        //중복값이 있는지 확인
+        e.preventDefault();
+
+        let phoneList = [];
+        $(".tenantPhone").each(function() {
+            phoneList.push($(this).val());
+        })
+        $.ajax({
+            type: "POST",
+            url: "/contract/phoneValiCheck",
+            data: {phoneList : phoneList},
+            success:function (data) {
+                console.log("data : " + data);
+            }, error :function(e) {
+                console.log(e);
+            }
+        })
+    }
+
+
     let tenantCnt = 1
     let carCnt = 1
     let optionCnt = 1
@@ -137,9 +170,9 @@
         let str = $(".tenantAddSection").html()
         str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
             '                        <input type="text" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
-            '                        <input type="text" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
-            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" th:value=false>\n' +
-            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" th:value="20">\n' +
+            '                        <input type="text" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
+            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" value=false >\n' +
+            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" value=20>\n' +
             '                    </div>'
         $(".tenantAddSection").html(str)
         tenantCnt++

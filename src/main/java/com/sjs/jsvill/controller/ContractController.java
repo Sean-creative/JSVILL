@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/contract")
@@ -27,12 +27,25 @@ public class ContractController {
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         model.addAttribute("result", unitDTO);
     }
-    @PostMapping("register")
+
+    @PostMapping("/register")
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
         Json.stringToJson(contractDTO);
-        return "redirect:/unit/read?unitRowid="+contractDTO.getUnitRowid();
+        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
     }
 
     @GetMapping("/edit")
-    public void edit() {log.info("contractEdit");}
+    public void edit() {
+        log.info("contractEdit");
+    }
+
+    @PostMapping("/phoneValiCheck")
+    @ResponseBody
+    public String phoneValiCheck(Model model, @RequestParam(value = "phoneList[]") List<String> phoneList) {
+//        for(TenantDTO tenantDTO : tenantDTOList) Json.stringToJson(tenantDTO);
+        model.addAttribute("msg", "서버에서 붙여준 값입니다");
+        return "성공!!";
+//        return "/contract/register :: #resultDiv";
+    }
+
 }
