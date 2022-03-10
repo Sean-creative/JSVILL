@@ -42,7 +42,8 @@ public class ContractController {
     @PostMapping("/phoneValiCheck")
     @ResponseBody
     public String phoneValiCheck(Model model, @RequestParam(value = "phoneList[]") List<String> phoneList) {
-//        for(TenantDTO tenantDTO : tenantDTOList) Json.stringToJson(tenantDTO);
+
+
         model.addAttribute("msg", "서버에서 붙여준 값입니다");
         return "성공!!";
 //        return "/contract/register :: #resultDiv";

@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.LongStream;
+
+import static org.reflections.Reflections.log;
 
 @SpringBootTest
 public class TenantRepositoryTests {
@@ -35,6 +38,21 @@ public class TenantRepositoryTests {
         System.out.println("result.length : " + result.size());
         for (Tenant tenant : result) {
             System.out.println("tenant : " + tenant);
+        }
+    }
+
+    @Test
+    public void findAllByPhoneIn() {
+        List<String> list = new ArrayList<>();
+        list.add("010");
+        list.add("111");
+
+        List<Tenant> tenantList = tenantRepository.findAllByPhoneIn(list);
+        log.info("tenantRepository.size() : " + tenantList.size());
+        log.info("tenantRepository.size() : " + tenantList.isEmpty());
+        for(Tenant tenant : tenantList) {
+            log.info("tenant : " + tenant);
+//            Json.stringToJson(tenant);
         }
     }
 }

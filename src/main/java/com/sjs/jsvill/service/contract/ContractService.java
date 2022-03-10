@@ -4,12 +4,16 @@ import com.sjs.jsvill.dto.ContractDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity._ContractType;
 
+import java.util.List;
+
 public interface ContractService {
 //    void register(ContractDTO contractDTO);
 //    List<GroupDTO> getList(Long member_rowid);
 //    Long remove(Long group_rowid);
 //    Group get(Long group_rowid);
 //    void modify(GroupDTO groupDTO);
+
+    void phoneCheck(List<String> phoneList);
 
     default Contract dtoToEntity(ContractDTO contractDTO) {
         //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자
