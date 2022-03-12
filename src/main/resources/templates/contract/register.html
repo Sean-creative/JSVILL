@@ -46,7 +46,7 @@
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
                         <span style="margin-left:5px">세대주</span>
                     </div>
-                    <button type="button" class="addBtn" id="tenantAddBtn" style="margin-left:20px">+입주자 추가</button>
+                    <button type="button" class="addBtn" id="tenantAddBtn" style="margin-left:15px">+입주자 추가</button>
                 </div>
                 <div class="tenantAddSection"></div>
                 <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
@@ -104,7 +104,7 @@
             <div class="info">
                 <div class="subTitle">계약 종류</div>
                 <div class="contractType">
-                    <input type="radio" name="contractTypeRowid" id="10" th:value=10><label for="10">전세</label>
+                    <input type="radio" name="contractTypeRowid" id="10" th:value=10 checked><label for="10">전세</label>
                     <input type="radio" name="contractTypeRowid" id="20" th:value=20><label for="20">반전세</label>
                     <input type="radio" name="contractTypeRowid" id="30" th:value=30><label for="30">월세</label>
                 </div>
@@ -124,10 +124,6 @@
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
                 <button class="registerBtn" onclick="phoneValiCheck(event)">등록</button>
             </div>
-
-            <div id="resultDiv">
-                <p th:if="${msg}!=null" th:text="${msg}"></p>
-            </div>
         </form>
     </th:block>
 </th:block>
@@ -141,12 +137,17 @@
         $(".tenantPhone").each(function() {
             phoneList.push($(this).val());
         })
+        console.log("phoneList : ", phoneList)
         $.ajax({
             type: "POST",
             url: "/contract/phoneValiCheck",
             data: {phoneList : phoneList},
             success:function (data) {
-                console.log("data : " + data);
+                if(data!=="") alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                else {
+                    console.log("여기는 들어오지?")
+                    $("form").submit();
+                }
             }, error :function(e) {
                 console.log(e);
             }

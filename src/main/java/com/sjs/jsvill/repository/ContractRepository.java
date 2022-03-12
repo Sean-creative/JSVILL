@@ -13,4 +13,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     @Query("select c from Contract c left join c.unit u where c.unit.unit_rowid=:unit_rowid and c.enddate>=current_date order by c.enddate")
     List<Contract> findContarctByUnitNotOld(@Param("unit_rowid") Long unit_rowid);
 
+
 }

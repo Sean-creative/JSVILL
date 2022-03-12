@@ -13,5 +13,5 @@ public interface TenantRepository extends JpaRepository<Tenant, Long> {
     List<Tenant> findByContract(@Param("contract_rowid") Long contract_rowid);
 
     //나중에는 TRUE FALSE로 바꾸기
-    List<Tenant> findAllByPhoneIn(List<String> phones);
+    Tenant findAllByPhoneIn(List<String> phones);
 }

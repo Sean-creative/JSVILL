@@ -43,16 +43,12 @@ public class TenantRepositoryTests {
 
     @Test
     public void findAllByPhoneIn() {
-        List<String> list = new ArrayList<>();
-        list.add("010");
-        list.add("111");
+        List<String> phoneList = new ArrayList<>();
+        phoneList.add("010");
+        phoneList.add("111");
 
-        List<Tenant> tenantList = tenantRepository.findAllByPhoneIn(list);
-        log.info("tenantRepository.size() : " + tenantList.size());
-        log.info("tenantRepository.size() : " + tenantList.isEmpty());
-        for(Tenant tenant : tenantList) {
-            log.info("tenant : " + tenant);
-//            Json.stringToJson(tenant);
-        }
+        Tenant tenant = tenantRepository.findAllByPhoneIn(phoneList);
+        log.info("tenant : " + tenant);
+
     }
 }

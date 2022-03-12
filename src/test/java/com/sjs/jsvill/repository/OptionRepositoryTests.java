@@ -16,7 +16,7 @@ public class OptionRepositoryTests {
     private OptionRepository optionRepository;
 
     @Test
-    public void testRegister() {
+    public void save() {
         Contract contarct = Contract.builder().contract_rowid(1L).build();
         LongStream.rangeClosed(1, 3).forEach(i -> {
             Option option = Option.builder()
