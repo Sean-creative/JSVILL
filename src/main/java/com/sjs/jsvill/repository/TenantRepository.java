@@ -14,4 +14,8 @@ public interface TenantRepository extends JpaRepository<Tenant, Long> {
 
     //나중에는 TRUE FALSE로 바꾸기
     Tenant findAllByPhoneIn(List<String> phones);
+
+    Tenant findByPhone(String phone);
+
+    Boolean existsByPhone(String phone);
 }

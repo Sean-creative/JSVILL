@@ -20,6 +20,10 @@ public class Tenant extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tenant_rowid;
 
+    @ManyToOne
+    @JoinColumn(name = "_livingtype_rowid", nullable = false)
+    private _LivingType _livingtype;
+
     @Column(length = 64, nullable = false)
     private String title;
 
@@ -29,9 +33,6 @@ public class Tenant extends BaseEntity {
     @Column(nullable = false)
     private Boolean iscontractor;
 
-    @ManyToOne
-    @JoinColumn(name = "_livingtype_rowid", nullable = false)
-    private _LivingType _livingtype;
 
 
     public static List<TenantDTO> entitiesToDTO(List<Tenant> tenantList) {

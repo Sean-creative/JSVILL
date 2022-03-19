@@ -49,6 +49,17 @@ public class TenantRepositoryTests {
 
         Tenant tenant = tenantRepository.findAllByPhoneIn(phoneList);
         log.info("tenant : " + tenant);
+    }
 
+    @Test
+    public void findAllByPhone() {
+        Tenant tenant = tenantRepository.findByPhone("0102222");
+        log.info("tenant : " + tenant);
+    }
+
+    @Test
+    public void findByPhone() {
+        Boolean tenant = tenantRepository.existsByPhone("ererer");
+        log.info("tenant : " + tenant);
     }
 }

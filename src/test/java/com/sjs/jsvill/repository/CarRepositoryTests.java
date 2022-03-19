@@ -36,4 +36,11 @@ public class CarRepositoryTests {
 
         result.forEach(i -> System.out.println(i));
     }
+
+    @Test
+    public void existsByTenant() {
+        Tenant tenant = Tenant.builder().tenant_rowid(1L).build();
+        System.out.println("carRepository.existsByTenant(tenant) " + carRepository.existsByTenant(tenant));
+    }
+
 }
