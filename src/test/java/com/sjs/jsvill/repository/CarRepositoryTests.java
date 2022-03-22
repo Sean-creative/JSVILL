@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -31,10 +30,10 @@ public class CarRepositoryTests {
 
     @Test
     public void findByCar() {
-        List<Car> result = carRepository.findByCar(1L);
-        System.out.println("result.length : " + result.size());
+//        List<Car> result = carRepository.findByCar(1L);
+//        System.out.println("result.length : " + result.size());
 
-        result.forEach(i -> System.out.println(i));
+//        result.forEach(i -> System.out.println(i));
     }
 
     @Test

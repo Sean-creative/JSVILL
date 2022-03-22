@@ -23,6 +23,7 @@ public class UnitServiceImpl implements UnitService {
     private final OptionRepository optionRepository;
     private final TenantRepository tenantRepository;
     private final CarRepository carRepository;
+    private final ContractTenantRepository contractTenantRepository;
 
     @Override
     public Long register(UnitDTO dto) {
@@ -42,16 +43,16 @@ public class UnitServiceImpl implements UnitService {
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
         List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unit_rowid);
         for (Contract contract : contarctList) {
-            Long contractRowid = contract.getContract_rowid();
             Option option = optionRepository.findByContract(contract);
-            List<Tenant> tenantList = tenantRepository.findByContractRowid(contractRowid);
-            List<Car> carList = carRepository.findByCar(contractRowid);
-
-            List<CarDTO> carDTOList = Car.entitiesToDTO(carList);
-            List<TenantDTO> tenantDTOList = Tenant.entitiesToDTO(tenantList);
-            OptionDTO optionDTO = Option.entityToDTO(option);
-
-            contractDTOList.add(Contract.entityToDTO(contract, carDTOList, tenantDTOList, optionDTO));
+            List<Tenant> tenantList = new ArrayList<>();
+            List<Car> carList = new ArrayList<>();
+            List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
+            result.forEach(ContractTenant -> {
+                tenantList.add(ContractTenant.getTenant());
+                //4. 차량정보
+                carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
+            });
+            contractDTOList.add(Contract.entityToDTO(contract, Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option)));
         }
         UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
         ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!

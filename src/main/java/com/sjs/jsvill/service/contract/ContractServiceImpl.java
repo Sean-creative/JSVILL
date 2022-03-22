@@ -11,7 +11,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,22 +84,19 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDTO get(Long contractRowid) {
-        ContractDTO contractDTO = new ContractDTO();
-        Contract contract = Contract.builder().contract_rowid(contractRowid).build();
         //1. 계약 정보
-        contractRepository.findById(contractRowid);
+        Optional<Contract> contract = contractRepository.findById(contractRowid);
         //2. 옵션 정보
-        optionRepository.findByContract(contract);
+        Option option = optionRepository.findByContract(contract.get());
         //3. 세입자 정보
-        List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
+        List<Tenant> tenantList = new ArrayList<>();
+        List<Car> carList = new ArrayList<>();
+        List<ContractTenant> result = contractTenantRepository.findAllByContract(contract.get());
         result.forEach(ContractTenant -> {
-            System.out.println(ContractTenant);
-            tenantRepository.findById(ContractTenant.getTenant().getTenant_rowid());
-
+            tenantList.add(ContractTenant.getTenant());
+            //4. 차량정보
+            carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
         });
-
-        //4. 차량정보
-
-        return null;
+        return Contract.entityToDTO(contract.get(), Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
     }
 }

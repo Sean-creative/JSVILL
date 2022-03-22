@@ -31,8 +31,8 @@ public class ContractTenantRepositoryTests {
 
     @Test
     public void findAllByContract() {
-        Contract contract = Contract.builder().contract_rowid(25L).build();
+        Contract contract = Contract.builder().contract_rowid(27L).build();
         List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
-        result.forEach(i -> System.out.println(i.getContract()));
+        result.forEach(i -> System.out.println(i.getTenant()));
     }
 }

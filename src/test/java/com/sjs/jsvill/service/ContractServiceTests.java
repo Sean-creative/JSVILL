@@ -5,6 +5,7 @@ import com.sjs.jsvill.dto.ContractDTO;
 import com.sjs.jsvill.dto.OptionDTO;
 import com.sjs.jsvill.dto.TenantDTO;
 import com.sjs.jsvill.service.contract.ContractService;
+import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,5 +54,10 @@ public class ContractServiceTests {
                 .ContractTypeRowid(10L)
                 .build();
         contractService.register(contractDTO);
+    }
+
+    @Test
+    public void get() {
+        Json.stringToJson(contractService.get(28L));
     }
 }
