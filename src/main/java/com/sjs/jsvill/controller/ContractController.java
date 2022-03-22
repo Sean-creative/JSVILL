@@ -37,7 +37,9 @@ public class ContractController {
 
     @GetMapping("/edit")
     public void edit() {
+
         log.info("contractEdit");
+
     }
 
     @PostMapping("/phoneValiCheck")

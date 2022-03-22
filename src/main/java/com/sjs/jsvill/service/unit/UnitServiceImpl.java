@@ -43,13 +43,13 @@ public class UnitServiceImpl implements UnitService {
         List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unit_rowid);
         for (Contract contract : contarctList) {
             Long contractRowid = contract.getContract_rowid();
-            List<Option> optionList = optionRepository.findByContract(contractRowid);
-            List<Tenant> tenantList = tenantRepository.findByContract(contractRowid);
+            Option option = optionRepository.findByContract(contract);
+            List<Tenant> tenantList = tenantRepository.findByContractRowid(contractRowid);
             List<Car> carList = carRepository.findByCar(contractRowid);
 
             List<CarDTO> carDTOList = Car.entitiesToDTO(carList);
             List<TenantDTO> tenantDTOList = Tenant.entitiesToDTO(tenantList);
-            OptionDTO optionDTO = Option.entityToDTO(optionList);
+            OptionDTO optionDTO = Option.entityToDTO(option);
 
             contractDTOList.add(Contract.entityToDTO(contract, carDTOList, tenantDTOList, optionDTO));
         }

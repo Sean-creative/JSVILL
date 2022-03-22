@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -28,11 +29,10 @@ public class ContractTenantRepositoryTests {
         });
     }
 
-//    @Test
-//    public void findByUnit() {
-//        List<Contarct> result = contractRepository.findContarctByUnit(1L);
-//        System.out.println("result.length : " + result.size());
-//
-//        result.forEach(i -> System.out.println(i));
-//    }
+    @Test
+    public void findAllByContract() {
+        Contract contract = Contract.builder().contract_rowid(25L).build();
+        List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
+        result.forEach(i -> System.out.println(i.getContract()));
+    }
 }

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -29,11 +28,8 @@ public class OptionRepositoryTests {
 
     @Test
     public void findByContract() {
-        List<Option> result = optionRepository.findByContract(1L);
-        Option one = result.stream().findFirst().get();
-        System.out.println("option : " + one);
-
-
+        Option option = optionRepository.findByContract(Contract.builder().contract_rowid(25L).build());
+        System.out.println("option : " + option);
     }
 
 }

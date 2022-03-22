@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -42,5 +43,17 @@ public class ContractRepositoryTests {
         System.out.println("result.length : " + result.size());
 
         result.forEach(i -> System.out.println(i));
+    }
+
+    @Test
+    public void findById(){
+        Optional<Contract> contract = contractRepository.findById(27L);
+        System.out.println(contract.get().getUnit());
+    }
+
+    @Test
+    public void getBtId() {
+        System.out.println(contractRepository.getById(27L));
+
     }
 }

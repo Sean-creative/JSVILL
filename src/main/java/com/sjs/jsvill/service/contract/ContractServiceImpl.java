@@ -4,14 +4,8 @@ import com.sjs.jsvill.dto.CarDTO;
 import com.sjs.jsvill.dto.ContractDTO;
 import com.sjs.jsvill.dto.OptionDTO;
 import com.sjs.jsvill.dto.TenantDTO;
-import com.sjs.jsvill.entity.Car;
-import com.sjs.jsvill.entity.Contract;
-import com.sjs.jsvill.entity.Option;
-import com.sjs.jsvill.entity.Tenant;
-import com.sjs.jsvill.repository.CarRepository;
-import com.sjs.jsvill.repository.ContractRepository;
-import com.sjs.jsvill.repository.OptionRepository;
-import com.sjs.jsvill.repository.TenantRepository;
+import com.sjs.jsvill.entity.*;
+import com.sjs.jsvill.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -29,6 +23,7 @@ public class ContractServiceImpl implements ContractService {
     private final ContractRepository contractRepository;
     private final OptionRepository optionRepository;
     private final CarRepository carRepository;
+    private final ContractTenantRepository contractTenantRepository;
 
     @Override
     public String phoneCheck(List<String> phoneList) {
@@ -54,8 +49,6 @@ public class ContractServiceImpl implements ContractService {
         Option option = OptionDTO.DTOToEntity(optionDTO, contract.getContract_rowid());
         log.info("optionRepository.save(option)" + optionRepository.save(option));
 
-//        List<String> phoneList = contractDTO.getTenantDTOList().stream().map(TenantDTO::getPhone).collect(Collectors.toList());
-
 //        2. 세입자 등록
         //세입자 등록할 때 이미 해당 핸드폰 번호가 등록되어있을 수도있음 ex)기존에 살았던 세입자
         List<Tenant> tenantList = TenantDTO.DTOToEntities(contractDTO.getTenantDTOList());
@@ -65,6 +58,9 @@ public class ContractServiceImpl implements ContractService {
             if(!tenantRepository.existsByPhone(PHONE)) tenantRepository.save(tenant);
             //세입자를 등록했든 안했든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
             Tenant tenantFromDB = tenantRepository.findByPhone(PHONE);
+            //계약 세입자 매핑 테이블에 등록
+            contractTenantRepository.save(ContractTenant.builder().contract(contract).tenant(tenantFromDB).build());
+
 
 //        2-1. 세입자R -> 차량 등록
 //        차량리스트에서 세입자의 폰번호랑 같은것을 찾은 후 -> 해당 세입자를 외래키로 등록을 한다.
@@ -75,7 +71,7 @@ public class ContractServiceImpl implements ContractService {
             //등록할 차량이 없을 수도 있다!! ex) 계약서 등록 할 때 사용자가 차량을 추가 안한경우
             //차량이 이미 DB에 등록되어있을 수도 있음 ex)기존에 살았던 세입자 -> 해당 tenantRowid로 DB에 있는지 검사하기
             for (CarDTO carDTO : carDTOList) {
-                if(!carRepository.existsByTenant(tenantFromDB)) {
+                if(!carRepository.existsByNumber(carDTO.getNumber())) {
                     log.info("carDTO : " + carDTO);
                     Car car = CarDTO.DTOToEntity(carDTO, tenantFromDB.getTenant_rowid());
                     log.info("carRepository.save(car)" + carRepository.save(car));
@@ -87,10 +83,19 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractDTO get(Long contractRowid) {
         ContractDTO contractDTO = new ContractDTO();
+        Contract contract = Contract.builder().contract_rowid(contractRowid).build();
         //1. 계약 정보
-        contractRepository.getById(contractRowid);
+        contractRepository.findById(contractRowid);
         //2. 옵션 정보
+        optionRepository.findByContract(contract);
         //3. 세입자 정보
+        List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
+        result.forEach(ContractTenant -> {
+            System.out.println(ContractTenant);
+            tenantRepository.findById(ContractTenant.getTenant().getTenant_rowid());
+
+        });
+
         //4. 차량정보
 
         return null;

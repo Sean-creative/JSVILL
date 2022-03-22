@@ -27,7 +27,7 @@ public class Car extends BaseEntity {
     @Column(length = 64, nullable = false)
     private String title;
 
-    @Column(length = 64, nullable = false)
+    @Column(length = 64, nullable = false, unique = true)
     private String number;
 
     //    default ContractDTO entityToDTO(Contract contarct, List<CarDTO> carDTOList, List<TenantDTO> tenantDTOList) {

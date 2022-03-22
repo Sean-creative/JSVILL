@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table(name="option")
+@Table(name = "option")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -36,13 +36,10 @@ public class Option extends BaseEntity {
 
 
     //DB에서 해결이 안되기 때문에, 옵션을 list로 받아서, 그중 첫번째 값만 처리하기
-    public static OptionDTO entityToDTO(List<Option> optionList) {
-        OptionDTO optionDTO = new OptionDTO();
-        if(!optionList.isEmpty()) {
-            Option option = optionList.get(0);
-            optionDTO.setOptionRowid(option.getOption_rowid());
-            optionDTO.setOptionList(option.csvToList(option.getOptionList()));
-        }
-        return optionDTO;
+    public static OptionDTO entityToDTO(Option option) {
+        return OptionDTO.builder()
+                .optionRowid(option.getOption_rowid())
+                .optionList(option.csvToList(option.getOptionList()))
+                .build();
     }
 }

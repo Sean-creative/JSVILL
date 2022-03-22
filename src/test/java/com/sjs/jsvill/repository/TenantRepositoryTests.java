@@ -34,7 +34,7 @@ public class TenantRepositoryTests {
 
     @Test
     public void findByUnit() {
-        List<Tenant> result = tenantRepository.findByContract(1L);
+        List<Tenant> result = tenantRepository.findByContractRowid(1L);
         System.out.println("result.length : " + result.size());
         for (Tenant tenant : result) {
             System.out.println("tenant : " + tenant);
@@ -59,7 +59,7 @@ public class TenantRepositoryTests {
 
     @Test
     public void findByPhone() {
-        Boolean tenant = tenantRepository.existsByPhone("ererer");
+        Boolean tenant = tenantRepository.existsByPhone("sdsdcvvb");
         log.info("tenant : " + tenant);
     }
 }

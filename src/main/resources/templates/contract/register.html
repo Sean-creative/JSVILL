@@ -122,17 +122,29 @@
             <div style="margin:30px 0 40px 0;float:right">
                 <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
-                <button class="registerBtn" onclick="phoneValiCheck(event)">등록</button>
+                <button class="registerBtn" onclick="valiCheck(event)">등록</button>
             </div>
         </form>
     </th:block>
 </th:block>
 
 <script th:inline="javascript">
-    function phoneValiCheck(e) {
-        //중복값이 있는지 확인
-        e.preventDefault();
 
+
+    const offset = new Date().getTimezoneOffset() * 60000;
+    const date = new Date(Date.now() - offset);
+    $("input[name=startDate]").attr('value', date.toISOString().substring(0, 10))
+    date.setFullYear(date.getFullYear()+2)
+    $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
+
+
+
+    function valiCheck(e) {
+        e.preventDefault();
+        let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
+        if(!checkDate) alert("시작일은 만료일 이전이어야 합니다.")
+
+        //phone 체크 (중복값이 있는지 확인)
         let phoneList = [];
         $(".tenantPhone").each(function() {
             phoneList.push($(this).val());
@@ -146,7 +158,9 @@
                 if(data!=="") alert("중복된 폰번호 입니다. 폰번호 : " +data)
                 else {
                     console.log("여기는 들어오지?")
-                    $("form").submit();
+                    if(checkDate) {
+                        $("form").submit();
+                    }
                 }
             }, error :function(e) {
                 console.log(e);

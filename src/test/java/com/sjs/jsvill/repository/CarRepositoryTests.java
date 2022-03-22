@@ -38,9 +38,8 @@ public class CarRepositoryTests {
     }
 
     @Test
-    public void existsByTenant() {
-        Tenant tenant = Tenant.builder().tenant_rowid(1L).build();
-        System.out.println("carRepository.existsByTenant(tenant) " + carRepository.existsByTenant(tenant));
+    public void existsByNumber() {
+        System.out.println("carRepository.existsByNumber : " + carRepository.existsByNumber("sdsdcvvb"));
     }
 
 }
