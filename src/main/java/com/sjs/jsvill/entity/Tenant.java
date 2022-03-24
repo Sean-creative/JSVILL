@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="tenant")
+@Table(name = "tenant")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -34,15 +34,16 @@ public class Tenant extends BaseEntity {
     private Boolean iscontractor;
 
 
-
     public static List<TenantDTO> entitiesToDTO(List<Tenant> tenantList) {
         List<TenantDTO> tenantDTOList = new ArrayList<>();
-        if(!tenantList.isEmpty()) {
+        if (!tenantList.isEmpty()) {
             tenantDTOList = tenantList.stream().map(tenant -> TenantDTO.builder()
-                            .title(tenant.getTitle())
-                            .phone(tenant.getPhone())
-//                    .isContractor(tenant.get())
-                            .build()
+                    .tenantRowid(tenant.tenant_rowid)
+                    .title(tenant.getTitle())
+                    .phone(tenant.getPhone())
+                    .isContractor(tenant.getIscontractor())
+                    .livingType(tenant.get_livingtype().get_livingtype_rowid())
+                    .build()
             ).collect(Collectors.toList());
         }
         return tenantDTOList;

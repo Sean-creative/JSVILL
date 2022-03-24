@@ -61,7 +61,7 @@ public class UnitController {
         log.info("bno: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         log.info(unitDTO);
-        model.addAttribute("result", unitDTO);
+        model.addAttribute("unitDTO", unitDTO);
     }
 
     @GetMapping("/previousContract")

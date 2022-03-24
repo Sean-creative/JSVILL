@@ -1,10 +1,9 @@
 package com.sjs.jsvill.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.service.unit.UnitService;
+import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,14 +32,7 @@ public class UnitServiceTests {
 
     @Test
     public void getWithContractList() {
-        UnitDTO unitDTO = unitService.getWithContractList(1L);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String userAsString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(unitDTO);
-            System.out.println("userAsString : " + userAsString);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        Json.stringToJson(unitService.getWithContractList(3L));
     }
 
     @Test

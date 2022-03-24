@@ -8,8 +8,9 @@
 <th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div style="width:1221px">
-            <div class="pageTitle">건물관리 / [[${result.groupAddr}]] [[${result.groupTitle}]] / [[${result.addr2}]]</div>
-            <a th:href="@{/contract/register(unitRowid=${result.unitRowid})}" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
+            <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.addr2}]]</div>
+            <a th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
+               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
                 계약추가
             </a>
             <!-- 파라미터를 넘길 시 -->
@@ -19,7 +20,7 @@
                     <div class="info" style="flex:1">
                         <div class="subTitle">호실 정보</div>
                         <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
-                            <a th:href="@{/unit/edit(unitRowid=${result.unitRowid})}" class="btn">수정</a>
+                            <a th:href="@{/unit/edit(unitRowid=${unitDTO.unitRowid})}" class="btn">수정</a>
                             <a class="btn" href="javascript:unitRemove()" style="margin-left:8px">삭제</a>
                         </div>
                         <div class="infoInner" style="display:flex;margin-top:15px;padding:15px 5px">
@@ -43,15 +44,15 @@
                             </div>
                             <div style="border-left:2px solid gray;padding:0 20px">
                                 <div style="font-weight:bold">비고</div>
-                                <div style="margin-top:10px">[[${result.memo}]]</div>
+                                <div style="margin-top:10px">[[${unitDTO.memo}]]</div>
                             </div>
                         </div>
                         <!--옵션은 선택이라, 현재 진행되는 옵션에서는 옵션이 없을 수도 있다.-->
                         <div class="infoInner" style="margin-top:30px;line-height:25px;padding:0 8px">
-                            <div th:if="${result.optionList.empty}">옵션이 없습니다.</div>
-                            <div th:unless="${result.optionList.empty}">
-                                <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(result.optionList)}]]개의 옵션</div>
-                                <div th:each="option:${result.optionList}" style="border-top:2px solid gray;padding:5px 10px">[[${option}]]</div>
+                            <div th:if="${unitDTO.optionList.empty}">옵션이 없습니다.</div>
+                            <div th:unless="${unitDTO.optionList.empty}">
+                                <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(unitDTO.optionList)}]]개의 옵션</div>
+                                <div th:each="option:${unitDTO.optionList}" style="border-top:2px solid gray;padding:5px 10px">[[${option}]]</div>
                             </div>
                         </div>
                     </div>
@@ -63,68 +64,55 @@
 
                 <div class="info" style="width:650px;text-align:center;margin-left:40px">
                     <div class="subTitle">계약정보</div>
-                    <div style="display:flex;justify-content:space-between;justify-content:flex-end">
-                        <a class="btn" href="/contract/edit">수정</a>
-                    </div>
-                    <div style="margin-bottom:35px">
-                        <div class="infoInner"  style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
-                            <div style="text-align:left;position:relative">
-                                <div style="display:inline-block">계약일</div>
-                                <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">종료 D-48</div>
-                                <div style="font-size:12px;margin-top:7px">2020.05.31 ~ 2021.05.31</div>
+                    <ul>
+                        <li class="contractList" th:each="contractDTO:${unitDTO.contractDTOList}">
+                            <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
+                                <a th:href="@{/contractDTO/edit(contractRowid=${contractDTO.contractRowid})}" class="btn">수정</a>
+                                <a class="btn" style="margin-left:8px">삭제</a>
                             </div>
-                            <a style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;margin-top:15px">
-                            <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
-                                <div style="font-weight:bold;padding:5px 10px">3명의 입주자</div>
-                                <div style="border-top:2px solid gray;padding:5px 15px 5px 10px;position:relative">
-                                    강성현
-                                    <div style="margin-left:10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute;top:10.5px;left:55px">세대주</div>
-                                    <div style="float:right;font-size:13px;line-height:20px">010-6456-3557</div>
+                            <div>
+                                <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
+                                    <div style="text-align:left;position:relative">
+                                        <div style="display:inline-block">계약일</div>
+                                        <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">
+                                            종료 D-48
+                                        </div>
+                                        <div style="font-size:12px;margin-top:7px">[[${contractDTO.startDate}]] ~ [[${contractDTO.endDate}]]</div>
+                                    </div>
+                                    <a style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
                                 </div>
-                                <div style="border-top:2px solid gray;padding:5px 10px">강아들</div>
-                                <div style="border-top:2px solid gray;padding:5px 10px">강딸</div>
-                            </div>
-                            <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px">
-                                <div style="font-weight:bold;padding:5px 10px;height:fit-content">2대의 차량</div>
-                                <div style="border-top:2px solid gray;padding:5px 10px">32바 0948 </div>
-                                <div style="border-top:2px solid gray;padding:5px 10px">53차 5915</div>
-                            </div>
-                        </div>
-                    </div>
+                                <div style="display:flex;justify-content:space-between;margin-top:15px">
+                                    <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
+                                        <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(contractDTO.tenantDTOList)}]]명의 입주자</div>
+                                        <ul>
+                                            <li th:each="tenantDTO:${contractDTO.tenantDTOList}" style="border-top:2px solid gray;padding:5px 15px 5px 10px;display:flex;align-items:center;justify-content:space-between">
+                                                <div style="display:flex;align-items:center">
+                                                    <span>[[${tenantDTO.title}]]</span>
+                                                    <div th:if="${tenantDTO.isContractor==true}" style="margin-left:10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;width:34px">
+                                                        세대주
+                                                    </div>
+                                                </div>
+                                                <div style="float:right;line-height:20px">[[${tenantDTO.phone}]]</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px">
+                                        <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
+                                        <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>
+                                        <ul>
+                                            <li th:each="carDTO:${contractDTO.carDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${carDTO.number}]]</li>
+                                        </ul>
 
-                    <div style="padding-top:20px;border-top:2px solid gray">
-                        <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
-                            <a class="btn">수정</a>
-                            <a class="btn" style="margin-left:8px">삭제</a>
-                        </div>
-                        <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:20px">
-                            <div style="text-align:left;position:relative">
-                                <div style="display:inline-block">계약일</div>
-                                <div style="display:inline-block;margin-left:10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">예정 D-49</div>
-                                <div style="font-size:12px;margin-top:7px">2020.05.31 ~ 2021.05.31</div>
-                            </div>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;margin-top:15px">
-                            <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
-                                <div style="font-weight:bold;padding:5px 10px">1명의 입주자</div>
-                                <div style="border-top:2px solid gray;padding:5px 15px 5px 10px;position:relative">
-                                    김선우
-                                    <div style="margin-left:10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute;top:10.5px;left:55px">세대주</div>
-                                    <div style="float:right;font-size:13px;line-height:20px">010-5007-0615</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px">
-                                <div style="font-weight:bold;padding:5px 10px">1대의 차량</div>
-                                <div style="border-top:2px solid gray;padding:5px 10px">32바 0948 </div>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
             <script th:inline="javascript">
-                function unitRemove(){
+                function unitRemove() {
                     alert("삭제는 준비중입니다.")
 
                     // let f = document.createElement('form');
@@ -133,7 +121,7 @@
                     // obj = document.createElement('input');
                     // obj.setAttribute('type', 'hidden');
                     // obj.setAttribute('name', 'unitRowid');
-                    // obj.setAttribute('value', [[${result.unitRowid}]]);
+                    // obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
                     //
                     // f.appendChild(obj);
                     // f.setAttribute('method', 'post');

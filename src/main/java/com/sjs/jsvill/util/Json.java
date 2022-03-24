@@ -12,7 +12,7 @@ public class Json {
     public static void stringToJson(Object obj) {
         try {
             String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
-            log.info("result : " + result);
+            log.info("\n" + result);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

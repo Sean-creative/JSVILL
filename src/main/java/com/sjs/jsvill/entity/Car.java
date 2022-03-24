@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="car")
+@Table(name = "car")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -48,6 +48,14 @@ public class Car extends BaseEntity {
 //        return contractDTO;
 //    }
 //
+
+    public static CarDTO entityToDTO(Car car, String phone) {
+        return CarDTO.builder()
+                .title(car.getTitle())
+                .number(car.getNumber())
+                .phone(phone)
+                .build();
+    }
 
     public static List<CarDTO> entitiesToDTO(List<Car> carList) {
         List<CarDTO> carDTOList = new ArrayList<>();

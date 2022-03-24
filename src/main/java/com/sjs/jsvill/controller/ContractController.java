@@ -36,10 +36,9 @@ public class ContractController {
     }
 
     @GetMapping("/edit")
-    public void edit() {
+    public void edit(Long contractRowid, Model model) {
 
-        log.info("contractEdit");
-
+        model.addAttribute("result", contractService.get(contractRowid));
     }
 
     @PostMapping("/phoneValiCheck")

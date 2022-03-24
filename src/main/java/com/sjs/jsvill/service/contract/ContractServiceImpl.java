@@ -90,13 +90,16 @@ public class ContractServiceImpl implements ContractService {
         Option option = optionRepository.findByContract(contract.get());
         //3. 세입자 정보
         List<Tenant> tenantList = new ArrayList<>();
-        List<Car> carList = new ArrayList<>();
+        List<CarDTO> carDTOList = new ArrayList<>();
         List<ContractTenant> result = contractTenantRepository.findAllByContract(contract.get());
-        result.forEach(ContractTenant -> {
-            tenantList.add(ContractTenant.getTenant());
+        result.forEach(contractTenant -> {
+            tenantList.add(contractTenant.getTenant());
             //4. 차량정보
-            carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
+            carRepository.findAllByTenant(contractTenant.getTenant()).forEach( i -> {
+                carDTOList.add(Car.entityToDTO(i, contractTenant.getTenant().getPhone()));
+            });
+
         });
-        return Contract.entityToDTO(contract.get(), Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
+        return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
     }
 }
