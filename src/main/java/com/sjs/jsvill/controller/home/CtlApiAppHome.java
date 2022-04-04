@@ -13,6 +13,7 @@ public class CtlApiAppHome {
     @RequestMapping("/app/home")
     public String appHome() {
         log.info("user home");
+        //test
         return "/app/home";
     }
 
