@@ -10,7 +10,7 @@ import java.util.List;
 public interface ContractService {
     void register(ContractDTO contractDTO);
 //    List<GroupDTO> getList(Long member_rowid);
-//    Long remove(Long group_rowid);
+    void remove(Long contract_rowid);
       ContractDTO get(Long contractRowid);
 //    void modify(GroupDTO groupDTO);
 

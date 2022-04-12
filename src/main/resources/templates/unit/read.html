@@ -24,7 +24,7 @@
                             <a class="btn" href="javascript:unitRemove()" style="margin-left:8px">삭제</a>
                         </div>
                         <div class="infoInner" style="display:flex;margin-top:15px;padding:15px 5px">
-                            <div style="padding:0 20px;font-weight:bold">
+                            <div class="ellipsis" style="padding:0 20px;font-weight:bold;width:70px;text-align:center">
                                 101호
                             </div>
                             <div style="border-left:2px solid gray;padding:0 20px">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div style="margin-top:10px">
-                        <a href="read.html" style="color:gray;text-decoration:underline">건물 관리로 이동</a>
+                        <a href="/group/list" style="color:gray;text-decoration:underline">건물 관리로 이동</a>
                         <a href="/unit/previousContract" style="color:gray;text-decoration:underline;float:right">이전 계약 내역 보기</a>
                     </div>
                 </div>
@@ -67,8 +67,9 @@
                     <ul>
                         <li class="contractList" th:each="contractDTO:${unitDTO.contractDTOList}">
                             <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
-                                <a th:href="@{/contractDTO/edit(contractRowid=${contractDTO.contractRowid})}" class="btn">수정</a>
-                                <a class="btn" style="margin-left:8px">삭제</a>
+                                <a th:href="@{/contract/edit(contractRowid=${contractDTO.contractRowid})}" class="btn">수정</a>
+                                <a th:href="@{/contract/remove(contractRowid=${contractDTO.contractRowid})}" class="btn" style="margin-left:8px">삭제</a>
+<!--                                <a class="btn" href="javascript:contractRemove()" style="margin-left:8px">삭제</a>-->
                             </div>
                             <div>
                                 <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
@@ -97,7 +98,7 @@
                                         </ul>
                                     </div>
                                     <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px">
-                                        <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
+                                        <div style="font-weight:bold;padding:5px 10px;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>
                                         <ul>
                                             <li th:each="carDTO:${contractDTO.carDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${carDTO.number}]]</li>
@@ -128,6 +129,23 @@
                     // f.setAttribute('action', '/unit/remove');
                     // document.body.appendChild(f);
                     // f.submit();
+                }
+
+                function contractRemove(contractRowid) {
+                    alert("삭제는 준비중입니다.")
+
+                    let f = document.createElement('form');
+                    let obj;
+                    obj = document.createElement('input');
+                    obj.setAttribute('type', 'hidden');
+                    obj.setAttribute('name', 'contractRowid');
+                    obj.setAttribute('value', contractRowid);
+
+                    f.appendChild(obj);
+                    f.setAttribute('method', 'post');
+                    f.setAttribute('action', '/unit/remove');
+                    document.body.appendChild(f);
+                    f.submit();
                 }
             </script>
         </div>

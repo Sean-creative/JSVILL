@@ -1,4 +1,4 @@
-package com.sjs.jsvill.controller;
+package com.sjs.jsvill.controller.util;
 
 import com.sjs.jsvill.service.util.SmsService;
 import lombok.RequiredArgsConstructor;

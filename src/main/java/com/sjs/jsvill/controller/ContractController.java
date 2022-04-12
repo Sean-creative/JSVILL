@@ -46,4 +46,11 @@ public class ContractController {
     public String phoneValiCheck(@RequestParam(value = "phoneList[]") List<String> phoneList) {
         return contractService.phoneCheck((phoneList));
     }
+
+    @PostMapping("/remove")
+    public String remove(long contractRowid, RedirectAttributes redirectAttributes){
+        contractService.remove(contractRowid);
+        redirectAttributes.addFlashAttribute("msg", contractRowid);
+        return "redirect:/group/list";
+    }
 }

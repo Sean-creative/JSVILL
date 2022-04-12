@@ -83,6 +83,13 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
+    public void remove(Long contract_rowid) {
+        //계약을 삭제 하려면 -> contract_tenant와 option을 삭제해야한다.
+
+    }
+
+    @Override
     public ContractDTO get(Long contractRowid) {
         //1. 계약 정보
         Optional<Contract> contract = contractRepository.findById(contractRowid);
