@@ -1,31 +1,35 @@
-package com.sjs.jsvill.controller.member;
+package com.sjs.jsvill.controller.app.tenant;
 
-import com.sjs.jsvill.dto.member.MemberUserDTO;
-import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.MemberUser;
-import com.sjs.jsvill.service.member.MemberService;
+import com.sjs.jsvill.entity.Tenant;
 import com.sjs.jsvill.service.member.MemberUserService;
+import com.sjs.jsvill.service.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+/*
+* 2022.04.09
+* 현재 거주하고 있는 tenant 인지 확인
+* */
+
 
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-public class CtlMemberCheck {
+public class CtlAppTenantCheck {
 
-    private final MemberUserService memberUserService;
+    private final TenantService tenantService;
 
     @ResponseBody
-    @RequestMapping("/member/check/{phone}")
+    @RequestMapping("/app/tenant/check/{phone}")
     public boolean action(@PathVariable("phone") String phone) {
         boolean result = false;
-        MemberUser user = memberUserService.get(phone);
-        if(user!=null) result = true;
+        Tenant tenant = tenantService.get(phone);
+        if(tenant!=null && tenant.get_livingtype().get_livingtype_rowid() == 20) result = true;
         return result;
     }
 }
