@@ -60,4 +60,9 @@ public class ContractServiceTests {
     public void get() {
         Json.stringToJson(contractService.get(28L));
     }
+
+    @Test
+    public void remove() {
+        contractService.remove(30L);
+    }
 }

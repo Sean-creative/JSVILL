@@ -54,6 +54,7 @@ public class ContractRepositoryTests {
     @Test
     public void getBtId() {
         System.out.println(contractRepository.getById(27L));
-
     }
+
+
 }

@@ -122,7 +122,7 @@
             <div style="margin:30px 0 40px 0;float:right">
                 <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
-                <button class="registerBtn" onclick="valiCheck(event)">등록</button>
+                <button class="registerBtn" type="button" onclick="valiCheck(event)">등록</button>
             </div>
         </form>
     </th:block>
@@ -130,19 +130,31 @@
 
 <script th:inline="javascript">
 
-
     const offset = new Date().getTimezoneOffset() * 60000;
     const date = new Date(Date.now() - offset);
     $("input[name=startDate]").attr('value', date.toISOString().substring(0, 10))
     date.setFullYear(date.getFullYear()+2)
     $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
 
-
-
     function valiCheck(e) {
+        let check = true;
         e.preventDefault();
         let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
-        if(!checkDate) alert("시작일은 만료일 이전이어야 합니다.")
+        if(!checkDate) {
+            alert("시작일은 만료일 이전이어야 합니다.")
+            check = false
+        }
+
+        //TODO 나중에는 각각의 인풋값들이 채워져 있는지 벨리검사할것
+        //입주자는 최소 한명(세대주)이 등록되어야 한다
+
+        const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
+        const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
+        console.log("contractorTitle : ", contractorTitle)
+        console.log("contractorPhone : ", contractorPhone)
+
+        if(contractorTitle==="" || contractorPhone==="") check = false
+
 
         //phone 체크 (중복값이 있는지 확인)
         let phoneList = [];
@@ -155,17 +167,23 @@
             url: "/contract/phoneValiCheck",
             data: {phoneList : phoneList},
             success:function (data) {
-                if(data!=="") alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                if(data!=="") {
+                    alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                    check = false
+                }
                 else {
                     console.log("여기는 들어오지?")
-                    if(checkDate) {
-                        $("form").submit();
-                    }
+                    // if(checkDate) {
+                    //     $("form").submit();
+                    // }
                 }
             }, error :function(e) {
                 console.log(e);
             }
         })
+
+        console.log("check", check)
+        return false;
     }
 
 

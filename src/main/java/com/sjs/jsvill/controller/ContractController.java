@@ -51,6 +51,6 @@ public class ContractController {
     public String remove(long contractRowid, RedirectAttributes redirectAttributes){
         contractService.remove(contractRowid);
         redirectAttributes.addFlashAttribute("msg", contractRowid);
-        return "redirect:/group/list";
+        return "redirect:/unit/read?unitRowid=1";
     }
 }

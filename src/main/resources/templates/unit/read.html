@@ -68,8 +68,7 @@
                         <li class="contractList" th:each="contractDTO:${unitDTO.contractDTOList}">
                             <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
                                 <a th:href="@{/contract/edit(contractRowid=${contractDTO.contractRowid})}" class="btn">수정</a>
-                                <a th:href="@{/contract/remove(contractRowid=${contractDTO.contractRowid})}" class="btn" style="margin-left:8px">삭제</a>
-<!--                                <a class="btn" href="javascript:contractRemove()" style="margin-left:8px">삭제</a>-->
+                                <a class="btn" th:href="|javascript:contractRemove('${contractDTO.contractRowid}')|" style="margin-left:8px">삭제</a>
                             </div>
                             <div>
                                 <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
@@ -132,18 +131,17 @@
                 }
 
                 function contractRemove(contractRowid) {
-                    alert("삭제는 준비중입니다.")
-
                     let f = document.createElement('form');
+                    f.setAttribute('method', 'post');
+                    f.setAttribute('action', '/contract/remove');
+
                     let obj;
                     obj = document.createElement('input');
                     obj.setAttribute('type', 'hidden');
                     obj.setAttribute('name', 'contractRowid');
                     obj.setAttribute('value', contractRowid);
-
                     f.appendChild(obj);
-                    f.setAttribute('method', 'post');
-                    f.setAttribute('action', '/unit/remove');
+
                     document.body.appendChild(f);
                     f.submit();
                 }

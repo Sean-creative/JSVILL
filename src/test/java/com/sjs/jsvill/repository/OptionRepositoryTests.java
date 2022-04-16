@@ -32,4 +32,8 @@ public class OptionRepositoryTests {
         System.out.println("option : " + option);
     }
 
+    @Test
+    public void deleteByContract() {
+        optionRepository.deleteByContract(Contract.builder().contract_rowid(2L).build());
+    }
 }

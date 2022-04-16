@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.LongStream;
 
@@ -34,5 +35,11 @@ public class ContractTenantRepositoryTests {
         Contract contract = Contract.builder().contract_rowid(27L).build();
         List<ContractTenant> result = contractTenantRepository.findAllByContract(contract);
         result.forEach(i -> System.out.println(i.getTenant()));
+    }
+
+    @Transactional
+    @Test
+    public void deleteByContract_Contract_rowid() {
+        contractTenantRepository.deleteByContract(Contract.builder().contract_rowid(29L).build());
     }
 }
