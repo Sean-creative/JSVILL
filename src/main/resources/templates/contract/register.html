@@ -120,7 +120,7 @@
             </div>
 
             <div style="margin:30px 0 40px 0;float:right">
-                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                        <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
                 <button class="registerBtn" type="button" onclick="valiCheck(event)">등록</button>
             </div>
@@ -137,8 +137,9 @@
     $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
 
     function valiCheck(e) {
-        let check = true;
+        console.log("valiCheck 시작!")
         e.preventDefault();
+        let check = true;
         let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
         if(!checkDate) {
             alert("시작일은 만료일 이전이어야 합니다.")
@@ -147,14 +148,15 @@
 
         //TODO 나중에는 각각의 인풋값들이 채워져 있는지 벨리검사할것
         //입주자는 최소 한명(세대주)이 등록되어야 한다
-
         const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
         const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
         console.log("contractorTitle : ", contractorTitle)
         console.log("contractorPhone : ", contractorPhone)
 
-        if(contractorTitle==="" || contractorPhone==="") check = false
-
+        if(contractorTitle==="" || contractorPhone==="") {
+            alert("세대주 정보는 필수로 입력되어야 합니다.")
+            check = false
+        }
 
         //phone 체크 (중복값이 있는지 확인)
         let phoneList = [];
@@ -162,6 +164,7 @@
             phoneList.push($(this).val());
         })
         console.log("phoneList : ", phoneList)
+
         $.ajax({
             type: "POST",
             url: "/contract/phoneValiCheck",
@@ -169,22 +172,16 @@
             success:function (data) {
                 if(data!=="") {
                     alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                    //비동기식이라 여기서 최종 판정을 내자
                     check = false
-                }
-                else {
-                    console.log("여기는 들어오지?")
-                    // if(checkDate) {
-                    //     $("form").submit();
-                    // }
+                } else {
+                    if(check){$("form").submit();}
                 }
             }, error :function(e) {
                 console.log(e);
             }
         })
-
-        console.log("check", check)
-        return false;
-    }
+    } //end func valiCheck
 
 
     let tenantCnt = 1

@@ -37,8 +37,11 @@ public class ContractController {
 
     @GetMapping("/edit")
     public void edit(Long contractRowid, Model model) {
-
-        model.addAttribute("result", contractService.get(contractRowid));
+        ContractDTO contractDTO = contractService.get(contractRowid);
+        UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
+        model.addAttribute("contractDTO", contractDTO);
+        model.addAttribute("unitDTO", unitDTO);
+        Json.stringToJson(contractDTO);
     }
 
     @PostMapping("/phoneValiCheck")

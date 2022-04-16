@@ -64,7 +64,8 @@
 
                 <div class="info" style="width:650px;text-align:center;margin-left:40px">
                     <div class="subTitle">계약정보</div>
-                    <ul>
+                    <div th:if="${#lists.size(unitDTO.contractDTOList)}==0">계약정보가 없습니다.</div>
+                    <ul th:unless="${#lists.size(unitDTO.contractDTOList)}==0">
                         <li class="contractList" th:each="contractDTO:${unitDTO.contractDTOList}">
                             <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
                                 <a th:href="@{/contract/edit(contractRowid=${contractDTO.contractRowid})}" class="btn">수정</a>
@@ -79,7 +80,7 @@
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startDate}]] ~ [[${contractDTO.endDate}]]</div>
                                     </div>
-                                    <a style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
+                                    <a href="javascript:immediatelyExpires()" style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px" >계약즉시만료</a>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;margin-top:15px">
                                     <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
@@ -128,6 +129,10 @@
                     // f.setAttribute('action', '/unit/remove');
                     // document.body.appendChild(f);
                     // f.submit();
+                }
+
+                function immediatelyExpires() {
+                    alert("계약 즉시 만료는 준비중입니다.")
                 }
 
                 function contractRemove(contractRowid) {
