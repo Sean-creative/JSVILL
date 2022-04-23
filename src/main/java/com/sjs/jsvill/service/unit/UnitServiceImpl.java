@@ -81,7 +81,9 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public void remove(Long unit_rowid) {
-        //unit을 삭제하면 그에 해당하는 계약도 삭제되어야 한다.
+        //unit을 삭제하려면 그에 해당하는 계약들도 전부 삭제되어야 한다.
+        //TODO 해당 unit에 해당하는 계약들을 전부 찾고 -> 반복문을 돌면서 삭제한다.
+
 
         unitRepository.getById(unit_rowid);
     }

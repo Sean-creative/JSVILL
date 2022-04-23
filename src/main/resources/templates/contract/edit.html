@@ -21,14 +21,14 @@
                     <div style="flex:1">
                         계약 시작일
                         <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="startDate" th:value="2022-03-11" style="border:1px solid black;border-radius:8px">
+                            <input type="date" name="startdate" th:value="${contractDTO.startdate}" style="border:1px solid black;border-radius:8px"/>
                         </div>
                     </div>
                     <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
                     <div style="flex:1">
                         계약 만료일
                         <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="endDate" th:value="${contractDTO.endDate}" tyle="border:1px solid black;border-radius:8px">
+                            <input type="date" name="enddate" th:value="${contractDTO.enddate}" style="border:1px solid black;border-radius:8px"/>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     <div style="flex:2">
                         <label for="deposit">보증금</label>
                         <div style="margin-top:10px">
-                            <input type="number" name="deposit" value="1000" id="deposit" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                            <input type="number" name="deposit" th:value="${contractDTO.deposit}" id="deposit" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                             <span style="margin-left:5px">만원</span>
                         </div>
                     </div>
@@ -79,14 +79,14 @@
                         <div style="flex:1;width:100%">
                             <label for="rentfee">월세</label>
                             <div style="margin-top:10px">
-                                <input type="number" name="rentFee" value="30" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="rentFee" th:value="${contractDTO.rentFee}" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
                         <div style="flex:2;width:100%">
                             <label for="managementfees">관리비</label>
                             <div style="margin-top:10px">
-                                <input type="number" name="managementFees" value="5" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <input type="number" name="managementFees" th:value="${contractDTO.managementFees}" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
                                 <span style="margin-left:5px">만원</span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                     <div style="flex:1;width:100%">
                         <label for="paymentday">납부일</label>
                         <div style="margin-top:10px">
-                            매달<input type="number" name="paymentDay" value="1" id="paymentday" class="check"
+                            매달<input type="number" name="paymentDay" th:value="${contractDTO.paymentDay}" id="paymentday" class="check"
                                      style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
                         </div>
                     </div>
@@ -104,9 +104,9 @@
             <div class="info">
                 <div class="subTitle">계약 종류</div>
                 <div class="contractType">
-                    <input type="radio" name="contractTypeRowid" id="10" th:value=10 checked><label for="10">전세</label>
-                    <input type="radio" name="contractTypeRowid" id="20" th:value=20><label for="20">반전세</label>
-                    <input type="radio" name="contractTypeRowid" id="30" th:value=30><label for="30">월세</label>
+                    <input type="radio" name="contractTypeRowid" id="10" value=10 th:checked="${contractDTO.contractTypeRowid}==10" checked><label for="10">전세</label>
+                    <input type="radio" name="contractTypeRowid" id="20" value=20 th:checked="${contractDTO.contractTypeRowid}==20"><label for="20">반전세</label>
+                    <input type="radio" name="contractTypeRowid" id="30" value=30 th:checked="${contractDTO.contractTypeRowid}==30"><label for="30">월세</label>
                 </div>
             </div>
 
@@ -187,13 +187,28 @@
     let carCnt = 1
     let optionCnt = 1
 
-    $("#optionAddBtn").on("click", function (e) {
+
+    init()
+    function init() {
+        optionAdd()
+    }
+
+    function optionAdd(option) {
+        if(option==undefined) option=""
         let str = $(".optionAddSection").html()
         str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
-            '      <input type="text" name="optionDTO.optionList[' + optionCnt + ']" placeholder="옵션" style="width:200px;background:#F6F6F6">\n' +
+            '      <input type="text" name="optionDTO.optionList[' + optionCnt + ']" value="'+option+'" placeholder="옵션" style="width:200px;background:#F6F6F6">\n' +
             '   </div>'
         $(".optionAddSection").html(str)
         optionCnt++
+    }
+    let optionList = [[${contractDTO.optionDTO.optionList}]];
+    optionList.forEach(function (option) {
+        console.log("option : ", option)
+        optionAdd(option)
+    });
+    $("#optionAddBtn").on("click", function (e) {
+        optionAdd()
     })
     $("#tenantAddBtn").on("click", function (e) {
         let str = $(".tenantAddSection").html()

@@ -42,8 +42,8 @@ public class ContractServiceTests {
 
         ContractDTO contractDTO = ContractDTO.builder()
                 .unitRowid(1L)
-                .startDate("2022-03-08")
-                .endDate("2022-03-30")
+                .startdate("2022-03-08")
+                .enddate("2022-03-30")
                 .deposit(1000L)
                 .rentFee(30L)
                 .managementFees(5L)

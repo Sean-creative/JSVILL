@@ -4,6 +4,7 @@ import com.sjs.jsvill.dto.OptionDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,9 +38,18 @@ public class Option extends BaseEntity {
 
     //DB에서 해결이 안되기 때문에, 옵션을 list로 받아서, 그중 첫번째 값만 처리하기
     public static OptionDTO entityToDTO(Option option) {
-        return OptionDTO.builder()
-                .optionRowid(option.getOption_rowid())
-                .optionList(option.csvToList(option.getOptionList()))
-                .build();
+        System.out.println("option : " + option);
+        OptionDTO optionDTO;
+        if(option!=null) {
+            optionDTO = OptionDTO.builder()
+                    .optionRowid(option.getOption_rowid())
+                    .optionList(option.csvToList(option.getOptionList()))
+                    .build();
+        } else {
+            optionDTO = OptionDTO.builder()
+                    .optionList(new ArrayList<>())
+                    .build();
+        }
+        return optionDTO;
     }
 }

@@ -21,14 +21,14 @@
                     <div style="flex:1">
                         계약 시작일
                         <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="startDate" style="border:1px solid black;border-radius:8px">
+                            <input type="date" name="startdate" style="border:1px solid black;border-radius:8px">
                         </div>
                     </div>
                     <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
                     <div style="flex:1">
                         계약 만료일
                         <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="endDate" style="border:1px solid black;border-radius:8px">
+                            <input type="date" name="enddate" style="border:1px solid black;border-radius:8px">
                         </div>
                     </div>
                 </div>
@@ -132,15 +132,15 @@
 
     const offset = new Date().getTimezoneOffset() * 60000;
     const date = new Date(Date.now() - offset);
-    $("input[name=startDate]").attr('value', date.toISOString().substring(0, 10))
+    $("input[name=startdate]").attr('value', date.toISOString().substring(0, 10))
     date.setFullYear(date.getFullYear()+2)
-    $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
+    $("input[name=enddate]").attr('value', date.toISOString().substring(0, 10))
 
     function valiCheck(e) {
         console.log("valiCheck 시작!")
         e.preventDefault();
         let check = true;
-        let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
+        let checkDate = $("input[name=startdate]").val() < $("input[name=enddate]").val();
         if(!checkDate) {
             alert("시작일은 만료일 이전이어야 합니다.")
             check = false

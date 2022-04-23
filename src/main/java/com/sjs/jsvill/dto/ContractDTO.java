@@ -16,8 +16,8 @@ public class ContractDTO {
     private Long contractRowid;
     private Long unitRowid;
     private Long ContractTypeRowid;
-    private String startDate;
-    private String endDate;
+    private String startdate; //view에서 name을 startDate로 하게되면 value값이 제대로 들어가지 않아서 이렇게 처리함
+    private String enddate;
     private Long deposit; //보증금
     private Long rentFee; //월세
     private Long managementFees; //관리비

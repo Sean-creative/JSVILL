@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -15,7 +16,7 @@ import java.util.List;
 @Data
 public class OptionDTO {
     private Long optionRowid;
-    private List<String> optionList;
+    private List<String> optionList = new ArrayList<>();
 
 
     // [침대, 냉장고, TV] 라고 하면 -> String으로 "침대,냉장고,TV"로 분리해야함

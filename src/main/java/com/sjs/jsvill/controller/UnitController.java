@@ -2,6 +2,7 @@ package com.sjs.jsvill.controller;
 
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.unit.UnitService;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,7 @@ public class UnitController {
     public void read(Long unitRowid, Model model){
         log.info("bno: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
-        log.info(unitDTO);
+        Json.stringToJson(unitDTO);
         model.addAttribute("unitDTO", unitDTO);
     }
 

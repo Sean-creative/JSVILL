@@ -40,16 +40,15 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     //계약은 트랜잭션으로 이루어져 한다. 뭐 하나라도 잘못되면 롤백!!
     public void register(ContractDTO contractDTO) {
-
 //        1. 계약 등록
         Contract contract = contractRepository.save(dtoToEntity(contractDTO));
 //        1-1. 계약R -> 옵션 등록
         log.info("contract.getContract_rowid() : " + contract.getContract_rowid());
         OptionDTO optionDTO = contractDTO.getOptionDTO();
-        log.info("optionDTO : " + optionDTO);
-        //Option은 무조건 등록되게 설계! -> 나중에는 있으면 수정되고 없으면 등록되게 바꿀 수도?
         Option option = OptionDTO.DTOToEntity(optionDTO, contract.getContract_rowid());
-        log.info("optionRepository.save(option)" + optionRepository.save(option));
+        if(!option.getOptionList().isBlank()) {
+            log.info("optionRepository.save(option)" + optionRepository.save(option));
+        }
 
 //        2. 세입자 등록
         //세입자 등록할 때 이미 해당 핸드폰 번호가 등록되어있을 수도있음 ex)기존에 살았던 세입자
