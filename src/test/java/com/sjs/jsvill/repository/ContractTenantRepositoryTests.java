@@ -39,7 +39,7 @@ public class ContractTenantRepositoryTests {
 
     @Transactional
     @Test
-    public void deleteByContract_Contract_rowid() {
-        contractTenantRepository.deleteByContract(Contract.builder().contract_rowid(29L).build());
+    public void deleteByContract() {
+        contractTenantRepository.deleteByContract(Contract.builder().contract_rowid(59L).build());
     }
 }

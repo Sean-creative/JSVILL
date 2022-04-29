@@ -56,5 +56,10 @@ public class ContractRepositoryTests {
         System.out.println(contractRepository.getById(27L));
     }
 
+    @Test
+    public void deleteById() {
+        contractRepository.deleteById(1L);
+    }
+
 
 }

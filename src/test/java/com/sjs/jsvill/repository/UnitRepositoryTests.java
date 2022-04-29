@@ -34,6 +34,6 @@ public class UnitRepositoryTests {
     @Transactional
     @Test
     public void delete() {
-        System.out.println(unitRepository.deleteByGroupRowid(3L));
+        System.out.println(unitRepository.deleteByGroupRowid(8L));
     }
 }

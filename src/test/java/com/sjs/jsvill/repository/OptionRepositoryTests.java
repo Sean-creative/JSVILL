@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -32,8 +33,10 @@ public class OptionRepositoryTests {
         System.out.println("option : " + option);
     }
 
+
+    @Transactional
     @Test
     public void deleteByContract() {
-        optionRepository.deleteByContract(Contract.builder().contract_rowid(2L).build());
+        optionRepository.deleteByContract(Contract.builder().contract_rowid(63L).build());
     }
 }

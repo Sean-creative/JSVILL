@@ -63,6 +63,6 @@ public class ContractServiceTests {
 
     @Test
     public void remove() {
-        contractService.remove(30L);
+        contractService.remove(1L);
     }
 }
