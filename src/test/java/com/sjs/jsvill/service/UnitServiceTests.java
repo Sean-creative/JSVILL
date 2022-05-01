@@ -1,8 +1,8 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.UnitDTO;
-import com.sjs.jsvill.entity.Unit;
-import com.sjs.jsvill.service.unit.UnitService;
+import com.sjs.jsvill.dto.sean.UnitDTO;
+import com.sjs.jsvill.entity.sean.Unit;
+import com.sjs.jsvill.service.sean.unit.UnitService;
 import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,26 +19,31 @@
                 <div>
                     <div class="info" style="flex:1">
                         <div class="subTitle">호실 정보</div>
-                        <div style="display:flex;justify-content:space-between;align-content:center;justify-content:flex-end">
-                            <a th:href="@{/unit/edit(unitRowid=${unitDTO.unitRowid})}" class="btn">수정</a>
-                            <a class="btn" href="javascript:unitRemove()" style="margin-left:8px">삭제</a>
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div style="font-size:11px;color:gray">현재 계약 기준에 의거한 정보입니다.</div>
+                            <div style="display:flex">
+                                <a th:href="@{/unit/edit(unitRowid=${unitDTO.unitRowid})}" class="btn">수정</a>
+                                <a class="btn" href="javascript:unitRemove()" style="margin-left:8px">삭제</a>
+                            </div>
                         </div>
                         <div class="infoInner" style="display:flex;margin-top:15px;padding:15px 5px">
                             <div class="ellipsis" style="padding:0 20px;font-weight:bold;width:70px;text-align:center">
                                 101호
                             </div>
-                            <div style="border-left:2px solid gray;padding:0 20px">
-                                <div style="font-weight:bold">보증금</div>
-                                <div style="margin-top:10px">-1만원</div>
-
-                                <div style="display:flex;margin-top:30px">
-                                    <div>
-                                        <div style="font-weight:bold">월세/관라비</div>
-                                        <div style="margin-top:10px">-1만원/-1만원</div>
-                                    </div>
-                                    <div style="margin-left:40px">
-                                        <div style="font-weight:bold">납부일</div>
-                                        <div style="margin-top:10px">매달 -1일</div>
+                            <div style="border-left:2px solid gray;padding:0 20px;min-width:fit-content">
+                                <div th:if="${#lists.size(unitDTO.contractDTOList)}==0" style="font-size:12px">계약정보가 없습니다.</div>
+                                <div th:unless="${#lists.size(unitDTO.contractDTOList)}==0">
+                                    <div style="font-weight:bold">보증금</div>
+                                    <div style="margin-top:10px">[[${unitDTO.contractDTOList[0].deposit}]]만원</div>
+                                    <div style="display:flex;margin-top:30px">
+                                        <div>
+                                            <div style="font-weight:bold">월세/관라비</div>
+                                            <div style="margin-top:10px">[[${unitDTO.contractDTOList[0].rentFee}]]만원/[[${unitDTO.contractDTOList[0].managementFees}]]만원</div>
+                                        </div>
+                                        <div style="margin-left:40px">
+                                            <div style="font-weight:bold">납부일</div>
+                                            <div style="margin-top:10px">매달 [[${unitDTO.contractDTOList[0].paymentDay}]]일</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +54,7 @@
                         </div>
                         <!--옵션은 선택이라, 현재 진행되는 옵션에서는 옵션이 없을 수도 있다.-->
                         <div class="infoInner" style="margin-top:30px;line-height:25px;padding:0 8px">
-                            <div th:if="${unitDTO.optionList.empty}">옵션이 없습니다.</div>
+                            <div th:if="${unitDTO.optionList.empty}" style="font-size:13px">옵션이 없습니다.</div>
                             <div th:unless="${unitDTO.optionList.empty}">
                                 <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(unitDTO.optionList)}]]개의 옵션</div>
                                 <div th:each="option:${unitDTO.optionList}" style="border-top:2px solid gray;padding:5px 10px">[[${option}]]</div>
@@ -76,7 +81,7 @@
                                     <div style="text-align:left;position:relative">
                                         <div style="display:inline-block">계약일</div>
                                         <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">
-                                            종료 D-48
+                                            종료 D-
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startdate}]] ~ [[${contractDTO.enddate}]]</div>
                                     </div>
@@ -114,21 +119,19 @@
             </div>
             <script th:inline="javascript">
                 function unitRemove() {
-                    alert("삭제는 준비중입니다.")
+                    let f = document.createElement('form');
 
-                    // let f = document.createElement('form');
-                    //
-                    // let obj;
-                    // obj = document.createElement('input');
-                    // obj.setAttribute('type', 'hidden');
-                    // obj.setAttribute('name', 'unitRowid');
-                    // obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
-                    //
-                    // f.appendChild(obj);
-                    // f.setAttribute('method', 'post');
-                    // f.setAttribute('action', '/unit/remove');
-                    // document.body.appendChild(f);
-                    // f.submit();
+                    let obj;
+                    obj = document.createElement('input');
+                    obj.setAttribute('type', 'hidden');
+                    obj.setAttribute('name', 'unitRowid');
+                    obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
+
+                    f.appendChild(obj);
+                    f.setAttribute('method', 'post');
+                    f.setAttribute('action', '/unit/remove');
+                    document.body.appendChild(f);
+                    f.submit();
                 }
 
                 function immediatelyExpires() {

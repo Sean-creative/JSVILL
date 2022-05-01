@@ -1,12 +1,12 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Contract;
-import com.sjs.jsvill.entity.Option;
+import com.sjs.jsvill.entity.sean.Contract;
+import com.sjs.jsvill.entity.sean.Option;
+import com.sjs.jsvill.repository.sean.OptionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -31,12 +31,5 @@ public class OptionRepositoryTests {
     public void findByContract() {
         Option option = optionRepository.findByContract(Contract.builder().contract_rowid(25L).build());
         System.out.println("option : " + option);
-    }
-
-
-    @Transactional
-    @Test
-    public void deleteByContract() {
-        optionRepository.deleteByContract(Contract.builder().contract_rowid(63L).build());
     }
 }

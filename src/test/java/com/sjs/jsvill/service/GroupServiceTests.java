@@ -1,7 +1,7 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.GroupDTO;
-import com.sjs.jsvill.service.group.GroupService;
+import com.sjs.jsvill.dto.sean.GroupDTO;
+import com.sjs.jsvill.service.sean.group.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,9 +50,10 @@ public class GroupServiceTests {
     @Commit
     @Transactional
     @Test
-    public void delete() {
-        System.out.println(groupService.remove(21L));
+    public void remove() {
+        System.out.println(groupService.remove(4L));
     }
+
 //    @Test
 //    public void testList(){
 //        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();

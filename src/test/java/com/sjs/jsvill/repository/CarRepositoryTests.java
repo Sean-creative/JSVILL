@@ -1,7 +1,8 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.Car;
-import com.sjs.jsvill.entity.Tenant;
+import com.sjs.jsvill.entity.sean.Car;
+import com.sjs.jsvill.entity.sean.Tenant;
+import com.sjs.jsvill.repository.sean.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
