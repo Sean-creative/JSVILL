@@ -65,6 +65,7 @@ public class Contract extends BaseEntity {
     public Long dDayOperator(String s_date) {
         Calendar getToday = Calendar.getInstance();
         getToday.setTime(new Date()); //금일 날짜
+        System.out.println(getToday.getTime());
 
         Date date = null;
         try {
