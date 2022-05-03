@@ -9,12 +9,8 @@
     <th:block th:fragment="content">
         <div style="width:1221px">
             <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.addr2}]]</div>
-            <a th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
-               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">
-                계약추가
-            </a>
-            <!-- 파라미터를 넘길 시 -->
-            <!--        <a th:href="@{/board/view(id = ${board.id})}">글 상세보기</a>-->
+            <a th:if="${#lists.size(unitDTO.contractDTOList)}!=2" th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
+               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약추가</a>
             <div style="display:flex;margin-top:40px">
                 <div>
                     <div class="info" style="flex:1">
@@ -81,7 +77,7 @@
                                     <div style="text-align:left;position:relative">
                                         <div style="display:inline-block">계약일</div>
                                         <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">
-                                            종료 D-
+                                            종료 D- [[${contractDTO.dDay}]]
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startdate}]] ~ [[${contractDTO.enddate}]]</div>
                                     </div>

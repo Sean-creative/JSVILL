@@ -13,12 +13,13 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="contract")
+@Table(name = "contract")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -58,26 +59,39 @@ public class Contract extends BaseEntity {
     private Long paymentday;
 
 
-    public void changeDeposit(Long deposit) { this.deposit = deposit; }
-    public void changeRentfee(Long rentfee) { this.rentfee = rentfee; }
-    public void changeManagemnetfees(Long managementfees) { this.managementfees = managementfees; }
-    public void changePaymentday(Long paymentday) { this.paymentday = paymentday; }
-    public Long dDayOperator(String s_date) {
-        Calendar getToday = Calendar.getInstance();
-        getToday.setTime(new Date()); //금일 날짜
-        System.out.println(getToday.getTime());
+    public void changeDeposit(Long deposit) {
+        this.deposit = deposit;
+    }
 
-        Date date = null;
+    public void changeRentfee(Long rentfee) {
+        this.rentfee = rentfee;
+    }
+
+    public void changeManagemnetfees(Long managementfees) {
+        this.managementfees = managementfees;
+    }
+
+    public void changePaymentday(Long paymentday) {
+        this.paymentday = paymentday;
+    }
+
+    public Long dDayOperator(String s_date) {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatedNow = now.format(formatter);
+        System.out.println(formatedNow);
+
+        Date format1 = null;
+        Date format2 = null;
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
+            format1 = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
+            format2 = new SimpleDateFormat("yyyy-MM-dd").parse(formatedNow);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        Calendar cmpDate = Calendar.getInstance();
-        cmpDate.setTime(date); //특정 일자
 
-        long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
-        long diffDays = diffSec / (24*60*60); //일자수 차이
+        long diffSec = (format1.getTime() - format2.getTime() ) / 1000;
+        long diffDays = diffSec / (24 * 60 * 60); //일자수 차이
         return diffDays;
     }
 

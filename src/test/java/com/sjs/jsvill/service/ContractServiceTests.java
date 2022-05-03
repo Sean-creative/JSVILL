@@ -70,6 +70,6 @@ public class ContractServiceTests {
     @Test
     public void dDayOperator() {
         Contract contract = Contract.builder().contract_rowid(1L).build();
-        System.out.println(contract.dDayOperator("2024-05-01"));
+        System.out.println(contract.dDayOperator("2022-05-03"));
     }
 }

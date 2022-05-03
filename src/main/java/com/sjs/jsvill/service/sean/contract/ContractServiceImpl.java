@@ -65,7 +65,7 @@ public class ContractServiceImpl implements ContractService {
 
 //        2-1. 세입자R -> 차량 등록
 //        차량리스트에서 세입자의 폰번호랑 같은것을 찾은 후 -> 해당 세입자를 외래키로 등록을 한다.
-            log.info("phone : " + PHONE);
+            log.info("PHONE : " + PHONE);
             List<CarDTO> carDTOList = contractDTO.getCarDTOList().stream().filter(c -> c.getPhone().equals(PHONE)).collect(Collectors.toList());
             log.info("carDTOList : " + carDTOList);
 

@@ -52,8 +52,9 @@ public class ContractController {
 
     @PostMapping("/remove")
     public String remove(long contractRowid, RedirectAttributes redirectAttributes){
+        String unitRowid = contractService.get(contractRowid).getUnitRowid().toString();
         contractService.remove(contractRowid);
         redirectAttributes.addFlashAttribute("msg", contractRowid);
-        return "redirect:/unit/read?unitRowid=1";
+        return "redirect:/unit/read?unitRowid="+unitRowid;
     }
 }

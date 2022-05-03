@@ -59,7 +59,7 @@ public class UnitController {
 
     @GetMapping("/read")
     public void read(Long unitRowid, Model model){
-        log.info("bno: " + unitRowid);
+        log.info("unitRowid: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         Json.stringToJson(unitDTO);
         model.addAttribute("unitDTO", unitDTO);
