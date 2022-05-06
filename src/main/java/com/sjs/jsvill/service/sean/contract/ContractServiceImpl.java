@@ -1,5 +1,6 @@
 package com.sjs.jsvill.service.sean.contract;
 
+import com.sjs.jsvill.common.UserDuplicateCheck;
 import com.sjs.jsvill.dto.sean.CarDTO;
 import com.sjs.jsvill.dto.sean.ContractDTO;
 import com.sjs.jsvill.dto.sean.OptionDTO;
@@ -28,12 +29,24 @@ public class ContractServiceImpl implements ContractService {
     private final ContractTenantRepository contractTenantRepository;
 
     @Override
-    public String phoneCheck(List<String> phoneList) {
-        //1. 해당 폰번호가 DB에 있는 검사를 한다
-        Tenant tenant = tenantRepository.findAllByPhoneIn(phoneList);
-        //2. 중복된 폰번호가 없으면 공백 리턴 / 중복된 폰번호가 있으면 해당 폰번호 리턴
-        if (tenant == null) return "";
-        else return tenant.getPhone();
+    public String phoneCheck(List<UserDuplicateCheck> duplicateCheckList) {
+        //1. tenant를 전부 가져온다
+        //2. 이름과 폰번호가 중복 or 중복된게 없으면 정상적인 플로우니까
+        //3. 번호만 중복인데 이름이 다르면 오류! -> 폰번호 리턴
+        String result = "";
+        List<Tenant> tenantList = tenantRepository.findAll();
+        System.out.println("duplicateCheckList : " + duplicateCheckList);
+        System.out.println("tenantList : " + tenantList);
+
+        for (UserDuplicateCheck userDuplicateCheck : duplicateCheckList) {
+            System.out.println("userDuplicateCheck: " + userDuplicateCheck);
+            for (Tenant tenant : tenantList) {
+                if (userDuplicateCheck.phone.equals(tenant.getPhone())&&!userDuplicateCheck.title.equals(tenant.getTitle()))
+                     result = userDuplicateCheck.phone;
+            }
+        }
+        System.out.println("result : "+result);
+        return result;
     }
 
     @Override
@@ -46,7 +59,7 @@ public class ContractServiceImpl implements ContractService {
         log.info("contract.getContract_rowid() : " + contract.getContract_rowid());
         OptionDTO optionDTO = contractDTO.getOptionDTO();
         Option option = OptionDTO.DTOToEntity(optionDTO, contract.getContract_rowid());
-        if(!option.getOptionList().isBlank()) {
+        if (!option.getOptionList().isBlank()) {
             log.info("optionRepository.save(option)" + optionRepository.save(option));
         }
 
@@ -56,7 +69,7 @@ public class ContractServiceImpl implements ContractService {
         for (Tenant tenant : tenantList) {
             final String PHONE = tenant.getPhone();
             //세입자를 등록하기전에, 폰번호로 검사를해서 또 등록하는것을 막야아한다.
-            if(!tenantRepository.existsByPhone(PHONE)) tenantRepository.save(tenant);
+            if (!tenantRepository.existsByPhone(PHONE)) tenantRepository.save(tenant);
             //세입자를 등록했든 안했든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
             Tenant tenantFromDB = tenantRepository.findByPhone(PHONE);
             //계약 세입자 매핑 테이블에 등록
@@ -72,7 +85,7 @@ public class ContractServiceImpl implements ContractService {
             //등록할 차량이 없을 수도 있다!! ex) 계약서 등록 할 때 사용자가 차량을 추가 안한경우
             //차량이 이미 DB에 등록되어있을 수도 있음 ex)기존에 살았던 세입자 -> 해당 tenantRowid로 DB에 있는지 검사하기
             for (CarDTO carDTO : carDTOList) {
-                if(!carRepository.existsByNumber(carDTO.getNumber())) {
+                if (!carRepository.existsByNumber(carDTO.getNumber())) {
                     log.info("carDTO : " + carDTO);
                     Car car = CarDTO.DTOToEntity(carDTO, tenantFromDB.getTenant_rowid());
                     log.info("carRepository.save(car)" + carRepository.save(car));
@@ -100,7 +113,7 @@ public class ContractServiceImpl implements ContractService {
         result.forEach(contractTenant -> {
             tenantList.add(contractTenant.getTenant());
             //4. 차량정보
-            carRepository.findAllByTenant(contractTenant.getTenant()).forEach( i -> {
+            carRepository.findAllByTenant(contractTenant.getTenant()).forEach(i -> {
                 carDTOList.add(Car.entityToDTO(i, contractTenant.getTenant().getPhone()));
             });
 

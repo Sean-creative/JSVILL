@@ -1,5 +1,6 @@
 package com.sjs.jsvill.service.sean.contract;
 
+import com.sjs.jsvill.common.UserDuplicateCheck;
 import com.sjs.jsvill.dto.sean.ContractDTO;
 import com.sjs.jsvill.entity.sean.Contract;
 import com.sjs.jsvill.entity.sean.Unit;
@@ -14,7 +15,7 @@ public interface ContractService {
       ContractDTO get(Long contractRowid);
 //    void modify(GroupDTO groupDTO);
 
-    String phoneCheck(List<String> phoneList);
+    String phoneCheck(List<UserDuplicateCheck> duplicateCheckList);
 
     default Contract dtoToEntity(ContractDTO contractDTO) {
         //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자

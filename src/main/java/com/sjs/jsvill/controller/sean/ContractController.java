@@ -1,5 +1,6 @@
 package com.sjs.jsvill.controller.sean;
 
+import com.sjs.jsvill.common.UserDuplicateCheck;
 import com.sjs.jsvill.dto.sean.ContractDTO;
 import com.sjs.jsvill.dto.sean.UnitDTO;
 import com.sjs.jsvill.service.sean.contract.ContractService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,8 +48,10 @@ public class ContractController {
 
     @PostMapping("/phoneValiCheck")
     @ResponseBody
-    public String phoneValiCheck(@RequestParam(value = "phoneList[]") List<String> phoneList) {
-        return contractService.phoneCheck((phoneList));
+    public String phoneValiCheck(@RequestParam(value = "titleList[]") List<String> titleList, @RequestParam(value = "phoneList[]") List<String> phoneList) {
+        List<UserDuplicateCheck> duplicateCheckList = new ArrayList<>();
+        for(int i=0; i<titleList.size(); i++) duplicateCheckList.add(new UserDuplicateCheck(titleList.get(i), phoneList.get(i)));
+        return contractService.phoneCheck(duplicateCheckList);
     }
 
     @PostMapping("/remove")

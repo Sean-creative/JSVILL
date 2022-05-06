@@ -40,7 +40,7 @@
                 </div>
                 <div style="display:flex;align-items: center;justify-content: space-between">
                     <div style="width:82%;display:flex;align-items:center">
-                        <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
+                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
                         <input type="text" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
                         <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
@@ -136,7 +136,6 @@
     $("input[name=enddate]").attr('value', date.toISOString().substring(0, 10))
 
     function valiCheck(e) {
-        console.log("valiCheck 시작!")
         e.preventDefault();
         let check = true;
         let checkDate = $("input[name=startdate]").val() < $("input[name=enddate]").val();
@@ -149,32 +148,38 @@
         //입주자는 최소 한명(세대주)이 등록되어야 한다
         const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
         const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
-        console.log("contractorTitle : ", contractorTitle)
-        console.log("contractorPhone : ", contractorPhone)
-
         if(contractorTitle==="" || contractorPhone==="") {
             alert("세대주 정보는 필수로 입력되어야 합니다.")
             check = false
         }
 
+        //TODO 폰번호 뿐만 아니라 이름도 보내야함!!
         //phone 체크 (중복값이 있는지 확인)
+        //일단 초급코드로 구현 해놓음.....
+        let titleList = [];
         let phoneList = [];
+        $(".tenantTitle").each(function() {
+            titleList.push($(this).val());
+        })
         $(".tenantPhone").each(function() {
             phoneList.push($(this).val());
         })
-        console.log("phoneList : ", phoneList)
 
         $.ajax({
             type: "POST",
             url: "/contract/phoneValiCheck",
-            data: {phoneList : phoneList},
+            data: {
+                titleList : titleList,
+                phoneList : phoneList
+            },
             success:function (data) {
-                if(data!=="") {
-                    alert("중복된 폰번호 입니다. 폰번호 : " +data)
-                    //비동기식이라 여기서 최종 판정을 내자
-                    check = false
-                } else {
+                if(data==="") {
                     if(check){$("form").submit();}
+                }
+                else {
+                    alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                    //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
+                    check = false
                 }
             }, error :function(e) {
                 console.log(e);
@@ -198,7 +203,7 @@
     $("#tenantAddBtn").on("click", function (e) {
         let str = $(".tenantAddSection").html()
         str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
+            '                        <input type="text" class="tenantTitle" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
             '                        <input type="text" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
             '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" value=false >\n' +
             '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" value=20>\n' +
