@@ -85,7 +85,11 @@
                                 </div>
                                 <div style="display:flex;justify-content:space-between;margin-top:15px">
                                     <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
-                                        <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(contractDTO.tenantDTOList)}]]명의 입주자</div>
+                                        <div style="position:relative">
+                                            <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(contractDTO.tenantDTOList)}]]명의 입주자</div>
+                                            <a th:href="@{/contract/edit(contractRowid=${contractDTO.contractRowid})}" class="btn" style="position:absolute;padding:0 8px;top:4px;right:0">차량 추가</a>
+                                        </div>
+
                                         <ul>
                                             <li th:each="tenantDTO:${contractDTO.tenantDTOList}" style="border-top:2px solid gray;padding:5px 15px 5px 10px;display:flex;align-items:center;justify-content:space-between">
                                                 <div style="display:flex;align-items:center">

@@ -76,6 +76,7 @@ public class ContractServiceImpl implements ContractService {
             contractTenantRepository.save(ContractTenant.builder().contract(contract).tenant(tenantFromDB).build());
 
 
+            //TODO 차량등록의 시퀀스를 뒤로 미룰것!
 //        2-1. 세입자R -> 차량 등록
 //        차량리스트에서 세입자의 폰번호랑 같은것을 찾은 후 -> 해당 세입자를 외래키로 등록을 한다.
             log.info("PHONE : " + PHONE);

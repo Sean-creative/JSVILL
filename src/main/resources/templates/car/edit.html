@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>계약 수정</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/registerContract.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+
+<th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="pageTitle">건물관리 / [[${unitDTO.groupTitle}]] / [[${unitDTO.addr2}]] / 계약 수정</div>
+        <form action="/contract/register" method="post">
+            <div class="info">
+                <div class="subTitle">
+                    계약일
+                </div>
+                <div style="display:flex;align-items:center;text-align: center;">
+                    <div style="flex:1">
+                        계약 시작일
+                        <div class="wrapper" style="margin-top:10px">
+                            <input type="date" name="startdate" th:value="${contractDTO.startdate}" style="border:1px solid black;border-radius:8px"/>
+                        </div>
+                    </div>
+                    <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
+                    <div style="flex:1">
+                        계약 만료일
+                        <div class="wrapper" style="margin-top:10px">
+                            <input type="date" name="enddate" th:value="${contractDTO.enddate}" style="border:1px solid black;border-radius:8px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="subTitle">
+                    입주자
+                </div>
+                <div style="display:flex;align-items: center;justify-content: space-between">
+                    <div style="width:82%;display:flex;align-items:center">
+                        <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
+                        <input type="text" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
+                        <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
+                        <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
+                        <span style="margin-left:5px">세대주</span>
+                    </div>
+                    <button type="button" class="addBtn" id="tenantAddBtn" style="margin-left:15px">+입주자 추가</button>
+                </div>
+                <div class="tenantAddSection"></div>
+                <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
+            </div>
+
+            <div class="info">
+                <div class="subTitle">차량</div>
+                <div style="display:flex;align-items:center;margin-top:10px">
+                    <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">
+                    <input type="text" name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
+                    <input type="text" name="carDTOList[0].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">
+                    <button type="button" class="addBtn" id="carAddBtn" style="margin-left:30px">+차량 추가</button>
+                </div>
+                <div class="carAddSection"></div>
+            </div>
+
+            <div class="info">
+                <div class="subTitle">보증금/월세/관리비</div>
+                <div style="display: flex">
+                    <div style="flex:2">
+                        <label for="deposit">보증금</label>
+                        <div style="margin-top:10px">
+                            <input type="number" name="deposit" th:value="${contractDTO.deposit}" id="deposit" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                            <span style="margin-left:5px">만원</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;margin-top:20px">
+                    <div style="display:flex; flex:2">
+                        <div style="flex:1;width:100%">
+                            <label for="rentfee">월세</label>
+                            <div style="margin-top:10px">
+                                <input type="number" name="rentFee" th:value="${contractDTO.rentFee}" id="rentfee" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <span style="margin-left:5px">만원</span>
+                            </div>
+                        </div>
+                        <div style="flex:2;width:100%">
+                            <label for="managementfees">관리비</label>
+                            <div style="margin-top:10px">
+                                <input type="number" name="managementFees" th:value="${contractDTO.managementFees}" id="managementfees" class="check" style="width:20%;height:30px;border:none;background:#F6F6F6;padding-left:10px">
+                                <span style="margin-left:5px">만원</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex:1;width:100%">
+                        <label for="paymentday">납부일</label>
+                        <div style="margin-top:10px">
+                            매달<input type="number" name="paymentDay" th:value="${contractDTO.paymentDay}" id="paymentday" class="check"
+                                     style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="subTitle">계약 종류</div>
+                <div class="contractType">
+                    <input type="radio" name="contractTypeRowid" id="10" value=10 th:checked="${contractDTO.contractTypeRowid}==10" checked><label for="10">전세</label>
+                    <input type="radio" name="contractTypeRowid" id="20" value=20 th:checked="${contractDTO.contractTypeRowid}==20"><label for="20">반전세</label>
+                    <input type="radio" name="contractTypeRowid" id="30" value=30 th:checked="${contractDTO.contractTypeRowid}==30"><label for="30">월세</label>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="subTitle">옵션</div>
+                <div style="display:flex;align-items:center;margin-top:10px">
+                    <input type="text" name="optionDTO.optionList[0]" placeholder="옵션" style="width:200px;background:#F6F6F6">
+                    <button type="button" class="addBtn" id="optionAddBtn" style="margin-left:30px">+옵션 추가</button>
+                </div>
+                <div class="optionAddSection"></div>
+            </div>
+
+            <div style="margin:30px 0 40px 0;float:right">
+                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                <button class="registerBtn" type="button" onclick="valiCheck(event)">등록</button>
+            </div>
+        </form>
+    </th:block>
+</th:block>
+
+<script th:inline="javascript">
+
+    const offset = new Date().getTimezoneOffset() * 60000;
+    const date = new Date(Date.now() - offset);
+    $("input[name=startDate]").attr('value', date.toISOString().substring(0, 10))
+    date.setFullYear(date.getFullYear()+2)
+    $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
+
+    function valiCheck(e) {
+        console.log("valiCheck 시작!")
+        e.preventDefault();
+        let check = true;
+        let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
+        if(!checkDate) {
+            alert("시작일은 만료일 이전이어야 합니다.")
+            check = false
+        }
+
+        //TODO 나중에는 각각의 인풋값들이 채워져 있는지 벨리검사할것
+        //입주자는 최소 한명(세대주)이 등록되어야 한다
+        const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
+        const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
+        console.log("contractorTitle : ", contractorTitle)
+        console.log("contractorPhone : ", contractorPhone)
+
+        if(contractorTitle==="" || contractorPhone==="") {
+            alert("세대주 정보는 필수로 입력되어야 합니다.")
+            check = false
+        }
+
+        //phone 체크 (중복값이 있는지 확인)
+        let phoneList = [];
+        $(".tenantPhone").each(function() {
+            phoneList.push($(this).val());
+        })
+        console.log("phoneList : ", phoneList)
+
+        $.ajax({
+            type: "POST",
+            url: "/contract/phoneValiCheck",
+            data: {phoneList : phoneList},
+            success:function (data) {
+                if(data!=="") {
+                    alert("중복된 폰번호 입니다. 폰번호 : " +data)
+                    //비동기식이라 여기서 최종 판정을 내자
+                    check = false
+                } else {
+                    if(check){$("form").submit();}
+                }
+            }, error :function(e) {
+                console.log(e);
+            }
+        })
+    } //end func valiCheck
+
+
+    let tenantCnt = 1
+    let carCnt = 1
+    let optionCnt = 1
+
+
+    init()
+    function init() {
+        optionAdd()
+    }
+
+    function optionAdd(option) {
+        if(option==undefined) option=""
+        let str = $(".optionAddSection").html()
+        str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
+            '      <input type="text" name="optionDTO.optionList[' + optionCnt + ']" value="'+option+'" placeholder="옵션" style="width:200px;background:#F6F6F6">\n' +
+            '   </div>'
+        $(".optionAddSection").html(str)
+        optionCnt++
+    }
+    let optionList = [[${contractDTO.optionDTO.optionList}]];
+    optionList.forEach(function (option) {
+        console.log("option : ", option)
+        optionAdd(option)
+    });
+    $("#optionAddBtn").on("click", function (e) {
+        optionAdd()
+    })
+    $("#tenantAddBtn").on("click", function (e) {
+        let str = $(".tenantAddSection").html()
+        str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
+            '                        <input type="text" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
+            '                        <input type="text" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
+            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" value=false >\n' +
+            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" value=20>\n' +
+            '                    </div>'
+        $(".tenantAddSection").html(str)
+        tenantCnt++
+    })
+    $("#carAddBtn").on("click", function (e) {
+        let str = $(".carAddSection").html()
+        str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
+            '                        <input type="text" name="carDTOList[' + carCnt + '].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
+            '                        <input type="text" name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
+            '                        <input type="text" name="carDTOList[' + carCnt + '].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
+            '                    </div>'
+        $(".carAddSection").html(str)
+        carCnt++
+    })
+</script>
+</body>
+</html>
