@@ -67,5 +67,4 @@ public class UnitController {
 
     @GetMapping("/previousContract")
     public void previousContract() {log.info("previousContract");}
-
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -37,12 +36,12 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     @Transactional
-    public UnitDTO getWithContractList(Long unit_rowid) {
-        Unit unit = unitRepository.getById(unit_rowid);
+    public UnitDTO getWithContractList(Long unitRowid) {
+        Unit unit = unitRepository.getById(unitRowid);
         List<ContractDTO> contractDTOList = new ArrayList<>();
 
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
-        List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unit_rowid);
+        List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unitRowid);
         for (Contract contract : contarctList) {
             Option option = optionRepository.findByContract(contract);
             List<Tenant> tenantList = new ArrayList<>();
@@ -61,9 +60,10 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
+    @Transactional
     public Unit get(Long unitRowid) {
-        Optional<Unit> unit = unitRepository.findById(unitRowid);
-        return unit.get();
+        Unit unit = unitRepository.getById(unitRowid);
+        return unit;
     }
 
     @Transactional

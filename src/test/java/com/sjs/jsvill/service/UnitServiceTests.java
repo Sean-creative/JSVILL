@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
+import javax.transaction.Transactional;
 import java.util.stream.LongStream;
 
 @SpringBootTest
@@ -32,7 +33,7 @@ public class UnitServiceTests {
 
     @Test
     public void getWithContractList() {
-        Json.stringToJson(unitService.getWithContractList(1L));
+        Json.stringToJson(unitService.getWithContractList(14L));
     }
 
     @Test
@@ -41,9 +42,11 @@ public class UnitServiceTests {
     }
 
     @Test
+    @Transactional
     public void get() {
-        Unit unit = unitService.get(1L);
+        Unit unit = unitService.get(14L);
         System.out.println("unit : " + unit);
+        System.out.println("unit.getGroup() : " + unit.getGroup());
     }
 
     @Test
