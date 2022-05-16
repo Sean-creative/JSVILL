@@ -102,7 +102,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ContractDTO get(Long contractRowid) {
+    public ContractDTO getDTO(Long contractRowid) {
         //1. 계약 정보
         Optional<Contract> contract = contractRepository.findById(contractRowid);
         //2. 옵션 정보
@@ -120,5 +120,11 @@ public class ContractServiceImpl implements ContractService {
 
         });
         return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
+    }
+
+    @Override
+    @Transactional
+    public Contract get(Long contractRowid) {
+        return contractRepository.getById(contractRowid);
     }
 }

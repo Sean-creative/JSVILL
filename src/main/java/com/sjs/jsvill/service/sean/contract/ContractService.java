@@ -12,7 +12,9 @@ public interface ContractService {
     void register(ContractDTO contractDTO);
 //    List<GroupDTO> getList(Long member_rowid);
     void remove(Long contract_rowid);
-      ContractDTO get(Long contractRowid);
+      ContractDTO getDTO(Long contractRowid);
+      Contract get(Long contractRowid);
+
 //    void modify(GroupDTO groupDTO);
 
     String phoneCheck(List<UserDuplicateCheck> duplicateCheckList);

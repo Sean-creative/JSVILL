@@ -39,7 +39,7 @@ public class ContractController {
 
     @GetMapping("/edit")
     public void edit(Long contractRowid, Model model) {
-        ContractDTO contractDTO = contractService.get(contractRowid);
+        ContractDTO contractDTO = contractService.getDTO(contractRowid);
         UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
         model.addAttribute("contractDTO", contractDTO);
         model.addAttribute("unitDTO", unitDTO);
@@ -56,7 +56,7 @@ public class ContractController {
 
     @PostMapping("/remove")
     public String remove(long contractRowid, RedirectAttributes redirectAttributes){
-        String unitRowid = contractService.get(contractRowid).getUnitRowid().toString();
+        String unitRowid = contractService.getDTO(contractRowid).getUnitRowid().toString();
         contractService.remove(contractRowid);
         redirectAttributes.addFlashAttribute("msg", contractRowid);
         return "redirect:/unit/read?unitRowid="+unitRowid;

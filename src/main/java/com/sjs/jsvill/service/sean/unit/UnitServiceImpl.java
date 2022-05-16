@@ -80,8 +80,8 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public void remove(Long unit_rowid) {
-        unitRepository.deleteById(unit_rowid);
+    public void remove(Long unitRowid) {
+        unitRepository.deleteById(unitRowid);
     }
 
 

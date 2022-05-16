@@ -1,5 +1,6 @@
 package com.sjs.jsvill.controller.sean;
 
+import com.sjs.jsvill.dto.sean.view.RegisterCarDTO;
 import com.sjs.jsvill.service.sean.car.CarService;
 import com.sjs.jsvill.service.sean.contract.ContractService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,8 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping("/register")
-    public void register(Long unitRowid, Model model) {
-//        UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
-//        model.addAttribute("result", unitDTO);
+    public void register(Long contractRowid, Model model) {
+        model.addAttribute("data", new RegisterCarDTO(contractService.get(contractRowid)));
     }
 
 //    @PostMapping("/register")

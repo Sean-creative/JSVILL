@@ -6,11 +6,11 @@ import com.sjs.jsvill.entity.sean.Unit;
 
 public interface UnitService {
     Long register(UnitDTO dto);
-    UnitDTO getWithContractList(Long unit_rowid);
+    UnitDTO getWithContractList(Long unitRowid);
 
-    Unit get(Long unit_rowid);
+    Unit get(Long unitRowid);
     void modify(UnitDTO unitDTO);
-    void remove(Long unit_rowid);
+    void remove(Long unitRowid);
 
     //파라미터로 받는건 DTO인데 -> DB에 접근하는 데이터는 엔티티로 바꿔줘야함
     default Unit dtoToEntity(UnitDTO dto) {
