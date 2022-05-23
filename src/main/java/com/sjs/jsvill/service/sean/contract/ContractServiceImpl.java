@@ -121,7 +121,6 @@ public class ContractServiceImpl implements ContractService {
         });
         return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
     }
-
     @Override
     @Transactional
     public Contract get(Long contractRowid) {
