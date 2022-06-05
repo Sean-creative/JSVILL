@@ -52,16 +52,6 @@
                 <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
             </div>
 
-            <div class="info">
-                <div class="subTitle">차량</div>
-                <div style="display:flex;align-items:center;margin-top:10px">
-                    <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">
-                    <button type="button" class="addBtn" id="carAddBtn" style="margin-left:30px">+차량 추가</button>
-                </div>
-                <div class="carAddSection"></div>
-            </div>
 
             <div class="info">
                 <div class="subTitle">보증금/월세/관리비</div>
@@ -189,7 +179,6 @@
 
 
     let tenantCnt = 1
-    let carCnt = 1
     let optionCnt = 1
 
     $("#optionAddBtn").on("click", function (e) {
@@ -210,16 +199,6 @@
             '                    </div>'
         $(".tenantAddSection").html(str)
         tenantCnt++
-    })
-    $("#carAddBtn").on("click", function (e) {
-        let str = $(".carAddSection").html()
-        str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '                    </div>'
-        $(".carAddSection").html(str)
-        carCnt++
     })
 </script>
 </body>

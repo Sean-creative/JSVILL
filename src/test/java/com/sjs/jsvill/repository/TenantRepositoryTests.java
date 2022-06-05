@@ -63,4 +63,13 @@ public class TenantRepositoryTests {
         Boolean tenant = tenantRepository.existsByPhone("sdsdcvvb");
         log.info("tenant : " + tenant);
     }
+
+    @Test
+    public void findByContractRowid() {
+        List<Tenant> list = tenantRepository.findByContractRowid(33L);
+        for (Tenant tenant : list) {
+//            Json.stringToJson(tenant);
+            log.info("tenant : " + tenant);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.sjs.jsvill.controller.sean;
 import com.sjs.jsvill.dto.sean.view.RegisterCarDTO;
 import com.sjs.jsvill.service.sean.car.CarService;
 import com.sjs.jsvill.service.sean.contract.ContractService;
+import com.sjs.jsvill.service.sean.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CarController {
     private final ContractService contractService;
     private final CarService carService;
+    private final TenantService tenantService;
 
     @GetMapping("/register")
     public void register(Long contractRowid, Model model) {
-        model.addAttribute("data", new RegisterCarDTO(contractService.get(contractRowid)));
+        //view단에 해당 viewDTO를 보낼건데, 이 떄의 생성자에는 DTO를 넣을지 or Entity를 넣을지 정하지는 못함 -> 일단은 귀찮으니 Entity를 넣어둠
+        model.addAttribute("data", new RegisterCarDTO(contractService.get(contractRowid), tenantService.getTenantList(contractRowid)));
     }
 
 //    @PostMapping("/register")
