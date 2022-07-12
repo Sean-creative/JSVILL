@@ -14,33 +14,18 @@
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 차량 등록</div>
         <form action="/contract/register" method="post">
             <input type="hidden" name="unitRowid" th:value="${data.contractRowid}">
-            <div class="info">
-                <div class="subTitle">
-                    계약일
-                </div>
-                <div style="display:flex;align-items:center;text-align: center;">
-                    <div style="flex:1">
-                        계약 시작일
-                        <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="startdate" style="border:1px solid black;border-radius:8px">
-                        </div>
-                    </div>
-                    <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
-                    <div style="flex:1">
-                        계약 만료일
-                        <div class="wrapper" style="margin-top:10px">
-                            <input type="date" name="enddate" style="border:1px solid black;border-radius:8px">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="info">
                 <div class="subTitle">차량</div>
                 <div style="display:flex;align-items:center;margin-top:10px">
                     <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">
                     <input type="text" name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">
+
+                    <!--                    th:field="*{carDTOList[0].phone}"-->
+                    <select name="carDTOList[0].phone"  style="margin-left:35px;width:110px;background:#F6F6F6;height:32px;border-radius:3px">
+                        <option th:each="tenant:${data.tenantList}" th:value="${tenant.phone}" th:text="${tenant.title}"></option>
+                    </select>
+
                     <button type="button" class="addBtn" id="carAddBtn" style="margin-left:30px">+차량 추가</button>
                 </div>
                 <div class="carAddSection"></div>
@@ -56,51 +41,48 @@
 
 <script th:inline="javascript">
 
-    // console.log("tenantList : " + [[${data.tenantList}]])
-    const offset = new Date().getTimezoneOffset() * 60000;
-    const date = new Date(Date.now() - offset);
-    $("input[name=startdate]").attr('value', date.toISOString().substring(0, 10))
-    date.setFullYear(date.getFullYear() + 2)
-    $("input[name=enddate]").attr('value', date.toISOString().substring(0, 10))
-
-    function valiCheck(e) {
-        e.preventDefault();
-        let check = true;
-//공백이 아닌 차량리스트 보내서 -> 해당 계약의 입주자의 번호랑 같은지 체크
-        $.ajax({
-            type: "POST",
-            url: "/contract/phoneValiCheck",
-            data: {
-                titleList: titleList,
-                phoneList: phoneList
-            },
-            success: function (data) {
-                if (data === "") {
-                    if (check) {
-                        $("form").submit();
-                    }
-                } else {
-                    alert("중복된 폰번호 입니다. 폰번호 : " + data)
-                    //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
-                    check = false
-                }
-            }, error: function (e) {
-                console.log(e);
-            }
-        })
-    } //end func valiCheck
-
+    //공백이 아닌 차량리스트 보내서 -> 해당 계약의 입주자의 번호랑 같은지 체크
+    // function valiCheck(e) {
+    //     e.preventDefault();
+    //     let check = true;
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/contract/phoneValiCheck",
+    //         data: {
+    //             titleList: titleList,
+    //             phoneList: phoneList
+    //         },
+    //         success: function (data) {
+    //             if (data === "") {
+    //                 if (check) {
+    //                     $("form").submit();
+    //                 }
+    //             } else {
+    //                 alert("중복된 폰번호 입니다. 폰번호 : " + data)
+    //                 //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
+    //                 check = false
+    //             }
+    //         }, error: function (e) {
+    //             console.log(e);
+    //         }
+    //     })
+    // } //end func valiCheck
+    /*<![CDATA[*/
     let carCnt = 1
     $("#carAddBtn").on("click", function (e) {
+
         let str = $(".carAddSection").html()
         str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
             '                        <input type="text" name="carDTOList[' + carCnt + '].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
             '                        <input type="text" name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
+            '<select name="carDTOList[' + carCnt + '].phone" style="margin-left:35px;width:110px;background:#F6F6F6;height:32px;border-radius:3px">' +
+            '<option th:each="tenant:[[${data.tenantList}]]" th:value="[[${tenant.phone}]]" th:text="[[${tenant.title}]]" ></option>' +
+            '</select>' +
             '                    </div>'
         $(".carAddSection").html(str)
         carCnt++
     })
+    /*]]>*/
 </script>
 </body>
 </html>
