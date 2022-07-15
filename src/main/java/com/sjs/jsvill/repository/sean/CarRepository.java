@@ -9,6 +9,6 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     Boolean existsByNumber(String number);
-
     List<Car> findAllByTenant(Tenant tenant);
+
 }

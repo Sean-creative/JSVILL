@@ -57,7 +57,7 @@ public class Car extends BaseEntity {
         return CarDTO.builder()
                 .title(car.getTitle())
                 .number(car.getNumber())
-                .phone(phone)
+                .tenantRowid(car.getTenant().getTenant_rowid())
                 .build();
     }
 

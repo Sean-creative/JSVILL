@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class RegisterCarDTO {
+    private Long unitRowid;
     private String groupTitle;
     private String unitTitle;
     private Long contractRowid;
@@ -19,6 +20,7 @@ public class RegisterCarDTO {
 
     //객체단위로 넘어올것 같아서, builder 패턴을 쓰지는 않겠음
     public RegisterCarDTO(Contract contract, List<Tenant> tenantList) {
+        this.unitRowid = contract.getUnit().getUnit_rowid();
         this.unitTitle = contract.getUnit().getAddr2();
         this.groupTitle = contract.getUnit().getGroup().getTitle();
         this.contractRowid = contract.getContract_rowid();

@@ -1,15 +1,18 @@
 package com.sjs.jsvill.controller.sean;
 
+import com.sjs.jsvill.dto.sean.CarDTO;
 import com.sjs.jsvill.dto.sean.view.RegisterCarDTO;
 import com.sjs.jsvill.service.sean.car.CarService;
 import com.sjs.jsvill.service.sean.contract.ContractService;
 import com.sjs.jsvill.service.sean.tenant.TenantService;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/car")
@@ -26,12 +29,14 @@ public class CarController {
         model.addAttribute("data", new RegisterCarDTO(contractService.get(contractRowid), tenantService.getTenantList(contractRowid)));
     }
 
-//    @PostMapping("/register")
-//    public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
-//        Json.stringToJson(contractDTO);
-//        contractService.register(contractDTO);
-//        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
-//    }
+    @PostMapping("/register")
+    @ResponseBody
+    public String register(Long unitRowid, @RequestParam(value = "carDTOList") List<CarDTO> carDTOList) {
+        System.out.println("sssssss");
+        Json.stringToJson(carDTOList);
+        carService.register(carDTOList);
+        return "redirect:/unit/read?unitRowid=" + unitRowid;
+    }
 //
 //    @GetMapping("/edit")
 //    public void edit(Long contractRowid, Model model) {

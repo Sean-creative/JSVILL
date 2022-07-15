@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CarDTO {
-    private String title;
     private String number;
-    private String phone;
+    private String title;
+    private Long tenantRowid;
 
-    public static Car DTOToEntity(CarDTO carDTO, Long tenantRowid) {
-        Tenant tenant = Tenant.builder().tenant_rowid(tenantRowid).build();
+
+    public static Car DTOToEntity(CarDTO carDTO) {
+        Tenant tenant = Tenant.builder().tenant_rowid(carDTO.tenantRowid).build();
         if(carDTO==null) return null;
         else {
             Car car = Car.builder()

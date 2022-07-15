@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -75,23 +74,6 @@ public class ContractServiceImpl implements ContractService {
             //계약 세입자 매핑 테이블에 등록
             contractTenantRepository.save(ContractTenant.builder().contract(contract).tenant(tenantFromDB).build());
 
-
-            //TODO 차량등록의 시퀀스를 뒤로 미룰것!
-//        2-1. 세입자R -> 차량 등록
-//        차량리스트에서 세입자의 폰번호랑 같은것을 찾은 후 -> 해당 세입자를 외래키로 등록을 한다.
-            log.info("PHONE : " + PHONE);
-            List<CarDTO> carDTOList = contractDTO.getCarDTOList().stream().filter(c -> c.getPhone().equals(PHONE)).collect(Collectors.toList());
-            log.info("carDTOList : " + carDTOList);
-
-            //등록할 차량이 없을 수도 있다!! ex) 계약서 등록 할 때 사용자가 차량을 추가 안한경우
-            //차량이 이미 DB에 등록되어있을 수도 있음 ex)기존에 살았던 세입자 -> 해당 tenantRowid로 DB에 있는지 검사하기
-            for (CarDTO carDTO : carDTOList) {
-                if (!carRepository.existsByNumber(carDTO.getNumber())) {
-                    log.info("carDTO : " + carDTO);
-                    Car car = CarDTO.DTOToEntity(carDTO, tenantFromDB.getTenant_rowid());
-                    log.info("carRepository.save(car)" + carRepository.save(car));
-                }
-            }
         }
     }
 
