@@ -1,11 +1,10 @@
 package com.sjs.jsvill.controller.sean;
 
-import com.sjs.jsvill.dto.sean.CarDTO;
-import com.sjs.jsvill.dto.sean.view.RegisterCarDTO;
+import com.sjs.jsvill.dto.sean.view.RegisterCarReqDTO;
+import com.sjs.jsvill.dto.sean.view.RegisterCarResDTO;
 import com.sjs.jsvill.service.sean.car.CarService;
 import com.sjs.jsvill.service.sean.contract.ContractService;
 import com.sjs.jsvill.service.sean.tenant.TenantService;
-import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -26,16 +25,22 @@ public class CarController {
     @GetMapping("/register")
     public void register(Long contractRowid, Model model) {
         //view단에 해당 viewDTO를 보낼건데, 이 떄의 생성자에는 DTO를 넣을지 or Entity를 넣을지 정하지는 못함 -> 일단은 귀찮으니 Entity를 넣어둠
-        model.addAttribute("data", new RegisterCarDTO(contractService.get(contractRowid), tenantService.getTenantList(contractRowid)));
+        model.addAttribute("data", new RegisterCarResDTO(contractService.get(contractRowid), tenantService.getTenantList(contractRowid)));
     }
 
     @PostMapping("/register")
+    public String register(RegisterCarReqDTO registerCarReqDTO) {
+        registerCarReqDTO.getCarDTOList().forEach(carDTO -> {
+            System.out.println("carDTO : "  + carDTO);
+        });
+        carService.register(registerCarReqDTO.getCarDTOList());
+        return "redirect:/unit/read?unitRowid=" + registerCarReqDTO.getUnitRowid();
+    }
+
+    @PostMapping("/carValiCheck")
     @ResponseBody
-    public String register(Long unitRowid, @RequestParam(value = "carDTOList") List<CarDTO> carDTOList) {
-        System.out.println("sssssss");
-        Json.stringToJson(carDTOList);
-        carService.register(carDTOList);
-        return "redirect:/unit/read?unitRowid=" + unitRowid;
+    public List<String> carValiCheck(@RequestParam(value = "carNumberList[]") List<String> carNumberList) {
+        return carService.carCheck(carNumberList);
     }
 //
 //    @GetMapping("/edit")

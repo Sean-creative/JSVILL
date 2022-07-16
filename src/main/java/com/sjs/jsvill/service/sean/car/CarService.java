@@ -8,5 +8,7 @@ public interface CarService {
 
     void register(List<CarDTO> carDTOList);
 
+    List<String> carCheck(List<String> numberList);
+
 
 }

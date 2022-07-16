@@ -12,16 +12,15 @@
 <th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 차량 등록</div>
-        <form action="/car/register" method="post">
+        <form action="/car/register" method="post" onsubmit="return valiCheck()">
             <input type="hidden" name="unitRowid" th:value="${data.unitRowid}">
 
             <div class="info">
                 <div class="subTitle">차량</div>
                 <div style="display:flex;align-items:center;margin-top:10px">
-                    <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
+                    <input type="text" required name="carDTOList[0].number" class="carNumber" placeholder="차량번호" style="width:100px;background:#F6F6F6">
+                    <input type="text" required name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
 
-<!--                                        th:field="*{carDTOList[0].phone}"-->
                     <select name="carDTOList[0].tenantRowid"  style="margin-left:35px;width:110px;background:#F6F6F6;height:32px;border-radius:3px">
                         <option th:each="tenant:${data.tenantList}" th:value="${tenant.tenant_rowid}" th:text="${tenant.title}"></option>
                     </select>
@@ -41,33 +40,40 @@
 
 
 <script th:inline="javascript">
+    function valiCheck() {
 
-    //공백이 아닌 차량리스트 보내서 -> 해당 계약의 입주자의 번호랑 같은지 체크
-    /*function valiCheck(e) {
-        e.preventDefault();
+        //차량번호 체크 (중복값이 있는지 확인)
+        //일단 초급코드로 구현 해놓음.....
+        let carNumberList = [];
+        $(".carNumber").each(function() {
+            carNumberList.push($(this).val());
+        })
+        console.log(`carNumberList : ${carNumberList}`)
+
         let check = true;
         $.ajax({
             type: "POST",
-            url: "/contract/phoneValiCheck",
+            url: "/car/carValiCheck",
             data: {
-                titleList: titleList,
-                phoneList: phoneList
+                carNumberList: carNumberList
             },
             success: function (data) {
-                if (data === "") {
-                    if (check) {
-                        $("form").submit();
-                    }
+                console.log(`data : ${data}`)
+                if (data.length == 0) {
+                    console.log("true")
+                    return true;
                 } else {
                     alert("중복된 폰번호 입니다. 폰번호 : " + data)
                     //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
-                    check = false
+                    console.log("false")
+                    return false;
                 }
             }, error: function (e) {
                 console.log(e);
             }
         })
-    } //end func valiCheck*/
+    } //end func valiCheck
+
     let carCnt = 1
     /*<![CDATA[*/
     const tenantList = /*[[${data.tenantList}]]*/
@@ -75,11 +81,11 @@
     $("#carAddBtn").on("click", function (e) {
         let str = $(".carAddSection").html()
         str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '<select name="carDTOList[' + carCnt + '].phone" style="margin-left:35px;width:110px;background:#F6F6F6;height:32px;border-radius:3px">'
+            '                        <input type="text" required name="carDTOList[' + carCnt + '].number" class="carNumber" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
+            '                        <input type="text" required name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
+            '<select name="carDTOList[' + carCnt + '].tenantRowid" style="margin-left:35px;width:110px;background:#F6F6F6;height:32px;border-radius:3px">'
         for (const tenantListElement of tenantList) {
-            str += '<option value= \''+tenantListElement.phone+ '\'>'+tenantListElement.title+'</option>'
+            str += '<option value= \''+tenantListElement.tenant_rowid+ '\'>'+tenantListElement.title+'</option>'
         }
         str += '</select>' +
             '                    </div>'

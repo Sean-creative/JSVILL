@@ -50,7 +50,7 @@ public class CarRepositoryTests {
 
     @Test
     public void existsByNumber() {
-        System.out.println("carRepository.existsByNumber : " + carRepository.existsByNumber("sdsdcvvb"));
+        System.out.println("carRepository.existsByNumber : " + carRepository.existsByNumber("342"));
     }
 
 }

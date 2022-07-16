@@ -38,8 +38,8 @@ public class ContractServiceTests {
                 .isContractor(false)
                 .livingType(20L)
                 .build());
-        carDTOList.add(CarDTO.builder().title("XM3").number("179너4679").phone("010-6780-1449").build());
-        carDTOList.add(CarDTO.builder().title("타이칸").number("1111너1111").phone("010-1111-1111").build());
+        carDTOList.add(CarDTO.builder().title("XM3").number("179너4679").build());
+        carDTOList.add(CarDTO.builder().title("타이칸").number("1111너1111").build());
 
         ContractDTO contractDTO = ContractDTO.builder()
                 .unitRowid(1L)

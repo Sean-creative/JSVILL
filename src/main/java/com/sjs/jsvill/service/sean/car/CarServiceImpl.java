@@ -24,4 +24,15 @@ public class CarServiceImpl implements CarService {
         });
         carRepository.saveAll(carList);
     }
+
+    @Override
+    public List<String> carCheck(List<String> numberList) {
+        List<String> result = new ArrayList<>();
+
+        numberList.forEach(number -> {
+            if(carRepository.existsByNumber(number))
+                result.add(number);
+        });
+        return result;
+    }
 }
