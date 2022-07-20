@@ -12,7 +12,7 @@
 <th:block th:replace="~{/layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${result.groupTitle}]] / [[${result.addr2}]] / 계약 등록</div>
-        <form action="/contract/register" method="post">
+        <form action="/contract/register" method="post" onsubmit="return submitValiCheck(event)">
             <div class="info">
                 <div class="subTitle">
                     계약일
@@ -40,8 +40,8 @@
                 </div>
                 <div style="display:flex;align-items: center;justify-content: space-between">
                     <div style="width:82%;display:flex;align-items:center">
-                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
-                        <input type="text" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
+                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력"  required style="background:#F6F6F6">
+                        <input type="tel" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="ex) 010-1234-5678" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"  maxlength="13" style="margin-left:20px;background:#F6F6F6">
                         <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
                         <span style="margin-left:5px">세대주</span>
@@ -112,7 +112,7 @@
             <div style="margin:30px 0 40px 0;float:right">
                         <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
                 <input type="hidden" name="unitRowid" th:value="${result.unitRowid}">
-                <button class="registerBtn" type="button" onclick="valiCheck(event)">등록</button>
+                <button class="registerBtn">등록</button>
             </div>
         </form>
     </th:block>
@@ -125,22 +125,13 @@
     date.setFullYear(date.getFullYear()+2)
     $("input[name=enddate]").attr('value', date.toISOString().substring(0, 10))
 
-    function valiCheck(e) {
+    function submitValiCheck(e) {
         e.preventDefault();
         let check = true;
         let checkDate = $("input[name=startdate]").val() < $("input[name=enddate]").val();
         if(!checkDate) {
             alert("시작일은 만료일 이전이어야 합니다.")
-            check = false
-        }
-
-        //TODO 나중에는 각각의 인풋값들이 채워져 있는지 벨리검사할것
-        //입주자는 최소 한명(세대주)이 등록되어야 한다
-        const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
-        const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
-        if(contractorTitle==="" || contractorPhone==="") {
-            alert("세대주 정보는 필수로 입력되어야 합니다.")
-            check = false
+            return false;
         }
 
         //TODO 폰번호 뿐만 아니라 이름도 보내야함!!
@@ -152,6 +143,11 @@
             titleList.push($(this).val());
         })
         $(".tenantPhone").each(function() {
+            const REG_PATT = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}");
+            if(!REG_PATT.test($(this).val()) ){
+                alert("전화번호를 정확히 입력하여 주십시오.");
+                return false;
+            }
             phoneList.push($(this).val());
         })
 
@@ -168,13 +164,14 @@
                 }
                 else {
                     alert("중복된 폰번호 입니다. 폰번호 : " +data)
-                    //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
+                    //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간 -> 최종 리턴 구간)
                     check = false
                 }
             }, error :function(e) {
                 console.log(e);
             }
         })
+        return false;
     } //end func valiCheck
 
 
@@ -192,8 +189,8 @@
     $("#tenantAddBtn").on("click", function (e) {
         let str = $(".tenantAddSection").html()
         str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" class="tenantTitle" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
-            '                        <input type="text" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
+            '                        <input type="text" class="tenantTitle" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" required style="background:#F6F6F6">\n' +
+            '<input type="tel" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="ex) 010-1234-5678" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6">' +
             '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" value=false >\n' +
             '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" value=20>\n' +
             '                    </div>'
