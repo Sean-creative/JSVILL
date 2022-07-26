@@ -30,7 +30,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public String phoneCheck(List<UserDuplicateCheck> duplicateCheckList) {
         //1. tenant를 전부 가져온다
-        //2. 이름과 폰번호가 중복 or 중복된게 없으면 정상적인 플로우니까
+        //2. 이름과 폰번호가 중복 or 중복된게 없으면 -> 정상적인 플로우 -> "" 리턴
         //3. 번호만 중복인데 이름이 다르면 오류! -> 폰번호 리턴
         String result = "";
         List<Tenant> tenantList = tenantRepository.findAll();
