@@ -36,10 +36,6 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Override
     public MemberUser get(String phone) {
         MemberUser user = memberUserRepository.findByPhone(phone);
-        System.out.println("service----::phone:::::"+phone);
-        System.out.println("service----::user.phone:::"+user.getPhone());
-
-        System.out.println("service----::user.name:::"+ user.getMember().getName());
         return user;
     }
 

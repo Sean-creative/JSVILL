@@ -42,7 +42,6 @@ public class Option extends BaseEntity {
 
     //DB에서 해결이 안되기 때문에, 옵션을 list로 받아서, 그중 첫번째 값만 처리하기
     public static OptionDTO entityToDTO(Option option) {
-        System.out.println("option : " + option);
         OptionDTO optionDTO;
         if(option!=null) {
             optionDTO = OptionDTO.builder()

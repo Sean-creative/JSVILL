@@ -34,17 +34,17 @@ public class ContractServiceImpl implements ContractService {
         //3. 번호만 중복인데 이름이 다르면 오류! -> 폰번호 리턴
         String result = "";
         List<Tenant> tenantList = tenantRepository.findAll();
-        System.out.println("duplicateCheckList : " + duplicateCheckList);
-        System.out.println("tenantList : " + tenantList);
+//        System.out.println("duplicateCheckList : " + duplicateCheckList);
+//        System.out.println("tenantList : " + tenantList);
 
         for (UserDuplicateCheck userDuplicateCheck : duplicateCheckList) {
-            System.out.println("userDuplicateCheck: " + userDuplicateCheck);
+//            System.out.println("userDuplicateCheck: " + userDuplicateCheck);
             for (Tenant tenant : tenantList) {
                 if (userDuplicateCheck.phone.equals(tenant.getPhone())&&!userDuplicateCheck.title.equals(tenant.getTitle()))
                      result = userDuplicateCheck.phone;
             }
         }
-        System.out.println("result : "+result);
+//        System.out.println("result : "+result);
         return result;
     }
 

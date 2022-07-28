@@ -79,10 +79,9 @@ public class Contract extends BaseEntity {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formatedNow = now.format(formatter);
-        System.out.println(formatedNow);
 
-        Date format1 = null;
-        Date format2 = null;
+        Date format1;
+        Date format2;
         try {
             format1 = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
             format2 = new SimpleDateFormat("yyyy-MM-dd").parse(formatedNow);
