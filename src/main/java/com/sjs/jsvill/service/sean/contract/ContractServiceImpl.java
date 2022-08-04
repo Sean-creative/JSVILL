@@ -59,6 +59,7 @@ public class ContractServiceImpl implements ContractService {
         OptionDTO optionDTO = contractDTO.getOptionDTO();
         Option option = OptionDTO.DTOToEntity(optionDTO, contract.getContract_rowid());
         if (!option.getOptionList().isBlank()) {
+            //이름은 옵션리스트지만, 저장 할 때는 String으로 저장함
             log.info("optionRepository.save(option)" + optionRepository.save(option));
         }
 

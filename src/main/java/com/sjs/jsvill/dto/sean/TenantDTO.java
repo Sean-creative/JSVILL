@@ -26,6 +26,8 @@ public class TenantDTO {
         List<Tenant> tenantList = new ArrayList<>();
 
         for (TenantDTO tenantDTO : tenantDTOList) {
+            //title이나 phone이 null 인것들은 pass
+            if(tenantDTO.title==null || tenantDTO.phone==null) continue;
             Tenant tenant = Tenant.builder()
                     ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.livingType).build())
                     .title(tenantDTO.title)

@@ -20,8 +20,19 @@ public class OptionDTO {
 
 
     // [침대, 냉장고, TV] 라고 하면 -> String으로 "침대,냉장고,TV"로 분리해야함
+    // [침대, , TV] 라고 하면 -> "침대, TV"
+    // [ , , ] 라고 하면 -> ""
     public static String listToCsv(List<String> optionList) {
-        return String.join(",", optionList);
+//        return String.join(",", optionList);
+        StringBuffer temp = new StringBuffer();
+        optionList.forEach( s -> {
+            if(s!=null && !s.isBlank()) {
+                temp.append(s);
+                temp.append(",");
+            }
+                });
+        if(!temp.isEmpty()) temp.deleteCharAt(temp.length()-1);
+        return temp.toString();
     }
 
     public static Option DTOToEntity(OptionDTO optionDTO, Long contractRowid) {
