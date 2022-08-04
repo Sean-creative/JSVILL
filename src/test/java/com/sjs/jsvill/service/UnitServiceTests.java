@@ -33,7 +33,7 @@ public class UnitServiceTests {
 
     @Test
     public void getWithContractList() {
-        Json.stringToJson(unitService.getWithContractList(14L));
+        Json.stringToJson(unitService.getWithContractList(14L), "test-getWithContractList");
     }
 
     @Test

@@ -2,7 +2,6 @@ package com.sjs.jsvill.controller.sean;
 
 import com.sjs.jsvill.dto.sean.UnitDTO;
 import com.sjs.jsvill.service.sean.unit.UnitService;
-import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -22,22 +21,18 @@ public class UnitController {
 
     @GetMapping("/register")
     public void register(int groupRowid, Model model) {
-        log.info("groupRowid : " + groupRowid);
         model.addAttribute("groupRowid", groupRowid);
     }
 
     @PostMapping("/register")
     public String register(UnitDTO dto, RedirectAttributes redirectAttributes) {
-        log.info("dto..." + dto);
         //TODO 로그인이 유지가 되면 컨트롤러에서 넣어줘도 상관없음
         Long gno = unitService.register(dto);
-        log.info("result", gno);
         return "redirect:/group/list";
     }
 
     @GetMapping("/edit")
     public void edit(long unitRowid, Model model) {
-        log.info("edit");
         model.addAttribute("result" , unitService.get(unitRowid));
     }
 
@@ -59,9 +54,8 @@ public class UnitController {
 
     @GetMapping("/read")
     public void read(Long unitRowid, Model model){
-        log.info("unitRowid: " + unitRowid);
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
-        Json.stringToJson(unitDTO);
+//        Json.stringToJson(unitDTO, "UnitController-read");
         model.addAttribute("unitDTO", unitDTO);
     }
 

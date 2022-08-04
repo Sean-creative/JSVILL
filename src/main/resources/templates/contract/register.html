@@ -191,6 +191,7 @@
         optionBackupList = [] // 혹시 모르니까 초기화
     }
     function removeOption(cnt) {
+        //지웠으면, 빈공간 없게 다시 채워넣어야함
         let str = $(".optionAddSection").html()
         updateOption(str.replace(optionList[cnt], ''))
     }

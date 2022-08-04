@@ -60,7 +60,7 @@ public class ContractServiceTests {
     @Test
     public void get() {
         ContractDTO contractDTO = contractService.getDTO(30L);
-        Json.stringToJson(contractService.getDTO(30L));
+        Json.stringToJson(contractService.getDTO(30L), "test-get");
     }
 
     @Test

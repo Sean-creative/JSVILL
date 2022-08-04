@@ -32,7 +32,7 @@ public class ContractController {
 
     @PostMapping("/register")
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
-        Json.stringToJson(contractDTO);
+        Json.stringToJson(contractDTO, "ContractController-register");
         contractService.register(contractDTO);
         return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
     }
@@ -43,7 +43,7 @@ public class ContractController {
         UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
         model.addAttribute("contractDTO", contractDTO);
         model.addAttribute("unitDTO", unitDTO);
-        Json.stringToJson(contractDTO);
+        Json.stringToJson(contractDTO, "ContractController-edit");
     }
 
     @PostMapping("/phoneValiCheck")

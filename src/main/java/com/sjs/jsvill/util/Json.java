@@ -9,10 +9,10 @@ public class Json {
 
     public static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static void stringToJson(Object obj) {
+    public static void stringToJson(Object obj, String where) {
         try {
             String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
-            log.info("\n" + result);
+            log.info(where + " :)  \n" + result);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
