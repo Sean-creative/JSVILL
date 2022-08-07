@@ -29,7 +29,8 @@ public class OptionRepositoryTests {
 
     @Test
     public void findByContract() {
-        Option option = optionRepository.findByContract(Contract.builder().contract_rowid(25L).build());
+//        Option option = optionRepository.findByContract(Contract.builder().contract_rowid(25L).build());
+        Option option = optionRepository.findByContract(null);
         System.out.println("option : " + option);
     }
 }

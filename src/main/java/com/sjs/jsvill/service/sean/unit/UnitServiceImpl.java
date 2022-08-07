@@ -1,6 +1,7 @@
 package com.sjs.jsvill.service.sean.unit;
 
 import com.sjs.jsvill.dto.sean.ContractDTO;
+import com.sjs.jsvill.dto.sean.OptionDTO;
 import com.sjs.jsvill.dto.sean.UnitDTO;
 import com.sjs.jsvill.entity.sean.*;
 import com.sjs.jsvill.repository.sean.*;
@@ -52,7 +53,7 @@ public class UnitServiceImpl implements UnitService {
                 //4. 차량정보
                 carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
             });
-            contractDTOList.add(Contract.entityToDTO(contract, Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option)));
+            contractDTOList.add(Contract.entityToDTO(contract, Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option)));
         }
         UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
         ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!

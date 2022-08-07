@@ -35,6 +35,10 @@ public class Tenant extends BaseEntity {
     @Column(nullable = false)
     private Boolean iscontractor;
 
+    public void changeLivingType(_LivingType _livingtype) {this._livingtype = _livingtype;}
+    public void changeTilte(String title) {this.title = title;}
+    public void changePhone(String phone) {this.phone = phone;}
+    public void changeIsContractor(Boolean iscontractor) {this.iscontractor = iscontractor;}
 
     public static List<TenantDTO> entitiesToDTO(List<Tenant> tenantList) {
         List<TenantDTO> tenantDTOList = new ArrayList<>();

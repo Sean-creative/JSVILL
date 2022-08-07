@@ -40,8 +40,8 @@
                 </div>
                 <div style="display:flex;align-items: center;justify-content: space-between">
                     <div style="width:82%;display:flex;align-items:center">
-                        <input type="text" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">
-                        <input type="text" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">
+                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력"  required style="background:#F6F6F6">
+                        <input type="tel" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="ex) 010-1234-5678" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"  maxlength="13" style="margin-left:20px;background:#F6F6F6">
                         <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
                         <span style="margin-left:5px">세대주</span>
@@ -50,17 +50,6 @@
                 </div>
                 <div class="tenantAddSection"></div>
                 <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
-            </div>
-
-            <div class="info">
-                <div class="subTitle">차량</div>
-                <div style="display:flex;align-items:center;margin-top:10px">
-                    <input type="text" name="carDTOList[0].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">
-                    <input type="text" name="carDTOList[0].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">
-                    <button type="button" class="addBtn" id="carAddBtn" style="margin-left:30px">+차량 추가</button>
-                </div>
-                <div class="carAddSection"></div>
             </div>
 
             <div class="info">
@@ -114,7 +103,7 @@
                 <div class="subTitle">옵션</div>
                 <div style="display:flex;align-items:center;margin-top:10px">
                     <input type="text" name="optionDTO.optionList[0]" placeholder="옵션" style="width:200px;background:#F6F6F6">
-                    <button type="button" class="addBtn" id="optionAddBtn" style="margin-left:30px">+옵션 추가</button>
+                    <button type="button" class="addBtn" id="optionAddBtn" style="margin-left:20px">+옵션 추가</button>
                 </div>
                 <div class="optionAddSection"></div>
             </div>
@@ -128,108 +117,188 @@
 </th:block>
 
 <script th:inline="javascript">
-
     const offset = new Date().getTimezoneOffset() * 60000;
     const date = new Date(Date.now() - offset);
-    $("input[name=startDate]").attr('value', date.toISOString().substring(0, 10))
+    $("input[name=startdate]").attr('value', date.toISOString().substring(0, 10))
     date.setFullYear(date.getFullYear()+2)
-    $("input[name=endDate]").attr('value', date.toISOString().substring(0, 10))
+    $("input[name=enddate]").attr('value', date.toISOString().substring(0, 10))
 
-    function valiCheck(e) {
-        console.log("valiCheck 시작!")
-        e.preventDefault();
-        let check = true;
-        let checkDate = $("input[name=startDate]").val() < $("input[name=endDate]").val();
+    function submitValiCheck() {
+        let checkFlag = true
+        let checkDate = $("input[name=startdate]").val() < $("input[name=enddate]").val();
         if(!checkDate) {
             alert("시작일은 만료일 이전이어야 합니다.")
-            check = false
+            return false;
         }
 
-        //TODO 나중에는 각각의 인풋값들이 채워져 있는지 벨리검사할것
-        //입주자는 최소 한명(세대주)이 등록되어야 한다
-        const contractorTitle = $("input[name='tenantDTOList[0].title']").val()
-        const contractorPhone = $("input[name='tenantDTOList[0].phone']").val()
-        console.log("contractorTitle : ", contractorTitle)
-        console.log("contractorPhone : ", contractorPhone)
-
-        if(contractorTitle==="" || contractorPhone==="") {
-            alert("세대주 정보는 필수로 입력되어야 합니다.")
-            check = false
-        }
-
+        //TODO 폰번호 뿐만 아니라 이름도 보내야함!!
         //phone 체크 (중복값이 있는지 확인)
+        //일단 초급코드로 구현 해놓음.....
+        let titleList = [];
         let phoneList = [];
+        $(".tenantTitle").each(function() {
+            titleList.push($(this).val());
+        })
         $(".tenantPhone").each(function() {
             phoneList.push($(this).val());
         })
-        console.log("phoneList : ", phoneList)
 
         $.ajax({
             type: "POST",
             url: "/contract/phoneValiCheck",
-            data: {phoneList : phoneList},
+            async: false,
+            data: {
+                titleList : titleList,
+                phoneList : phoneList
+            },
             success:function (data) {
-                if(data!=="") {
-                    alert("중복된 폰번호 입니다. 폰번호 : " +data)
-                    //비동기식이라 여기서 최종 판정을 내자
-                    check = false
-                } else {
-                    if(check){$("form").submit();}
+                console.log("data : " + data)
+                if(data==="") {
+                    // if(check){$("form").submit();}
+                    checkFlag = true;
+                }
+                else {
+                    alert("이미 사용하고 있는 번호입니다. Phone :  " +data)
+                    //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간 -> 최종 리턴 구간)
+                    checkFlag = false;
                 }
             }, error :function(e) {
                 console.log(e);
             }
         })
+        return checkFlag;
     } //end func valiCheck
 
 
-    let tenantCnt = 1
-    let carCnt = 1
-    let optionCnt = 1
+    let tenantCnt = 0
+    let optionCnt = 0
+    let optionList = []
+    let tenantList = []
+    let optionBackupList = []
+    let tenantTitleBackupList = []
+    let tenantPhoneBackupList = []
 
-
-    init()
-    function init() {
-        optionAdd()
-    }
-
-    function optionAdd(option) {
-        if(option==undefined) option=""
-        let str = $(".optionAddSection").html()
-        str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
-            '      <input type="text" name="optionDTO.optionList[' + optionCnt + ']" value="'+option+'" placeholder="옵션" style="width:200px;background:#F6F6F6">\n' +
-            '   </div>'
-        $(".optionAddSection").html(str)
-        optionCnt++
-    }
-    let optionList = [[${contractDTO.optionDTO.optionList}]];
-    optionList.forEach(function (option) {
-        console.log("option : ", option)
-        optionAdd(option)
+    //init
+    let initOptionList = [[${contractDTO.optionDTO.optionList}]];
+    let isFirst = true
+    initOptionList.forEach(function (option) {
+        if(isFirst) {
+            $('input[name="optionDTO.optionList[0]"]').val(option)
+            isFirst = false
+        }
+        else optionAdd(option)
     });
-    $("#optionAddBtn").on("click", function (e) {
-        optionAdd()
+    function optionAdd(option) {
+        optionCnt++
+        let str = $(".optionAddSection").html()
+        let temp =
+            `<div style="display:flex;align-items:center;margin-top:10px">
+                <input type="text" name="optionDTO.optionList[${optionCnt}]" value="${option}" class="option" id="${optionCnt}" placeholder="옵션" style="width:200px;background:#F6F6F6">
+                <button type="button" onclick="removeOption(${optionCnt})" style="margin-left:20px">X</button>
+            </div>`
+        $(`input[name='optionDTO.optionList[${optionCnt}]']`).val(option)
+        optionList[optionCnt] = temp
+        str += temp
+        $(".optionAddSection").html(str)
+    }
+
+    function updateOption(str) {
+        $(".option").each(function() {
+            optionBackupList[$(this).attr('id')] = $(this).val();
+        })
+        $(".optionAddSection").html(str)
+        // 백업한 값들을 다시 넣어준다.
+        $(".option").each(function() {
+            $(this).val(optionBackupList[$(this).attr('id')]);
+        })
+        optionBackupList = [] // 혹시 모르니까 초기화
+    }
+    function removeOption(cnt) {
+        //TODO 지웠으면, 빈공간 없게 다시 채워넣어야함
+        let str = $(".optionAddSection").html()
+        updateOption(str.replace(optionList[cnt], ''))
+    }
+    $("#optionAddBtn").on("click", function () {
+        optionCnt++
+        let str = $(".optionAddSection").html()
+        let temp =
+            `<div style="display:flex;align-items:center;margin-top:10px">
+                <input type="text" name="optionDTO.optionList[${optionCnt}]" class="option" id="${optionCnt}" placeholder="옵션" style="width:200px;background:#F6F6F6">
+                <button type="button" onclick="removeOption(${optionCnt})" style="margin-left:20px">X</button>
+            </div>`
+        optionList[optionCnt] = temp
+        str += temp
+        updateOption(str)
     })
-    $("#tenantAddBtn").on("click", function (e) {
-        let str = $(".tenantAddSection").html()
-        str += '<div style="width:82%;display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="tenantDTOList[' + tenantCnt + '].title" placeholder="이름 또는 별명 입력" style="background:#F6F6F6">\n' +
-            '                        <input type="text" class="tenantPhone" name="tenantDTOList[' + tenantCnt + '].phone" placeholder="연락처" style="margin-left:20px;background:#F6F6F6">\n' +
-            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].isContractor" value=false >\n' +
-            '                        <input type="hidden" name="tenantDTOList[' + tenantCnt + '].livingType" value=20>\n' +
-            '                    </div>'
-        $(".tenantAddSection").html(str)
+
+
+    //init
+    let initTenantList = [[${contractDTO.tenantDTOList}]];
+    isFirst = true
+    initTenantList.forEach(function (tenantDTO) {
+        if(isFirst) {
+            $('input[name="tenantDTOList[0].title"]').val(tenantDTO.title)
+            $('input[name="tenantDTOList[0].phone"]').val(tenantDTO.phone)
+            isFirst = false
+        }
+        else tenantAdd(tenantDTO)
+    });
+    function tenantAdd(tenantDTO) {
         tenantCnt++
-    })
-    $("#carAddBtn").on("click", function (e) {
-        let str = $(".carAddSection").html()
-        str += '<div style="display:flex;align-items:center;margin-top:10px">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].number" placeholder="차량번호" style="width:100px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].title" placeholder="차종" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '                        <input type="text" name="carDTOList[' + carCnt + '].phone" placeholder="차주 연락처" style="margin-left:35px;width:140px;background:#F6F6F6">\n' +
-            '                    </div>'
-        $(".carAddSection").html(str)
-        carCnt++
+        let str = $(".tenantAddSection").html()
+        let temp =
+            `<div style="width:82%;display:flex;align-items:center;margin-top:10px">
+                <input type="text" name="tenantDTOList[${tenantCnt}].title" value="${tenantDTO.title}" class="tenantTitle" id="${tenantCnt}" placeholder="이름 또는 별명 입력" required="required" style="background:#F6F6F6">
+                <input type="tel" name="tenantDTOList[${tenantCnt}].phone" value="${tenantDTO.phone}" class="tenantPhone" id="${tenantCnt}" placeholder="ex) 010-1234-5678" required="required" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6">
+                <button type="button" onclick="removeTenant(${tenantCnt})" style="margin-left:20px">X</button>
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].isContractor" value="false">
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20">
+            </div>`
+        tenantList[tenantCnt] = temp
+        str += temp
+        $(".tenantAddSection").html(str)
+    }
+    function updateTenant(str) {
+        $(".tenantTitle").each(function() {
+            tenantTitleBackupList[$(this).attr('id')] = $(this).val();
+        })
+        $(".tenantPhone").each(function() {
+            tenantPhoneBackupList[$(this).attr('id')] = $(this).val();
+        })
+        $(".tenantAddSection").html(str)
+        // 백업한 값들을 다시 넣어준다.
+        $(".tenantTitle").each(function() {
+            $(this).val(tenantTitleBackupList[$(this).attr('id')]);
+        })
+        $(".tenantPhone").each(function() {
+            $(this).val(tenantPhoneBackupList[$(this).attr('id')]);
+        })
+        tenantTitleBackupList = [] // 혹시 모르니까 초기화
+        tenantPhoneBackupList = []
+    }
+    //TODO 나중에는 서버에서 빈값을 무시하게끔 하는게아니라, 깔끔하게 프론트에서 가공된 데이터를 보내도록(빈건 빼고 보내도록) 작업하기
+    // 추가를하면
+    // 1. 기존에 있는 것들 리스트에 넣기
+    // 2. 반복문 돌면서 템플릿 만들어 내기
+
+    function removeTenant(cnt) {
+        let str = $(".tenantAddSection").html()
+        updateTenant(str.replace(tenantList[cnt], ''))
+    }
+    $("#tenantAddBtn").on("click", function () {
+        tenantCnt++
+        let str = $(".tenantAddSection").html()
+        let temp =
+            `<div style="width:82%;display:flex;align-items:center;margin-top:10px">
+                <input type="text" name="tenantDTOList[${tenantCnt}].title" class="tenantTitle" id="${tenantCnt}" placeholder="이름 또는 별명 입력" required="required" style="background:#F6F6F6">
+                <input type="tel" name="tenantDTOList[${tenantCnt}].phone" class="tenantPhone" id="${tenantCnt}" placeholder="ex) 010-1234-5678" required="required" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6">
+                <button type="button" onclick="removeTenant(${tenantCnt})" style="margin-left:20px">X</button>
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].isContractor" value="false">
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20">
+            </div>`
+        tenantList[tenantCnt] = temp
+        str += temp
+        updateTenant(str)
     })
 </script>
 </body>

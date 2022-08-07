@@ -59,6 +59,8 @@ public class Contract extends BaseEntity {
     private Long paymentday;
 
 
+    public void changeStartDate(String startdate) {this.startdate = startdate;}
+    public void changeEndDate(String enddate) {this.enddate = enddate;}
     public void changeDeposit(Long deposit) {
         this.deposit = deposit;
     }
@@ -75,6 +77,7 @@ public class Contract extends BaseEntity {
         this.paymentday = paymentday;
     }
 
+    //dDay 계산
     public Long dDayOperator(String s_date) {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

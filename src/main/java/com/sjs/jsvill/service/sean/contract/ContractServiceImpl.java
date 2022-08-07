@@ -57,7 +57,7 @@ public class ContractServiceImpl implements ContractService {
 //        1-1. 계약R -> 옵션 등록
         log.info("contract.getContract_rowid() : " + contract.getContract_rowid());
         OptionDTO optionDTO = contractDTO.getOptionDTO();
-        Option option = OptionDTO.DTOToEntity(optionDTO, contract.getContract_rowid());
+        Option option = Option.DTOToEntity(optionDTO, contract.getContract_rowid());
         if (!option.getOptionList().isBlank()) {
             //이름은 옵션리스트지만, 저장 할 때는 String으로 저장함
             log.info("optionRepository.save(option)" + optionRepository.save(option));
@@ -70,11 +70,10 @@ public class ContractServiceImpl implements ContractService {
             final String PHONE = tenant.getPhone();
             //세입자를 등록하기전에, 폰번호로 검사를해서 또 등록하는것을 막야아한다.
             if (!tenantRepository.existsByPhone(PHONE)) tenantRepository.save(tenant);
-            //세입자를 등록했든 안했든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
+            //새로등록한 세입자든 기존에 있던 세입자든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
             Tenant tenantFromDB = tenantRepository.findByPhone(PHONE);
             //계약 세입자 매핑 테이블에 등록
             contractTenantRepository.save(ContractTenant.builder().contract(contract).tenant(tenantFromDB).build());
-
         }
     }
 
@@ -103,11 +102,58 @@ public class ContractServiceImpl implements ContractService {
 
         });
 
-        return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), Option.entityToDTO(option));
+        return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option));
     }
     @Override
     @Transactional
     public Contract get(Long contractRowid) {
         return contractRepository.getById(contractRowid);
+    }
+
+    @Transactional
+    @Override
+    public void modify(ContractDTO contractDTO) {
+        Contract contract = contractRepository.getById(contractDTO.getContractRowid());
+        Option option = optionRepository.findByContract(Contract.builder().contract_rowid(contractDTO.getContractRowid()).build());
+
+        if(contract != null) {
+            contract.changeStartDate(contractDTO.getStartdate());
+            contract.changeEndDate(contractDTO.getEnddate());
+            contract.changeDeposit(contractDTO.getDeposit());
+            contract.changeRentfee(contractDTO.getRentFee());
+            contract.changeManagemnetfees(contractDTO.getManagementFees());
+            contract.changePaymentday(contractDTO.getPaymentDay());
+            contractRepository.save(contract);
+        }
+        if(option != null) {
+            option.changeOptionList(contractDTO.getOptionDTO().getOptionList());
+            optionRepository.save(option);
+        }
+        else {
+            option = Option.DTOToEntity(contractDTO.getOptionDTO(), contract.getContract_rowid());
+            if (!option.getOptionList().isBlank()) {
+                //이름은 옵션리스트지만, 저장 할 때는 String으로 저장함
+                log.info("optionRepository.save(option)" + optionRepository.save(option));
+            }
+        }
+
+        //해당 폰번호로 기존에 있던 Tenant를 가져온다.
+        contractDTO.getTenantDTOList().forEach(tenantDTO -> {
+            Tenant tenant = tenantRepository.findByPhone(tenantDTO.getPhone());
+            if(tenant==null) {
+
+            }
+            else {
+
+            }
+        });
+        // Tenant가 null 이라면 -> 새로 등록하는 것!
+
+        //1. contract_tenant 테이블에서
+
+
+
+
+
     }
 }

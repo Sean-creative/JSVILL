@@ -45,6 +45,12 @@ public class ContractController {
         model.addAttribute("unitDTO", unitDTO);
         Json.stringToJson(contractDTO, "ContractController-edit");
     }
+    @PostMapping("/edit")
+    public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
+        Json.stringToJson(contractDTO, "ContractController-edit");
+        contractService.register(contractDTO);
+        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
+    }
 
     @PostMapping("/phoneValiCheck")
     @ResponseBody

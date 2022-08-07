@@ -10,12 +10,15 @@ import java.util.List;
 
 public interface ContractService {
     void register(ContractDTO contractDTO);
-//    List<GroupDTO> getList(Long member_rowid);
-    void remove(Long contract_rowid);
-      ContractDTO getDTO(Long contractRowid);
-      Contract get(Long contractRowid);
 
-//    void modify(GroupDTO groupDTO);
+    //    List<GroupDTO> getList(Long member_rowid);
+    void remove(Long contract_rowid);
+
+    ContractDTO getDTO(Long contractRowid);
+
+    Contract get(Long contractRowid);
+
+    void modify(ContractDTO contractDTO);
 
     String phoneCheck(List<UserDuplicateCheck> duplicateCheckList);
 
