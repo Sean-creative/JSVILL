@@ -28,6 +28,18 @@ public class OptionRepositoryTests {
     }
 
     @Test
+    public void modify() {
+        Contract contarct = Contract.builder().contract_rowid(83L).build();
+        Option option = Option.builder()
+                .contract(contarct)
+                .optionList("침대,냉장고,전자레인지")
+                .build();
+        option = optionRepository.save(option);
+        option.changeOptionList("킁킁,캉캉");
+        optionRepository.save(option);
+    }
+
+    @Test
     public void findByContract() {
 //        Option option = optionRepository.findByContract(Contract.builder().contract_rowid(25L).build());
         Option option = optionRepository.findByContract(null);

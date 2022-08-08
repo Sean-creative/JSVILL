@@ -28,4 +28,5 @@ public class ContractDTO {
     private List<TenantDTO> tenantDTOList = new ArrayList<>();
     private List<CarDTO> carDTOList = new ArrayList<>();
     private OptionDTO optionDTO = new OptionDTO();
+
 }

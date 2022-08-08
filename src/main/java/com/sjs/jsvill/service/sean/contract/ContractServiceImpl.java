@@ -6,6 +6,7 @@ import com.sjs.jsvill.dto.sean.ContractDTO;
 import com.sjs.jsvill.dto.sean.OptionDTO;
 import com.sjs.jsvill.dto.sean.TenantDTO;
 import com.sjs.jsvill.entity.sean.*;
+import com.sjs.jsvill.entity.sub._LivingType;
 import com.sjs.jsvill.repository.sean.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,8 +25,10 @@ public class ContractServiceImpl implements ContractService {
     private final TenantRepository tenantRepository;
     private final ContractRepository contractRepository;
     private final OptionRepository optionRepository;
+    private final OptionLogRepository optionLogRepository;
     private final CarRepository carRepository;
     private final ContractTenantRepository contractTenantRepository;
+    private final ContractTenantLogRepository contractTenantLogRepository;
 
     @Override
     public String phoneCheck(List<UserDuplicateCheck> duplicateCheckList) {
@@ -61,6 +64,7 @@ public class ContractServiceImpl implements ContractService {
         if (!option.getOptionList().isBlank()) {
             //이름은 옵션리스트지만, 저장 할 때는 String으로 저장함
             log.info("optionRepository.save(option)" + optionRepository.save(option));
+            optionLogRepository.save(OptionLog.optionToOptionLog(option));
         }
 
 //        2. 세입자 등록
@@ -73,7 +77,11 @@ public class ContractServiceImpl implements ContractService {
             //새로등록한 세입자든 기존에 있던 세입자든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
             Tenant tenantFromDB = tenantRepository.findByPhone(PHONE);
             //계약 세입자 매핑 테이블에 등록
-            contractTenantRepository.save(ContractTenant.builder().contract(contract).tenant(tenantFromDB).build());
+            ContractTenant contractTenant = ContractTenant.builder().contract(contract).tenant(tenantFromDB).build();
+            contractTenantRepository.save(contractTenant);
+            //거주 하는지 안하는지 어떻게 알지?? -> 계약 시작일 기준으로 계산을 해봅시다!
+            _LivingType livingType = _LivingType.isStartedContract(contractDTO.getStartdate());
+            contractTenantLogRepository.save(ContractTenantLog.ContractTenantToContractTenantLog(contractTenant, livingType));
         }
     }
 
@@ -101,7 +109,6 @@ public class ContractServiceImpl implements ContractService {
             });
 
         });
-
         return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option));
     }
     @Override
@@ -126,14 +133,16 @@ public class ContractServiceImpl implements ContractService {
             contractRepository.save(contract);
         }
         if(option != null) {
-            option.changeOptionList(contractDTO.getOptionDTO().getOptionList());
+            option.changeOptionList(Option.listToCsv(contractDTO.getOptionDTO().getOptionList()));
             optionRepository.save(option);
+            optionLogRepository.save(OptionLog.optionToOptionLog(option));
         }
         else {
             option = Option.DTOToEntity(contractDTO.getOptionDTO(), contract.getContract_rowid());
             if (!option.getOptionList().isBlank()) {
                 //이름은 옵션리스트지만, 저장 할 때는 String으로 저장함
                 log.info("optionRepository.save(option)" + optionRepository.save(option));
+                optionLogRepository.save(OptionLog.optionToOptionLog(option));
             }
         }
 

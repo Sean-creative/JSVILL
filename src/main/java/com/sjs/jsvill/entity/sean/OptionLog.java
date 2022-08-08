@@ -10,17 +10,17 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "option")
+@Table(name = "option_log")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = {"contract"})
-public class Option extends BaseEntity {
+public class OptionLog extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long option_rowid;
+    private Long optionLog_rowid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -31,7 +31,11 @@ public class Option extends BaseEntity {
     @Column(length = 64, nullable = false)
     private String optionList;
 
-    public void changeOptionList(String optionList) {this.optionList = optionList;}
+    public void changeOptionList(List<String> optionList) {this.optionList = listToCsv(optionList);}
+
+    public static OptionLog optionToOptionLog(Option option) {
+        return  OptionLog.builder().contract(option.getContract()).optionList(option.getOptionList()).build();
+    }
 
 
     // [침대, 냉장고, TV] 라고 하면 -> String으로 "침대,냉장고,TV"로 분리해야함
@@ -49,11 +53,11 @@ public class Option extends BaseEntity {
         return temp.toString();
     }
 
-    public static Option DTOToEntity(OptionDTO optionDTO, Long contractRowid) {
+    public static OptionLog DTOToEntity(OptionDTO optionDTO, Long contractRowid) {
         Contract contarct = Contract.builder().contract_rowid(contractRowid).build();
         if(optionDTO==null) return null;
         else {
-            Option option = Option.builder()
+            OptionLog option = OptionLog.builder()
                     .contract(contarct)
                     .optionList(listToCsv(optionDTO.getOptionList()))
                     .build();

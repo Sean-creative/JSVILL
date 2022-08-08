@@ -84,16 +84,4 @@ public class UnitServiceImpl implements UnitService {
     public void remove(Long unitRowid) {
         unitRepository.deleteById(unitRowid);
     }
-
-
-//    @Override
-//    public PageResultDTO<GroupDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
-//        log.info(pageRequestDTO);
-//
-//        Function<Object[], GroupDTO> fn = (en -> entityToDTO((Group)en[0]));
-//
-//        Page<Object[]> result = repository.getGroupWithAll(pageRequestDTO.getPageable(Sort.by("group_rowid").descending()));
-//        
-//        return
-//    }
 }
