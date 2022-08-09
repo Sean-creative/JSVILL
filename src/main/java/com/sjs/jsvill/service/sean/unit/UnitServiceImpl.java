@@ -50,13 +50,18 @@ public class UnitServiceImpl implements UnitService {
             List<ContractTenant> contractTenantList = contractTenantRepository.findAllByContract(contract);
             contractTenantList.forEach(ContractTenant -> {
                 tenantList.add(ContractTenant.getTenant());
-                //4. 차량정보
+                //차량정보
                 carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
             });
+
+            System.out.println("tenantList before: " + tenantList);
+            tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
+//            tenantList.stream().sorted(Comparator.comparing(Tenant::getIscontractor).reversed()).collect(Collectors.toList());
+            System.out.println("tenantList after: " + tenantList);
             contractDTOList.add(Contract.entityToDTO(contract, Car.entitiesToDTO(carList), Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option)));
         }
         UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
-        ///미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
+        //미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
         return unitDTO;
     }
 

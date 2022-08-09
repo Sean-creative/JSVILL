@@ -107,8 +107,8 @@ public class ContractServiceImpl implements ContractService {
             carRepository.findAllByTenant(contractTenant.getTenant()).forEach(i -> {
                 carDTOList.add(Car.entityToDTO(i, contractTenant.getTenant().getPhone()));
             });
-
         });
+        tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
         return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option));
     }
     @Override

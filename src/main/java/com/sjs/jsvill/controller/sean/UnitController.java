@@ -2,6 +2,7 @@ package com.sjs.jsvill.controller.sean;
 
 import com.sjs.jsvill.dto.sean.UnitDTO;
 import com.sjs.jsvill.service.sean.unit.UnitService;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,7 @@ public class UnitController {
     @GetMapping("/read")
     public void read(Long unitRowid, Model model){
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
-//        Json.stringToJson(unitDTO, "UnitController-read");
+        Json.stringToJson(unitDTO, "UnitController-read/GET");
         model.addAttribute("unitDTO", unitDTO);
     }
 
