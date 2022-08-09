@@ -130,8 +130,10 @@ public class ContractServiceImpl implements ContractService {
             contract.changeRentfee(contractDTO.getRentFee());
             contract.changeManagemnetfees(contractDTO.getManagementFees());
             contract.changePaymentday(contractDTO.getPaymentDay());
+            System.out.println("contractDTO.getContractRowid() : " + contractDTO.getContractRowid());
+            System.out.println("contract : " + contract.getContract_rowid());
             contractRepository.save(contract);
-        }
+        } /*else throw new Exception("modify 오류 발생");*/
         if(option != null) {
             option.changeOptionList(Option.listToCsv(contractDTO.getOptionDTO().getOptionList()));
             optionRepository.save(option);
@@ -146,23 +148,45 @@ public class ContractServiceImpl implements ContractService {
             }
         }
 
-        //해당 폰번호로 기존에 있던 Tenant를 가져온다.
+        //Tenant, TenantContarct, TenantContarctLog
         contractDTO.getTenantDTOList().forEach(tenantDTO -> {
             Tenant tenant = tenantRepository.findByPhone(tenantDTO.getPhone());
-            if(tenant==null) {
 
+            if(tenant==null) { //등록이 안된 사람이라면 -> 새로 등록!
+                //1. Tenant에 등록을 해주고
+                //2. TenantContarct, TenantContarctLog에 등록을 해준다.
+                tenant = tenantRepository.save(TenantDTO.DTOToEntitiy(tenantDTO));
+                ContractTenant contractTenant = ContractTenant.builder().contract(contract).tenant(tenant).build();
+                contractTenantRepository.save(contractTenant);
+                _LivingType livingType = _LivingType.isStartedContract(contractDTO.getStartdate());
+                contractTenantLogRepository.save(ContractTenantLog.ContractTenantToContractTenantLog(contractTenant, livingType));
             }
-            else {
+            else { // 기존에 등록된 사람이라면 -> 수정
+                //1. 해당 Tenant에서 변경된 값으로 수정해준다.
+                tenant.changeIsContractor(tenantDTO.getIsContractor());
+                tenant.changePhone(tenantDTO.getPhone());
+                tenant.changeLivingType(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build());
+                tenant.changeTilte(tenantDTO.getTitle());
+                tenantRepository.save(tenant);
+            }
+            tenantDTO.setTenantRowid(tenant.getTenant_rowid());
+        });
+
+        //1. 기존에 해당 contractRowid로 부터 contractTenant 리스트를 가져온다.
+        List<ContractTenant> contractTenantList = contractTenantRepository.findAllByContract(contract);
+        //여기에는 tenantRowid가 여러개 들어있음
+        System.out.println("contractTenantList : " + contractTenantList);
+        List<TenantDTO> tenantDTOList = contractDTO.getTenantDTOList();
+        contractTenantList.forEach(contractTenant -> {
+            boolean noneMatch = tenantDTOList.stream().noneMatch(tenantDTO ->
+                    tenantDTO.getTenantRowid()==contractTenant.getTenant().getTenant_rowid());
+            //일치하는게 하나도 없다면
+            if(noneMatch) {
+                contractTenantRepository.delete(contractTenant);
+                _LivingType livingType = _LivingType.builder()._livingtype_rowid(10L).build();
+                contractTenantLogRepository.save(ContractTenantLog.ContractTenantToContractTenantLog(contractTenant, livingType));
 
             }
         });
-        // Tenant가 null 이라면 -> 새로 등록하는 것!
-
-        //1. contract_tenant 테이블에서
-
-
-
-
-
     }
 }

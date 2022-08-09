@@ -21,6 +21,19 @@ public class TenantDTO {
     private Boolean isContractor;
     private Long livingType;
 
+
+    public static Tenant DTOToEntitiy(TenantDTO tenantDTO) {
+
+            //title이나 phone이 null 인것들은 pass
+            if(tenantDTO.title==null || tenantDTO.phone==null) return null;
+            return Tenant.builder()
+                    ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.livingType).build())
+                    .title(tenantDTO.title)
+                    .phone(tenantDTO.phone)
+                    .iscontractor(tenantDTO.isContractor)
+                    .build();
+    }
+
     public static List<Tenant> DTOToEntities(List<TenantDTO> tenantDTOList) {
         //entity List로 만들어서 반환해야함
         List<Tenant> tenantList = new ArrayList<>();

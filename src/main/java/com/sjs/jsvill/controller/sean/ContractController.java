@@ -43,12 +43,12 @@ public class ContractController {
         UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
         model.addAttribute("contractDTO", contractDTO);
         model.addAttribute("unitDTO", unitDTO);
-        Json.stringToJson(contractDTO, "ContractController-edit");
+        Json.stringToJson(contractDTO, "ContractController-edit/get");
     }
     @PostMapping("/edit")
     public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
-        Json.stringToJson(contractDTO, "ContractController-edit");
-        contractService.register(contractDTO);
+        Json.stringToJson(contractDTO, "ContractController-edit/post");
+        contractService.modify(contractDTO);
         return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
     }
 

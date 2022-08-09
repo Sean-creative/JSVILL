@@ -245,7 +245,7 @@
                 <input type="tel" name="tenantDTOList[${tenantCnt}].phone" class="tenantPhone" id="${tenantCnt}" placeholder="ex) 010-1234-5678" required="required" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6">
                 <button type="button" onclick="removeTenant(${tenantCnt})" style="margin-left:20px">X</button>
                 <input type="hidden" name="tenantDTOList[${tenantCnt}].isContractor" value="false">
-                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20">
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20"> <!--요기 아직 20인지 30인지 모르는구나..-->
             </div>`
         tenantList[tenantCnt] = temp
         str += temp
