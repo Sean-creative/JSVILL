@@ -13,6 +13,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +51,16 @@ public class ContractServiceImpl implements ContractService {
         }
 //        System.out.println("result : "+result);
         return result;
+    }
+
+    @Override
+    public void expire(Long contractRowid) {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatedNow = now.format(formatter);
+        Contract contract = contractRepository.getById(contractRowid);
+        contract.changeEndDate(formatedNow);
+        contractRepository.save(contract);
     }
 
     @Override

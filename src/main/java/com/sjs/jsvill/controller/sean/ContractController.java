@@ -51,20 +51,24 @@ public class ContractController {
         contractService.modify(contractDTO);
         return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
     }
-
-    @PostMapping("/phoneValiCheck")
-    @ResponseBody
-    public String phoneValiCheck(@RequestParam(value = "titleList[]") List<String> titleList, @RequestParam(value = "phoneList[]") List<String> phoneList) {
-        List<UserDuplicateCheck> duplicateCheckList = new ArrayList<>();
-        for(int i=0; i<titleList.size(); i++) duplicateCheckList.add(new UserDuplicateCheck(titleList.get(i), phoneList.get(i)));
-        return contractService.phoneCheck(duplicateCheckList);
-    }
-
     @PostMapping("/remove")
     public String remove(long contractRowid, RedirectAttributes redirectAttributes){
         String unitRowid = contractService.getDTO(contractRowid).getUnitRowid().toString();
         contractService.remove(contractRowid);
         redirectAttributes.addFlashAttribute("msg", contractRowid);
+        return "redirect:/unit/read?unitRowid="+unitRowid;
+    }
+    @PostMapping("/phoneValiCheck")
+    @ResponseBody
+    public String phoneValiCheck(@RequestParam(value = "titleList") List<String> titleList, @RequestParam(value = "phoneList") List<String> phoneList) {
+        List<UserDuplicateCheck> duplicateCheckList = new ArrayList<>();
+        for(int i=0; i<titleList.size(); i++) duplicateCheckList.add(new UserDuplicateCheck(titleList.get(i), phoneList.get(i)));
+        return contractService.phoneCheck(duplicateCheckList);
+    }
+    @PostMapping("/expire")
+    public String expire(long contractRowid) {
+        String unitRowid = contractService.getDTO(contractRowid).getUnitRowid().toString();
+        contractService.expire(contractRowid);
         return "redirect:/unit/read?unitRowid="+unitRowid;
     }
 }

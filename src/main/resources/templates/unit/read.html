@@ -82,7 +82,7 @@
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startdate}]] ~ [[${contractDTO.enddate}]]</div>
                                     </div>
-                                    <a href="javascript:immediatelyExpires()" style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;
+                                    <a th:if="${unitDTO.contractDTOList[0].contractRowid}==${contractDTO.contractRowid}" th:href="|javascript:expire('${contractDTO.contractRowid}')|" style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;
                                     padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;margin-top:15px">
@@ -120,74 +120,76 @@
             </div>
         </div>
         <!-- 모달 영역 -->
-        <div id="modalBox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+        <div id="expiresBox" class="modal fade" role="dialog">
+            <div class="modal-dialog" role="document" style="transform: translate(0, 100px)">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">SMS 전송하기</h4>
+                    <div class="modal-header" style="justify-content:flex-end;font-size:13px;color:gray">
+                        <h4 class="modal-title" id="myModalLabel">계약즉시만료</h4>
                     </div>
-                    <div class="modal-body">
-                        확인을 누르시면 SMS를 전송합니다.
+                    <div class="modal-body" style="line-height:30px">
+                        <div><span style="color:#1dc078">계약 만료일</span>이 <span style="color:#1dc078">현재 날짜</span>로 변경됩니다.</div>
+                        <div>그래도 하시겠습니까?</div>
+                        <div>(자세한 변경은 위의 ‘수정’ 버튼을 눌러주세요.)</div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="checkModalBtn">확인</button>
-                        <button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
+                        <button type="button" class="btn btn-default" id="closeExpireModalBtn">취소</button>
+                        <button type="button" class="btn btn-primary" id="checkExpireModalBtn">확인</button>
                     </div>
                 </div>
             </div>
         </div>
-        <form id="sms" action="/sms/send" method="get"></form>
-        <script>
+        <form id="expireForm" action="/contract/expire" method="post">
+            <input type="hidden" id="exprieContractRowid" name="contractRowid">
+        </form>
+
+        <script th:inline="javascript">
             // 모달 버튼에 이벤트를 건다.
-            $('#notice').on('click', function(){
-                $('#modalBox').modal('show');
-            });
+            function expire(contractRowid) {
+                $('#expiresBox').modal('show');
+                $('#exprieContractRowid').val(contractRowid);
+            }
+            // $('#expires').on('click', function(){
+            // });
             // 모달 안의 취소 버튼에 이벤트를 건다.
-            $('#closeModalBtn').on('click', function(){
-                $('#modalBox').modal('hide');
+            $('#closeExpireModalBtn').on('click', function(){
+                $('#expiresBox').modal('hide');
             });
             // 모달 안의 확인 버튼에 이벤트를 건다.
-            $('#checkModalBtn').on('click', function(){
-                $('#sms').submit();
+            $('#checkExpireModalBtn').on('click', function(){
+                $('#expireForm').submit();
             });
+
+            function unitRemove() {
+                let f = document.createElement('form');
+
+                let obj;
+                obj = document.createElement('input');
+                obj.setAttribute('type', 'hidden');
+                obj.setAttribute('name', 'unitRowid');
+                obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
+
+                f.appendChild(obj);
+                f.setAttribute('method', 'post');
+                f.setAttribute('action', '/unit/remove');
+                document.body.appendChild(f);
+                f.submit();
+            }
+
+            function contractRemove(contractRowid) {
+                let f = document.createElement('form');
+                f.setAttribute('method', 'post');
+                f.setAttribute('action', '/contract/remove');
+
+                let obj;
+                obj = document.createElement('input');
+                obj.setAttribute('type', 'hidden');
+                obj.setAttribute('name', 'contractRowid');
+                obj.setAttribute('value', contractRowid);
+                f.appendChild(obj);
+
+                document.body.appendChild(f);
+                f.submit();
+            }
         </script>
-            <script th:inline="javascript">
-                function unitRemove() {
-                    let f = document.createElement('form');
-
-                    let obj;
-                    obj = document.createElement('input');
-                    obj.setAttribute('type', 'hidden');
-                    obj.setAttribute('name', 'unitRowid');
-                    obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
-
-                    f.appendChild(obj);
-                    f.setAttribute('method', 'post');
-                    f.setAttribute('action', '/unit/remove');
-                    document.body.appendChild(f);
-                    f.submit();
-                }
-
-                function immediatelyExpires() {
-                    alert("계약 즉시 만료는 준비중입니다.")
-                }
-
-                function contractRemove(contractRowid) {
-                    let f = document.createElement('form');
-                    f.setAttribute('method', 'post');
-                    f.setAttribute('action', '/contract/remove');
-
-                    let obj;
-                    obj = document.createElement('input');
-                    obj.setAttribute('type', 'hidden');
-                    obj.setAttribute('name', 'contractRowid');
-                    obj.setAttribute('value', contractRowid);
-                    f.appendChild(obj);
-
-                    document.body.appendChild(f);
-                    f.submit();
-                }
-            </script>
     </th:block>
 </th:block>
