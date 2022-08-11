@@ -2,6 +2,7 @@ package com.sjs.jsvill.service.sean.contract;
 
 import com.sjs.jsvill.common.UserDuplicateCheck;
 import com.sjs.jsvill.dto.sean.ContractDTO;
+import com.sjs.jsvill.dto.sean.PreviousContractHistoryDTO;
 import com.sjs.jsvill.entity.sean.Contract;
 import com.sjs.jsvill.entity.sean.Unit;
 import com.sjs.jsvill.entity.sub._ContractType;
@@ -11,7 +12,6 @@ import java.util.List;
 public interface ContractService {
     void register(ContractDTO contractDTO);
 
-    //    List<GroupDTO> getList(Long member_rowid);
     void remove(Long contract_rowid);
 
     ContractDTO getDTO(Long contractRowid);
@@ -23,6 +23,7 @@ public interface ContractService {
     String phoneCheck(List<UserDuplicateCheck> duplicateCheckList);
 
     void expire(Long contractRowid);
+    PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid);
 
     default Contract dtoToEntity(ContractDTO contractDTO) {
         //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자

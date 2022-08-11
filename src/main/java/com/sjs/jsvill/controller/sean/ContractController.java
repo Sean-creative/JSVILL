@@ -60,15 +60,16 @@ public class ContractController {
     }
     @PostMapping("/phoneValiCheck")
     @ResponseBody
-    public String phoneValiCheck(@RequestParam(value = "titleList") List<String> titleList, @RequestParam(value = "phoneList") List<String> phoneList) {
+    public String phoneValiCheck(@RequestParam(value = "titleList[]") List<String> titleList, @RequestParam(value = "phoneList[]") List<String> phoneList) {
         List<UserDuplicateCheck> duplicateCheckList = new ArrayList<>();
         for(int i=0; i<titleList.size(); i++) duplicateCheckList.add(new UserDuplicateCheck(titleList.get(i), phoneList.get(i)));
         return contractService.phoneCheck(duplicateCheckList);
     }
-    @PostMapping("/expire")
+    @PostMapping("/expire")  //TODO 어떤껄 POST하고 어떤걸 GET으로 해야할까? - service쪽에서 조금이라도 save, modify가 있으면 POST로??
     public String expire(long contractRowid) {
         String unitRowid = contractService.getDTO(contractRowid).getUnitRowid().toString();
         contractService.expire(contractRowid);
         return "redirect:/unit/read?unitRowid="+unitRowid;
     }
+
 }

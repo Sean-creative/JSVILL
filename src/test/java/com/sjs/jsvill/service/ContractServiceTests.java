@@ -73,4 +73,9 @@ public class ContractServiceTests {
         Contract contract = Contract.builder().contract_rowid(1L).build();
         System.out.println(contract.dDayOperator("2022-05-03"));
     }
+
+    @Test
+    public void getPreviousContractHistoryList() {
+        System.out.println("contractService.getPreviousContractHistoryList(14L) :" + contractService.getPreviousContractHistoryList(14L));
+    }
 }

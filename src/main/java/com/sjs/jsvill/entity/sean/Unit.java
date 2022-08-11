@@ -24,9 +24,10 @@ public class Unit extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unit_rowid;
 
-    @ManyToOne( fetch = FetchType.LAZY)
+//    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "group_rowid", nullable = false)
+    @JoinColumn(name = "group_rowid")
     private Group group;
 
     @Column(length = 100, nullable = false)

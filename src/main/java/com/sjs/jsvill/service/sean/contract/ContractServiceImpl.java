@@ -1,10 +1,7 @@
 package com.sjs.jsvill.service.sean.contract;
 
 import com.sjs.jsvill.common.UserDuplicateCheck;
-import com.sjs.jsvill.dto.sean.CarDTO;
-import com.sjs.jsvill.dto.sean.ContractDTO;
-import com.sjs.jsvill.dto.sean.OptionDTO;
-import com.sjs.jsvill.dto.sean.TenantDTO;
+import com.sjs.jsvill.dto.sean.*;
 import com.sjs.jsvill.entity.sean.*;
 import com.sjs.jsvill.entity.sub._LivingType;
 import com.sjs.jsvill.repository.sean.*;
@@ -61,6 +58,29 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = contractRepository.getById(contractRowid);
         contract.changeEndDate(formatedNow);
         contractRepository.save(contract);
+    }
+
+    @Override
+    public PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid) {
+        PreviousContractHistoryDTO dto = new PreviousContractHistoryDTO();
+        List<Contract> contractList = contractRepository.findContractByUnit(Unit.builder().unit_rowid(unitRowid).build());
+        contractList.forEach(contract -> {
+            dto.setUnitRowid(contract.getUnit().getUnit_rowid());
+            dto.setGroupTitle(contract.getUnit().getGroup().getTitle());
+            dto.setAddr2(contract.getUnit().getAddr2());
+
+            //TODO 요거 static 말고 다른 방법 없나???
+            PreviousContractHistoryDTO.PreviousContract previousContract = new PreviousContractHistoryDTO.PreviousContract();
+            previousContract.setContractRowid(contract.getContract_rowid());
+            previousContract.setStartdate(contract.getStartdate());
+            previousContract.setEnddate(contract.getEnddate());
+
+            contractTenantRepository.findAllByContract(contract).forEach(contractTenant -> {
+                if(contractTenant.getTenant().getIscontractor()) previousContract.setTenantTitle(contractTenant.getTenant().getTitle());
+            });
+            dto.getContractList().add(previousContract);
+        });
+        return dto;
     }
 
     @Override

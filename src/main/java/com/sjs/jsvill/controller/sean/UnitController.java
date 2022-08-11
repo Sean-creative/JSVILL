@@ -1,6 +1,7 @@
 package com.sjs.jsvill.controller.sean;
 
 import com.sjs.jsvill.dto.sean.UnitDTO;
+import com.sjs.jsvill.service.sean.contract.ContractService;
 import com.sjs.jsvill.service.sean.unit.UnitService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UnitController {
 
     private final UnitService unitService;
+    private final ContractService contractService;
 
     @GetMapping("/register")
     public void register(int groupRowid, Model model) {
@@ -43,7 +45,7 @@ public class UnitController {
         return "redirect:/unit/read?unitRowid="+unitDTO.getUnitRowid();
     }
 
-    @GetMapping("communityWrite")
+    @GetMapping("/communityWrite")
     public void communityWrite() {log.info("communityWrite");}
 
     @PostMapping("/remove")
@@ -60,6 +62,9 @@ public class UnitController {
         model.addAttribute("unitDTO", unitDTO);
     }
 
-    @GetMapping("/previousContract")
-    public void previousContract() {log.info("previousContract");}
+    @GetMapping("/previousContractHistory")
+    public void previousContractHistory(long unitRowid, Model model) {
+        System.out.println("unitRowid :" + unitRowid);
+        model.addAttribute("data" , contractService.getPreviousContractHistoryList(unitRowid));
+    }
 }

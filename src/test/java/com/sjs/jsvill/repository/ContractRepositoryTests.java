@@ -62,5 +62,9 @@ public class ContractRepositoryTests {
         contractRepository.deleteById(3L);
     }
 
+    @Test
+    public void findAllByUnit() {
+        System.out.println("contractRepository.findAllByUnit(1L) : " + contractRepository.findContractByUnit(Unit.builder().unit_rowid(14L).build()));
+    }
 
 }

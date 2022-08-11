@@ -59,7 +59,8 @@
                     </div>
                     <div style="margin-top:10px">
                         <a href="/group/list" style="color:gray;text-decoration:underline">건물 관리로 이동</a>
-                        <a href="/unit/previousContract" style="color:gray;text-decoration:underline;float:right">이전 계약 내역 보기</a>
+
+                        <a th:href="@{/unit/previousContractHistory(unitRowid=${unitDTO.unitRowid})}" style="color:gray;text-decoration:underline;float:right">이전 계약 내역 보기</a>
                     </div>
                 </div>
 
