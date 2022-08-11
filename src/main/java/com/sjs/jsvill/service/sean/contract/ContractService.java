@@ -32,7 +32,6 @@ public interface ContractService {
         // 3. contract에 insert
         // 4. option에 insert
 
-//        Unit unit = Unit.builder().unit_rowid(contractDTO.gettenantRowid()).build();
         Contract contract = Contract.builder()
                 .unit(Unit.builder().unit_rowid(contractDTO.getUnitRowid()).build())
                 ._contracttype(_ContractType.builder()._contracttype_rowid(contractDTO.getContractTypeRowid()).build())

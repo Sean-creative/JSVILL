@@ -21,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ContractServiceImpl implements ContractService {
 
+    private final UnitRepository unitRepository;
     private final TenantRepository tenantRepository;
     private final ContractRepository contractRepository;
     private final OptionRepository optionRepository;
@@ -63,22 +64,23 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid) {
         PreviousContractHistoryDTO dto = new PreviousContractHistoryDTO();
+        Optional<Unit> unit = unitRepository.findById(unitRowid);
+        dto.setUnitRowid(unit.get().getUnit_rowid());
+        dto.setGroupTitle(unit.get().getGroup().getTitle());
+        dto.setAddr2(unit.get().getAddr2());
+
         List<Contract> contractList = contractRepository.findContractByUnit(Unit.builder().unit_rowid(unitRowid).build());
         contractList.forEach(contract -> {
-            dto.setUnitRowid(contract.getUnit().getUnit_rowid());
-            dto.setGroupTitle(contract.getUnit().getGroup().getTitle());
-            dto.setAddr2(contract.getUnit().getAddr2());
-
             //TODO 요거 static 말고 다른 방법 없나???
-            PreviousContractHistoryDTO.PreviousContract previousContract = new PreviousContractHistoryDTO.PreviousContract();
+            PreviousContractHistoryDTO.PreviousContractDTO previousContract = new PreviousContractHistoryDTO.PreviousContractDTO();
             previousContract.setContractRowid(contract.getContract_rowid());
-            previousContract.setStartdate(contract.getStartdate());
-            previousContract.setEnddate(contract.getEnddate());
+            previousContract.setStartDate(contract.getStartdate());
+            previousContract.setEndDate(contract.getEnddate());
 
             contractTenantRepository.findAllByContract(contract).forEach(contractTenant -> {
                 if(contractTenant.getTenant().getIscontractor()) previousContract.setTenantTitle(contractTenant.getTenant().getTitle());
             });
-            dto.getContractList().add(previousContract);
+            dto.getPreviousContractDTOList().add(previousContract);
         });
         return dto;
     }

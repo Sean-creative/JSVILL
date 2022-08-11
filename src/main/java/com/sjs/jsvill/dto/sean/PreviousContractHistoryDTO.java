@@ -17,13 +17,13 @@ public class PreviousContractHistoryDTO {
     private String groupTitle; //명일동 JSVILL
     private String addr2; //101호
     //TODO List는 항상 new 해줘야하나?
-    private List<PreviousContract> contractList = new ArrayList<>();
+    private List<PreviousContractDTO> previousContractDTOList = new ArrayList<>();
 
     @Data
-    public static class PreviousContract {
+    public static class PreviousContractDTO {
         private Long contractRowid;
-        private String startdate; //view에서 name을 startDate로 하게되면 value값이 제대로 들어가지 않아서 이렇게 처리함
-        private String enddate;
+        private String startDate; //view에서 name을 startDate로 하게되면 value값이 제대로 들어가지 않아서 이렇게 처리함
+        private String endDate;
         private String tenantTitle; //세대주
     }
 }
