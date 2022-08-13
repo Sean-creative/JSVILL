@@ -103,7 +103,7 @@ public class ContractServiceImpl implements ContractService {
 
 //        2. 세입자 등록
         //세입자 등록할 때 이미 해당 핸드폰 번호가 등록되어있을 수도있음 ex)기존에 살았던 세입자
-        List<Tenant> tenantList = TenantDTO.DTOToEntities(contractDTO.getTenantDTOList());
+        List<Tenant> tenantList = Tenant.DTOToEntities(contractDTO.getTenantDTOList());
         for (Tenant tenant : tenantList) {
             final String PHONE = tenant.getPhone();
             //세입자를 등록하기전에, 폰번호로 검사를해서 또 등록하는것을 막야아한다.
@@ -139,11 +139,11 @@ public class ContractServiceImpl implements ContractService {
             tenantList.add(contractTenant.getTenant());
             //4. 차량정보
             carRepository.findAllByTenant(contractTenant.getTenant()).forEach(i -> {
-                carDTOList.add(Car.entityToDTO(i, contractTenant.getTenant().getPhone()));
+                carDTOList.add(CarDTO.entityToDTO(i, contractTenant.getTenant().getPhone()));
             });
         });
         tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
-        return Contract.entityToDTO(contract.get(), carDTOList, Tenant.entitiesToDTO(tenantList), OptionDTO.entityToDTO(option));
+        return Contract.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList, carDTOList), OptionDTO.entityToDTO(option));
     }
     @Override
     @Transactional
@@ -189,7 +189,7 @@ public class ContractServiceImpl implements ContractService {
             if(tenant==null) { //등록이 안된 사람이라면 -> 새로 등록!
                 //1. Tenant에 등록을 해주고
                 //2. TenantContarct, TenantContarctLog에 등록을 해준다.
-                tenant = tenantRepository.save(TenantDTO.DTOToEntitiy(tenantDTO));
+                tenant = tenantRepository.save(Tenant.DTOToEntitiy(tenantDTO));
                 ContractTenant contractTenant = ContractTenant.builder().contract(contract).tenant(tenant).build();
                 contractTenantRepository.save(contractTenant);
                 _LivingType livingType = _LivingType.isStartedContract(contractDTO.getStartdate());

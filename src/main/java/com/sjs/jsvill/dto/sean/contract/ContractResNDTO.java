@@ -1,5 +1,7 @@
-package com.sjs.jsvill.dto.sean;
+package com.sjs.jsvill.dto.sean.contract;
 
+import com.sjs.jsvill.dto.sean.OptionDTO;
+import com.sjs.jsvill.dto.sean.TenantDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ContractDTO {
+public class ContractResNDTO {
     private Long contractRowid;
     private Long unitRowid;
     private Long ContractTypeRowid;

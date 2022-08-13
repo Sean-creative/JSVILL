@@ -1,32 +1,45 @@
 package com.sjs.jsvill.dto.sean;
 
 import com.sjs.jsvill.entity.sean.Car;
-import com.sjs.jsvill.entity.sean.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class CarDTO {
-    private String number;
-    private String title;
+    private Long carRowid;
     private Long tenantRowid;
+    private String title;
+    private String number;
 
+    public static CarDTO entityToDTO(Car car, String phone) {
+        return CarDTO.builder()
+                .title(car.getTitle())
+                .number(car.getNumber())
+                .tenantRowid(car.getTenant().getTenant_rowid())
+                .build();
+    }
 
-    public static Car DTOToEntity(CarDTO carDTO) {
-        Tenant tenant = Tenant.builder().tenant_rowid(carDTO.tenantRowid).build();
-        if(carDTO==null) return null;
-        else {
-            Car car = Car.builder()
-                    .tenant(tenant)
-                    .title(carDTO.getTitle())
-                    .number(carDTO.getNumber())
-                    .build();
-            return  car;
+    public static List<CarDTO> entitiesToDTOList(List<Car> carList) {
+        List<CarDTO> carDTOList = new ArrayList<>();
+        if (!carList.isEmpty()) {
+            carDTOList = carList.stream().map(car ->
+                    CarDTO.builder()
+                    .carRowid(car.getCar_rowid())
+                    .tenantRowid(car.getTenant().getTenant_rowid())
+                    .title(car.getTitle())
+                    .number(car.getNumber())
+                    .build()
+            ).collect(Collectors.toList());
         }
+        return carDTOList;
     }
 }

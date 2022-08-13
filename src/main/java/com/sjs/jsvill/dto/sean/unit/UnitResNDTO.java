@@ -1,5 +1,6 @@
-package com.sjs.jsvill.dto.sean;
+package com.sjs.jsvill.dto.sean.unit;
 
+import com.sjs.jsvill.dto.sean.ContractDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UnitDTO {
-    private Long unitRowid;
-    private Long groupRowid;
+public class UnitResNDTO {
+    private Long unitRowid; //수정, 삭제
+    private Long groupRowid; //건물 관리로 이동
     private String addr2; //101호
     private String memo; //비고
 

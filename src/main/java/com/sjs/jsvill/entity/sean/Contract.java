@@ -1,6 +1,5 @@
 package com.sjs.jsvill.entity.sean;
 
-import com.sjs.jsvill.dto.sean.CarDTO;
 import com.sjs.jsvill.dto.sean.ContractDTO;
 import com.sjs.jsvill.dto.sean.OptionDTO;
 import com.sjs.jsvill.dto.sean.TenantDTO;
@@ -99,7 +98,7 @@ public class Contract extends BaseEntity {
 
 
     //하나의 계약에 각종 리스트들을 넣어줄것임
-    public static ContractDTO entityToDTO(Contract contarct, List<CarDTO> carDTOList, List<TenantDTO> tenantDTOList, OptionDTO optionDTO) {
+    public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, OptionDTO optionDTO) {
         ContractDTO contractDTO = ContractDTO.builder()
                 .contractRowid(contarct.getContract_rowid())
                 .unitRowid(contarct.getUnit().getUnit_rowid())
@@ -110,7 +109,6 @@ public class Contract extends BaseEntity {
                 .rentFee(contarct.getRentfee())
                 .managementFees(contarct.getManagementfees())
                 .paymentDay(contarct.getPaymentday())
-                .carDTOList(carDTOList)
                 .tenantDTOList(tenantDTOList)
                 .optionDTO(optionDTO)
                 .dDay(contarct.dDayOperator(contarct.enddate))

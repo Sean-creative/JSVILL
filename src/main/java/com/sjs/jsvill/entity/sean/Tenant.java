@@ -8,7 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tenant")
@@ -40,18 +39,34 @@ public class Tenant extends BaseEntity {
     public void changePhone(String phone) {this.phone = phone;}
     public void changeIsContractor(Boolean iscontractor) {this.iscontractor = iscontractor;}
 
-    public static List<TenantDTO> entitiesToDTO(List<Tenant> tenantList) {
-        List<TenantDTO> tenantDTOList = new ArrayList<>();
-        if (!tenantList.isEmpty()) {
-            tenantDTOList = tenantList.stream().map(tenant -> TenantDTO.builder()
-                    .tenantRowid(tenant.tenant_rowid)
-                    .title(tenant.getTitle())
-                    .phone(tenant.getPhone())
-                    .isContractor(tenant.getIscontractor())
-                    .livingType(tenant.get_livingtype().get_livingtype_rowid())
-                    .build()
-            ).collect(Collectors.toList());
-        }
-        return tenantDTOList;
+    public static Tenant DTOToEntitiy(TenantDTO tenantDTO) {
+        //title이나 phone이 null 인것들은 pass
+        if(tenantDTO.getTitle() ==null || tenantDTO.getPhone() ==null) return null;
+        return Tenant.builder()
+                ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build())
+                .title(tenantDTO.getTitle())
+                .phone(tenantDTO.getPhone())
+                .iscontractor(tenantDTO.getIsContractor())
+                .build();
     }
+
+    public static List<Tenant> DTOToEntities(List<TenantDTO> tenantDTOList) {
+        //entity List로 만들어서 반환해야함
+        List<Tenant> tenantList = new ArrayList<>();
+
+        for (TenantDTO tenantDTO : tenantDTOList) {
+            //title이나 phone이 null 인것들은 pass
+            if(tenantDTO.getTitle() ==null || tenantDTO.getPhone() ==null) continue;
+            Tenant tenant = Tenant.builder()
+                    ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build())
+                    .title(tenantDTO.getTitle())
+                    .phone(tenantDTO.getPhone())
+                    .iscontractor(tenantDTO.getIsContractor())
+                    .build();
+            tenantList.add(tenant);
+        }
+        return tenantList;
+    }
+
+
 }

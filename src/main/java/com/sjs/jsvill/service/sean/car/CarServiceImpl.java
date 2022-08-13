@@ -20,7 +20,7 @@ public class CarServiceImpl implements CarService {
     public void register(List<CarDTO> carDTOList) {
         List<Car> carList =new ArrayList<>();
         carDTOList.forEach(carDTO -> {
-            carList.add(CarDTO.DTOToEntity(carDTO));
+            carList.add(Car.DTOToEntity(carDTO));
         });
         carRepository.saveAll(carList);
     }

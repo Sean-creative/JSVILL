@@ -31,7 +31,7 @@ public class ContractController {
     }
 
     @PostMapping("/register")
-    public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
+    public String register(@RequestBody ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
         Json.stringToJson(contractDTO, "ContractController-register");
         contractService.register(contractDTO);
         return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();

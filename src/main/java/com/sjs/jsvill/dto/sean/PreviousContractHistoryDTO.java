@@ -17,6 +17,7 @@ public class PreviousContractHistoryDTO {
     private String groupTitle; //명일동 JSVILL
     private String addr2; //101호
     //TODO List는 항상 new 해줘야하나?
+    @Builder.Default
     private List<PreviousContractDTO> previousContractDTOList = new ArrayList<>();
 
     @Data
