@@ -69,7 +69,7 @@ public class ContractServiceImpl implements ContractService {
         dto.setGroupTitle(unit.get().getGroup().getTitle());
         dto.setAddr2(unit.get().getAddr2());
 
-        List<Contract> contractList = contractRepository.findContractByUnit(Unit.builder().unit_rowid(unitRowid).build());
+        List<Contract> contractList = contractRepository.findContractByUnitOld(unitRowid);
         contractList.forEach(contract -> {
             //TODO 요거 static 말고 다른 방법 없나???
             PreviousContractHistoryDTO.PreviousContractDTO previousContract = new PreviousContractHistoryDTO.PreviousContractDTO();
@@ -133,17 +133,17 @@ public class ContractServiceImpl implements ContractService {
         Option option = optionRepository.findByContract(contract.get());
         //3. 세입자 정보
         List<Tenant> tenantList = new ArrayList<>();
-        List<CarDTO> carDTOList = new ArrayList<>();
-        List<ContractTenant> result = contractTenantRepository.findAllByContract(contract.get());
-        result.forEach(contractTenant -> {
+        List<CarDTO> carDTOList = new ArrayList<>(); //폰번호도 같이 줘야함
+        List<ContractTenant> contractTenantList = contractTenantRepository.findAllByContract(contract.get());
+        contractTenantList.forEach(contractTenant -> {
             tenantList.add(contractTenant.getTenant());
             //4. 차량정보
-            carRepository.findAllByTenant(contractTenant.getTenant()).forEach(i -> {
-                carDTOList.add(CarDTO.entityToDTO(i, contractTenant.getTenant().getPhone()));
+            carRepository.findAllByTenant(contractTenant.getTenant()).forEach(car -> {
+                carDTOList.add(CarDTO.entityToDTO(car, contractTenant.getTenant().getPhone()));
             });
         });
         tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
-        return Contract.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList, carDTOList), OptionDTO.entityToDTO(option));
+        return ContractDTO.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option));
     }
     @Override
     @Transactional

@@ -64,7 +64,7 @@ public class ContractRepositoryTests {
 
     @Test
     public void findAllByUnit() {
-        System.out.println("contractRepository.findAllByUnit(1L) : " + contractRepository.findContractByUnit(Unit.builder().unit_rowid(14L).build()));
+        System.out.println("contractRepository.findAllByUnit(1L) : " + contractRepository.findContractByUnitOld(14L));
     }
 
 }

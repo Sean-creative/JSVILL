@@ -56,7 +56,7 @@ public class UnitController {
     }
 
     @GetMapping("/read")
-    public void read(Long unitRowid, Model model){
+    public void read(Long unitRowid, Model model) {
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         Json.stringToJson(unitDTO, "UnitController-read/GET");
         model.addAttribute("unitDTO", unitDTO);

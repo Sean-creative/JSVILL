@@ -1,5 +1,7 @@
 package com.sjs.jsvill.dto.sean;
 
+import com.sjs.jsvill.entity.sean.Group;
+import com.sjs.jsvill.entity.sean.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +26,29 @@ public class UnitDTO {
     //계약리스트
     @Builder.Default
     private List<ContractDTO> contractDTOList = new ArrayList<>();
+
+    public static UnitDTO entityToDTO(Unit unit) {
+        UnitDTO unitDTO = UnitDTO.builder()
+                .unitRowid(unit.getUnit_rowid())
+                .groupRowid(unit.getGroup().getGroup_rowid())
+                .addr2(unit.getAddr2())
+                .memo(unit.getMemo())
+                .build();
+        return unitDTO;
+    }
+
+    //여기에 재료를 쏟아 부으면 너무 과부하가 걸릴까 걱정 -> 역할을 분리하고자 unit빼고는 DTO를 받는게 낫겠다.
+    public static UnitDTO entityToDTOWithContract(Unit unit, List<ContractDTO> contractDTOList) {
+        Group group = unit.getGroup();
+        UnitDTO unitDTO = UnitDTO.builder()
+                .unitRowid(unit.getUnit_rowid())
+                .groupRowid(unit.getGroup().getGroup_rowid())
+                .addr2(unit.getAddr2())
+                .memo(unit.getMemo())
+                .groupTitle(group.getTitle())
+                .groupAddr(group.getAddr1())
+                .contractDTOList(contractDTOList)
+                .build();
+        return unitDTO;
+    }
 }

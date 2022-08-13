@@ -53,9 +53,9 @@ public class UnitServiceImpl implements UnitService {
             });
 
             tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
-            contractDTOList.add(Contract.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList, CarDTO.entitiesToDTOList(carList)), OptionDTO.entityToDTO(option)));
+            contractDTOList.add(ContractDTO.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList), CarDTO.entitiesToDTOList(carList), OptionDTO.entityToDTO(option)));
         }
-        UnitDTO unitDTO = Unit.entityToDTOWithContract(unit, contractDTOList);
+        UnitDTO unitDTO = UnitDTO.entityToDTOWithContract(unit, contractDTOList);
         //미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
         return unitDTO;
     }

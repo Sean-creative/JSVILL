@@ -21,10 +21,8 @@ public class TenantDTO {
     private String phone;
     private Boolean isContractor;
 
-    @Builder.Default
-    private List<CarDTO> carDTOList = new ArrayList<>();
 
-    public static List<TenantDTO> entitiesToDTOList(List<Tenant> tenantList, List<CarDTO> carDTOList) {
+    public static List<TenantDTO> entitiesToDTOList(List<Tenant> tenantList) {
         List<TenantDTO> tenantDTOList = new ArrayList<>();
         if (!tenantList.isEmpty()) {
             tenantDTOList = tenantList.stream().map(tenant -> TenantDTO.builder()
@@ -33,11 +31,9 @@ public class TenantDTO {
                     .phone(tenant.getPhone())
                     .isContractor(tenant.getIscontractor())
                     .livingType(tenant.get_livingtype().get_livingtype_rowid())
-                    .carDTOList(carDTOList)
                     .build()
             ).collect(Collectors.toList());
         }
         return tenantDTOList;
     }
-
 }

@@ -19,12 +19,14 @@ public class CarDTO {
     private Long tenantRowid;
     private String title;
     private String number;
+    private String phone;
 
     public static CarDTO entityToDTO(Car car, String phone) {
         return CarDTO.builder()
                 .title(car.getTitle())
                 .number(car.getNumber())
                 .tenantRowid(car.getTenant().getTenant_rowid())
+                .phone(phone)
                 .build();
     }
 

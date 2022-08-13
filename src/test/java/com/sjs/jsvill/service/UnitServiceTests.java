@@ -57,7 +57,7 @@ public class UnitServiceTests {
 
         unit.changeAddr2("주소 바꿨다!");
 //        unit.changeDeposit(999L);
-        UnitDTO unitDTO = Unit.entityToDTO(unit);
+        UnitDTO unitDTO = UnitDTO.entityToDTO(unit);
         System.out.println("unitDTO : " + unitDTO);
 
         unitService.modify(unitDTO);
