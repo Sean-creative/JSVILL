@@ -10,17 +10,16 @@
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.addr2}]] / 이전 계약 내역</div>
         <div style="font-size:12px;margin-top:10px;color:gray">※ 공실인 경우, 계약일을 수정해 이전 계약을 현재 계약으로 되돌릴 수 있습니다.</div>
-
         <div th:if="${#lists.size(data.previousContractDTOList)}==0">계약정보가 없습니다.</div>
         <div th:unless="${#lists.size(data.previousContractDTOList)}==0">
-            <form action="/guestbook/list" method="get" id="searchForm" style="margin:15px 0 20px 0">
+            <form action="/unit/previousContractHistory" style="margin:15px 0 20px 0">
+                <input type="hidden" name="unitRowid" th:value="${data.unitRowid}">
                 <div style="display:flex;align-items:center;justify-content:flex-end">
                     <div style="color:gray;font-size:16px">정렬</div>
                     <div class="input-group" style="width:150px;margin-left:10px">
-                        <select class="custom-select" name="type"
-                                style="border-top-right-radius:0;border-bottom-right-radius:0">
-                            <option value="t" selected="true">종료 최근 순</option>
-                            <option value="c">종료 오래된 순</option>
+                        <select class="custom-select" name="isAsc"  onchange="this.form.submit()" style="border-top-right-radius:0;border-bottom-right-radius:0">
+                            <option value=false th:selected="${data.isAsc}==false">종료 최근 순</option>
+                            <option value=true th:selected="${data.isAsc}==true">종료 오래된 순</option>
                         </select>
                     </div>
                 </div>
@@ -52,7 +51,6 @@
             호실 상세로 이동
         </a>
 
-
         <script>
             let toggle = document.getElementById("toggle1");
             let toggle1_1 = document.getElementById("toggle1_1");
@@ -70,7 +68,6 @@
                 console.log(swtich);
             })
         </script>
-
 
     </th:block>
 </th:block>

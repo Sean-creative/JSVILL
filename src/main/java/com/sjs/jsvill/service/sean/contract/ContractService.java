@@ -23,7 +23,7 @@ public interface ContractService {
     String phoneCheck(List<UserDuplicateCheck> duplicateCheckList);
 
     void expire(Long contractRowid);
-    PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid);
+    PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid, boolean isAsc);
 
     default Contract dtoToEntity(ContractDTO contractDTO) {
         //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자

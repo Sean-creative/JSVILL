@@ -63,8 +63,9 @@ public class UnitController {
     }
 
     @GetMapping("/previousContractHistory")
-    public void previousContractHistory(long unitRowid, Model model) {
+    public void previousContractHistory(long unitRowid, boolean isAsc, Model model) {
         System.out.println("unitRowid :" + unitRowid);
-        model.addAttribute("data" , contractService.getPreviousContractHistoryList(unitRowid));
+        System.out.println("isAsc :" + isAsc);
+        model.addAttribute("data" , contractService.getPreviousContractHistoryList(unitRowid, isAsc));
     }
 }

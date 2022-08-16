@@ -62,14 +62,18 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid) {
+    public PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid, boolean isAsc) {
         PreviousContractHistoryDTO dto = new PreviousContractHistoryDTO();
         Optional<Unit> unit = unitRepository.findById(unitRowid);
         dto.setUnitRowid(unit.get().getUnit_rowid());
         dto.setGroupTitle(unit.get().getGroup().getTitle());
         dto.setAddr2(unit.get().getAddr2());
+        dto.setIsAsc(isAsc);
 
-        List<Contract> contractList = contractRepository.findContractByUnitOld(unitRowid);
+        List<Contract> contractList;
+        if(isAsc) contractList = contractRepository.findContractByUnitOldAsc(unitRowid);
+        else contractList = contractRepository.findContractByUnitOldDesc(unitRowid);
+
         contractList.forEach(contract -> {
             //TODO 요거 static 말고 다른 방법 없나???
             PreviousContractHistoryDTO.PreviousContractDTO previousContract = new PreviousContractHistoryDTO.PreviousContractDTO();

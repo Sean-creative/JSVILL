@@ -13,12 +13,14 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     //TODO 딱 2개만 가져오게끔 쿼리 못짜나..?
     @Query(nativeQuery = true, value = "SELECT * FROM \n" +
             "contract c left JOIN unit u ON c.unit_rowid = u.unit_rowid\n" +
-            "where c.unit_rowid=14 and c.enddate>=CURDATE() \n" +
+            "where c.unit_rowid=:unitRowid and c.enddate>=CURDATE() \n" +
             "order by c.enddate \n" +
             "LIMIT 2")
     List<Contract> findContarctByUnitNotOld(@Param("unitRowid") Long unitRowid);
 
-    @Query("select c from Contract c left join c.unit u where c.unit.unit_rowid=:unitRowid and c.enddate<current_date order by c.enddate")
-    List<Contract> findContractByUnitOld(@Param("unitRowid") Long unitRowid);
+    @Query("select c from Contract c left join c.unit u where c.unit.unit_rowid=:unitRowid and c.enddate<current_date order by c.enddate asc")
+    List<Contract> findContractByUnitOldAsc(@Param("unitRowid") Long unitRowid);
 
+    @Query("select c from Contract c left join c.unit u where c.unit.unit_rowid=:unitRowid and c.enddate<current_date order by c.enddate desc ")
+    List<Contract> findContractByUnitOldDesc(@Param("unitRowid") Long unitRowid);
 }

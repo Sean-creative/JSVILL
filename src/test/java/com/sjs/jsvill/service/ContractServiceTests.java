@@ -76,6 +76,6 @@ public class ContractServiceTests {
 
     @Test
     public void getPreviousContractHistoryList() {
-        System.out.println("contractService.getPreviousContractHistoryList(14L) :" + contractService.getPreviousContractHistoryList(14L));
+        System.out.println("contractService.getPreviousContractHistoryList(14L) :" + contractService.getPreviousContractHistoryList(14L, true));
     }
 }
