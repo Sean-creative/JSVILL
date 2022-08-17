@@ -2,9 +2,9 @@ package com.sjs.jsvill.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 
-import static org.reflections.Reflections.log;
-
+@Log4j2
 public class Json {
 
     public static ObjectMapper objectMapper = new ObjectMapper();
