@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("group")
+@RequestMapping("/group")
 @Log4j2
 @RequiredArgsConstructor
 public class GroupController {
@@ -20,10 +20,11 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping("/edit")
-    public void edit(long groupRowid, Model model) {
+    public String edit(long groupRowid, Model model) {
         log.info("groupRowid: " + groupRowid);
         //TODO 해당 그룹의 정보를 전달해줘야함 jpa-read로 쉽게 전달할 수 있을듯?
         model.addAttribute("result" , groupService.get(groupRowid));
+        return "group/edit";
     }
     @PostMapping("/edit")
     public String edit(GroupDTO groupDTO, RedirectAttributes redirectAttributes){
@@ -33,8 +34,8 @@ public class GroupController {
     }
 
     @GetMapping("/register")
-    public void register() {
-        log.info("registergroup");
+    public String register() {
+        return "group/register";
     }
 
     @PostMapping("/register")
@@ -48,8 +49,9 @@ public class GroupController {
     }
 
     @GetMapping("/list")
-    public void list(Model model) {
+    public String list(Model model) {
         model.addAttribute("result", groupService.getList(1L));
+        return "group/list";
     }
 
     @PostMapping("/remove")

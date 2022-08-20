@@ -23,8 +23,10 @@ public class UnitController {
     private final ContractService contractService;
 
     @GetMapping("/register")
-    public void register(int groupRowid, Model model) {
+    public String register(int groupRowid, Model model) {
+
         model.addAttribute("groupRowid", groupRowid);
+        return "unit/register";
     }
 
     @PostMapping("/register")
@@ -35,8 +37,9 @@ public class UnitController {
     }
 
     @GetMapping("/edit")
-    public void edit(long unitRowid, Model model) {
+    public String edit(long unitRowid, Model model) {
         model.addAttribute("result" , unitService.get(unitRowid));
+        return "unit/edit";
     }
 
     @PostMapping("/edit")
@@ -46,7 +49,7 @@ public class UnitController {
     }
 
     @GetMapping("/communityWrite")
-    public void communityWrite() {log.info("communityWrite");}
+    public String communityWrite() { return "unit/communityWrite";}
 
     @PostMapping("/remove")
     public String remove(long unitRowid, RedirectAttributes redirectAttributes){
@@ -56,16 +59,18 @@ public class UnitController {
     }
 
     @GetMapping("/read")
-    public void read(Long unitRowid, Model model) {
+    public String String(Long unitRowid, Model model) {
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         Json.stringToJson(unitDTO, "UnitController-read/GET");
         model.addAttribute("unitDTO", unitDTO);
+        return "unit/read";
     }
 
     @GetMapping("/previousContractHistory")
-    public void previousContractHistory(long unitRowid, boolean isAsc, Model model) {
+    public String previousContractHistory(long unitRowid, boolean isAsc, Model model) {
         System.out.println("unitRowid :" + unitRowid);
         System.out.println("isAsc :" + isAsc);
         model.addAttribute("data" , contractService.getPreviousContractHistoryList(unitRowid, isAsc));
+        return "unit/previousContractHistory";
     }
 }

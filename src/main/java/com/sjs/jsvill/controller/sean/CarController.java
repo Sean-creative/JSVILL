@@ -23,9 +23,10 @@ public class CarController {
     private final TenantService tenantService;
 
     @GetMapping("/register")
-    public void register(Long contractRowid, Model model) {
+    public String register(Long contractRowid, Model model) {
         //view단에 해당 viewDTO를 보낼건데, 이 떄의 생성자에는 DTO를 넣을지 or Entity를 넣을지 정하지는 못함 -> 일단은 귀찮으니 Entity를 넣어둠
         model.addAttribute("data", new RegisterCarResDTO(contractService.get(contractRowid), tenantService.getTenantList(contractRowid)));
+        return "car/register";
     }
 
     @PostMapping("/register")

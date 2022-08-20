@@ -13,6 +13,6 @@ public class HomeController {
     @RequestMapping({"/", "home"})
     public String home() {
         log.info("home....");
-        return "/home/home";
+        return "home/home";
     }
 }

@@ -25,25 +25,27 @@ public class ContractController {
     private final UnitService unitService;
 
     @GetMapping("/register")
-    public void register(Long unitRowid, Model model) {
+    public String register(Long unitRowid, Model model) {
         UnitDTO unitDTO = unitService.getWithContractList(unitRowid);
         model.addAttribute("result", unitDTO);
+        return "contract/register";
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
+    public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
         Json.stringToJson(contractDTO, "ContractController-register");
         contractService.register(contractDTO);
         return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
     }
 
     @GetMapping("/edit")
-    public void edit(Long contractRowid, Model model) {
+    public String edit(Long contractRowid, Model model) {
         ContractDTO contractDTO = contractService.getDTO(contractRowid);
         UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
         model.addAttribute("contractDTO", contractDTO);
         model.addAttribute("unitDTO", unitDTO);
         Json.stringToJson(contractDTO, "ContractController-edit/get");
+        return "/contract/edit";
     }
     @PostMapping("/edit")
     public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
