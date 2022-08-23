@@ -21,9 +21,9 @@
     </head>
 
     <div class="container">
-        <header th:replace="~{/fragments/header ::headerFragment}"></header>
+        <header th:replace="~{fragments/header ::headerFragment}"></header>
         <div style="flex:10">
-            <nav th:replace="~{/fragments/nav ::navFragment}"></nav>
+            <nav th:replace="~{fragments/nav ::navFragment}"></nav>
             <div th:include="${content}" class="content"></div>
         </div>
         <!--<footer th:replace="fragments/footer ::footerFragment"></footer>-->
