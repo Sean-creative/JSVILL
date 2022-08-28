@@ -73,5 +73,4 @@ public class ContractController {
         contractService.expire(contractRowid);
         return "redirect:/unit/read?unitRowid="+unitRowid;
     }
-
 }

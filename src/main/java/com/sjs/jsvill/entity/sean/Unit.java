@@ -32,7 +32,7 @@ public class Unit extends BaseEntity {
     @Column(nullable = false)
     private String memo; // 메모 (선택적)
 
-    public void changeAddr2(String addr2) { this.detailaddr = addr2; }
+    public void changedetailAddr(String detailAddr) { this.detailaddr = detailAddr; }
     public void changeMemo(String memo) { this.memo = memo; }
 
     //단순히 호실만 다룰 때

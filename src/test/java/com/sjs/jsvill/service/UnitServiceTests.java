@@ -24,7 +24,7 @@ public class UnitServiceTests {
             UnitDTO unitDTO = UnitDTO.builder()
                     .unitRowid(i)
                     .groupRowid(1L)
-                    .detailAddr("addr2" + i)
+                    .detailAddr("detailAddr" + i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitService.register(unitDTO));
@@ -55,7 +55,7 @@ public class UnitServiceTests {
         Unit unit = unitService.get(1L);
         System.out.println("Before unit : " + unit);
 
-        unit.changeAddr2("주소 바꿨다!");
+        unit.changedetailAddr("주소 바꿨다!");
 //        unit.changeDeposit(999L);
         UnitDTO unitDTO = UnitDTO.entityToDTO(unit);
         System.out.println("unitDTO : " + unitDTO);

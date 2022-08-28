@@ -15,7 +15,7 @@
 //public class UnitResNDTO {
 //    private Long unitRowid; //수정, 삭제
 //    private Long groupRowid; //건물 관리로 이동
-//    private String addr2; //101호
+//    private String detailAddr; //101호
 //    private String memo; //비고
 //
 //    private String groupTitle;//건물이름

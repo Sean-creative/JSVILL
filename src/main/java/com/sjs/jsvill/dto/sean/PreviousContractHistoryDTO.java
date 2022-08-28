@@ -15,7 +15,7 @@ import java.util.List;
 public class PreviousContractHistoryDTO {
     private Long unitRowid;
     private String groupTitle; //명일동 JSVILL
-    private String addr2; //101호
+    private String detailAddr; //101호
     private Boolean isAsc;
     //TODO List는 항상 new 해줘야하나?
     @Builder.Default

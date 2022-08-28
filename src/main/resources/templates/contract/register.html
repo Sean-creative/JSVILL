@@ -11,7 +11,7 @@
 
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <div class="pageTitle">건물관리 / [[${result.groupTitle}]] / [[${result.addr2}]] / 계약 등록</div>
+        <div class="pageTitle">건물관리 / [[${result.groupTitle}]] / [[${result.detailAddr}]] / 계약 등록</div>
         <form action="/contract/register" method="post" onsubmit="return submitValiCheck()">
             <div class="info">
                 <div class="subTitle">

@@ -10,7 +10,7 @@ $(function () {
         console.log("spaceCheck.test(thisVal)", spaceCheck.test(thisVal))
         let checkText = "";
         switch ($(this).attr("name")) {
-            case "addr2":
+            case "detailAddr":
                 if (thisVal.length == 0) {
                     checkText = "호수를 입력해주세요.";
                 } else if (scriptTag.test(thisVal)) {

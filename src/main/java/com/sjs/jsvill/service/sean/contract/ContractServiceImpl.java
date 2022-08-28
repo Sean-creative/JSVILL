@@ -67,7 +67,7 @@ public class ContractServiceImpl implements ContractService {
         Optional<Unit> unit = unitRepository.findById(unitRowid);
         dto.setUnitRowid(unit.get().getUnit_rowid());
         dto.setGroupTitle(unit.get().getGroup().getTitle());
-        dto.setAddr2(unit.get().getDetailaddr());
+        dto.setDetailAddr(unit.get().getDetailaddr());
         dto.setIsAsc(isAsc);
 
         List<Contract> contractList;

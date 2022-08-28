@@ -8,7 +8,7 @@
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div style="width:1221px">
-            <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.addr2}]]</div>
+            <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.detailAddr}]]</div>
             <a th:if="${#lists.size(unitDTO.contractDTOList)}!=2" th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
                style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약추가</a>
             <div style="display:flex;margin-top:40px">
@@ -50,8 +50,8 @@
                         </div>
                         <!--옵션은 선택이라, 현재 진행되는 옵션에서는 옵션이 없을 수도 있다.-->
                         <div class="infoInner" style="margin-top:30px;line-height:25px;padding:0 8px">
-                            <div th:if="${unitDTO.contractDTOList[0].optionDTO.optionList.empty}" style="font-size:13px">옵션이 없습니다.</div>
-                            <div th:unless="${unitDTO.contractDTOList[0].optionDTO.optionList.empty}">
+                            <div th:if="${unitDTO.contractDTOList.empty} or ${unitDTO.contractDTOList[0].optionDTO.optionList.empty}" style="font-size:13px">옵션이 없습니다.</div>
+                            <div th:unless="${unitDTO.contractDTOList.empty} or ${unitDTO.contractDTOList[0].optionDTO.optionList.empty}">
                                 <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(unitDTO.contractDTOList[0].optionDTO.optionList)}]]개의 옵션</div>
                                 <div th:each="option:${unitDTO.contractDTOList[0].optionDTO.optionList}" style="border-top:2px solid gray;padding:5px 10px">[[${option}]]</div>
                             </div>
@@ -59,7 +59,6 @@
                     </div>
                     <div style="margin-top:10px">
                         <a href="/group/list" style="color:gray;text-decoration:underline">건물 관리로 이동</a>
-
                         <a th:href="@{/unit/previousContractHistory(unitRowid=${unitDTO.unitRowid}, isAsc=false)}" style="color:gray;text-decoration:underline;float:right">이전 계약 내역 보기</a>
                     </div>
                 </div>
