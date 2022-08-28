@@ -28,8 +28,9 @@
                         </form>
                     </div>
                 </div>
-                <div style="border-top:1px solid black;padding:25px 0">
-                    [[${dto.addr1}]]<br><br>
+                <div style="border-top:1px solid black;padding:25px 0;line-height:30px">
+                    지번 주소 - [[${dto.landAddr}]]<br/>
+                    도로명 주소 - [[${dto.roadAddr}]]<br/>
                     준공년 - [[${dto.completionDate}]]
                 </div>
                 <div style="border-top:1px solid black;padding:25px 0;line-height:33px">
@@ -48,7 +49,7 @@
                 </div>
                 <div style="display:flex;flex-flow:row wrap;justify-content:space-between">
                     <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(unitRowid=${unit.unitRowid})}" class="unit">
-                        [[${unit.addr2}]]
+                        [[${unit.detailAddr}]]
                     </a>
                 </div>
             </div>

@@ -21,7 +21,7 @@ public class RegisterCarResDTO {
     //객체단위로 넘어올것 같아서, builder 패턴을 쓰지는 않겠음
     public RegisterCarResDTO(Contract contract, List<Tenant> tenantList) {
         this.unitRowid = contract.getUnit().getUnit_rowid();
-        this.unitTitle = contract.getUnit().getAddr2();
+        this.unitTitle = contract.getUnit().getDetailaddr();
         this.groupTitle = contract.getUnit().getGroup().getTitle();
         this.contractRowid = contract.getContract_rowid();
         this.tenantList = tenantList;

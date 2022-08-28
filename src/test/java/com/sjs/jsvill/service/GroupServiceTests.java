@@ -21,7 +21,7 @@ public class GroupServiceTests {
         GroupDTO groupDTO = GroupDTO.builder()
                 .groupTypeRowid(10L)
                 .title("title")
-                .addr1("addr1")
+                .landAddr("addr1")
                 .postNum("postNum")
                 .memo("moemo")
                 .completionDate("completiondate")

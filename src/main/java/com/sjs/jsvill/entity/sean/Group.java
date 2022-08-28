@@ -26,8 +26,17 @@ public class Group extends BaseEntity {
     @Column(length = 64, nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String addr1;
+    @Column(length = 64, nullable = false)
+    private String landaddr; //지번주소
+
+    @Column(length = 64, nullable = false)
+    private String roadaddr; //도로명 주소
+
+    @Column(length = 32, nullable = false)
+    private String lat; //위도
+
+    @Column(length = 32, nullable = false)
+    private String lng; //경도
 
     @Column(length = 10, nullable = false)
     private String postNum;
@@ -41,8 +50,8 @@ public class Group extends BaseEntity {
     public void changeTitle(String title){
         this.title = title;
     }
-    public void changeAddr1(String addr1){
-        this.addr1 = addr1;
+    public void changeLandAddr(String landaddr){
+        this.landaddr = landaddr;
     }
     public void changePostNum(String postNum){
         this.postNum = postNum;

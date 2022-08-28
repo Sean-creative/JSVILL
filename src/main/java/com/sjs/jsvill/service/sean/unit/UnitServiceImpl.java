@@ -71,10 +71,10 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public void modify(UnitDTO unitDTO) {
         Unit unit = unitRepository.getById(unitDTO.getUnitRowid());
-        System.out.println("unitDTO.getAddr2() : " + unitDTO.getAddr2());
+        System.out.println("unitDTO.getAddr2() : " + unitDTO.getDetailAddr());
 
         if (unit != null) {
-            unit.changeAddr2(unitDTO.getAddr2());
+            unit.changeAddr2(unitDTO.getDetailAddr());
             unit.changeMemo(unitDTO.getMemo());
             unitRepository.save(unit);
         }

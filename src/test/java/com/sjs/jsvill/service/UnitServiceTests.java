@@ -24,7 +24,7 @@ public class UnitServiceTests {
             UnitDTO unitDTO = UnitDTO.builder()
                     .unitRowid(i)
                     .groupRowid(1L)
-                    .addr2("addr2" + i)
+                    .detailAddr("addr2" + i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitService.register(unitDTO));

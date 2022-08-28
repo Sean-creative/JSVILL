@@ -18,7 +18,7 @@ public interface UnitService {
         Unit unit = Unit.builder()
                 .unit_rowid(dto.getUnitRowid())
                 .group(group)
-                .addr2(dto.getAddr2().replace("호", "")+"호")
+                .detailaddr(dto.getDetailAddr().replace("호", "")+"호")
                 .memo(dto.getMemo())
                 .build();
         return unit;

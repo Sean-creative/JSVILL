@@ -16,8 +16,11 @@ public class GroupDTO {
     private Long groupRowid;
     private Long groupTypeRowid;
     private String title;
-    private String addr1;
     private String postNum;
+    private String landAddr;
+    private String roadAddr;
+    private String lat;
+    private String lng;
     private String memo;
     private String completionDate;
 

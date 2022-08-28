@@ -80,7 +80,7 @@ public class GroupServiceImpl implements GroupService {
 
         if(group != null) {
             group.changeTitle(groupDTO.getTitle());
-            group.changeAddr1(groupDTO.getAddr1());
+            group.changeLandAddr(groupDTO.getLandAddr());
             group.changePostNum(groupDTO.getPostNum());
             group.changeMemo(groupDTO.getMemo());
             group.changeCompletionDate(groupDTO.getCompletionDate());
