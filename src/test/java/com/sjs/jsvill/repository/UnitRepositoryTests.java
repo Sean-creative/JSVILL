@@ -25,7 +25,7 @@ public class UnitRepositoryTests {
         LongStream.rangeClosed(1, 3).forEach(i -> {
             Unit unit = Unit.builder()
                     .group(group)
-                    .detailAddr("detailAddr" + i)
+                    .detailaddr("detailAddr" + i)
                     .memo("memo" + i)
                     .build();
             System.out.println(unitRepository.save(unit));

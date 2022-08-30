@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.LongStream;
 
-import static org.reflections.Reflections.log;
 
 @SpringBootTest
 public class TenantRepositoryTests {
@@ -49,19 +48,19 @@ public class TenantRepositoryTests {
         phoneList.add("111");
 
         Tenant tenant = tenantRepository.findAllByPhoneIn(phoneList);
-        log.info("tenant : " + tenant);
+        System.out.println("tenant : " + tenant);
     }
 
     @Test
     public void findAllByPhone() {
         Tenant tenant = tenantRepository.findByPhone("0102222");
-        log.info("tenant : " + tenant);
+        System.out.println("tenant : " + tenant);
     }
 
     @Test
     public void findByPhone() {
         Boolean tenant = tenantRepository.existsByPhone("sdsdcvvb");
-        log.info("tenant : " + tenant);
+        System.out.println("tenant : " + tenant);
     }
 
     @Test
@@ -69,7 +68,7 @@ public class TenantRepositoryTests {
         List<Tenant> list = tenantRepository.findByContractRowid(33L);
         for (Tenant tenant : list) {
 //            Json.stringToJson(tenant);
-            log.info("tenant : " + tenant);
+            System.out.println("tenant : " + tenant);
         }
     }
 }

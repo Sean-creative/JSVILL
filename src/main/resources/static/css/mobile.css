@@ -1,0 +1,384 @@
+body {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 4% 32% 4%;
+    font-family: 'Noto Sans KR', sans-serif; 
+    background-color: #F1F3F4;
+}
+
+.mainButtonList {
+    padding-bottom: 16px;
+}
+
+.mainButton {
+    box-shadow:1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-top: 16px;
+    padding: 16px 16px 16px 16px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.mainButtonTitle {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 18px;
+}
+
+.mainButtonItem {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.mainButtonLabel {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: green;
+}
+
+.backButton {
+    font-size: 14px;
+    font-weight: 100;
+    color: green;
+    cursor: pointer;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.homeButton {
+    font-size: 14px;
+    font-weight: 100;
+    cursor: pointer;
+    max-width: 50px;
+    width: 100%;
+    margin: auto;
+    margin-top: 32px;
+    color: grey;    
+}
+
+
+.letterGuide {
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.letterField {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+.letterFieldError {
+    width: 100%;
+    height: 200px;
+    border: 1px solid red;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+.letterFieldErrorMessage {
+    font-size: 14px;
+    font-weight: 100;
+    color: red;
+}
+
+.submitButton {
+    max-width: 480px;
+    width: 100%;
+    height: 48px;
+    margin: 0 auto;
+    background-color: green;
+    border: none;
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-bottom: 48px;
+    padding: 8px 8px 8px 8px;
+    cursor: pointer;
+}
+
+.submitButtonLabel {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+.noticeList {
+    padding-bottom: 16px;    
+}
+
+.notice {
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 8px 16px 8px 16px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.noticeTitle {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+.noticeWriter {
+    padding-top: 4px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.noticeDate {
+    padding-top: 4px;
+    padding-bottom: 8px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.viewMoreButton {
+    max-width: 180px;
+    width: 100%;
+    display: block;
+    height: 48px;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-bottom: 48px;
+    padding: 8px 8px 8px 8px;
+    cursor: pointer;
+}
+
+.viewMoreButtonLabel {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: green;
+}
+
+.noticeDetailHeader {
+    margin-bottom: 24px;
+}
+
+.noticeDetailDate {
+    font-size: 14px;
+    font-weight: 100;
+    margin-bottom: 0px;
+}
+
+.noticeDetailTitle {
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-size: 1.4em;
+}
+
+.noticeDetailWriter {
+    font-size: 14px;
+    font-weight: 100;
+    margin-bottom: 0px;
+}
+
+.noticeDetailContents {
+    margin-top: 16px;
+    font-size: 14px;
+/*    font-weight: 100; */
+}
+
+
+
+.boardFormArea {
+    width: 100%;
+    height: 120px;
+    background: white;
+    border: 1px solid #EEEEEE;    
+    border-radius: 4px;
+}
+
+.boardField {
+    width: 100%;
+    height: 68px;
+    border: 0px solid #EEEEEE;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+
+.boardSubmitButton {
+    max-width: 80px;
+    width: 100%;
+    height: 40px;
+    background-color: green;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 8px;
+}
+
+.boardSubmitButtonDisabled {
+    max-width: 80px;
+    width: 100%;
+    height: 40px;
+    background-color: grey;
+    border: none;
+    border-radius: 4px;
+    float: right;
+    margin-right: 8px;
+}
+
+.boardButtonLabel {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+
+
+
+
+
+.boardList {
+    padding-bottom: 16px;    
+}
+
+.board {
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 8px 16px 8px 16px;
+    background-color: white;
+}
+
+.boardWriter {
+    padding-top: 4px;
+    font-size: 12px;
+    font-weight: 100;
+}
+.boardContents {
+    margin-top: 4px;
+    font-size: 14px;
+
+}
+
+
+
+.boardDate {
+    padding-top: 4px;
+    padding-bottom: 8px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+
+
+.loginGuide {
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.phoneField {
+    margin-top: 12px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+.pinField {
+    margin-top: 12px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+.vnumField {
+    margin-top: 12px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px;
+    resize: none;
+    font-size: 16px;
+}
+
+.signupButton {
+    font-size: 14px;
+    font-weight: 100;
+    color: green;
+    cursor: pointer;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+h1 {
+    margin-top: 32px;
+    font-size: 1.2em;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+article {
+    margin-top: 32px;
+    background-color: white;
+    padding: 8px 16px 32px 16px;
+    border-radius: 4px;
+    margin-bottom: 48px;
+}
+
+hr {
+    height: 1px;
+    border: 0px;
+    background-color: #F1F3F4;
+}
+
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
