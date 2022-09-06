@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'junit:junit:4.13.1'
@@ -36,12 +37,14 @@ dependencies {
 			{
 				exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 			}
+	testImplementation 'org.springframework.security:spring-security-test'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
 	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
 	implementation 'com.querydsl:querydsl-jpa'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE' //시큐리티
 
 	compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 }

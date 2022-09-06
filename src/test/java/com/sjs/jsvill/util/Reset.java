@@ -1,9 +1,9 @@
 package com.sjs.jsvill.util;
 
 
-import com.sjs.jsvill.entity.sean.Member;
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.sub.*;
-import com.sjs.jsvill.repository.sean.MemberRepository;
+import com.sjs.jsvill.repository.MemberRepository;
 import com.sjs.jsvill.repository.sub.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

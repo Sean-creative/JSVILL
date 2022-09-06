@@ -1,6 +1,6 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.service.sean.car.CarService;
+import com.sjs.jsvill.service.car.CarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.sean.GroupDTO;
-import com.sjs.jsvill.service.sean.group.GroupService;
+import com.sjs.jsvill.dto.GroupDTO;
+import com.sjs.jsvill.service.group.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

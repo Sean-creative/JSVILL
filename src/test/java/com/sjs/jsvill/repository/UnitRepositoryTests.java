@@ -1,9 +1,8 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.sean.Group;
-import com.sjs.jsvill.entity.sean.Unit;
+import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._GroupType;
-import com.sjs.jsvill.repository.sean.UnitRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

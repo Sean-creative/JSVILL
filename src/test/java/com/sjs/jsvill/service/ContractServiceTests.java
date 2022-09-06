@@ -1,11 +1,11 @@
 package com.sjs.jsvill.service;
 
-import com.sjs.jsvill.dto.sean.CarDTO;
-import com.sjs.jsvill.dto.sean.ContractDTO;
-import com.sjs.jsvill.dto.sean.OptionDTO;
-import com.sjs.jsvill.dto.sean.TenantDTO;
-import com.sjs.jsvill.entity.sean.Contract;
-import com.sjs.jsvill.service.sean.contract.ContractService;
+import com.sjs.jsvill.dto.CarDTO;
+import com.sjs.jsvill.dto.ContractDTO;
+import com.sjs.jsvill.dto.OptionDTO;
+import com.sjs.jsvill.dto.TenantDTO;
+import com.sjs.jsvill.entity.Contract;
+import com.sjs.jsvill.service.contract.ContractService;
 import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

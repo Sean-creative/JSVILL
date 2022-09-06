@@ -1,8 +1,8 @@
 package com.sjs.jsvill.repository.member;
 
-import com.sjs.jsvill.entity.sean.Member;
-import com.sjs.jsvill.entity.jimmy.MemberUser;
-import com.sjs.jsvill.repository.jimmy.MemberUserRepository;
+import com.sjs.jsvill.entity.Member;
+import com.sjs.jsvill.entity.MemberUser;
+import com.sjs.jsvill.repository.MemberUserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

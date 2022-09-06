@@ -1,9 +1,8 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.sean.Contract;
-import com.sjs.jsvill.entity.sean.Unit;
+import com.sjs.jsvill.entity.Contract;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._ContractType;
-import com.sjs.jsvill.repository.sean.ContractRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
