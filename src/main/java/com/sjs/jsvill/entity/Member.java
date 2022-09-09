@@ -1,12 +1,11 @@
 package com.sjs.jsvill.entity;
 
 import com.sjs.jsvill.entity.common.BaseEntity;
-import com.sjs.jsvill.entity.sub._MemberType;
+import com.sjs.jsvill.entity.enm.MemberRole;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name="member")
@@ -21,14 +20,30 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_rowid;
 
-    @OneToOne
-    @JoinColumn(name = "_membertype_rowid")
-    private _MemberType _memberType;
+    //내가 세입자이면서 집주인일 수 있어서, member가 애를 물면 안될듯?
+//    @OneToOne
+//    @JoinColumn(name = "_membertype_rowid")
+//    private _MemberType _memberType;
+
+    @Column(nullable = false, unique = true, length = 13)
+    private String phone;
+
+    @Column(nullable = false, length = 4)
+    private String pinNumber;
 
     @Column(nullable = false)
+    private boolean fromSocial;
+
+    @Column(nullable = false, length = 32)
     private String name;
 
-    @CreatedDate //@CreatedDate는 JPA에서 엔티티의 생성 시간을 처리한다.
-    @Column(name = "regdate", updatable = false) //updatable=false를 통해서 해당 엔티티 객체를 데이터베이스에 반영할 때 regdate 칼럼값은 변경되지 않는다.
-    private LocalDateTime regDate;
+    @Column(nullable = false, length = 64)
+    private String email;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<MemberRole> roleSet;
+
+    public void addMemberRole(MemberRole clubMemberRole){
+        roleSet.add(clubMemberRole);
+    }
 }

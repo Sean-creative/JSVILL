@@ -15,13 +15,14 @@
     <p class="loginGuide">
         최초 로그인 시에는 휴대폰번호 인증이 필요합니다.
     </p>
-
-        <input placeholder="휴대폰번호" type="number" class="phoneField" name="phoneField" id="phoneField"></input>
-        <input placeholder="핀번호 (4자리)" type="number" class="pinField" name="pinField" id="pinField"></input>
+    <form th:action="@{/login_proc}" method="post">
+        <input placeholder="휴대폰번호 ex) 010-1234-5678" type="number" class="phoneField" name="username" id="phoneField"></input>
+        <input placeholder="핀번호 (4자리)" type="number" class="pinField" name="password" id="pinField"></input>
 
         <button type="button" class="submitButton" id="loginSubmitButton">
             <span class="submitButtonLabel">로그인</span>
         </button>
+    </form>
 
     <a href="/member/signup/1">
         <div class="signupButton" id="signupButton">휴대폰번호 인증 (최초 1회)</div>

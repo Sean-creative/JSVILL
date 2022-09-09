@@ -31,7 +31,7 @@ public interface BoardService {
                     .regDate(eBoard.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                     .writer(eBoard.getMember_rowid().getName())
                     .isDeleted("1".equals(eBoard.getIsdeleted()))
-                    .isAdmin(10==eBoard.getMember_rowid().get_memberType().get_membertype_rowid())
+//                    .isAdmin(10==eBoard.getMember_rowid().get_memberType().get_membertype_rowid())
                     .build();
             returnList.add(dBoard);
         }

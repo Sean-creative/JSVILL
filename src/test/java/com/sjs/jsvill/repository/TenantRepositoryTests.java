@@ -52,7 +52,7 @@ public class TenantRepositoryTests {
 
     @Test
     public void findAllByPhone() {
-        Tenant tenant = tenantRepository.findByPhone("0102222");
+        Tenant tenant = tenantRepository.findByPhone("010-1111-1111");
         System.out.println("tenant : " + tenant);
     }
 

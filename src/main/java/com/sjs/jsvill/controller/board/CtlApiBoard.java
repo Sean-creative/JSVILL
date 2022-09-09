@@ -24,6 +24,4 @@ public class CtlApiBoard {
         List<BoardResDTO> result = boardService.getBoardList();
         return result;
     }
-
-
 }

@@ -10,7 +10,7 @@ public interface MemberService {
     default Member dtoToEntity(MemberDTO dto) {
         _MemberType mt = _MemberType.builder()._membertype_rowid(dto.get_memberType_rowid()).build();
         Member member = Member.builder()
-                ._memberType(mt) //관리자or세입자
+//                ._memberType(mt) //관리자or세입자
                 .name(dto.getName()) //이름
                 .build();
         return member;

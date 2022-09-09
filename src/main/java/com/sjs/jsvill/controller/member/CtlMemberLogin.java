@@ -32,6 +32,12 @@ public class CtlMemberLogin {
         return "member/login";
     }
 
+    //로그인
+//    @PostMapping("/login")
+//    public String login() {
+//        return "member/login";
+//    }
+
     //휴대폰번호 인증
     @GetMapping("/signup/1")
     public String signup1() {
