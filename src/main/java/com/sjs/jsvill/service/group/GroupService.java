@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public interface GroupService {
     Long register(GroupDTO dto);
-    List<GroupDTO> getList(Long member_rowid);
+    List<GroupDTO> getList(Long memberRowid);
     Long remove(Long group_rowid);
     Group get(Long group_rowid);
     void modify(GroupDTO groupDTO);

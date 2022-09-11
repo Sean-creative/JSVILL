@@ -20,11 +20,11 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 //    Object getGroupWithUnitGroupBy(@Param("group_rowid") Long group_rowid);
 
     //해당 멤버가 가지고 있는 그룹을 가져오는 쿼리
-    @Query("select g from Group g LEFT JOIN GroupMember gm On gm.group=g where gm.member.member_rowid=:member_rowid")
-    List<Group> getGroupWithAll(@Param("member_rowid") Long member_rowid);
+    @Query("select g from Group g LEFT JOIN GroupMember gm On gm.group=g where gm.member.memberRowid=:memberRowid")
+    List<Group> getGroupWithAll(@Param("memberRowid") Long memberRowid);
 
     //테스트 해보자 - 되는건지는 잘 모르겠다
     @Query("select g, u from Group g left outer join GroupMember gm on gm.group=g " +
-            "left outer join Unit u on u.group=g where gm.member.member_rowid=:member_rowid group by g")
-    Object[] getGroupList(@Param("member_rowid") Long member_rowid);
+            "left outer join Unit u on u.group=g where gm.member.memberRowid=:memberRowid group by g")
+    Object[] getGroupList(@Param("memberRowid") Long memberRowid);
 }

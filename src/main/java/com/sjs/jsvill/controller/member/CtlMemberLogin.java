@@ -1,12 +1,11 @@
 package com.sjs.jsvill.controller.member;
 
-import com.sjs.jsvill.dto.member.MemberLoginDTO;
-import com.sjs.jsvill.dto.member.MemberUserLoginDTO;
-import com.sjs.jsvill.service.member.MemberUserService;
+import com.sjs.jsvill.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Log4j2
@@ -14,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/member")
 public class CtlMemberLogin {
 
-    private final MemberUserService memberUserService;
+    private final MemberService memberService;
 
-    @ResponseBody
-    @GetMapping("/member/login/{phone}")
-    public MemberUserLoginDTO action(@PathVariable("phone") String phone, @RequestBody MemberLoginDTO memberLogin) {
-        MemberUserLoginDTO memberUser = memberUserService.login(phone, memberLogin);
-        if(memberUser==null) { //memberUser가 없다면, 빈 MemberUser 객체를 만들기
-            memberUser = new MemberUserLoginDTO();
-        }
-       return memberUser;
-    }
+//    @ResponseBody
+//    @GetMapping("/member/login/{phone}")
+//    public MemberUserLoginDTO action(@PathVariable("phone") String phone, @RequestBody MemberLoginDTO memberLogin) {
+//        MemberUserLoginDTO memberUser = memberUserService.login(phone, memberLogin);
+//        if(memberUser==null) { //memberUser가 없다면, 빈 MemberUser 객체를 만들기
+//            memberUser = new MemberUserLoginDTO();
+//        }
+//       return memberUser;
+//    }
 
     //로그인
     @GetMapping("/login")

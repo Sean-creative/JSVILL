@@ -37,15 +37,15 @@ public class GroupServiceImpl implements GroupService {
         Group temp = groupRepository.save(group);
         log.info("temp : " + temp);
         //현재 로그인된 멤버의 rowid는 어디서 가져오나?? -> 일단은 트랜잭션걸기 위해서 이 함수안에서 처리하기로함
-        Member member = Member.builder().member_rowid(1L).build();
+        Member member = Member.builder().memberRowid(1L).build();
         GroupMember groupMember = GroupMember.builder().member(member).group(temp).build();
         groupMemberRepository.save(groupMember);
         return group.getGroup_rowid();
     }
 
     @Override
-    public List<GroupDTO> getList(Long member_rowid) {
-        List<Group> groupList = groupRepository.getGroupWithAll(member_rowid);
+    public List<GroupDTO> getList(Long memberRowid) {
+        List<Group> groupList = groupRepository.getGroupWithAll(memberRowid);
         List<GroupDTO> groupDTOList = new ArrayList<>();
 
         for (Group group : groupList) {

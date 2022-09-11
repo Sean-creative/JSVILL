@@ -18,7 +18,7 @@ public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_rowid;
+    private Long memberRowid;
 
     //내가 세입자이면서 집주인일 수 있어서, member가 애를 물면 안될듯?
 //    @OneToOne
@@ -26,7 +26,7 @@ public class Member extends BaseEntity {
 //    private _MemberType _memberType;
 
     @Column(nullable = false, unique = true, length = 13)
-    private String phone;
+    private String phoneNumber;
 
     @Column(nullable = false, length = 4)
     private String pinNumber;

@@ -18,10 +18,10 @@ public class MemberUserRepositoryTests {
 
     @Test
     public void testRegister() {
-        Member member = Member.builder().member_rowid(8L).build();
+        Member member = Member.builder().memberRowid(8L).build();
         //IntStream.rangeClosed(1, 3).forEach(i -> {
             MemberUser memberUser = MemberUser.builder()
-//                    .member_rowid(member)
+//                    .memberRowid(member)
                     .phone("01032223333")
                     .pin("1111")
                     .build();

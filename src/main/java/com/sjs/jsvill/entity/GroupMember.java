@@ -22,7 +22,7 @@ public class GroupMember extends BaseEntity {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "member_rowid", nullable = false)
+    @JoinColumn(name = "memberRowid", nullable = false)
     private Member member;
 
     @ManyToOne

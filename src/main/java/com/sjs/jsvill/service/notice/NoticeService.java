@@ -19,7 +19,7 @@ public interface NoticeService {
         NoticeResDTO nDTO = NoticeResDTO.builder()
                 .title(notice.getTitle())
                 .contents(notice.getContents())
-                .writer(notice.getMember_rowid().getName())
+                .writer(notice.getMemberRowid().getName())
                 .regDate(notice.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 .viewCnt(notice.getViewcnt())
                 .build();
@@ -28,11 +28,11 @@ public interface NoticeService {
 
 
     default Notice dtoToEntity(NoticeDTO dto){
-        Member member = Member.builder().member_rowid(dto.getMemberR()).build();
+        Member member = Member.builder().memberRowid(dto.getMemberR()).build();
         Notice notice = Notice.builder()
                 .title(dto.getTitle())
                 .contents(dto.getContents())
-                .member_rowid(member)
+                .memberRowid(member)
                 .build();
         return notice;
     }
@@ -44,7 +44,7 @@ public interface NoticeService {
             NoticeResDTO dNotice = NoticeResDTO.builder()
                     .title(eNotice.getTitle())
                     .contents(eNotice.getContents())
-                    .writer(eNotice.getMember_rowid().getName())
+                    .writer(eNotice.getMemberRowid().getName())
                     .viewCnt(eNotice.getViewcnt())
                     .regDate(eNotice.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                     .build();

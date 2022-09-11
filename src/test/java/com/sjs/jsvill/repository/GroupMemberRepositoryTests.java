@@ -25,7 +25,7 @@ public class GroupMemberRepositoryTests {
     @Test
     public void save() {
         Group group = Group.builder().group_rowid(1L).build();
-        Member member = Member.builder().member_rowid(1L).build();
+        Member member = Member.builder().memberRowid(1L).build();
         GroupMember groupMember = GroupMember.builder().member(member).group(group).build();
         groupMemberRepository.save(groupMember);
     }

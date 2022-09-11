@@ -12,11 +12,11 @@ public class MemberAdminServiceTest {
 //
 //    @Test
 //    public void testRegister() {
-//        Member member = Member.builder().member_rowid(7L).build();
+//        Member member = Member.builder().memberRowid(7L).build();
 //        _Salt salt = _Salt.builder()._salt_rowid(1L).id("c71cf").build();
 //        IntStream.rangeClosed(1, 3).forEach(i -> {
 //            MemberAdminDTO memberAdminDTO = MemberAdminDTO.builder()
-//                    .memberR(member.getMember_rowid())
+//                    .memberR(member.getMemberRowid())
 //                    .userId("abc" + 2)
 //                    .pw("qwer1234")
 //                    .saltId(salt.getId())

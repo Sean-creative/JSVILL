@@ -23,7 +23,7 @@ public class GroupRepositoryTests {
     @Test
     public void testRegister() {
         _GroupType groupType = _GroupType.builder()._grouptype_rowid(10L).build();
-        Member member = Member.builder().member_rowid(1L).build();
+        Member member = Member.builder().memberRowid(1L).build();
 
         //1. 그룹을 만들때 GroupMember도 같이 save해야한다.
         IntStream.rangeClosed(1, 2).forEach(i -> {
@@ -85,7 +85,7 @@ public class GroupRepositoryTests {
 //    @Test
 //    public void testGroupWithAll() {
 //        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("group_rowid").descending());
-//        Member member = Member.builder().member_rowid(1L).build();
+//        Member member = Member.builder().memberRowid(1L).build();
 //        Page<Object[]> result = groupRepository.getGroupWithAll(pageRequest, 1L);
 ////        System.out.println(result.toString());
 //

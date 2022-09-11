@@ -21,8 +21,8 @@ public class Notice extends BaseEntity {
     private Long notice_rowid;
 
     @ManyToOne
-    @JoinColumn(name = "member_rowid")
-    private Member member_rowid;
+    @JoinColumn(name = "memberRowid")
+    private Member memberRowid;
 
     @Column(name = "title")
     private String title;

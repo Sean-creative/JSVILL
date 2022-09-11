@@ -13,11 +13,11 @@ public class MemberAdminRepositoryTests {
 //
 //    @Test
 //    public void testRegister() {
-//        Member member = Member.builder().member_rowid(6L).build();
+//        Member member = Member.builder().memberRowid(6L).build();
 //        _Salt salt = _Salt.builder()._salt_rowid(1L).id("c71cf").build();
 //        //IntStream.rangeClosed(1, 3).forEach(i -> {
 //            MemberAdmin memberAdmin = MemberAdmin.builder()
-//                    .member_rowid(member)
+//                    .memberRowid(member)
 //                    .userid("abc" + 1)
 //                    .pw("qwer1234")
 //                    .salt_id(salt)

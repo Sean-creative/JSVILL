@@ -12,10 +12,8 @@ import java.util.List;
 
 @SpringBootTest
 public class GroupServiceTests {
-
     @Autowired
     private GroupService groupService;
-
     @Test
     public void testRegister() {
         GroupDTO groupDTO = GroupDTO.builder()

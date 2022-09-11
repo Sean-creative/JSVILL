@@ -15,24 +15,30 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository; //반드시 final로 선언
 
     @Override
+    public Member findByPhoneNumber(String phoneNumber) {
+        return memberRepository.findByPhoneNumber(phoneNumber, false).get();
+    }
+
+    @Override
     public Long register(MemberDTO dto) {
         //log.info("DTO-------------" );
         //log.info(dto);
         Member member = dtoToEntity(dto);
         Member returnMember = memberRepository.save(member);
-        return returnMember.getMember_rowid();
+        return returnMember.getMemberRowid();
     }
 
 
-
 //    @Override
-//    public PageResultDTO<MemberDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
-//        log.info(pageRequestDTO);
+//    public MemberUserLoginDTO login(String phone, MemberLoginDTO memberUser) {
+//        MemberUser user = memberUserRepository.findByPhoneAndPin(memberUser.getPhone(), memberUser.getPin());
+//        MemberUserLoginDTO loginDto;
+//        if(user != null) {
+//            loginDto = entityToDto(user);
+//        }else {
+//            loginDto = new MemberUserLoginDTO();
+//        }
 //
-//        Function<Object[], MemberDTO> fn = (en -> entityToDTO((Member)en[0]));
-//
-//        Page<Object[]> result = repository.getMemberWithAll(pageRequestDTO.getPageable(Sort.by("member_rowid").descending()));
-//        
-//        return
+//        return loginDto;
 //    }
 }

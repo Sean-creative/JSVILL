@@ -24,7 +24,7 @@ public class _GroupTypeRepositoryTests {
 //    @Test
 //    public void testGroupWithAll() {
 //        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("group_rowid").descending());
-//        Member member = Member.builder().member_rowid(1L).build();
+//        Member member = Member.builder().memberRowid(1L).build();
 //        Page<Object[]> result = groupRepository.getGroupWithAll(pageRequest, 1L);
 ////        System.out.println(result.toString());
 //

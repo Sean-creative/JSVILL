@@ -14,10 +14,10 @@ public interface BoardService {
     Long register(BoardDTO dto);
     List<BoardResDTO> getBoardList();
     default Board dtoToEntity(BoardDTO dto){
-        Member member = Member.builder().member_rowid(dto.getMemberR()).build();
+        Member member = Member.builder().memberRowid(dto.getMemberR()).build();
         Board board = Board.builder()
                 .contents(dto.getContents())
-                .member_rowid(member)
+                .memberRowid(member)
                 .build();
         return board;
     }
@@ -29,9 +29,9 @@ public interface BoardService {
             BoardResDTO dBoard = BoardResDTO.builder()
                     .contents(eBoard.getContents())
                     .regDate(eBoard.getRegDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-                    .writer(eBoard.getMember_rowid().getName())
+                    .writer(eBoard.getMemberRowid().getName())
                     .isDeleted("1".equals(eBoard.getIsdeleted()))
-//                    .isAdmin(10==eBoard.getMember_rowid().get_memberType().get_membertype_rowid())
+//                    .isAdmin(10==eBoard.getMemberRowid().get_memberType().get_membertype_rowid())
                     .build();
             returnList.add(dBoard);
         }
