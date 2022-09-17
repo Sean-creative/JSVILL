@@ -54,7 +54,7 @@ public class Reset {
                 _ContractType.builder()._contracttype_rowid(20L).title("반전세").build(),
                 _ContractType.builder()._contracttype_rowid(30L).title("월세").build()
         ));
-        Member member = Member.builder()._memberType(_MemberType.builder()._membertype_rowid(10L).build()).name("sean").build();
+        Member member = Member.builder().name("sean").build();
         postTypeRepository.saveAll(postTypeList);
         memberTypeRepository.saveAll(memberTypeList);
         livingTypeRepository.saveAll(livingTypeList);

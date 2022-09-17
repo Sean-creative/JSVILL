@@ -1,4 +1,4 @@
-package com.sjs.jsvill.security;
+package com.sjs.jsvill.repository.member;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

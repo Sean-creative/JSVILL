@@ -19,7 +19,6 @@ public class MemberServiceTest {
     public void testRegister() {
         IntStream.rangeClosed(1, 3).forEach(i -> {
             MemberDTO memberDTO = MemberDTO.builder()
-                    ._memberType_rowid(10L)
                     .name("username---------" +i)
                     .build();
             System.out.println(memberService.register(memberDTO));

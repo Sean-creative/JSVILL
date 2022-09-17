@@ -17,21 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private final UserDetailsService userDetailsService;
-
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-//        String password = passwordEncoder().encode("1111");
-//
-//        auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
-//        auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER");
-//        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN");
-//        auth.userDetailsService(userDetailsService);
-//        auth.authenticationProvider(authenticationProvider());
-//    }
 
 //    @Bean
 //    public AuthenticationProvider authenticationProvider() {
@@ -47,33 +32,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     // BCryptPasswordEncoder는 Spring Security에서 제공하는 비밀번호 암호화 객체입니다.
     // Service에서 비밀번호를 암호화할 수 있도록 Bean으로 등록합니다.
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 24 * 3).userDetailsService(userDetailsService); //3days
-        http.csrf().disable();
+        http.csrf().disable();  //음.. 나중에 적용하면 좋나?
         http.authorizeRequests()
-                .antMatchers("/sample/all").permitAll()
-                .antMatchers("/sample/member").hasRole("USER");
+//                .antMatchers("/home").permitAll()
+                .antMatchers("/sample/member").hasRole("USER")
+                .antMatchers("/home").hasRole("USER")
+                .anyRequest().authenticated();
+
 
         //인가/인증에 문제시 로그인 화면
 //        loginPage() : 불러올 로그인 페이지
 //        loginProcessingUrl() : 로그인 정보를 보낼 액션 페이지
 //        defaultSuccessUrl() : 로그인 성공 시 보낼 페이지
-        http.formLogin().loginPage("/member/login").loginProcessingUrl("/login_proc").defaultSuccessUrl("/home").permitAll();
-        http.logout();
+        http.formLogin()
+                .loginPage("/member/login") //이걸로 별도의 로그인 페이지 이용
+                .usernameParameter("phoneNumber")
+                .passwordParameter("pinNumber")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/home")
+                .permitAll();
+
+        http.logout() //로그아웃 했을 때 지정해놓은 페이지 볼 수 있음
+                .logoutUrl("/member/login");
     }
-
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        auth.inMemoryAuthentication().withUser("user1") //사용자 계정은 user1
-//                .password("$2a$10$qbTVRGiC8RePIsMz4z/QP.LjBmLOMGXBCkmW2comzfNaoeidd5/aa") //1111 패스워드 인코딩
-//                .roles("USER");
-//
-//    }
 }

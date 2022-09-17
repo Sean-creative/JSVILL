@@ -17,4 +17,15 @@ public class Json {
             e.printStackTrace();
         }
     }
+
+    public static void contentLog(Object obj) {
+        try {
+            log.info(1);
+            String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+            log.info(2);
+            log.info(obj.getClass() + " :)  \n" + result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
 }
