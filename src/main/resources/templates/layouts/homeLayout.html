@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html
-        lagn="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="setContent(content)">
 <head>
-    <!--contents.html의 head태그가 렌더링 될 때, 자동으로 includeNavLayout.html head 태그에 추가 된다.(치환이 아니라 추가 된다.)-->
-    <meta charset="UTF-8"/>
+    <!--contents.html의 head태그가 렌더링 될 때, 자동으로 homeLayout.html head 태그에 추가 된다.(치환이 아니라 추가 된다.)-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/common.css"/>
-    <style>
-        html, body, .container {margin: 0;width: 100vw;height: 100vh}
-        header {flex:0.7}
-    </style>
 </head>
 
-<div class="container" style="display: flex;flex-direction: column">
-    <header th:replace="fragments/header :: headerFragment" ></header>
-    <div layout:fragment="content" style="flex: 10"></div>
-</div>
-
+    <div class="container" style="display:flex;flex-direction:column;height:100vh">
+<!--        <header th:replace="fragments/header :: headerFragment" style="flex:1"></header>-->
+        <header th:include="fragments/header :: headerFragment" style="flex:1"></header>
+        <div th:include="${content}" class="content" style="flex:18;display:flex;flex-direction:column"></div>
+    </div>
+</th:block>
 </html>
