@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/mobile.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>휴대폰번호 인증</title>
+</head>
+<body>
+    <h1>📱 휴대폰번호 인증 - 핀번호 찾기</h1>
+    <p class="loginGuide">
+        휴대폰번호를 인증해 주세요.<br>
+        새로 등록할 휴대폰번호는 가입을 이용해주세요.
+    </p>
+
+    <form action="/member/join/wp" method="post">
+        <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+        <button class="submitButton submitButtonLabel" id="phoneSubmitButton">인증번호 받기</button>
+    </form>
+
+    <a href="/member/signUpNew" class="aButton signupButton">📱 휴대폰번호 인증 (최초 1회)</a>
+    <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
+</body>
+</html>
+

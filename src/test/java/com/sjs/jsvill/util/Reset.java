@@ -1,7 +1,6 @@
 package com.sjs.jsvill.util;
 
 
-import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.sub.*;
 import com.sjs.jsvill.repository.MemberRepository;
 import com.sjs.jsvill.repository.sub.*;
@@ -54,12 +53,10 @@ public class Reset {
                 _ContractType.builder()._contracttype_rowid(20L).title("반전세").build(),
                 _ContractType.builder()._contracttype_rowid(30L).title("월세").build()
         ));
-        Member member = Member.builder().name("sean").build();
         postTypeRepository.saveAll(postTypeList);
         memberTypeRepository.saveAll(memberTypeList);
         livingTypeRepository.saveAll(livingTypeList);
         groupTypeRepository.saveAll(groupTypeList);
         contractTypeRepository.saveAll(contractTypeList);
-        memberRepository.save(member);
     }
 }

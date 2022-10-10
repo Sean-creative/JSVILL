@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/mobile.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>핀번호 설정</title>
+</head>
+<body>
+    <h1>🔑 핀번호 재설정</h1>
+    <p class="loginGuide">로그인 시 사용할 핀번호를 재설정해 주세요.<br></p>
+
+    <form action="/member/signUpPinOld" method="post">
+        <input placeholder="핀번호 (4자리)" type="number" class="pinNumber" name="pinNumber">
+        <button class="submitButton submitButtonLabel">핀번호 설정</button>
+    </form>
+
+    <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
+</body>
+</html>

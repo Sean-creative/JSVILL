@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-public class CtlApiMemberJoinMemberWp {
+public class CtlApiMemberJoinWp {
 
     private final MemberService memberService;
 
     @ResponseBody
-    @RequestMapping("/member/join/member/wp")
+    @RequestMapping("/member/join/wp")
     public Long action(@RequestBody MemberDTO dto) {
+        System.out.println("여기 들어옴!!!");
         return memberService.register(dto);
+
     }
 }

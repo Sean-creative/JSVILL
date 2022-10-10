@@ -17,12 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        return new CustomAuthenticationProvider();
-//    }
-
     @Override
     // js, css, image 설정은 보안 설정의 영향 밖에 있도록 만들어주는 설정.
     public void configure(WebSecurity web) throws Exception {
@@ -41,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 24 * 3).userDetailsService(userDetailsService); //3days
         http.csrf().disable();  //음.. 나중에 적용하면 좋나?
         http.authorizeRequests()
-                .antMatchers("/member/login").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login", "/member/login", "/member/signUpNew", "/member/signUpOld", "/member/signUpAuth", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
                 .anyRequest().authenticated(); //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
 
 
