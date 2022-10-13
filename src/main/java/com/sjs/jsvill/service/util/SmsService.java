@@ -1,5 +1,7 @@
 package com.sjs.jsvill.service.util;
 
+import java.io.UnsupportedEncodingException;
+
 public interface SmsService {
-    void sendSms();
+    String sendRandomMessage(String tel) throws UnsupportedEncodingException;
 }
