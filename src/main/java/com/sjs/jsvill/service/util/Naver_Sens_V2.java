@@ -38,14 +38,11 @@ public class Naver_Sens_V2 {
         bodyJson.put("contentType", "COMM");
         bodyJson.put("countryCode", "82");
         bodyJson.put("from", "01050070615");	// 발신번호 * 사전에 인증/등록된 번호만 사용할 수 있습니다.
-//        bodyJson.put("content", "Going 본인인증 ["+rand+"]"); 		// 난수와 함께 전송
-        String str = "JSVILL - 한글 PHONE CODE : " + rand;
-        bodyJson.put("content", new String(str.getBytes(), "EUC-KR")); 		// 난수와 함께 전송
+
+        bodyJson.put("content", "[JSVILL] 본인확인을 위해 인증번호 ["+rand+"]를 입력해 주세요."); 		// 난수와 함께 전송
         bodyJson.put("messages", toArr);
-
-        String body = bodyJson.toString();
-
-        System.out.println(body);
+        byte[] body = bodyJson.toString().getBytes("UTF-8");
+        System.out.println(new String(body, "UTF-8"));
 
         try {
 
@@ -55,7 +52,7 @@ public class Naver_Sens_V2 {
             con.setUseCaches(false);
             con.setDoOutput(true);
             con.setDoInput(true);
-            con.setRequestProperty("content-type", "application/json");
+            con.setRequestProperty("content-type", "application/json; charset=UTF-8");
             con.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
             con.setRequestProperty("x-ncp-iam-access-key", accessKey);
             con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(requestUrl, timestamp, method, accessKey, secretKey));
@@ -63,7 +60,7 @@ public class Naver_Sens_V2 {
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 
-            wr.write(body.getBytes());
+            wr.write(body);
             wr.flush();
             wr.close();
 
@@ -83,7 +80,7 @@ public class Naver_Sens_V2 {
             }
             br.close();
 
-            System.out.println(response.toString());
+            System.out.println(response);
 
         } catch (Exception e) {
             System.out.println(e);

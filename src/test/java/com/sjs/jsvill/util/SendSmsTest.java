@@ -16,6 +16,15 @@ public class SendSmsTest {
 
     @Test
     public void sendSms() {
+
+//        String str = "ㅎㅎ";
+//        try {
+//            System.out.println("test : " + new String(str.getBytes("UTF-8"), "UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            throw new RuntimeException(e);
+//        }
+
+
         String code = null;
         try {
             code = smsService.sendRandomMessage("01050070615");
