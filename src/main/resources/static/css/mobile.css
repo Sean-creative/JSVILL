@@ -88,7 +88,7 @@ body {position:absolute;max-width:400px;top:calc(40% - 200px);left:calc(50% - 20
 
 .phone {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
 .pinNumber {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
-.vnum {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
+.authCode {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
 
 .signupButton {font-size:14px;font-weight:100;color:green;cursor:pointer;max-width:200px;width:100%;text-align:center;margin:30px auto 0 auto}
 

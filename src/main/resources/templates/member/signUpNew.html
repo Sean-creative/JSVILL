@@ -16,13 +16,42 @@
         이미 등록된 휴대폰번호는 핀번호 찾기를 이용해주세요.
     </p>
 
-    <form action="/member/signUpNew" method="post">
+    <form action="/member/signUpNew" method="post" onsubmit="return valiCheck()">
         <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
         <button class="submitButton submitButtonLabel" id="phoneSubmitButton">인증번호 받기</button>
     </form>
 
     <a href="/member/signUpOld" class="aButton homeButton">🅿 핀번호 찾기</a>
     <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
+
+    <script>
+        function valiCheck() {
+
+            //1.이미 가입되어 있는 회원이라면 -> alert 띄우기
+            //2. 가입되어 있지 않은 회원이라면 -> 인증번호 받기
+            $.ajax({
+                type: "POST",
+                url: "/member/duplicateCheck",
+                data: {
+                    phone: $("input[name=phone]").val()
+                },
+                success: function (data) {
+                    console.log(`data : ${data}`)
+                    if (data == null) {
+                        console.log("true")
+                        return true;
+                    } else {
+                        alert("이미 가입된 폰번호 입니다. 폰번호 : " + data.phoneNumber)
+                        //비동기식이라 여기서 최종 판정을 내야함 (여기가 마지막 구간)
+                        console.log("false")
+                        return false;
+                    }
+                }, error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
+    </script>
 </body>
 </html>
 

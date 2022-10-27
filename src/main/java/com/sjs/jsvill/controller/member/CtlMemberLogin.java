@@ -1,13 +1,15 @@
 package com.sjs.jsvill.controller.member;
 
 import com.sjs.jsvill.service.member.MemberService;
+import com.sjs.jsvill.service.util.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 @Controller
 @Log4j2
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CtlMemberLogin {
 
     private final MemberService memberService;
+    private final SmsService smsService;
 
 //    @ResponseBody
 //    @GetMapping("/member/login/{phone}")
@@ -39,9 +42,30 @@ public class CtlMemberLogin {
 //        Long memberUserR = memberUserService.register(dto);
         return "member/signUpNew";
     }
+
+    @PostMapping("/duplicateCheck")
+    @ResponseBody
+    public String duplicateCheck(@RequestParam(value = "phone") String phone) {
+        return memberService.findByPhoneNumber(phone).getPhoneNumber();
+    }
     @PostMapping("/signUpNew")
-    public String signUpNew(String phone, Model model) {
-        System.out.println("Phone : " + phone);
+    public String signUpNew(HttpSession session, String phone) {
+        String returnStr = "";
+        String phoneExcludeHypen = phone.replaceAll("-", "");
+        System.out.println("phoneExcludeHypen : " + phoneExcludeHypen);
+
+        // 이미 가입된 전화번호가 있으면
+        if(memberService.findByPhoneNumber(phone) == null) {}
+        else {
+            String code = null;
+            try {
+                code = smsService.sendRandomMessage(phoneExcludeHypen);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+            session.setAttribute("rand", code);
+        }
+
         return "member/signUpAuth";
     }
 
@@ -50,9 +74,23 @@ public class CtlMemberLogin {
         return "member/signUpAuth";
     }
     @PostMapping("/signUpAuth")
-    public String signUpAuth(String vnum) {
-        System.out.println("vnum : " + vnum);
-        return "member/signUpPinNew";
+    @ResponseBody
+    public Boolean signUpAuth(HttpSession session, @RequestParam(value = "authCode") String authCode) {
+        Boolean result = false;
+        System.out.println("authCode : " + authCode);
+        String rand = (String) session.getAttribute("rand");
+        System.out.println("rand : " + rand);
+        System.out.println(rand + " : " + authCode);
+
+        if (rand.equals(authCode)) {
+            session.removeAttribute("rand");
+            result = true;
+        }
+        
+        //이처리가 비동기로 처리가 되어야함
+        //뷰단에서 authCode와 rand가 맞는지 체크를하고 
+        //1. 맞으면 -> PIN 번호 만들게끔, 2. 틀리면 -> 오류를 내뿜으면서 다시 작성하라고 해야합
+        return result;
     }
 
     @GetMapping("/signUpPinNew")
@@ -81,39 +119,4 @@ public class CtlMemberLogin {
     public String signUpPinOld() {
         return "member/signUpPinOld";
     }
-
-
-
-
-
-//    @PostMapping("phoneAuth")
-//    @ResponseBody
-//    public Boolean phoneAuth(String tel) {
-//        try { // 이미 가입된 전화번호가 있으면
-//            if(memberService.memberTelCount(tel) > 0)
-//                return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        String code = memberService.sendRandomMessage(tel);
-//        session.setAttribute("rand", code);
-//
-//        return false;
-//    }
-//
-//    @PostMapping("phoneAuthOk")
-//    @ResponseBody
-//    public Boolean phoneAuthOk() {
-//        String rand = (String) session.getAttribute("rand");
-//        String code = (String) request.getParameter("code");
-//
-//        System.out.println(rand + " : " + code);
-//
-//        if (rand.equals(code)) {
-//            session.removeAttribute("rand");
-//            return false;
-//        }
-//        return true;
-//    }
 }
