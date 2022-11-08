@@ -91,7 +91,6 @@ public class Naver_Sens_V2 {
         String space = " ";
         String newLine = "\n";
 
-
         String message = new StringBuilder()
                 .append(method)
                 .append(space)
@@ -113,7 +112,6 @@ public class Naver_Sens_V2 {
         } catch (UnsupportedEncodingException e) {
             encodeBase64String = e.toString();
         }
-
 
         return encodeBase64String;
     }

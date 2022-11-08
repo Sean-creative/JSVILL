@@ -1,5 +1,6 @@
 package com.sjs.jsvill.controller.member;
 
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.service.member.MemberService;
 import com.sjs.jsvill.service.util.SmsService;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +8,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 @Controller
 @Log4j2
@@ -42,41 +45,40 @@ public class CtlMemberLogin {
 //        Long memberUserR = memberUserService.register(dto);
         return "member/signUpNew";
     }
-
-    @PostMapping("/duplicateCheck")
-    @ResponseBody
-    public String duplicateCheck(@RequestParam(value = "phone") String phone) {
-        return memberService.findByPhoneNumber(phone).getPhoneNumber();
-    }
     @PostMapping("/signUpNew")
-    public String signUpNew(HttpSession session, String phone) {
-        String returnStr = "";
-        String phoneExcludeHypen = phone.replaceAll("-", "");
-        System.out.println("phoneExcludeHypen : " + phoneExcludeHypen);
+    public String signUpNew(HttpSession session, String phone, RedirectAttributes attributes) {
+        Optional<Member> member = memberService.findByPhoneNumber(phone);
 
-        // 이미 가입된 전화번호가 있으면
-        if(memberService.findByPhoneNumber(phone) == null) {}
+        // 이미 가입된 전화번호 있음 -> 안돼 돌아가
+        if(member.isPresent()) {
+            //flash를 사용하기 위해서, 일단 redirect 처리로 해결
+            attributes.addFlashAttribute("phone", member.get().getPhoneNumber());
+            return "redirect:/member/signUpNew";
+        }
+        // 이미 가입된 번호 없음 -> 새로 가입
         else {
-            String code = null;
+            String code;
             try {
-                code = smsService.sendRandomMessage(phoneExcludeHypen);
+                code = smsService.sendRandomMessage(phone.replaceAll("-", ""));
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
             session.setAttribute("rand", code);
+            return "member/signUpAuth";
         }
-
-        return "member/signUpAuth";
     }
 
     @GetMapping("/signUpAuth")
-    public String signUpAuth() {
+    public String signUpAuth(Model model) {
+        model.addAttribute("auth", "인증번호를 다시 입력해주세요.");
         return "member/signUpAuth";
     }
-    @PostMapping("/signUpAuth")
+    @PostMapping("/authCheck")
     @ResponseBody
-    public Boolean signUpAuth(HttpSession session, @RequestParam(value = "authCode") String authCode) {
-        Boolean result = false;
+    public Boolean authCheck(HttpSession session, @RequestParam(value = "authCode") String authCode) {
+        //들어온 인증번호가 맞으면 -> 회원가입
+        //틀리면 -> 다시 입력해주세요
+        Boolean isAuth = false;
         System.out.println("authCode : " + authCode);
         String rand = (String) session.getAttribute("rand");
         System.out.println("rand : " + rand);
@@ -84,13 +86,11 @@ public class CtlMemberLogin {
 
         if (rand.equals(authCode)) {
             session.removeAttribute("rand");
-            result = true;
+            isAuth = true;
         }
-        
-        //이처리가 비동기로 처리가 되어야함
-        //뷰단에서 authCode와 rand가 맞는지 체크를하고 
-        //1. 맞으면 -> PIN 번호 만들게끔, 2. 틀리면 -> 오류를 내뿜으면서 다시 작성하라고 해야합
-        return result;
+
+        //TODO 인증번호 검사하는거 좀 더 정교하게
+        return isAuth;
     }
 
     @GetMapping("/signUpPinNew")

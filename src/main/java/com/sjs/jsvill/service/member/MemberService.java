@@ -3,9 +3,11 @@ package com.sjs.jsvill.service.member;
 import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.entity.Member;
 
+import java.util.Optional;
+
 public interface MemberService {
 
-    Member findByPhoneNumber(String phoneNumber);
+    Optional<Member> findByPhoneNumber(String phoneNumber);
 
     Long register(MemberDTO dto);
 

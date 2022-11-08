@@ -34,8 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 24 * 3).userDetailsService(userDetailsService); //3days
         http.csrf().disable();  //음.. 나중에 적용하면 좋나?
+        //antMatchers -> 요게 리소스에 들어가기 보다는 컨트롤러에 mapping 걸리는걸 말하는듯?
         http.authorizeRequests()
-                .antMatchers("/login", "/member/login", "/member/signUpNew", "/member/signUpOld", "/member/signUpAuth", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
+                .antMatchers("/login", "/member/login", "/member/signUpNew", "/member/signUpOld", "/member/signUpAuth", "/member/authCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
                 .anyRequest().authenticated(); //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
 
 

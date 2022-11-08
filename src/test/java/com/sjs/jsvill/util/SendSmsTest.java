@@ -16,15 +16,12 @@ public class SendSmsTest {
 
     @Test
     public void sendSms() {
-
-
-        String code = null;
+        String code;
         try {
             code = smsService.sendRandomMessage("01050070615");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
         System.out.println("code : " + code);
-//        session.setAttribute("rand", code);
     }
 }

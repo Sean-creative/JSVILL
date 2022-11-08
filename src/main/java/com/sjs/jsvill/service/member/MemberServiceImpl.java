@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final MemberRepository memberRepository; //반드시 final로 선언
 
     @Override
-    public Member findByPhoneNumber(String phoneNumber) {
-        return memberRepository.findByPhoneNumber(phoneNumber, false).get();
+    public Optional<Member> findByPhoneNumber(String phoneNumber) {
+        return memberRepository.findByPhoneNumber(phoneNumber, false);
     }
 
     @Override

@@ -1,6 +1,6 @@
 html {position:relative;height:100vh;width:100vw;font-family:'Noto Sans KR', sans-serif;background-color:#F1F3F4}
 
-body {position:absolute;max-width:400px;top:calc(40% - 200px);left:calc(50% - 200px)}
+body {position:absolute;width:400px;top:calc(40% - 200px);left:calc(50% - 200px)}
 
 /*common*/
 .aButton {display:block;text-align:center}

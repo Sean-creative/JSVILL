@@ -51,7 +51,7 @@ public class MemberRepositoryTests {
     public void findByPhoneNumber() {
         Optional<Member> result = memberRepository.findByPhoneNumber("010-5007-0615", false);
         Member member = result.get();
-        Json.contentLog(member);
+        Json.stringToJson(member, "findByPhoneNumberTest");
 //        System.out.println("member : " + member);
     }
 }

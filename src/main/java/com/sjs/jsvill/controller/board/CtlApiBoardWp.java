@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Optional;
+
 @Controller
 @Log4j2
 @RequiredArgsConstructor
@@ -25,9 +27,9 @@ public class CtlApiBoardWp {
     public Long appBoardWp(@PathVariable String phone, @RequestBody BoardDTO dto) {
         log.info("user board wp");
         Long result = 0L;
-        Member user = memberService.findByPhoneNumber(phone);
-        if(user!=null) {
-            dto.setMemberR(user.getMemberRowid());
+        Optional<Member> user = memberService.findByPhoneNumber(phone);
+        if(user.isPresent()) {
+            dto.setMemberR(user.get().getMemberRowid());
             result = boardService.register(dto);
         }
         return result;

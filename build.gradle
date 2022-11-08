@@ -47,6 +47,8 @@ dependencies {
 
 	compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 	implementation group: 'org.json', name: 'json', version: '20220924'
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.3'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 test {
 	useJUnitPlatform()
