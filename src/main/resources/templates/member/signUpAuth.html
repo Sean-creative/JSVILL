@@ -9,49 +9,18 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>인증번호 입력</title>
     <style>
-        .fieldError {
-            color: #bd2130;
-        }
+        .fieldError {color:#bd2130}
     </style>
 </head>
 <body>
     <h1>📱 인증번호 입력</h1>
     <p class="loginGuide">인증번호를 입력해 주세요.</p>
 
-    <form action="/member/signUpPinNew" method="get" onsubmit="return valiCheck();">
+    <form action="/member/signUpAuth" method="post">
         <input placeholder="인증번호" type="number" class="authCode" name="authCode">
-        <div th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}" class="fieldError" style="margin:5px 0 0 10px"></div>
+        <div th:if="${wrong}" class="fieldError" style="margin:5px 0 0 10px">인증번호를 다시 입력해주세요.</div>
         <button class="submitButton submitButtonLabel">인증 완료</button>
-        [[${auth}]]
     </form>
-
     <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
-
-
-    <script>
-        function valiCheck() {
-            $.ajax({
-                type: "POST",
-                url: "/member/authCheck",
-                data: {
-                    authCode: $(".authCode").val()
-                },
-                success: function (isAuth) {
-                    console.log(`isAuth : ${isAuth}`)
-                    if (isAuth) {
-                        console.log("여기11")
-                        $(".fieldError").css('display', 'none')
-                        return false
-                    } else {
-                        console.log("여기22")
-                        $(".fieldError").css('display', 'block')
-                        return true
-                    }
-                }, error: function (e) {
-                    console.log(e)
-                }
-            })
-        } //end func valiCheck
-    </script>
 </body>
 </html>

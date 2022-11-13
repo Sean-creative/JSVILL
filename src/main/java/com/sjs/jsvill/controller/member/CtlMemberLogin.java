@@ -1,16 +1,23 @@
 package com.sjs.jsvill.controller.member;
 
+import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.service.member.MemberService;
 import com.sjs.jsvill.service.util.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
@@ -69,37 +76,38 @@ public class CtlMemberLogin {
     }
 
     @GetMapping("/signUpAuth")
-    public String signUpAuth(Model model) {
-        model.addAttribute("auth", "인증번호를 다시 입력해주세요.");
+    public String signUpAuth() {
         return "member/signUpAuth";
     }
-    @PostMapping("/authCheck")
-    @ResponseBody
-    public Boolean authCheck(HttpSession session, @RequestParam(value = "authCode") String authCode) {
+    @PostMapping("/signUpAuth")
+    public String authCheck(HttpSession session, String authCode, Model model) {
+        //TODO 인증번호 검사하는거 좀 더 정교하게
         //들어온 인증번호가 맞으면 -> 회원가입
         //틀리면 -> 다시 입력해주세요
-        Boolean isAuth = false;
         System.out.println("authCode : " + authCode);
         String rand = (String) session.getAttribute("rand");
         System.out.println("rand : " + rand);
         System.out.println(rand + " : " + authCode);
 
-        if (rand.equals(authCode)) {
-            session.removeAttribute("rand");
-            isAuth = true;
+        if (rand!=null&&rand.equals(authCode)) {
+//            session.removeAttribute("rand");
+            return "member/signUpPinNew";
+        } else {
+            model.addAttribute("wrong", true);
+            return "member/signUpAuth";
         }
-
-        //TODO 인증번호 검사하는거 좀 더 정교하게
-        return isAuth;
     }
-
     @GetMapping("/signUpPinNew")
-    public String signUpPinNew() {
+    public String signUpPinNew(Model model) {
+        model.addAttribute("req", new SignUpPinNewDTOReq());
         return "member/signUpPinNew";
     }
     @PostMapping("/signUpPinNew")
-    public String signUpPinNew(String pinNumber) {
-        System.out.println("pinNumber : " + pinNumber);
+    public String signUpPinNew(@ModelAttribute("req") @Valid SignUpPinNewDTOReq req, BindingResult result) {
+        if (result.hasErrors()) {
+            return "member/signUpPinNew";
+        }
+        System.out.println("req.getPinNumber() : " + req.getPinNumber());
         return "member/login";
     }
 
@@ -109,7 +117,7 @@ public class CtlMemberLogin {
         return "member/signUpOld";
     }
     @PostMapping("/signUpOld")
-    public String signUpOld(String phone, Model model) {
+    public String signUpOld(@Length(min = 4, max = 4, message = "zzzz") String phone, Model model) {
         System.out.println("Phone : " + phone);
         return "member/signUpAuth";
     }
