@@ -18,7 +18,7 @@
     <p class="loginGuide">로그인 시 사용할 핀번호를 설정해 주세요.</p>
 
     <form action="/member/signUpPinNew" method="post" th:object="${req}">
-        <input type="number" placeholder="핀번호 (4자리)" th:class="${#fields.hasErrors('pinNumber')}? 'pinNumber  fieldError' : 'pinNumber'" th:field="*{pinNumber}"  max="9999" maxlength="4" oninput="numberMaxLength(this);"/>
+        <input type="number" placeholder="핀번호 (4자리)" th:class="${#fields.hasErrors('pinNumber')}? 'pinNumber  fieldError' : 'pinNumber'"  th:field="*{pinNumber}" max="9999" maxlength="4" oninput="numberMaxLength(this);"/>
         <div th:if="${#fields.hasErrors('pinNumber')}" th:errors="*{pinNumber}" class="fieldMsgError" style="margin:5px 0 0 10px"></div>
         <button class="submitButton submitButtonLabel">핀번호 설정</button>
     </form>

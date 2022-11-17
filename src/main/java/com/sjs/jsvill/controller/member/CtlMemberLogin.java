@@ -80,7 +80,7 @@ public class CtlMemberLogin {
         return "member/signUpAuth";
     }
     @PostMapping("/signUpAuth")
-    public String authCheck(HttpSession session, String authCode, Model model) {
+    public String authCheck(HttpSession session, String authCode, RedirectAttributes attributes) {
         //TODO 인증번호 검사하는거 좀 더 정교하게
         //들어온 인증번호가 맞으면 -> 회원가입
         //틀리면 -> 다시 입력해주세요
@@ -93,8 +93,8 @@ public class CtlMemberLogin {
 //            session.removeAttribute("rand");
             return "member/signUpPinNew";
         } else {
-            model.addAttribute("wrong", true);
-            return "member/signUpAuth";
+            attributes.addFlashAttribute("wrong", true);
+            return "redirect:/member/signUpAuth";
         }
     }
     @GetMapping("/signUpPinNew")
@@ -103,7 +103,7 @@ public class CtlMemberLogin {
         return "member/signUpPinNew";
     }
     @PostMapping("/signUpPinNew")
-    public String signUpPinNew(@ModelAttribute("req") @Valid SignUpPinNewDTOReq req, BindingResult result) {
+    public String signUpPinNew(@ModelAttribute("req") @Valid SignUpPinNewDTOReq req, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "member/signUpPinNew";
         }
