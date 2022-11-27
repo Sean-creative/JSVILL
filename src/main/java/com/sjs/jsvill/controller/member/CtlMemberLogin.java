@@ -49,7 +49,6 @@ public class CtlMemberLogin {
 
     @GetMapping("/signUpNew")
     public String signUpNew() {
-//        Long memberUserR = memberUserService.register(dto);
         return "member/signUpNew";
     }
     @PostMapping("/signUpNew")
@@ -72,24 +71,28 @@ public class CtlMemberLogin {
             }
             session.setAttribute("rand", code);
             session.setAttribute("phoneNumber", phoneNumber);
+            session.setAttribute("from", "signUpNew");
             return "member/signUpAuth";
         }
     }
 
     @GetMapping("/signUpAuth")
-    public String signUpAuth() {
-        return "member/signUpAuth";
-    }
+    public String signUpAuth() {return "member/signUpAuth";}
     @PostMapping("/signUpAuth")
     public String authCheck(HttpSession session, String authCode, RedirectAttributes attributes) {
         //TODO 인증번호 검사하는거 좀 더 정교하게
         String rand = (String) session.getAttribute("rand");
         System.out.println("authCode : " + authCode);
         System.out.println("rand : " + rand);
+        String from = (String) session.getAttribute("from");
+        System.out.println("from : " + from);
 
         if (rand!=null&&rand.equals(authCode)) {
             session.removeAttribute("rand");
-            return "redirect:/member/signUpForm";
+            session.removeAttribute("from");
+            if(from.equals("signUpNew")) return "redirect:/member/signUpForm";
+            else if(from.equals("signUpOld")) return "redirect:/member/signUpPinOld";
+            else return "redirect:/home";
         } else {
             attributes.addFlashAttribute("wrong", true);
             return "redirect:/member/signUpAuth";
