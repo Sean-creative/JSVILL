@@ -17,7 +17,7 @@
     </p>
 
     <form action="/member/signUpNew" method="post">
-        <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phone" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+        <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
         <button class="submitButton submitButtonLabel" id="phoneSubmitButton">인증번호 받기</button>
     </form>
 
@@ -25,9 +25,9 @@
     <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
 
     <script th:inline="javascript">
-        const phone = [[${phone}]];
-        if(phone!=null) {
-            alert("중복된 폰 번호 입니다. 휴대폰 번호 : " + phone)
+        const phoneNumber = [[${phoneNumber}]];
+        if(phoneNumber!=null) {
+            alert("중복된 폰 번호 입니다. 휴대폰 번호 : " + phoneNumber)
         }
     </script>
 </body>

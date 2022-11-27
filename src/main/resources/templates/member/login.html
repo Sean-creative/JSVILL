@@ -15,8 +15,9 @@
     <p class="loginGuide">
         최초 로그인 시에는 휴대폰번호 인증이 필요합니다.
     </p>
-    <form th:action="@{/doLogin}" method="post">
-        <input placeholder="휴대폰번호 ex) 010-1234-5678" name="phoneNumber" id="phone" class="phone"/>
+    <form action="/member/login" method="post">
+        <div th:if="${param.error}" class="fieldMsgError">사용자ID 또는 비밀번호를 확인해 주세요.</div>
+        <input placeholder="휴대폰번호 ex) 010-1234-5678" name="phoneNumber" id="phoneNumber" class="phoneNumber"/>
         <input placeholder="핀번호 (4자리)" type="number" name="pinNumber" id="pinNumber" class="pinNumber"/>
 
         <button type="submit" class="submitButton" id="loginSubmitButton">

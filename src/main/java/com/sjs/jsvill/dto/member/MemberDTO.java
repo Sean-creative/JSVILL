@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 public class MemberDTO {
     private Long memberRowid;
     private String phoneNumber;
+    @Length(min = 4, max = 4, message = "핀번호는 숫자 4자리 입니다.")
     private String pinNumber;
     private boolean fromSocial;
     private String name;

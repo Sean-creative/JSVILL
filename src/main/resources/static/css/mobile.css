@@ -86,7 +86,7 @@ body {position:absolute;width:400px;top:calc(40% - 200px);left:calc(50% - 200px)
 
 .loginGuide {font-size:14px;font-weight:100}
 
-.phone {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
+.phoneNumber {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
 .pinNumber {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
 .authCode {margin-top:12px;width:100%;height:48px;border:1px solid #EEEEEE;border-radius:4px;box-sizing:border-box;padding:12px;resize:none;font-size:16px}
 
@@ -103,3 +103,6 @@ hr {height:1px;border:0px;background-color:#F1F3F4}
 
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none;margin:0}
+
+.fieldError {border-color: #bd2130;}
+.fieldMsgError {color:#bd2130;font-size:15px}

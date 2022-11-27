@@ -8,18 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>핀번호 설정</title>
-    <style>
-        .fieldError {border-color: #bd2130;}
-        .fieldMsgError {color: #bd2130;}
-    </style>
 </head>
 <body>
     <h1>🔑 핀번호 설정</h1>
     <p class="loginGuide">로그인 시 사용할 핀번호를 설정해 주세요.</p>
 
-    <form action="/member/signUpPinNew" method="post" th:object="${req}">
-        <input type="number" placeholder="핀번호 (4자리)" th:class="${#fields.hasErrors('pinNumber')}? 'pinNumber  fieldError' : 'pinNumber'"  th:field="*{pinNumber}" max="9999" maxlength="4" oninput="numberMaxLength(this);"/>
+    <form action="/member/signUpForm" method="post" th:object="${req}">
+        <input type="number" placeholder="핀번호 (4자리)" th:field="*{pinNumber}" th:class="${#fields.hasErrors('pinNumber')}? 'pinNumber fieldError' : 'pinNumber'"
+               max="9999" maxlength="4" oninput="numberMaxLength(this);"/>
         <div th:if="${#fields.hasErrors('pinNumber')}" th:errors="*{pinNumber}" class="fieldMsgError" style="margin:5px 0 0 10px"></div>
+
+        <input placeholder="이름" th:field="*{name}" th:class="${#fields.hasErrors('name')}? 'pinNumber fieldError' : 'pinNumber'">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldMsgError" style="margin:5px 0 0 10px"></div>
+
+        <input placeholder="이메일 (선택 입력)" th:field="*{email}" value="" th:class="${#fields.hasErrors('email')}? 'pinNumber fieldError' : 'pinNumber'"/>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldMsgError" style="margin:5px 0 0 10px"></div>
+
         <button class="submitButton submitButtonLabel">핀번호 설정</button>
     </form>
 

@@ -1,15 +1,18 @@
 package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.member.ClubAuthMemberDTO;
-import com.sjs.jsvill.dto.member.MemberDTO;
+import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,6 +23,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor //의존성 자동 주입 -> repository가 자동 주입
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository; //반드시 final로 선언
 
     @Override
@@ -28,23 +34,19 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public Long register(MemberDTO dto) {
-        //log.info("DTO-------------" );
-        //log.info(dto);
-        Member member = dtoToEntity(dto);
-        Member returnMember = memberRepository.save(member);
-        return returnMember.getMemberRowid();
+    public void register(SignUpPinNewDTOReq req) {
+        req.setPinNumber(passwordEncoder.encode(req.getPinNumber()));
+        memberRepository.save(dtoReqToEntity(req));
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
 
-        log.info("ClubUserDetailsService loadUserByUsername " + username);
-        Optional<Member> result = memberRepository.findByPhoneNumber(username, false);
+        log.info("ClubUserDetailsService loadUserByUsername " + phoneNumber);
+        Optional<Member> result = memberRepository.findByPhoneNumber(phoneNumber, false);
 
         if(result.isEmpty()){
-            throw new UsernameNotFoundException("Check User Email or from Social ");
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
         Member member = result.get();
@@ -62,7 +64,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                         .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
                         .collect(Collectors.toSet())
         );
-
         return clubAuthMemberDTO;
     }
 
