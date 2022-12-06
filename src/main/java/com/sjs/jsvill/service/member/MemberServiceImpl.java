@@ -2,6 +2,7 @@ package com.sjs.jsvill.service.member;
 
 import com.sjs.jsvill.dto.member.ClubAuthMemberDTO;
 import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
+import com.sjs.jsvill.dto.member.SignUpPinOldDTOReq;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +39,15 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public void register(SignUpPinNewDTOReq req) {
         req.setPinNumber(passwordEncoder.encode(req.getPinNumber()));
         memberRepository.save(dtoReqToEntity(req));
+    }
+
+    @Transactional
+    @Override
+    public void modify(SignUpPinOldDTOReq req) {
+        Optional<Member> result = findByPhoneNumber(req.getPhoneNumber());
+        Member member = result.get();
+        member.setPinNumber(passwordEncoder.encode(req.getPinNumber()));
+        memberRepository.save(member);
     }
 
     @Override

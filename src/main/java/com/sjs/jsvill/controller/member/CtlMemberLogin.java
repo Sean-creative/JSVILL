@@ -1,13 +1,13 @@
 package com.sjs.jsvill.controller.member;
 
 import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
+import com.sjs.jsvill.dto.member.SignUpPinOldDTOReq;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.service.member.MemberService;
 import com.sjs.jsvill.service.util.SmsService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,8 +86,9 @@ public class CtlMemberLogin {
         System.out.println("rand : " + rand);
         String from = (String) session.getAttribute("from");
         System.out.println("from : " + from);
+        if(rand==null||from==null) return "member/login";
 
-        if (rand!=null&&rand.equals(authCode)) {
+        if (rand.equals(authCode)) {
             session.removeAttribute("rand");
             session.removeAttribute("from");
             if(from.equals("signUpNew")) return "redirect:/member/signUpForm";
@@ -112,7 +113,8 @@ public class CtlMemberLogin {
         String phoneNumber = (String) session.getAttribute("phoneNumber");
         System.out.println("phoneNumber : " + phoneNumber);
 
-        //TODO 트랜잭션 같은거 걸어야 하나?
+        if(phoneNumber==null) return "member/login";
+
         req.setPhoneNumber(phoneNumber);
         memberService.register(req);
 
@@ -120,19 +122,55 @@ public class CtlMemberLogin {
         return "member/login";
     }
 
-
     @GetMapping("/signUpOld")
     public String signUpOld() {
         return "member/signUpOld";
     }
     @PostMapping("/signUpOld")
-    public String signUpOld(@Length(min = 4, max = 4, message = "zzzz") String phone, Model model) {
-        System.out.println("Phone : " + phone);
-        return "member/signUpAuth";
+    public String signUpOld(HttpSession session, String phoneNumber, RedirectAttributes attributes) {
+        Optional<Member> member = memberService.findByPhoneNumber(phoneNumber);
+
+        // 이미 가입된 전화번호 없음 -> 안돼 돌아가
+        if(!member.isPresent()) {
+            //flash를 사용하기 위해서, 일단 redirect 처리로 해결
+            attributes.addFlashAttribute("phoneNumber", member.get().getPhoneNumber());
+            return "redirect:/member/signUpOld";
+        }
+        // 이미 가입된 번호 있음 -> 폰번호 찾기
+        else {
+            String code;
+            try {
+                code = smsService.sendRandomMessage(phoneNumber.replaceAll("-", ""));
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+            session.setAttribute("rand", code);
+            session.setAttribute("phoneNumber", phoneNumber);
+            session.setAttribute("from", "signUpOld");
+            return "member/signUpAuth";
+        }
     }
 
     @GetMapping("/signUpPinOld")
     public String signUpPinOld() {
         return "member/signUpPinOld";
+    }
+
+    @PostMapping("/signUpPinOld")
+    public String signUpPinOld(HttpSession session, @ModelAttribute("req") @Valid SignUpPinOldDTOReq req, BindingResult result) {
+        if (result.hasErrors()) {
+            return "member/signUpPinOld";
+        }
+        Json.stringToJson(req, "post-signUpForm");
+        String phoneNumber = (String) session.getAttribute("phoneNumber");
+        System.out.println("phoneNumber : " + phoneNumber);
+
+        if(phoneNumber==null) return "member/login";
+
+        req.setPhoneNumber(phoneNumber);
+        memberService.modify(req);
+
+        session.removeAttribute("phoneNumber");
+        return "member/login";
     }
 }
