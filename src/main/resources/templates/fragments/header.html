@@ -289,19 +289,16 @@
         </style>
     </head>
     <div class="header">
-        <div style="font-size:25px;font-weight:bold"><a href="/">JS Vill</a></div>
+        <div style="font-size:25px;font-weight:bold"><a href="/home">JS Vill</a></div>
         <div style="display:flex;align-items:center">
-            <div style="display:flex;background-color:#f6f6f6;margin-right:5px">
-                <input id="keyword" type="text"
-                       style="width:150px;border:1px solid #1dc078;font-size:22px;border-radius:6px;margin-right:7px">
-                <span style="background-color:#f6f6f6"><img id="search" src="/image/search.png"
-                                                            style="width:35px;height:35px;margin-right:10px"></span>
+            <div style="display:flex;margin-right:5px">
+                <input id="keyword" type="text" style="width:150px;border:1px solid #1dc078;font-size:22px;border-radius:6px;margin-right:7px">
+                <img title="검색" id="search" src="/image/search.svg" style="width:35px;height:35px;margin-right:10px;cursor:pointer">
             </div>
-            <img id="notice" src="/image/bell.png" style="width:37px;height:37px;margin-right:5px">
-            <img src="/image/image2.png" style="width:37px;height:37px;margin-right:5px">
-            <form method="post" action="/logout">
-                <button style="border:none;color:#23c17a;background-color:white">로그아웃</button>
-            </form>
+            <img title="알림" id="notice" src="/image/bell.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
+            <img title="내 정보" id="myInfo" src="/image/myInfo.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
+            <img title="로그아웃" onClick="logoutPost()" src="/image/logout.svg" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
+
         </div>
     </div>
 
@@ -313,9 +310,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="modal-title" id="myModalLabel">SMS 전송하기</h4>
                 </div>
-                <div class="modal-body">
-                    확인을 누르시면 SMS를 전송합니다.
-                </div>
+                <div class="modal-body">확인을 누르시면 SMS를 전송합니다.</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="checkModalBtn">확인</button>
                     <button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
@@ -324,11 +319,28 @@
         </div>
     </div>
     <form id="sms" action="/sms/send" method="get"></form>
+
     <script>
-        // 모달 버튼에 이벤트를 건다.
-        $('#notice').on('click', function(){
-            $('#modalBox').modal('show');
+        $('#search').on('click', function(){
+            alert("검색은 준비 중입니다.")
         });
+        $('#notice').on('click', function(){
+            alert("알림은 준비 중입니다.")
+        });
+        $('#myInfo').on('click', function(){
+            alert("내 정보는 준비 중입니다.")
+        });
+
+        function logoutPost(){
+            if(confirm("로그아웃 하시겠습니까?")){
+                let f = document.createElement('form');
+                f.setAttribute('method', 'post');
+                f.setAttribute('action', '/logout');
+                document.body.appendChild(f);
+                f.submit();
+            }
+        }
+
         // 모달 안의 취소 버튼에 이벤트를 건다.
         $('#closeModalBtn').on('click', function(){
             $('#modalBox').modal('hide');

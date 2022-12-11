@@ -133,7 +133,7 @@ public class CtlMemberLogin {
         // 이미 가입된 전화번호 없음 -> 안돼 돌아가
         if(!member.isPresent()) {
             //flash를 사용하기 위해서, 일단 redirect 처리로 해결
-            attributes.addFlashAttribute("phoneNumber", member.get().getPhoneNumber());
+            attributes.addFlashAttribute("phoneNumber", phoneNumber);
             return "redirect:/member/signUpOld";
         }
         // 이미 가입된 번호 있음 -> 폰번호 찾기
