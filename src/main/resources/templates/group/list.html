@@ -3,6 +3,11 @@
 <head>
     <title>건물 관리 페이지</title>
     <meta charset="UTF-8"/>
+    <style>
+        /*건물은 group임*/
+        .groupDiv{display:flex;padding:10px 0;border:1px solid black;margin-top:10px}
+        .groupDiv:nth-child(n+2){margin-top:20px}
+    </style>
     <link rel="stylesheet" href="/css/manage.css"/>
 </head>
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
@@ -16,7 +21,7 @@
             <a href="/group/register" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">건물등록</a>
         </div>
 
-        <div th:each="dto:${result}" style="display:flex;padding:10px 0;border:1px solid black;margin-top:10px">
+        <div th:each="dto:${result}" class="groupDiv">
             <div style="flex:2;padding:0 30px">
                 <div style="padding:25px 0">
                     [[${dto.title}]][빌라]
