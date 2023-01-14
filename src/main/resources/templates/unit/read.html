@@ -100,7 +100,7 @@
                                                         세대주
                                                     </div>
                                                 </div>
-                                                <div style="cursor:pointer;display:flex">
+                                                <div class="smsBtn" style="cursor:pointer;display:flex">
                                                     <div style="font-size:22px;line-height:23px">✉</div>
                                                     <div style="margin-left:4px">[[${tenantDTO.phone}]]</div>
                                                 </div>
@@ -113,7 +113,6 @@
                                         <ul>
                                             <li th:each="carDTO:${contractDTO.carDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${carDTO.number}]]</li>
                                         </ul>
-
                                     </div>
                                 </div>
                             </div>
@@ -122,12 +121,13 @@
                 </div>
             </div>
         </div>
-        <!-- 모달 영역 -->
+        <!-- 계약즉시만료 모달 영역 -->
         <div id="expiresBox" class="modal fade" role="dialog">
             <div class="modal-dialog" role="document" style="transform: translate(0, 100px)">
                 <div class="modal-content">
                     <div class="modal-header" style="justify-content:flex-end;font-size:13px;color:gray">
                         <h4 class="modal-title" id="myModalLabel">계약즉시만료</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times; </button>
                     </div>
                     <div class="modal-body" style="line-height:30px">
                         <div><span style="color:#1dc078">계약 만료일</span>이 <span style="color:#1dc078">현재 날짜</span>로 변경됩니다.</div>
@@ -141,6 +141,35 @@
                 </div>
             </div>
         </div>
+        <!-- 문자 모달 영역 -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="modal-title" class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times; </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table" style="width:100%">
+                            <tr>
+                                <td>사용자명</td>
+                                <td><input class="form-control" id="userName" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:middle">내용</td>
+                                <td><textarea class="form-control" id="contents" style="width:95%;height:100px"></textarea></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="modalSubmit" type="button" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <form id="expireForm" action="/contract/expire" method="post">
             <input type="hidden" id="exprieContractRowid" name="contractRowid">
         </form>
@@ -193,6 +222,74 @@
                 document.body.appendChild(f);
                 f.submit();
             }
+
+            let action = '';
+            let url = '';
+            let type = '';
+            let bno = 0;
+            $(document).ready(function () {
+                // 새 글 쓰기 버튼 클릭
+                $(".smsBtn").click(function () {
+                    action = 'create';
+                    type = 'POST'
+                    $("#modal-title").text("문자 보내기");
+                    $("#myModal").modal();
+                });
+                // 수정하기 버튼 클릭
+                $("button[name='modify']").click(function () {
+                    action = 'modify';
+                    type = 'PUT';
+                    bno = this.value;
+                    // content 담기
+                    var row = $(this).parent().parent().parent();
+                    var tr = row.children();
+                    var userName = tr.eq(2).text();
+                    var contents
+                    tr.eq(1).text();
+                    $("#modal-title").text("");
+                    $("#userName").val(userName);
+                    $("#contents").val(contents);
+                    $("#myModal").modal();
+                });
+                // 삭제하기 버튼 클릭
+                $("button[name='delete']").click(function () {
+                    bno = this.value;
+                    $.ajax({
+                        url: '/board/' + bno,
+                        type: 'DELETE',
+                    });
+                    location.reload();
+                })
+
+                //Modal의 Submit 버튼 클릭
+                $("#modalSubmit").click(function () {
+                    if (action == 'create') {
+                        bnp = 0;
+                        url = 'board';
+                    } else if (action == 'modify') {
+                        url = '/board';
+                    }
+
+                    let data = {
+                        "bno": bno,
+                        "userNmae": $("#userName").val(),
+                        "contents": $("contents").val()
+                    };
+
+                    $.ajax({
+                        url: url,
+                        type: type,
+                        data: data,
+                        success: function (data) {
+                            $("#myModal").modal('toggle');
+                        },
+                        complete: function (data) {
+                            location.reload();
+                        }
+                    })
+                });
+            });
+
         </script>
     </th:block>
 </th:block>

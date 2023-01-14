@@ -1,9 +1,7 @@
 const boardField = document.querySelector("#boardField");
 const boardSubmitButton = document.querySelector("#boardSubmitButton")
 
-
 boardField.addEventListener('keyup', xTT, false);
-
 
 function xTT() {
     if(boardField.value == "") {
@@ -12,6 +10,5 @@ function xTT() {
     else {
         boardSubmitButton.className = "boardSubmitButton"
     }
-
 }
 
