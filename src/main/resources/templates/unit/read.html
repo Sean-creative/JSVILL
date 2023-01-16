@@ -122,12 +122,12 @@
             </div>
         </div>
         <!-- 계약즉시만료 모달 영역 -->
-        <div id="expiresBox" class="modal fade" role="dialog">
+        <div id="expiresModal" class="modal fade" role="dialog">
             <div class="modal-dialog" role="document" style="transform: translate(0, 100px)">
                 <div class="modal-content">
-                    <div class="modal-header" style="justify-content:flex-end;font-size:13px;color:gray">
-                        <h4 class="modal-title" id="myModalLabel">계약즉시만료</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times; </button>
+                    <div class="modal-header">
+                        <h4 class="modal-title">계약즉시만료</h4>
+                        <button type="button" onclick="closeModal('expiresModal')" class="close">X</button>
                     </div>
                     <div class="modal-body" style="line-height:30px">
                         <div><span style="color:#1dc078">계약 만료일</span>이 <span style="color:#1dc078">현재 날짜</span>로 변경됩니다.</div>
@@ -135,34 +135,32 @@
                         <div>(자세한 변경은 위의 ‘수정’ 버튼을 눌러주세요.)</div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="closeExpireModalBtn">취소</button>
+                        <button type="button" onclick="closeModal('expiresModal')" class="btn btn-default">취소</button>
                         <button type="button" class="btn btn-primary" id="checkExpireModalBtn">확인</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- 문자 모달 영역 -->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div id="smsModal" class="modal fade" role="dialog" style="top:19%">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 id="modal-title" class="modal-title"></h4>
-                        <button type="button" class="close" data-dismiss="modal">&times; </button>
+                        <button type="button" onclick="closeModal('smsModal')" class="close">X</button>
                     </div>
-                    <div class="modal-body">
-                        <table class="table" style="width:100%">
-                            <tr>
-                                <td>사용자명</td>
-                                <td><input class="form-control" id="userName" type="text"></td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align:middle">내용</td>
-                                <td><textarea class="form-control" id="contents" style="width:95%;height:100px"></textarea></td>
-                            </tr>
-                        </table>
+                    <div class="modal-body" style="padding:0">
+                            <div style="display:flex;padding:10px 20px">
+                                <div style="width:100px;line-height:27px">사용자명</div>
+                                <input class="form-control" id="userName" type="text" style="flex:auto;background:#F6F6F6">
+                            </div>
+                            <div style="display:flex;border-top:1px solid #dee2e6;padding:10px 20px">
+                                <div style="width:100px;line-height:120px">내용</div>
+                                <textarea class="form-control" id="contents" style="height:125px;flex:auto"></textarea>
+                            </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="closeModal('smsModal')" class="btn btn-default">Close</button>
                         <button id="modalSubmit" type="button" class="btn btn-success">Submit</button>
                     </div>
                 </div>
@@ -177,118 +175,119 @@
         <script th:inline="javascript">
             // 모달 버튼에 이벤트를 건다.
             function expire(contractRowid) {
-                $('#expiresBox').modal('show');
-                $('#exprieContractRowid').val(contractRowid);
+                openModal('expiresModal')
+                $('#exprieContractRowid').val(contractRowid)
             }
-            // $('#expires').on('click', function(){
-            // });
-            // 모달 안의 취소 버튼에 이벤트를 건다.
-            $('#closeExpireModalBtn').on('click', function(){
-                $('#expiresBox').modal('hide');
-            });
             // 모달 안의 확인 버튼에 이벤트를 건다.
             $('#checkExpireModalBtn').on('click', function(){
-                $('#expireForm').submit();
-            });
+                $('#expireForm').submit()
+            })
 
             function unitRemove() {
-                let f = document.createElement('form');
+                let f = document.createElement('form')
 
-                let obj;
-                obj = document.createElement('input');
-                obj.setAttribute('type', 'hidden');
-                obj.setAttribute('name', 'unitRowid');
-                obj.setAttribute('value', [[${unitDTO.unitRowid}]]);
+                let obj
+                obj = document.createElement('input')
+                obj.setAttribute('type', 'hidden')
+                obj.setAttribute('name', 'unitRowid')
+                obj.setAttribute('value', [[${unitDTO.unitRowid}]])
 
-                f.appendChild(obj);
-                f.setAttribute('method', 'post');
-                f.setAttribute('action', '/unit/remove');
-                document.body.appendChild(f);
-                f.submit();
+                f.appendChild(obj)
+                f.setAttribute('method', 'post')
+                f.setAttribute('action', '/unit/remove')
+                document.body.appendChild(f)
+                f.submit()
             }
 
             function contractRemove(contractRowid) {
-                let f = document.createElement('form');
-                f.setAttribute('method', 'post');
-                f.setAttribute('action', '/contract/remove');
+                let f = document.createElement('form')
+                f.setAttribute('method', 'post')
+                f.setAttribute('action', '/contract/remove')
 
                 let obj;
-                obj = document.createElement('input');
-                obj.setAttribute('type', 'hidden');
-                obj.setAttribute('name', 'contractRowid');
-                obj.setAttribute('value', contractRowid);
-                f.appendChild(obj);
+                obj = document.createElement('input')
+                obj.setAttribute('type', 'hidden')
+                obj.setAttribute('name', 'contractRowid')
+                obj.setAttribute('value', contractRowid)
+                f.appendChild(obj)
 
-                document.body.appendChild(f);
-                f.submit();
+                document.body.appendChild(f)
+                f.submit()
             }
 
-            let action = '';
-            let url = '';
-            let type = '';
+            let action = ''
+            let url = ''
+            let type = ''
             let bno = 0;
             $(document).ready(function () {
                 // 새 글 쓰기 버튼 클릭
                 $(".smsBtn").click(function () {
-                    action = 'create';
+                    action = 'create'
                     type = 'POST'
-                    $("#modal-title").text("문자 보내기");
-                    $("#myModal").modal();
-                });
+                    $("#modal-title").text("문자 보내기")
+                    $("#smsModal").attr('class', 'modal show')
+                })
                 // 수정하기 버튼 클릭
                 $("button[name='modify']").click(function () {
-                    action = 'modify';
-                    type = 'PUT';
-                    bno = this.value;
+                    action = 'modify'
+                    type = 'PUT'
+                    bno = this.value
                     // content 담기
-                    var row = $(this).parent().parent().parent();
-                    var tr = row.children();
-                    var userName = tr.eq(2).text();
+                    var row = $(this).parent().parent().parent()
+                    var tr = row.children()
+                    var userName = tr.eq(2).text()
                     var contents
-                    tr.eq(1).text();
-                    $("#modal-title").text("");
-                    $("#userName").val(userName);
-                    $("#contents").val(contents);
-                    $("#myModal").modal();
-                });
+                    tr.eq(1).text()
+                    $("#modal-title").text("")
+                    $("#userName").val(userName)
+                    $("#contents").val(contents)
+                    $("#smsModal").attr('class', 'modal fade')
+                })
                 // 삭제하기 버튼 클릭
                 $("button[name='delete']").click(function () {
-                    bno = this.value;
+                    bno = this.value
                     $.ajax({
                         url: '/board/' + bno,
                         type: 'DELETE',
-                    });
-                    location.reload();
+                    })
+                    location.reload()
                 })
 
                 //Modal의 Submit 버튼 클릭
                 $("#modalSubmit").click(function () {
                     if (action == 'create') {
-                        bnp = 0;
-                        url = 'board';
+                        bnp = 0
+                        url = 'board'
                     } else if (action == 'modify') {
-                        url = '/board';
+                        url = '/board'
                     }
 
                     let data = {
                         "bno": bno,
                         "userNmae": $("#userName").val(),
                         "contents": $("contents").val()
-                    };
+                    }
 
                     $.ajax({
                         url: url,
                         type: type,
                         data: data,
                         success: function (data) {
-                            $("#myModal").modal('toggle');
+                            $("#smsModal").modal('toggle')
                         },
                         complete: function (data) {
-                            location.reload();
+                            location.reload()
                         }
                     })
-                });
-            });
+                })
+            })
+
+            function openModal(id) {
+                $(`#${id}`).attr('class', 'modal show')
+            }
+            function closeModal(id) {
+                $(`#${id}`).attr('class', 'modal fade')
+            }
 
         </script>
     </th:block>
