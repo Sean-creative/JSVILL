@@ -1,6 +1,6 @@
 package com.sjs.jsvill.service.member;
 
-import com.sjs.jsvill.dto.member.ClubAuthMemberDTO;
+import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
 import com.sjs.jsvill.dto.member.SignUpPinOldDTOReq;
 import com.sjs.jsvill.entity.Member;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -65,17 +63,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         log.info("-----------------------------");
         log.info(member);
 
-        ClubAuthMemberDTO clubAuthMemberDTO = new ClubAuthMemberDTO(
-                member.getPhoneNumber(),
-                member.getPinNumber(),
-                member.isFromSocial(),
-                member.getName(),
-                member.getEmail(),
-                member.getRoleSet().stream()
-                        .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
-                        .collect(Collectors.toSet())
-        );
-        return clubAuthMemberDTO;
+        MemberDTO memberDTO = new MemberDTO(member);
+        return memberDTO;
     }
 
 

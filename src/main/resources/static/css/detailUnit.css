@@ -16,6 +16,6 @@
 
 .contractList:not(:first-of-type) {
     padding-top:20px;
-    border-top:1px solid black;
+    border-top:1px solid gray;
     margin-top:35px;
 }

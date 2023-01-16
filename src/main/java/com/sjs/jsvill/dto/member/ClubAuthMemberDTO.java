@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Deprecated //@deprecated MemberDTO로 교체됨
 public class ClubAuthMemberDTO extends User {
 //DTO 역할을 수행하는 클래스인 동시에 스프링 시큐리티에서 인가/인증 작업에 사용할 수 있다.
 //사용자의 정보를 가져오는 핵심적인 역할을 하는 UserDetailsService라는 인터페이스 때문에, DTO 타입으로 처리했다.

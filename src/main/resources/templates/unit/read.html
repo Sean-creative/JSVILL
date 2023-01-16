@@ -78,11 +78,11 @@
                                     <div style="text-align:left;position:relative">
                                         <div style="display:inline-block">계약일</div>
                                         <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">
-                                            종료 D- [[${contractDTO.dDay}]]
+                                            종료 D-[[${contractDTO.dDay}]]
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startdate}]] ~ [[${contractDTO.enddate}]]</div>
                                     </div>
-                                    <a th:if="${unitDTO.contractDTOList[0].contractRowid}==${contractDTO.contractRowid}" th:href="|javascript:expire('${contractDTO.contractRowid}')|" style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;
+                                    <a th:if="${unitDTO.contractDTOList[0].contractRowid}==${contractDTO.contractRowid}" th:href="|javascript:expireModal('${contractDTO.contractRowid}')|" style="position:absolute;right:20px;top:20px;line-height:25px;font-size:15px;
                                     padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;margin-top:15px">
@@ -132,7 +132,7 @@
                     <div class="modal-body" style="line-height:30px">
                         <div><span style="color:#1dc078">계약 만료일</span>이 <span style="color:#1dc078">현재 날짜</span>로 변경됩니다.</div>
                         <div>그래도 하시겠습니까?</div>
-                        <div>(자세한 변경은 위의 ‘수정’ 버튼을 눌러주세요.)</div>
+                        <div>(자세한 사항은 위의 ‘수정’ 버튼을 눌러주세요.)</div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" onclick="closeModal('expiresModal')" class="btn btn-default">취소</button>
@@ -150,6 +150,7 @@
                         <button type="button" onclick="closeModal('smsModal')" class="close">X</button>
                     </div>
                     <div class="modal-body" style="padding:0">
+                        <form id="smsForm" action="/contract/expire" method="post">
                             <div style="display:flex;padding:10px 20px">
                                 <div style="width:100px;line-height:27px">사용자명</div>
                                 <input class="form-control" id="userName" type="text" style="flex:auto;background:#F6F6F6">
@@ -158,10 +159,11 @@
                                 <div style="width:100px;line-height:120px">내용</div>
                                 <textarea class="form-control" id="contents" style="height:125px;flex:auto"></textarea>
                             </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="closeModal('smsModal')" class="btn btn-default">Close</button>
-                        <button id="modalSubmit" type="button" class="btn btn-success">Submit</button>
+                        <button type="button" onclick="closeModal('smsModal')" class="btn btn-default">취소</button>
+                        <button id="modalSubmit" type="button" class="btn btn-success">전송</button>
                     </div>
                 </div>
             </div>
@@ -173,19 +175,9 @@
         </form>
 
         <script th:inline="javascript">
-            // 모달 버튼에 이벤트를 건다.
-            function expire(contractRowid) {
-                openModal('expiresModal')
-                $('#exprieContractRowid').val(contractRowid)
-            }
-            // 모달 안의 확인 버튼에 이벤트를 건다.
-            $('#checkExpireModalBtn').on('click', function(){
-                $('#expireForm').submit()
-            })
-
+            // 호실 삭제 버튼
             function unitRemove() {
                 let f = document.createElement('form')
-
                 let obj
                 obj = document.createElement('input')
                 obj.setAttribute('type', 'hidden')
@@ -199,6 +191,7 @@
                 f.submit()
             }
 
+            //계약 삭제 버튼
             function contractRemove(contractRowid) {
                 let f = document.createElement('form')
                 f.setAttribute('method', 'post')
@@ -215,70 +208,79 @@
                 f.submit()
             }
 
+            //계약 즉시 만료 모달
+            function expireModal(contractRowid) {
+                openModal('expiresModal')
+                $('#exprieContractRowid').val(contractRowid)
+            }
+            $('#checkExpireModalBtn').on('click', function(){
+                $('#expireForm').submit()
+            })
+
+            //계약 - 문자보내기
             let action = ''
             let url = ''
             let type = ''
             let bno = 0;
-            $(document).ready(function () {
-                // 새 글 쓰기 버튼 클릭
-                $(".smsBtn").click(function () {
-                    action = 'create'
-                    type = 'POST'
-                    $("#modal-title").text("문자 보내기")
-                    $("#smsModal").attr('class', 'modal show')
-                })
-                // 수정하기 버튼 클릭
-                $("button[name='modify']").click(function () {
-                    action = 'modify'
-                    type = 'PUT'
-                    bno = this.value
-                    // content 담기
-                    var row = $(this).parent().parent().parent()
-                    var tr = row.children()
-                    var userName = tr.eq(2).text()
-                    var contents
-                    tr.eq(1).text()
-                    $("#modal-title").text("")
-                    $("#userName").val(userName)
-                    $("#contents").val(contents)
-                    $("#smsModal").attr('class', 'modal fade')
-                })
-                // 삭제하기 버튼 클릭
-                $("button[name='delete']").click(function () {
-                    bno = this.value
-                    $.ajax({
-                        url: '/board/' + bno,
-                        type: 'DELETE',
-                    })
-                    location.reload()
-                })
 
-                //Modal의 Submit 버튼 클릭
-                $("#modalSubmit").click(function () {
-                    if (action == 'create') {
-                        bnp = 0
-                        url = 'board'
-                    } else if (action == 'modify') {
-                        url = '/board'
+            // 새 글 쓰기 버튼 클릭
+            $(".smsBtn").click(function () {
+                action = 'create'
+                type = 'POST'
+                $("#modal-title").text("문자 보내기")
+                $("#smsModal").attr('class', 'modal show')
+            })
+            // 수정하기 버튼 클릭
+            $("button[name='modify']").click(function () {
+                action = 'modify'
+                type = 'PUT'
+                bno = this.value
+                // content 담기
+                var row = $(this).parent().parent().parent()
+                var tr = row.children()
+                var userName = tr.eq(2).text()
+                var contents
+                tr.eq(1).text()
+                $("#modal-title").text("")
+                $("#userName").val(userName)
+                $("#contents").val(contents)
+                $("#smsModal").attr('class', 'modal fade')
+            })
+            // 삭제하기 버튼 클릭
+            $("button[name='delete']").click(function () {
+                bno = this.value
+                $.ajax({
+                    url: '/board/' + bno,
+                    type: 'DELETE',
+                })
+                location.reload()
+            })
+
+            //Modal의 Submit 버튼 클릭
+            $("#modalSubmit").click(function () {
+                if (action == 'create') {
+                    bnp = 0
+                    url = 'board'
+                } else if (action == 'modify') {
+                    url = '/board'
+                }
+
+                let data = {
+                    "bno": bno,
+                    "userNmae": $("#userName").val(),
+                    "contents": $("contents").val()
+                }
+
+                $.ajax({
+                    url: url,
+                    type: type,
+                    data: data,
+                    success: function (data) {
+                        $("#smsModal").modal('toggle')
+                    },
+                    complete: function (data) {
+                        location.reload()
                     }
-
-                    let data = {
-                        "bno": bno,
-                        "userNmae": $("#userName").val(),
-                        "contents": $("contents").val()
-                    }
-
-                    $.ajax({
-                        url: url,
-                        type: type,
-                        data: data,
-                        success: function (data) {
-                            $("#smsModal").modal('toggle')
-                        },
-                        complete: function (data) {
-                            location.reload()
-                        }
-                    })
                 })
             })
 
