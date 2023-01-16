@@ -14,7 +14,7 @@ import java.util.Base64;
 
 public class Naver_Sens_V2 {
     @SuppressWarnings("unchecked")
-    public void send_msg(String tel, String rand) throws UnsupportedEncodingException {
+    public void send_msg(String tel, String msg) throws UnsupportedEncodingException {
         String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
         String requestUrl= "/sms/v2/services/";                   		// 요청 URL
         String requestUrlType = "/messages";                      		// 요청 URL
@@ -39,13 +39,12 @@ public class Naver_Sens_V2 {
         bodyJson.put("countryCode", "82");
         bodyJson.put("from", "01050070615");	// 발신번호 * 사전에 인증/등록된 번호만 사용할 수 있습니다.
 
-        bodyJson.put("content", "[JSVILL] 본인확인을 위해 인증번호 ["+rand+"]를 입력해 주세요."); 		// 난수와 함께 전송
+        bodyJson.put("content", msg); 	// 본문
         bodyJson.put("messages", toArr);
         byte[] body = bodyJson.toString().getBytes("UTF-8");
         System.out.println(new String(body, "UTF-8"));
 
         try {
-
             URL url = new URL(apiUrl);
 
             HttpURLConnection con = (HttpURLConnection)url.openConnection();

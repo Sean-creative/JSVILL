@@ -1,5 +1,6 @@
 package com.sjs.jsvill.service.util;
 
+import com.sjs.jsvill.dto.sms.SMSDTOReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,14 @@ public class NaverSmsServiceImpl implements SmsService {
             numStr += ran;
         }
         System.out.println("회원가입 문자 인증 => " + numStr);
-        message.send_msg(tel, numStr);
-
+        message.send_msg(tel, "[JSVILL] 본인확인을 위해 인증번호 ["+numStr+"]를 입력해 주세요.");
         return numStr;
+    }
+
+    @Override
+    public String sendNormalMessage(SMSDTOReq smsDtoReq) throws UnsupportedEncodingException {
+        Naver_Sens_V2 message = new Naver_Sens_V2();
+        message.send_msg(smsDtoReq.getToTel().replace("-", ""), "[JSVILL] "+smsDtoReq.getContent()+"\n from : "+smsDtoReq.getName()+", "+smsDtoReq.getFromTel());
+        return "";
     }
 }
