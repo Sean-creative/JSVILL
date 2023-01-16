@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SMSController {
     private final SmsService smsService;
 
+
     @PostMapping("/send")
     public void send(@AuthenticationPrincipal MemberDTO memberDTO) {
         Json.stringToJson(memberDTO, "SMSController-send/Post/send");
