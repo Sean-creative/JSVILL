@@ -9,7 +9,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 
@@ -20,8 +22,10 @@ import java.io.UnsupportedEncodingException;
 public class SMSController {
     private final SmsService smsService;
 
+    @ResponseBody
     @PostMapping("/send")
-    public void send(SMSDTOReq smsDtoReq, @AuthenticationPrincipal MemberDTO memberDTO) {
+    public void send(@RequestBody SMSDTOReq smsDtoReq, @AuthenticationPrincipal MemberDTO memberDTO) {
+        System.out.println("sms-send");
         Json.stringToJson(memberDTO, "SMSController-send/Post/send");
         try {
             smsService.sendNormalMessage(smsDtoReq);

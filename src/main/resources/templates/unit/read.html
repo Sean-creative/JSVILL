@@ -153,17 +153,17 @@
                         <div class="modal-body" style="padding:0">
                             <div style="display:flex;padding:10px 20px">
                                 <div style="width:100px;line-height:27px">사용자명</div>
-                                <input class="form-control" id="userName" name="name" style="flex:auto;background:#F6F6F6">
+                                <input id="userName" class="form-control" name="name" style="flex:auto;background:#F6F6F6">
                             </div>
                             <div style="display:flex;border-top:1px solid #dee2e6;padding:10px 20px">
                                 <div style="width:100px;line-height:120px">내용</div>
-                                <textarea class="form-control" id="contents" name="content" style="height:125px;flex:auto"></textarea>
+                                <textarea id="contents" class="form-control" name="content" style="height:125px;flex:auto"></textarea>
                             </div>
                             <input type="hidden" id="toTel" name="toTel">
                         </div>
                         <div class="modal-footer">
                             <button type="button" onclick="closeModal('smsModal')" class="btn btn-default">취소</button>
-                            <button id="smsSendBtn" class="btn btn-success">전송</button>
+                            <button class="btn btn-success">전송</button>
                         </div>
                     </form>
                 </div>
@@ -219,45 +219,43 @@
             })
 
             //계약 - 문자보내기
-            let action = ''
-            let url = ''
-            let type = ''
-            let bno = 0;
-
-
             function smsBtnClick(toTel) {
-                $("#smsModal").attr('class', 'modal show')
+                openModal('smsModal')
                 $("#toTel").val(toTel)
             }
 
-            // $("#smsSendBtn").click(function () {
-            //
-            //     let data = {
-            //         "bno": bno,
-            //         "userNmae": $("#userName").val(),
-            //         "contents": $("contents").val()
-            //     }
-            //
-            //     $.ajax({
-            //         url: url,
-            //         type: type,
-            //         data: data,
-            //         success: function (data) {
-            //             $("#smsModal").modal('toggle')
-            //         },
-            //         complete: function (data) {
-            //             location.reload()
-            //         }
-            //     })
-            // })
+            $("#smsForm").submit( function(event){
+                event.preventDefault();
+                const data = {
+                    "name" : $("input[name=name]").val(),
+                    "content" : $("textarea[name=content]").val(),
+                    "toTel" : $("input[name=toTel]").val()
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/sms/send",
+                    async: false,
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success:function () {
+                        closeModal('smsModal')
+                    }, error :function(e) {
+                        console.log(e);
+                    }
+                })
+            });
 
             function openModal(id) {
                 $(`#${id}`).attr('class', 'modal show')
+                if(id==="smsModal") {
+                    $('#smsForm').each(function() {
+                        this.reset();
+                    });
+                }
             }
             function closeModal(id) {
                 $(`#${id}`).attr('class', 'modal fade')
             }
-
         </script>
     </th:block>
 </th:block>
