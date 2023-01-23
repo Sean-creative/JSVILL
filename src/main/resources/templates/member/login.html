@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/mobile.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>로그인</title>
 </head>
 <body>
@@ -17,15 +18,23 @@
     </p>
     <form action="/member/login" method="post">
         <div th:if="${param.error}" class="fieldMsgError">사용자ID 또는 비밀번호를 확인해 주세요.</div>
-        <input placeholder="휴대폰번호 ex) 010-1234-5678" name="phoneNumber" id="phoneNumber" class="phoneNumber"/>
+        <input placeholder="휴대폰번호 ex) 010-1234-5678" name="phoneNumber" id="phoneNumber" class="phoneNumber" oninput="oninputPhone(this)"/>
         <input placeholder="핀번호 (4자리)" type="number" name="pinNumber" id="pinNumber" class="pinNumber"/>
 
-        <button type="submit" class="submitButton" id="loginSubmitButton">
+        <button class="submitButton" id="loginSubmitButton">
             <span class="submitButtonLabel">로그인</span>
         </button>
     </form>
 
     <a href="/member/signUpNew" class="aButton signupButton">📱 휴대폰번호 인증 (최초 1회)</a>
     <a href="/member/signUpOld" class="aButton homeButton">🅿 핀번호 찾기</a>
+
+    <script>
+        function oninputPhone(target) {
+            target.value = target.value
+                .replace(/[^0-9]/g, '')
+                .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+        }
+    </script>
 </body>
 </html>
