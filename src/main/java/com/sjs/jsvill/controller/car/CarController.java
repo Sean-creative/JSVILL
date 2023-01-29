@@ -1,4 +1,4 @@
-package com.sjs.jsvill.controller;
+package com.sjs.jsvill.controller.car;
 
 import com.sjs.jsvill.dto.view.RegisterCarReqDTO;
 import com.sjs.jsvill.dto.view.RegisterCarResDTO;

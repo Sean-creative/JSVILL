@@ -1,4 +1,4 @@
-package com.sjs.jsvill.controller;
+package com.sjs.jsvill.controller.contract;
 
 import com.sjs.jsvill.controller.util.UserDuplicateCheck;
 import com.sjs.jsvill.dto.ContractDTO;

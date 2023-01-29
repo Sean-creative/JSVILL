@@ -1,4 +1,4 @@
-package com.sjs.jsvill.controller;
+package com.sjs.jsvill.controller.unit;
 
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.contract.ContractService;

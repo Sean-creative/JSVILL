@@ -1,4 +1,4 @@
-package com.sjs.jsvill.controller;
+package com.sjs.jsvill.controller.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.service.group.GroupService;
@@ -52,6 +52,12 @@ public class GroupController {
     public String list(Model model) {
         model.addAttribute("result", groupService.getList(1L));
         return "group/list";
+    }
+
+    @GetMapping("/detail")
+    public String detail(Model model) {
+        model.addAttribute("result", groupService.getList(1L).get(0));
+        return "group/detail";
     }
 
     @PostMapping("/remove")
