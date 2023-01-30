@@ -18,12 +18,23 @@
         .groupDiv{display:flex;padding:10px 0;border:1px solid black;margin-top:10px}
         .groupDiv:nth-child(n+2){margin-top:20px}
 
-        #calendar {
-            overflow: hidden;
-            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-        .fc-scrollgrid-sync-table tr {height:50px}
+        #calendar {overflow: hidden;font-family: Arial, Helvetica Neue, Helvetica, sans-serif;font-size: 14px}
+
+        .switch {position: relative;display: block;vertical-align: top;width:80px;height: 30px;padding: 3px;background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);border-radius: 18px;box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);cursor: pointer}
+        .switch-input {position: absolute;top: 0;left: 0;opacity: 0}
+        .switch-label {position: relative;display: block;height: inherit;font-size: 10px;text-transform: uppercase;background: #eceeef;border-radius: inherit;box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15)}
+        .switch-label:before, .switch-label:after {position: absolute;top: 50%;margin-top: -.5em;line-height: 1;-webkit-transition: inherit;-moz-transition: inherit;-o-transition: inherit;transition: inherit}
+        .switch-label:before {content: attr(data-off);right: 11px;color: #aaaaaa;text-shadow: 0 1px rgba(255, 255, 255, 0.5)}
+        .switch-label:after {content: attr(data-on);left: 11px;color: #FFFFFF;text-shadow: 0 1px rgba(0, 0, 0, 0.2);opacity: 0}
+        .switch-input:checked ~ .switch-label {background: #99c7b3;box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2)}
+        .switch-input:checked ~ .switch-label:before {opacity: 0}
+        .switch-input:checked ~ .switch-label:after {opacity: 1}
+        .switch-handle {position: absolute;top: 4px;left: 4px;width: 28px;height: 28px;background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);border-radius: 100%;box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2)}
+        .switch-handle:before {content: "";position: absolute;top: 50%;left: 50%;margin: -6px 0 0 -6px;width: 12px;height: 12px;background: linear-gradient(to bottom, #eeeeee, #FFFFFF);background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);border-radius: 6px;box-shadow: inset 0 1px rgba(0, 0, 0, 0.02)}
+        .switch-input:checked ~ .switch-handle {left: 52px;box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2)}
+        /* Transition========================== */
+        .switch-label, .switch-handle {transition: All 0.3s ease;-webkit-transition: All 0.3s ease;-moz-transition: All 0.3s ease;-o-transition: All 0.3s ease}
+
     </style>
 </head>
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
@@ -74,7 +85,28 @@
             </div>
         </div>
 
-        <div id='calendar' style="width:700px"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:20px">
+            <div style="background-color:#edf0e9;width:370px">
+                <div style="margin:15px 10px 25px 10px;font-weight:bold;font-size:17px">일정 알림</div>
+                <div style="height:55px;background-color:white;border-radius:4px;margin:5px;display:flex;justify-content:space-between;align-items:center;padding:0 10px">
+                    <div>종합소득세 납부일 (5.1~5.31)</div>
+                    <label class="switch">
+                        <input class="switch-input" type="checkbox" />
+                        <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span>
+                    </label>
+                </div>
+
+                <div style="height:55px;background-color:white;border-radius:4px;margin:5px;display:flex;justify-content:space-between;align-items:center;padding:0 10px">
+                    <div>소방안전 관리교육 (2.12~2.20)</div>
+                    <label class="switch">
+                        <input class="switch-input" type="checkbox" />
+                        <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span>
+                    </label>
+                </div>
+            </div>
+            <div id='calendar' style="width:800px"></div>
+        </div>
+
     </th:block>
 </th:block>
 
@@ -187,5 +219,14 @@
             calendar.render();
         });
     })();
+</script>
+
+<script>
+    $(".switch-input").change(function(){
+        let checked = $(this).prop('checked');
+        console.log("checked : ", checked)
+    });
+
+
 </script>
 
