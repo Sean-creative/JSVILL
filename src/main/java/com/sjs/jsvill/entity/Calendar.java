@@ -2,6 +2,8 @@ package com.sjs.jsvill.entity;
 
 import com.sjs.jsvill.entity.common.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -17,25 +19,26 @@ public class Calendar extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long calendar_rowid;
-    //groupid가 필요한게 맞아?
+
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "group_rowid")
+    private Group group;
+
     @Column
-    private String groupid;
+    private String id;
     @Column
     private String title;
     @Column
-    private String writer;
-    @Column
-    private String content;
+    private String description;
     @Column
     private String start;
     @Column
     private String end;
     @Column
-    private boolean isallday;
+    private String backgroundcolor;
     @Column
     private String textcolor;
     @Column
-    private String backgroundcolor;
-    @Column
-    private String bordercolor;
+    private boolean isallday;
 }

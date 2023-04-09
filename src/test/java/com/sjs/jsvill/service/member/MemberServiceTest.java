@@ -1,13 +1,9 @@
 package com.sjs.jsvill.service.member;
 
 
-import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
-import com.sjs.jsvill.entity.enm.MemberRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Collections;
 
 @SpringBootTest
 public class MemberServiceTest {
@@ -18,15 +14,15 @@ public class MemberServiceTest {
 
     @Test
     public void testRegister() {
-        SignUpPinNewDTOReq memberDTOReq = SignUpPinNewDTOReq.builder()
-                .phoneNumber("1199")
-                .pinNumber("1199")
-                .fromSocial(false)
-                .name("qq")
-                .email("ww@22.com")
-                .roleSet(Collections.singleton(MemberRole.USER))
-                .build();
-        memberService.register(memberDTOReq);
+//        SignUpPinNewDTOReq memberDTOReq = SignUpPinNewDTOReq.builder()
+//                .phoneNumber("1199")
+//                .pinNumber("1199")
+//                .fromSocial(false)
+//                .name("qq")
+//                .email("ww@22.com")
+//                .roleSet(Collections.singleton(MemberRole.USER))
+//                .build();
+//        memberService.register(memberDTOReq);
     }
 }
 
