@@ -16,15 +16,29 @@ import java.util.List;
 public class CalendarController {
     private final CalendarService calendarService;
 
-    @GetMapping("/register")
+    @GetMapping("/read")
+    @ResponseBody
+    public List<CalendarDTO> read(@RequestParam("groupRowid") Long groupRowid) {
+        return calendarService.getList(groupRowid);
+    }
+
+    @PostMapping("/register")
     @ResponseBody
     public String register(CalendarDTO calendarDTO) {
         return calendarService.register(calendarDTO).toString();
     }
 
-    @GetMapping("/read")
+    @PostMapping("/modify")
     @ResponseBody
-    public List<CalendarDTO> read(@RequestParam("groupRowid") Long groupRowid) {
-        return calendarService.getList(groupRowid);
+    public void modify(CalendarDTO calendarDTO) {
+        System.out.println("calendar - modify calendarRowid: " + calendarDTO.getCalendarRowid());
+        calendarService.modify(calendarDTO);
+    }
+
+    @PostMapping("/remove")
+    @ResponseBody
+    public void modify(Long calendarRowid) {
+        System.out.println("calendar - remove calendarRowid : " + calendarRowid);
+        calendarService.remove(calendarRowid);
     }
 }

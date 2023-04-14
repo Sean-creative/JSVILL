@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "calendar")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,8 +26,6 @@ public class Calendar extends BaseEntity {
     @JoinColumn(name = "group_rowid")
     private Group group;
 
-    @Column
-    private String id;
     @Column
     private String title;
     @Column

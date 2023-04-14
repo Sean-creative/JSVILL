@@ -1,7 +1,6 @@
 package com.sjs.jsvill.dto;
 
 import com.sjs.jsvill.entity.Calendar;
-import com.sjs.jsvill.entity.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,28 +15,26 @@ import java.util.List;
 @Data
 public class CalendarDTO {
     private Long calendarRowid;
-    private Group group;
-    private String id;
+    private Long groupRowid;
     private String title;
     private String description;
     private String start;
     private String end;
     private String backgroundColor;
     private String textColor;
-    private boolean isAllday;
+    private boolean isallday; //isAllDay로 하면 항상 false로만 오는 버그가 있음
 
     public static CalendarDTO entityToDTO(Calendar calendar) {
         CalendarDTO calendarDTO = CalendarDTO.builder()
                 .calendarRowid(calendar.getCalendar_rowid())
-                .group(calendar.getGroup())
-                .id(calendar.getId())
+                .groupRowid(calendar.getGroup().getGroup_rowid())
                 .title(calendar.getTitle())
                 .description(calendar.getDescription())
                 .start(calendar.getStart())
                 .end(calendar.getEnd())
                 .backgroundColor(calendar.getBackgroundcolor())
                 .textColor(calendar.getTextcolor())
-                .isAllday(calendar.isIsallday())
+                .isallday(calendar.isIsallday())
                 .build();
         return calendarDTO;
     }

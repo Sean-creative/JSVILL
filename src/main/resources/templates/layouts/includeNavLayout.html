@@ -6,8 +6,8 @@
         <meta charset="UTF-8"/>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <style>
-            html, body, .container {margin:0;width:100vw;height:100vh}
-            .container {display:flex;flex-direction:column;min-width:1430px}
+            html, body, .wrap {margin:0;width:100vw;height:100vh}
+            .wrap {display:flex;flex-direction:column;min-width:1430px}
             .content {width:81.5%;padding:20px;margin-left:190px}
             .content a:link {text-decoration:none}
             .content a:hover {text-decoration:none}
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/css/common.css"/>
     </head>
 
-    <div class="container">
+    <div class="wrap">
         <header th:replace="~{fragments/header ::headerFragment}"></header>
         <div style="flex:10">
             <nav th:replace="~{fragments/nav ::navFragment}"></nav>

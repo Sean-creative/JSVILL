@@ -25,7 +25,7 @@ public class CalendarRepositoryTests {
                     .title("일정"+i)
                     .description("설명"+i)
                     .start("2023-04-1"+i+"T12:30")
-                    .end("2023-04-2"+i+"T12:30")
+                    .end("2023-04-1"+i+"T13:30")
                     .backgroundcolor("#9775fa")
                     .textcolor("#ffffff")
                     .isallday(false)

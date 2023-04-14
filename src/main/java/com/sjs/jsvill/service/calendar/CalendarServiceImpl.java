@@ -33,31 +33,26 @@ public class CalendarServiceImpl implements CalendarService {
         return calendarRepository.save(calendar).getCalendar_rowid();
     }
 
-//    @Override
-//    @Transactional
-//    public Long remove(Long calendar_rowid) {
-//        calendarRepository.deleteById(calendar_rowid);
-//        return calendar_rowid;
-//    }
-//
-//    @Override
-//    public Calendar get(Long calendar_rowid) {
-//        Optional<Calendar> calendar = calendarRepository.findById(calendar_rowid);
-//        return calendar.get();
-//    }
-//
-//    @Transactional
-//    @Override
-//    public void modify(CalendarDTO calendarDTO) {
-//        Calendar calendar = calendarRepository.getById(calendarDTO.getCalendarRowid());
-//
-//        if(calendar != null) {
-//            calendar.changeTitle(calendarDTO.getTitle());
-//            calendar.changeLandAddr(calendarDTO.getLandAddr());
-//            calendar.changePostNum(calendarDTO.getPostNum());
-//            calendar.changeMemo(calendarDTO.getMemo());
-//            calendar.changeCompletionDate(calendarDTO.getCompletionDate());
-//            calendarRepository.save(calendar);
-//        }
-//    }
+    @Override
+    public Long remove(Long calendarRowid) {
+        calendarRepository.deleteById(calendarRowid);
+        return calendarRowid;
+    }
+
+    @Override
+    public void modify(CalendarDTO calendarDTO) {
+        log.info("calendarDTO modify : " + calendarDTO);
+
+        Calendar calendar = calendarRepository.getById(calendarDTO.getCalendarRowid());
+
+        calendar.setTitle(calendarDTO.getTitle());
+        calendar.setDescription(calendarDTO.getDescription());
+        calendar.setStart(calendarDTO.getStart());
+        calendar.setEnd(calendarDTO.getEnd());
+        calendar.setBackgroundcolor(calendarDTO.getBackgroundColor());
+        calendar.setTextcolor(calendarDTO.getTextColor());
+        calendar.setIsallday(calendarDTO.isIsallday());
+
+        calendarRepository.save(calendar);
+    }
 }
