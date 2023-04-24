@@ -1,11 +1,11 @@
-//SELECT 색 변경
-$('#edit-color').change(function () {
-    $(this).css('color', $(this).val());
+//SELECT 반복 변경
+$('edit-repetition').change(function () {
+    $(this).css('repetition', $(this).val());
 });
 
-//필터
-$('.filter').on('change', function () {
-    $('#calendar').fullCalendar('rerenderEvents');
+//SELECT 색상 변경
+$('#edit-color').change(function () {
+    $(this).css('color', $(this).val());
 });
 
 //datetimepicker
