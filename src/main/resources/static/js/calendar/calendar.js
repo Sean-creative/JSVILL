@@ -83,7 +83,7 @@ let calendar = $('#calendar').fullCalendar({
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        }).append('<p><strong>구분:</strong> ' + event.type + '</p>')
+        })
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
       delay: {

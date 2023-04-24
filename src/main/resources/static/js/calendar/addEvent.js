@@ -5,6 +5,7 @@ let editAllDay = $('#edit-allDay');
 let editTitle = $('#edit-title');
 let editStart = $('#edit-start');
 let editEnd = $('#edit-end');
+let editRepetition = $('#edit-repetition');
 let editColor = $('#edit-color');
 let editDesc = $('#edit-desc');
 
@@ -21,6 +22,7 @@ let newEvent = function (start, end,) {
     editTitle.val('');
     editStart.val(start);
     editEnd.val(end);
+    editRepetition.val("반복 안 함");
     editDesc.val('');
     
     addBtnContainer.show();
@@ -31,11 +33,13 @@ let newEvent = function (start, end,) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
+        console.log(` 1 + Math.floor(Math.random() * 100000000) : ${ 1 + Math.floor(Math.random() * 100000000)}`)
 
         let eventData = {
             title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
+            repetition: editRepetition.val(),
             description: editDesc.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
@@ -75,10 +79,13 @@ let newEvent = function (start, end,) {
             url: "/calendar/register",
             data: {
                 groupRowid:groupRowid,
+                bundleId : 1 + Math.floor(Math.random() * 100000000),
                 title:eventData.title,
                 description:eventData.description,
                 start:eventData.start,
                 end:eventData.end,
+                repetition:eventData.repetition,
+                loopDays:[eventData.start, eventData.end],
                 backgroundColor:eventData.backgroundColor,
                 textColor:eventData.textColor,
                 isallday:eventData.allDay

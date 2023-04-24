@@ -16,27 +16,31 @@ import java.util.List;
 public class CalendarDTO {
     private Long calendarRowid;
     private Long groupRowid;
+    private Integer bundleId;
     private String title;
     private String description;
     private String start;
     private String end;
+    private String repetition;
+    private String[] loopDays;
     private String backgroundColor;
     private String textColor;
     private boolean isallday; //isAllDay로 하면 항상 false로만 오는 버그가 있음
 
     public static CalendarDTO entityToDTO(Calendar calendar) {
-        CalendarDTO calendarDTO = CalendarDTO.builder()
+        return CalendarDTO.builder()
                 .calendarRowid(calendar.getCalendar_rowid())
                 .groupRowid(calendar.getGroup().getGroup_rowid())
+                .bundleId(calendar.getBundleid())
                 .title(calendar.getTitle())
                 .description(calendar.getDescription())
                 .start(calendar.getStart())
                 .end(calendar.getEnd())
+                .repetition(calendar.getRepetition())
                 .backgroundColor(calendar.getBackgroundcolor())
                 .textColor(calendar.getTextcolor())
                 .isallday(calendar.isIsallday())
                 .build();
-        return calendarDTO;
     }
 
     public static List<CalendarDTO> entityToDTOList(List<Calendar> calendarList) {

@@ -27,6 +27,8 @@ public class Calendar extends BaseEntity {
     private Group group;
 
     @Column
+    private Integer bundleid;
+    @Column
     private String title;
     @Column
     private String description;
@@ -34,6 +36,8 @@ public class Calendar extends BaseEntity {
     private String start;
     @Column
     private String end;
+    @Column
+    private String repetition;
     @Column
     private String backgroundcolor;
     @Column
