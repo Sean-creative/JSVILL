@@ -105,6 +105,7 @@ $('#deleteEvent').on('click', function () {
     $('#deleteEvent').unbind();
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
+
     console.log(`$(this).data('id')  :` + $(this).data('id'))
 
     //삭제시
