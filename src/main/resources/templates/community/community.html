@@ -51,18 +51,18 @@
                 <th scope="col" class="middle">조회</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody th:each="dto : ${list}">
             <tr>
                 <th scope="row">
                     <a href="/community/read">1</a>
                 </th>
                 <td>일반</td>
-                <td>JS VIll 많이 써주세요 ^_^</td>
-                <td class="middle">21.04.01 16:00</td>
+                <td th:text="${dto.title}">JS VIll 많이 써주세요 ^_^</td>
+                <td class="middle" th:text="${dto.regDate}">21.04.01 16:00</td>
                 <td class="middle">4</td>
             </tr>
 
-            <tr>
+            <!--<tr>
                 <th scope="row">
                     <a>2</a>
                 </th>
@@ -70,7 +70,7 @@
                 <td>[필독] 공과금 인상 안내</td>
                 <td class="middle">21.04.01 18:00</td>
                 <td class="middle">2</td>
-            </tr>
+            </tr>-->
             </tbody>
         </table>
 
