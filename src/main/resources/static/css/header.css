@@ -2,3 +2,8 @@
 .header a:link {color:#23c17a}
 .header a:visited {color:#23c17a}
 .header a:hover {color:#23c17a}
+
+
+/*modal.css쪽에 문제가 있어서 임시로 넣어둠 - 230502 sean */
+.modal.show{display:block;}
+.modal.fade{display:none;}
