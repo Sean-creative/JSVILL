@@ -24,8 +24,8 @@ public class CalendarController {
 
     @PostMapping("/register")
     @ResponseBody
-    public String register(CalendarDTO calendarDTO) {
-        return calendarService.register(calendarDTO).toString();
+    public void register(CalendarDTO calendarDTO) {
+        calendarService.register(calendarDTO);
     }
 
     @PostMapping("/modify")

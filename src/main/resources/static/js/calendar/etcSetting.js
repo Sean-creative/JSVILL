@@ -1,7 +1,7 @@
 //SELECT 반복 변경
-$('edit-repetition').change(function () {
-    $(this).css('repetition', $(this).val());
-});
+// $('edit-repetition').change(function () {
+//     $(this).css('repetition', $(this).val());
+// });
 
 //SELECT 색상 변경
 $('#edit-color').change(function () {
@@ -9,6 +9,14 @@ $('#edit-color').change(function () {
 });
 
 //datetimepicker
-$("#edit-start, #edit-end").datetimepicker({
+$("#edit-start, #edit-end, #edit-repetition-end").datetimepicker({
     format: 'YYYY-MM-DD HH:mm'
+});
+
+$('#edit-repetition').change(function () {
+    if($(this).val()!=="notRepeat") $("#edit-repetition-end").removeAttr("disabled");
+    else {
+        $("#edit-repetition-end").val('')
+        $("#edit-repetition-end").attr("disabled", true);
+    }
 });

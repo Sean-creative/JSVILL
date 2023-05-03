@@ -114,8 +114,8 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <label class="col-xs-4" for="edit-repetition">반복</label>
-                                    <select class="inputModal" name="repetition" id="edit-repetition">
-                                        <option value="noEvery">반복 안 함</option>
+                                    <select class="inputModal" name="edit-repetition" id="edit-repetition">
+                                        <option value="notRepeat">반복 안함</option>
                                         <option value="everyMonth">매월</option>
                                         <option value="everyYear">매년</option>
                                     </select>
@@ -123,8 +123,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
+                                    <label class="col-xs-4" for="edit-repetition-end">반복 마감</label>
+                                    <input class="inputModal" type="text" name="edit-repetition-end" id="edit-repetition-end" disabled/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
                                     <label class="col-xs-4" for="edit-color">색상</label>
-                                    <select class="inputModal" name="color" id="edit-color">
+                                    <select class="inputModal" name="edit-color" id="edit-color">
                                         <option value="#D25565" style="color:#D25565;">빨간색</option>
                                         <option value="#9775fa" style="color:#9775fa;">보라색</option>
                                         <option value="#ffa94d" style="color:#ffa94d;">주황색</option>

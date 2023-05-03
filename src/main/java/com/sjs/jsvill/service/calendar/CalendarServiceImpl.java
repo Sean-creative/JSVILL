@@ -4,6 +4,7 @@ import com.sjs.jsvill.dto.CalendarDTO;
 import com.sjs.jsvill.entity.Calendar;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.repository.CalendarRepository;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,14 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public Long register(CalendarDTO calendarDTO) {
+    public void register(CalendarDTO calendarDTO) {
         log.info("calendarDTO : " + calendarDTO);
 
-        Calendar calendar = dtoToEntity(calendarDTO);
-        log.info("calendar : " + calendar);
+        List<Calendar> calendarList = dtoToEntities(calendarDTO);
+        Json.stringToJson(calendarList, "service-register");
 
-        return calendarRepository.save(calendar).getCalendar_rowid();
+        //loopDays 루프로 등록
+        calendarRepository.saveAll(calendarList);
     }
 
     @Override
