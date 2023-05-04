@@ -37,8 +37,9 @@ public class CalendarController {
 
     @PostMapping("/remove")
     @ResponseBody
-    public void modify(Long calendarRowid) {
-        System.out.println("calendar - remove calendarRowid : " + calendarRowid);
-        calendarService.remove(calendarRowid);
+    public void modify(Long id, Boolean isAllDelete) {
+        //id는 calendarRowid or bundleId
+        System.out.println("calendar - remove id : " + id);
+        calendarService.remove(id, isAllDelete);
     }
 }

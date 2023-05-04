@@ -10,7 +10,7 @@ import java.util.List;
 public interface CalendarService {
     List<CalendarDTO> getList(Long groupRowid);
     void register(CalendarDTO dto);
-    Long remove(Long calendarRowid);
+    void remove(Long calendarRowid, Boolean isAllDelete);
     void modify(CalendarDTO calendarDTO);
 
 

@@ -13,6 +13,9 @@ let editDesc = $('#edit-desc');
 let addBtnContainer = $('.modalBtnContainer-addEvent');
 let modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
+let removeConfirmModal = $('#removeConfirmModal');
+let modalDeleteTitle = $('.modal-delete-title');
+
 
 /* ****************
  *  새로운 일정 생성
@@ -30,7 +33,7 @@ let newEvent = function (start, end,) {
     editColor.val("#D25565");
     editColor.css("color","#D25565");
     editDesc.val('');
-    
+
     addBtnContainer.show();
     modifyBtnContainer.hide();
     eventModal.modal('show');
@@ -39,7 +42,6 @@ let newEvent = function (start, end,) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-
         //editRepetitionEnd (반복마감은 데이터 들어가지 않는다)
         let eventData = {
             title: editTitle.val(),

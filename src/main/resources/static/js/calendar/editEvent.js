@@ -3,7 +3,12 @@
  * ************** */
 let editEvent = function (event, element, view) {
 
-    $('#deleteEvent').data('id', event.calendarRowid); //클릭한 이벤트 ID
+    removeConfirmModal.modal('hide');
+    modalDeleteTitle.html('반복 삭제 여부');
+
+    $('#onlyDeleteEvent').data('id', event.calendarRowid);
+    //삭제는 calendarRowid가 아니라 bundleId로 삭제한다.
+    $('#AllDeleteEvent').data('bundleId', event.bundleId);
 
     $('.popover.fade.top').remove();
     $(element).popover("hide");
@@ -100,24 +105,48 @@ let editEvent = function (event, element, view) {
     });
 };
 
-// 삭제버튼
-$('#deleteEvent').on('click', function () {
-    $('#deleteEvent').unbind();
+// 삭제버튼은 삭제 모달을 켜주기만 한다.
+// 나중에는 bundleId가 하나밖에 없으면 하나만 삭제하도록 구현하기?
+$('#deleteEvent').off().on('click', function () {
+    removeConfirmModal.modal('show');
+});
+
+//해당 일정만 삭제
+$('#onlyDeleteEvent').off().on('click', function () {
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
+    removeConfirmModal.modal('hide');
 
-    console.log(`$(this).data('id')  :` + $(this).data('id'))
-
-    //삭제시
     $.ajax({
         type: "post",
         url: "/calendar/remove",
         data: {
-            calendarRowid:$(this).data('id')
+            id:$(this).data('id'),
+            isAllDelete : false
         },
         success: function (response) {
-            alert('삭제되었습니다.');
+            alert('해당 일정만 삭제되었습니다.');
             location.reload()
         }
     });
 });
+//반복 일정 모두 삭제
+$('#AllDeleteEvent').off().on('click', function () {
+    $("#calendar").fullCalendar('removeEvents', $(this).data('bundleId'));
+    eventModal.modal('hide');
+    removeConfirmModal.modal('hide');
+
+    $.ajax({
+        type: "post",
+        url: "/calendar/remove",
+        data: {
+            id:$(this).data('bundleId'),
+            isAllDelete : true
+        },
+        success: function (response) {
+            alert('반복 일정이 모두 삭제되었습니다.');
+            location.reload()
+        }
+    });
+});
+

@@ -27,7 +27,7 @@ public class Calendar extends BaseEntity {
     private Group group;
 
     @Column
-    private Integer bundleid;
+    private Long bundleid;
     @Column
     private String title;
     @Column

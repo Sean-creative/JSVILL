@@ -9,6 +9,7 @@ import java.util.List;
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
     List<Calendar> findAllByGroup(Group group);
+    void deleteByBundleid(Long bundleId);
 
     //한개의 로우내에 Object[]로 나온다
     //해당 그룹에 있는 유닛들을 가져오는 쿼리

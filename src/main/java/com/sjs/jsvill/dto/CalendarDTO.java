@@ -16,7 +16,7 @@ import java.util.List;
 public class CalendarDTO {
     private Long calendarRowid;
     private Long groupRowid;
-    private Integer bundleId;
+    private Long bundleId;
     private String title;
     private String description;
     private String start;
