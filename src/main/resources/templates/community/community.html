@@ -56,10 +56,10 @@
                 <th scope="row">
                     <a th:href="@{/community/read(id=${dto.comRowid})}">[[${dto.comRowid}]]</a>
                 </th>
-                <td th:text="${dto.type}">일반</td>
-                <td th:text="${dto.title}">JS VIll 많이 써주세요 ^_^</td>
-                <td class="middle" th:text="${dto.regdate}">21.04.01 16:00</td>
-                <td class="middle" th:text="${dto.readCnt}">4</td>
+                <td th:text="${dto.type}"></td>
+                <td th:text="${dto.title}"></td>
+                <td class="middle" th:text="${dto.regdate}"></td>
+                <td class="middle" th:text="${dto.readCnt}"></td>
             </tr>
 
             <!--<tr>
@@ -84,7 +84,7 @@
                 <a th:unless="${hasPrev} == true" class="page-link" tabindex="-1" disabled="disabled">Previous</a>
             </li>
             <li class="page-item" th:each="num: ${#numbers.sequence(1,pages)}">
-                <a th:href="@{/community/community(page=${num})}" class="page-link" th:text="${num}"></a>
+                <a th:href="@{/community/community(page=${num}-1)}" class="page-link" th:text="${num}"></a>
             </li>
             <li class="page-item">
                 <a th:if="${hasNext} == true" class="page-link" th:href="@{/community/community(page=${next})}">Next</a>
