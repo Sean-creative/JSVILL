@@ -37,7 +37,7 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public void remove(Long id, Boolean isAllDelete) {
-        if(isAllDelete) calendarRepository.deleteByBundleid(id);
+        if(isAllDelete) calendarRepository.deleteByBundleId(id);
         else calendarRepository.deleteById(id);
     }
 

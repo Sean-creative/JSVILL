@@ -5,6 +5,7 @@ import com.sjs.jsvill.entity.Group;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.stream.LongStream;
 
@@ -21,7 +22,6 @@ public class CalendarRepositoryTests {
         LongStream.rangeClosed(1, 5).forEach(i -> {
             Calendar calendar = Calendar.builder()
                     .group(group)
-                    .id(String.valueOf(i))
                     .title("일정"+i)
                     .description("설명"+i)
                     .start("2023-04-1"+i+"T12:30")
@@ -34,9 +34,9 @@ public class CalendarRepositoryTests {
         });
     }
 
-//    @Transactional
-//    @Test
-//    public void delete() {
-//        System.out.println(unitRepository.deleteByGroupRowid(8L));
-//    }
+    @Test
+    @Commit
+    public void delete() {
+        calendarRepository.deleteByBundleId(23087783L);
+    }
 }
