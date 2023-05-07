@@ -1,10 +1,13 @@
 package com.sjs.jsvill.service.community;
 
-import com.sjs.jsvill.entity.Notice;
+import com.sjs.jsvill.entity.Community;
 import com.sjs.jsvill.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,8 +17,9 @@ import java.util.List;
 public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
-    @Override
-    public List<Notice> findAll() {
-        return communityRepository.findAll();
+//    @Transactional(readOnly = true)
+    public Page<Community> findAll(Pageable pageable) {
+        log.info("service");
+        return communityRepository.findAll(pageable);
     }
 }

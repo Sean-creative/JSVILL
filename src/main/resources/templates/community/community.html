@@ -54,12 +54,12 @@
             <tbody th:each="dto : ${list}">
             <tr>
                 <th scope="row">
-                    <a href="/community/read">1</a>
+                    <a th:href="@{/community/read(id=${dto.comRowid})}">[[${dto.comRowid}]]</a>
                 </th>
-                <td>일반</td>
+                <td th:text="${dto.type}">일반</td>
                 <td th:text="${dto.title}">JS VIll 많이 써주세요 ^_^</td>
-                <td class="middle" th:text="${dto.regDate}">21.04.01 16:00</td>
-                <td class="middle">4</td>
+                <td class="middle" th:text="${dto.regdate}">21.04.01 16:00</td>
+                <td class="middle" th:text="${dto.readCnt}">4</td>
             </tr>
 
             <!--<tr>
@@ -73,22 +73,22 @@
             </tr>-->
             </tbody>
         </table>
-
+<!--        {{! Page }}-->
+<!--        <div class="pagination justify-content-center">-->
+<!--            <a href="?page={{previous}}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>-->
+<!--            <a href="?page={{next}}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>-->
+<!--        </div>-->
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item">
-                <a class="page-link" tabindex="-1">Previous</a>
+                <a th:if="${hasPrev} == true" class="page-link" tabindex="-1" th:href="@{/community/community(page=${previous})}">Previous</a>
+                <a th:unless="${hasPrev} == true" class="page-link" tabindex="-1" disabled="disabled">Previous</a>
             </li>
-            <li class="page-item active">
-                <a class="page-link">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link">2</a>
+            <li class="page-item" th:each="num: ${#numbers.sequence(1,pages)}">
+                <a th:href="@{/community/community(page=${num})}" class="page-link" th:text="${num}"></a>
             </li>
             <li class="page-item">
-                <a class="page-link">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link">Next</a>
+                <a th:if="${hasNext} == true" class="page-link" th:href="@{/community/community(page=${next})}">Next</a>
+                <a th:unless="${hasNext} == true" class="page-link" disabled="disabled">Next</a>
             </li>
         </ul><!--추가되는 태그 끝-->
 
