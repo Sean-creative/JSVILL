@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor /* Todo kjs @RequiredArgsConstructor 의 역할조사 */
 public class CommunityController {
     /* Todo kjs @Autowired 로 Service 선언하는 방법과 private final 로 Service 선언하는 방식의 차이 */
-//    private final CommunityService communityService;
+    private final CommunityService communityService;
 
-    @Autowired
-    CommunityServiceImpl communityServiceImpl;
+    /*@Autowired
+    CommunityServiceImpl communityServiceImpl;*/
     @GetMapping("/community")
     public String community(Model model, @PageableDefault(sort = "comRowid", direction = Sort.Direction.DESC) Pageable pageable) {
         /* todo kjs sort에 언더바가 들어가면 안되는 것 같음 @PageableDefault 어노케이션에 대해서 더 자세히 알아봐야 함*/
         log.info("controller");
 
-        Page<Community> list = communityServiceImpl.findAll(pageable);
+        Page<Community> list = communityService.findAll(pageable);
 
         model.addAttribute("list", list);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
