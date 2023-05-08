@@ -18,8 +18,27 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
 //    @Transactional(readOnly = true)
-    public Page<Community> findAll(Pageable pageable) {
+    public Page<Community> findAll(Pageable pageable, String searchKey, String searchTxt) {
         log.info("service");
+//        log.info("searchKey >>>>>>>>>>>>>>> " + searchKey);
+//        log.info("searchTxt >>>>>>>>>>>>>>> " + searchTxt);
+
+        if(searchKey.equals("t")) {
+            log.info("searchKey >>>>>>>>>>>>>>> " + searchKey);
+            return communityRepository.findByTitle(pageable,searchTxt);
+        } else if(searchKey.equals("c")) {
+            log.info("searchKey >>>>>>>>>>>>>>> " + searchKey);
+            return communityRepository.findByCont(pageable,searchTxt);
+        } else if(searchKey.equals("w")) {
+            log.info("searchKey >>>>>>>>>>>>>>> " + searchKey);
+            return communityRepository.findByWriter(pageable,searchTxt);
+        }
+//        else if(searchKey == "tc") {
+//            return communityRepository.findByTitleAndCont(pageable,searchTxt);
+//        }
+//        else if(searchKey == "tcw") {
+//            return communityRepository.findByTitleAndContAndWriter(pageable,searchTxt);
+//        }
         return communityRepository.findAll(pageable);
     }
 }

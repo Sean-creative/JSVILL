@@ -15,23 +15,23 @@
             <a href="/community/register" class="btn">글쓰기</a>
         </div>
 
-        <form action="/guestbook/list" method="get" id="searchForm" style="margin:15px 0 20px 0">
+        <form action="/community/community" method="get" id="searchForm" style="margin:15px 0 20px 0">
             <div class="input-group">
-                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="page" value="0">
                 <div class="input-group-prepend">
-                    <select class="custom-select" name="type" style="border-top-right-radius:0;border-bottom-right-radius:0">
+                    <select class="custom-select" name="searchKey" style="border-top-right-radius:0;border-bottom-right-radius:0">
                         <option value="t" selected="true">제목</option>
                         <option value="c">내용</option>
                         <option value="w">작성자</option>
-                        <option value="tc">제목 + 내용</option>
-                        <option value="tcw">제목 + 내용 + 작성자</option>
+<!--                        <option value="tc">제목 + 내용</option>-->
+<!--                        <option value="tcw">제목 + 내용 + 작성자</option>-->
                     </select>
                 </div>
 
-                <input class="form-control" name="keyword" style="margin-left:-1px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0">
+                <input class="form-control" name="searchTxt" style="margin-left:-1px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0">
                 <div style="display:flex;margin-left:1px" id="button-addon4">
                     <button class="btn btn-outline-secondary btn-search"
-                            style="margin-left:-2px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0">
+                            style="margin-left:-2px;border-top-right-radius:0;border-bottom-right-radius:0;border-top-left-radius:0;border-bottom-left-radius:0" type="submit">
                         Search
                     </button>
                     <button class="btn btn-outline-secondary btn-clear"
@@ -102,9 +102,9 @@
             }
 
             var searchForm = $("#searchForm");
-            $('.btn-secondary').click(function (e) {
-                searchForm.submit();
-            })
+            // $('.btn-secondary').click(function (e) {
+            //     searchForm.submit();
+            // })
             $('.btn-clear').click(function (e) {
                 searchForm.empty().submit();
             })

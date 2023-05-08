@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CommunityService {
-    Page<Community> findAll(Pageable pageable);
+    Page<Community> findAll(Pageable pageable, String searchKey, String searchTxt);
 
     /* Todo kjs dtoToEntity, entityToDto 더 자세히 이해필요 */
 }
