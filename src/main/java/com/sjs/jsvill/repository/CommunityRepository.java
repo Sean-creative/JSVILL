@@ -13,4 +13,6 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 //    Page<Community> findByTitleAndCont(Pageable pageable, String searchTxt);
 //    Page<Community> findByTitleAndContAndWriter(Pageable pageable, String searchTxt);
 
+    Community save(Community community);
+
 }
