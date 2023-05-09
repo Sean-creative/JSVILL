@@ -22,7 +22,8 @@ public class CalendarDTO {
     private String start;
     private String end;
     private String repetition;
-    private String[] loopDays;
+    private String[] startLoopDays;
+    private String[] endLoopDays;
     private String backgroundColor;
     private String textColor;
     private boolean isallday; //isAllDay로 하면 항상 false로만 오는 버그가 있음

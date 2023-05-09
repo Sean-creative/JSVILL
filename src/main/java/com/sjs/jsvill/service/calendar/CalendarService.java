@@ -35,21 +35,25 @@ public interface CalendarService {
     default List<Calendar> dtoToEntities(CalendarDTO calendarDTO) {
         List<Calendar> calendarList = new ArrayList<>();
 
-        for (String loopDay : calendarDTO.getLoopDays()) {
+        for (int i = 0; i < calendarDTO.getStartLoopDays().length; i++) {
             Calendar calendar = Calendar.builder()
                     .calendar_rowid(calendarDTO.getCalendarRowid())
                     .group(Group.builder().group_rowid(calendarDTO.getGroupRowid()).build())
                     .bundleid(calendarDTO.getBundleId())
                     .title(calendarDTO.getTitle())
                     .description(calendarDTO.getDescription())
-                    .start(loopDay)
-                    .end(calendarDTO.getEnd())
+                    .start(calendarDTO.getStartLoopDays()[i])
+                    .end(calendarDTO.getEndLoopDays()[i])
                     .repetition(calendarDTO.getRepetition())
                     .backgroundcolor(calendarDTO.getBackgroundColor())
                     .textcolor(calendarDTO.getTextColor())
                     .isallday(calendarDTO.isIsallday())
                     .build();
             calendarList.add(calendar);
+        }
+
+        for (String loopDay : calendarDTO.getStartLoopDays()) {
+
         }
         return calendarList;
     }

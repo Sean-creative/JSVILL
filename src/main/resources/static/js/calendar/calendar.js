@@ -22,7 +22,7 @@ let calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment().format('YYYY-MM-DD hh:mm'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment().format('YYYY-MM-DD'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -109,7 +109,7 @@ let calendar = $('#calendar').fullCalendar({
       url: "/calendar/read",
       data: {
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-          groupRowid : 3
+          groupRowid : groupRowid
         //startDate : moment(start).format('YYYY-MM-DD'),
         //endDate   : moment(end).format('YYYY-MM-DD')
       },

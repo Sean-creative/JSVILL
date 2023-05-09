@@ -55,35 +55,49 @@ let newEvent = function (start, end,) {
             allDay: false
         };
 
+        let realEndDay; //필요할까?
+        if (editAllDay.is(':checked')) {
+            eventData.start = moment(eventData.start).format('YYYY-MM-DD');
+            //render시 날짜표기수정
+            eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+            //DB에 넣을때(선택)
+            realEndDay = moment(eventData.end).format('YYYY-MM-DD');
+            eventData.allDay = true;
+        }
+
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
         }
-        let loopDays = [];
+        let startLoopDays = [];
+        let endLoopDays = [];
 
         let diffMonths = moment(eventData.editRepetitionEnd).diff(eventData.start, 'months')
-        console.log(`diffMonths : ${ diffMonths}`)
         if(eventData.repetition !== "notRepeat" && diffMonths > 35) {
             alert('반복일정은 3년 이내만 가능합니다.');
             return false;
         }
 
-        loopDays.push(eventData.start)
+        //loopDays init - 반복이 아니더라고 초기값은 들어가있다.
+        startLoopDays.push(eventData.start)
+        endLoopDays.push(eventData.end)
+        let dateFormat;
+        if(eventData.allDay) dateFormat = "YYYY-MM-DD"; else dateFormat = "YYYY-MM-DD HH:mm";
         //시작일에서 종료일까지 repetition에 따라 date를 만들어낸다.
         switch (eventData.repetition) {
             case "notRepeat" :
-                loopDays = []
                 break;
             case "everyMonth" :
                 //종료일에서 시작일까지 한달씩 더해
                 for (let i = 0; i < diffMonths; i++) {
-                    loopDays.push((moment(loopDays.at(-1)).add(1, 'months').format('YYYY-MM-DD HH:mm')))
+                    startLoopDays.push((moment(startLoopDays.at(-1)).add(1, 'months').format(dateFormat)))
+                    endLoopDays.push((moment(endLoopDays.at(-1)).add(1, 'months').format(dateFormat)))
                 }
-                console.log(`loopDays : ${loopDays}`)
                 break;
             case "everyYear" :
                 for (let i = 0; i < diffMonths/12; i++) {
-                    loopDays.push((moment(loopDays.at(-1)).add(1, 'years').format('YYYY-MM-DD HH:mm')))
+                    startLoopDays.push((moment(startLoopDays.at(-1)).add(1, 'years').format(dateFormat)))
+                    endLoopDays.push((moment(endLoopDays.at(-1)).add(1, 'years').format(dateFormat)))
                 }
                 break;
             default :
@@ -94,17 +108,6 @@ let newEvent = function (start, end,) {
         if (eventData.title === '') {
             alert('일정명은 필수입니다.');
             return false;
-        }
-
-        let realEndDay;
-
-        if (editAllDay.is(':checked')) {
-            eventData.start = moment(eventData.start).format('YYYY-MM-DD');
-            //render시 날짜표기수정
-            eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
-            //DB에 넣을때(선택)
-            realEndDay = moment(eventData.end).format('YYYY-MM-DD');
-            eventData.allDay = true;
         }
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
@@ -124,7 +127,8 @@ let newEvent = function (start, end,) {
                 start:eventData.start,
                 end:eventData.end,
                 repetition:eventData.repetition,
-                loopDays: loopDays,
+                startLoopDays: startLoopDays,
+                endLoopDays: endLoopDays,
                 backgroundColor:eventData.backgroundColor,
                 textColor:eventData.textColor,
                 isallday:eventData.allDay
