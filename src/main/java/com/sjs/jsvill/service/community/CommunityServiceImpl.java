@@ -1,9 +1,11 @@
 package com.sjs.jsvill.service.community;
 
+import com.sjs.jsvill.dto.CommunityDTO;
 import com.sjs.jsvill.entity.Community;
 import com.sjs.jsvill.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
 //    @Transactional(readOnly = true)
+    @Override /* Todo kjs 없어도 먹혔었다???? 왜???? */
     public Page<Community> findAll(Pageable pageable, String searchKey, String searchTxt) {
         log.info("service");
 //        log.info("searchKey >>>>>>>>>>>>>>> " + searchKey);
@@ -40,5 +43,18 @@ public class CommunityServiceImpl implements CommunityService {
 //            return communityRepository.findByTitleAndContAndWriter(pageable,searchTxt);
 //        }
         return communityRepository.findAll(pageable);
+    }
+
+    @Override
+    public Community save(CommunityDTO communityDTO) {
+//        CommunityDTO communityDTO = new CommunityDTO();
+//        communityDTO.setType(type);
+//        communityDTO.setTitle(title);
+//        communityDTO.setCont(cont);
+//        Community community = modelMapper.map(communityDTO, Community.class);
+        Community community = dtoToEntity(communityDTO);
+
+        log.info("community >>>>>>>>>>>>> " + community);
+        return communityRepository.save(community);
     }
 }

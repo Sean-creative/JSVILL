@@ -11,29 +11,50 @@
     <th:block th:fragment="content">
 
         <div class="pageTitle">커뮤니티 / 글쓰기</div>
+        <form method="POST" action="/community/insert">
+            <div class="info">
+                <span class="subTitle" style="bottom:72px">분류</span>
+                <div style="display:flex">
 
-        <div class="info">
-            <span class="subTitle" style="bottom:72px">분류</span>
-            <div style="display:flex">
-                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">일반</div>
-                <div style="font-size:13px;width:40px;text-align:center;border:3px solid gray;border-radius:30px;padding:5px 10px;color:#495057;margin-left:15px">납부</div>
+                    <label style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
+                        <input type="radio"  name="type" value="1">
+                        일반
+                    </label>
+                    <label style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
+                        <input type="radio"  name="type" value="2">
+                        납부
+                    </label>
+
+                    <!--                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">-->
+                    <!--                    <input type="radio"  name="type" value="일반" id="comm">-->
+                    <!--                    <label for="comm">일반</label>-->
+                    <!--                </div>-->
+                    <!--                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">-->
+                    <!--                    <input type="radio" style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057" name="type" value="납부" id="pay">-->
+                    <!--                    <label for="pay">납부</label>-->
+                    <!--                </div>-->
+
+                    <!--                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">일반</div>-->
+                    <!--                <div style="font-size:13px;width:40px;text-align:center;border:3px solid gray;border-radius:30px;padding:5px 10px;color:#495057;margin-left:15px">납부</div>-->
+                </div>
+
             </div>
 
-        </div>
+            <div class="info">
+                <div class="subTitle">제목</div>
+                <input type="text" name="title" style="background-color:#f6f6f6;width: 100%"/>
+            </div>
 
-        <div class="info">
-            <div class="subTitle">제목</div>
-            <input type="text" style="background-color:#f6f6f6;width: 100%"/>
-        </div>
+            <div class="info">
+                <span class="subTitle" style="bottom:77px">내용</span>
+                <textarea name="cont"></textarea>
+            </div>
+            <div style="margin-top:20px;display:flex;justify-content:flex-end">
+                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                <button type="submit" class="registerBtn">등록</button>
+            </div>
+        </form>
 
-        <div class="info">
-            <span class="subTitle" style="bottom:77px">내용</span>
-            <textarea></textarea>
-        </div>
-        <div style="margin-top:20px;display:flex;justify-content:flex-end">
-            <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
-            <button type="button" class="registerBtn">등록</button>
-        </div>
     </th:block>
 </th:block>
 

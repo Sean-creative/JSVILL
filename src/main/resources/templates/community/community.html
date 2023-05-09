@@ -56,7 +56,7 @@
                 <th scope="row">
                     <a th:href="@{/community/read(id=${dto.comRowid})}">[[${dto.comRowid}]]</a>
                 </th>
-                <td th:text="${dto.type}"></td>
+                <td th:text="${dto.type == '1'}? '일반' : '납부'"></td>
                 <td th:text="${dto.title}"></td>
                 <td class="middle" th:text="${dto.regdate}"></td>
                 <td class="middle" th:text="${dto.readCnt}"></td>
