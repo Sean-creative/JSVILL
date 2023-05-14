@@ -1,5 +1,6 @@
 let draggedEventIsAllDay;
 let activeInactiveWeekends = true;
+let fixedDate;
 
 let calendar = $('#calendar').fullCalendar({
 
@@ -114,7 +115,7 @@ let calendar = $('#calendar').fullCalendar({
         //endDate   : moment(end).format('YYYY-MM-DD')
       },
       success: function (response) {
-        let fixedDate = response.map(function (array) {
+        fixedDate = response.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
@@ -175,14 +176,22 @@ let calendar = $('#calendar').fullCalendar({
     let newDates = calDateWhenDragnDrop(event);
 
     //드롭한 일정 업데이트
-    $.ajax({
-      type: "get",
-      url: "",
-      data: {
-        //...
-      },
+      $.ajax({
+          type: "post",
+          url: "/calendar/modify",
+          data: {
+              groupRowid:groupRowid,
+              calendarRowid:event.calendarRowid,
+              title:event.title,
+              description:event.description,
+              start:newDates.startDate,
+              end:newDates.endDate,
+              backgroundColor:event.backgroundColor,
+              textColor:event.textColor,
+              isallday:event.allDay
+          },
       success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        alert('반복일정 중 해당일정만 수정됩니다.\n수정 후: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
 

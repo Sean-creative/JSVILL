@@ -54,11 +54,11 @@ public class GroupController {
         return "group/list";
     }
 
-    @GetMapping("/detail")
-    public String detail(Model model) {
-        model.addAttribute("result", groupService.getList(1L).get(0));
-        return "group/detail";
-    }
+//    @GetMapping("/detail")
+//    public String detail(Model model) {
+//        model.addAttribute("result", groupService.getList(1L).get(0));
+//        return "group/detail";
+//    }
 
     @PostMapping("/remove")
     public String remove(long groupRowid, RedirectAttributes redirectAttributes){

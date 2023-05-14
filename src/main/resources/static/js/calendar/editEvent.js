@@ -106,9 +106,19 @@ let editEvent = function (event, element, view) {
 };
 
 // 삭제버튼은 삭제 모달을 켜주기만 한다.
-// 나중에는 bundleId가 하나밖에 없으면 하나만 삭제하도록 구현하기?
 $('#deleteEvent').off().on('click', function () {
+    $("#calendar").fullCalendar('removeEvents', $(this).data('bundleId'));
+    // 나중에는 bundleId가 하나밖에 없으면 하나만 삭제하도록 구현하기?
+    //1. bundleId가 몇개인가?
+    //2.
+    const clickBundleId = $(this).data('bundleId')
+    console.log(`clickBundleId : ${clickBundleId}`)
+
+    const getBundleIdCount = (arr, el) => arr.filter(v => v.bundleId === el).length
+    const count = getBundleIdCount(fixedDate, $(this).data('bundleId'))
+    console.log(`count : ${count}`)
     removeConfirmModal.modal('show');
+
 });
 
 //해당 일정만 삭제
