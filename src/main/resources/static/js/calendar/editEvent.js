@@ -4,11 +4,13 @@
 let editEvent = function (event, element, view) {
 
     removeConfirmModal.modal('hide');
+    modifyConfirmModal.modal('hide');
     modalDeleteTitle.html('반복 삭제 여부');
 
-    $('#onlyDeleteEvent').data('id', event.calendarRowid);
+    $('#deleteEvent').data('bundleId', event.bundleId);
+    $('#deleteEvent').data('id', event.calendarRowid);
     //삭제는 calendarRowid가 아니라 bundleId로 삭제한다.
-    $('#AllDeleteEvent').data('bundleId', event.bundleId);
+    $('#deleteAllEvent').data('bundleId', event.bundleId);
 
     $('.popover.fade.top').remove();
     $(element).popover("hide");
@@ -40,8 +42,7 @@ let editEvent = function (event, element, view) {
     eventModal.modal('show');
 
     //업데이트 버튼 클릭시
-    $('#updateEvent').unbind();
-    $('#updateEvent').on('click', function () {
+    $('#updateEvent').off().on('click', function () {
 
         if (editStart.val() > editEnd.val()) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -107,44 +108,24 @@ let editEvent = function (event, element, view) {
 
 // 삭제버튼은 삭제 모달을 켜주기만 한다.
 $('#deleteEvent').off().on('click', function () {
-    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     $("#calendar").fullCalendar('removeEvents', $(this).data('bundleId'));
-    // 나중에는 bundleId가 하나밖에 없으면 하나만 삭제하도록 구현하기?
-    //1. bundleId가 몇개인가?
-    //2.
-    const id = $(this).data('id')
-    console.log(`id : ${id}`)
-    const clickBundleId = $(this).data('bundleId')
-    console.log(`clickBundleId : ${clickBundleId}`)
+    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
 
+    //TODO 요 변수를 전체변수로 잡아둘까?
     const getBundleIdCount = (arr, el) => arr.filter(v => v.bundleId === el).length
     const count = getBundleIdCount(fixedDate, $(this).data('bundleId'))
-    console.log(`count : ${count}`)
-    removeConfirmModal.modal('show');
-
+    //중복된 bundleId가 하나이면 바로 삭제하고, 두개 이상이면 모달을 열자
+    if(count<2) deleteOneEvent($(this).data('id')); else removeConfirmModal.modal('show');
 });
 
 //해당 일정만 삭제
-$('#onlyDeleteEvent').off().on('click', function () {
-    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-    eventModal.modal('hide');
+$('#deleteOneEvent').off().on('click', function () {
     removeConfirmModal.modal('hide');
+    deleteOneEvent();
 
-    $.ajax({
-        type: "post",
-        url: "/calendar/remove",
-        data: {
-            id:$(this).data('id'),
-            isAllDelete : false
-        },
-        success: function (response) {
-            alert('해당 일정만 삭제되었습니다.');
-            location.reload()
-        }
-    });
 });
 //반복 일정 모두 삭제
-$('#AllDeleteEvent').off().on('click', function () {
+$('#deleteAllEvent').off().on('click', function () {
     $("#calendar").fullCalendar('removeEvents', $(this).data('bundleId'));
     eventModal.modal('hide');
     removeConfirmModal.modal('hide');
@@ -163,3 +144,19 @@ $('#AllDeleteEvent').off().on('click', function () {
     });
 });
 
+function deleteOneEvent(rowId) {
+    eventModal.modal('hide');
+
+    $.ajax({
+        type: "post",
+        url: "/calendar/remove",
+        data: {
+            id:rowId,
+            isAllDelete : false
+        },
+        success: function (response) {
+            alert('해당 일정이 삭제되었습니다.');
+            location.reload()
+        }
+    });
+}

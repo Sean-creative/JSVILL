@@ -14,6 +14,7 @@ let addBtnContainer = $('.modalBtnContainer-addEvent');
 let modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
 let removeConfirmModal = $('#removeConfirmModal');
+let modifyConfirmModal = $('#modifyConfirmModal');
 let modalDeleteTitle = $('.modal-delete-title');
 
 
