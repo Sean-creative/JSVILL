@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -87,6 +88,12 @@ public class CommunityController {
         communityService.save(communityDTO);
 
         return "redirect:/community/community";
+    }
+
+    @GetMapping("/read")
+    public String read(@RequestParam("id") Long comRowid, Model model) {
+        model.addAttribute("dto", communityService.findByComRowid(comRowid));
+        return "/community/read.html";
     }
 
 }

@@ -13,6 +13,8 @@ public interface CommunityService {
     Page<Community> findAll(Pageable pageable, String searchKey, String searchTxt);
     Community save(CommunityDTO communityDTO);
 
+    Community findByComRowid(Long comRowid);
+
     default Community dtoToEntity(CommunityDTO communityDTO) {
         Community community = Community.builder()
                 .type(communityDTO.getType())
