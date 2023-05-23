@@ -68,22 +68,8 @@ public class CommunityController {
     }
 
     @PostMapping("/insert")
-    public String insert(@Param("type") String type, @Param("title") String title, @Param("cont") String cont, CommunityDTO communityDTO) {
+    public String insert(CommunityDTO communityDTO) {
         log.info("controller");
-        log.info("type >>>>>>>>>>>>>>>> " + type);
-        log.info("title >>>>>>>>>>>>>>>>> " + title);
-        log.info("cont >>>>>>>>>>>>>>>> " + cont);
-        log.info("communityDTO >>>>>>>>>>>>>>>> " + communityDTO);
-
-        if(type == null) {
-            type = "";
-        }
-        if(title == null) {
-            title = "";
-        }
-        if(cont == null) {
-            cont = "";
-        }
 
         communityService.save(communityDTO);
 

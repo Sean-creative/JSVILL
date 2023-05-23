@@ -18,4 +18,6 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 /* Todo kjs 조회수 업데이트 쿼리문 안 쓰고 할 수 있는 방법 찾기 */
 //    int updateByComRowid(Long comRowid,int readCnt);
 
+//    Community save(Long comRowid);
+
 }
