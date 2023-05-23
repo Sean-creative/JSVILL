@@ -16,6 +16,7 @@ public interface CommunityService {
     Community save(CommunityDTO communityDTO);
 
     Community findByComRowid(Long comRowid);
+    void deleteByComRowid(Long comRowid);
 
     default Community dtoToEntity(CommunityDTO communityDTO) {
         Community community = Community.builder()

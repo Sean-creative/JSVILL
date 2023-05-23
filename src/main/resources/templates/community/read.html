@@ -13,7 +13,7 @@
         <div class="pageTitle">커뮤니티 / 공지사항 / [[${dto.title}]]</div>
         <div style="display:flex;justify-content:space-between;margin-top:20px;justify-content:flex-end">
             <a href="/community/edit" class="btn">수정</a>
-            <a href="/group/register" class="btn" style="margin-left:10px">삭제</a>
+            <a href="javascript:;" th:onclick="del([[${dto.comRowid}]]);" class="btn" style="margin-left:10px">삭제</a>
         </div>
 
         <div class="info" style="margin-top:20px;padding:15px 18px 18px 18px">
@@ -35,6 +35,23 @@
 
     </th:block>
 </th:block>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    function del(comRowid) {
+        var result = confirm("삭제하시겠습니까?")
+        if(result) {
+            $.ajax({
+                type : 'post',
+                url : '/community/delete',
+                data : {'comRowid' : comRowid},
+                dataType : 'json',
+                success : function () {
+                    alert("asdf")
+                    location.href = '/community/community';
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

@@ -65,4 +65,9 @@ public class CommunityServiceImpl implements CommunityService {
 
         return community;
     }
+
+    @Override
+    public void deleteByComRowid(Long comRowid) {
+        communityRepository.deleteByComRowid(comRowid);
+    }
 }
