@@ -14,5 +14,8 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 //    Page<Community> findByTitleAndContAndWriter(Pageable pageable, String searchTxt);
 
     Community save(Community community);
+    Community findByComRowid(Long comRowid);
+/* Todo kjs 조회수 업데이트 쿼리문 안 쓰고 할 수 있는 방법 찾기 */
+//    int updateByComRowid(Long comRowid,int readCnt);
 
 }

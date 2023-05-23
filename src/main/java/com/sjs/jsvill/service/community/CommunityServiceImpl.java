@@ -57,4 +57,14 @@ public class CommunityServiceImpl implements CommunityService {
         log.info("community >>>>>>>>>>>>> " + community);
         return communityRepository.save(community);
     }
+
+    @Override
+    public Community findByComRowid(Long comRowid) {
+        Community community = new Community();
+        community = communityRepository.findByComRowid(comRowid);
+        int readCnt = community.getReadCnt() + 1;
+        log.info("readCnt >>>>>>>>>>>>>>>>>>>>> " + readCnt);
+//        communityRepository.updateByComRowid(comRowid, readCnt);
+        return community;
+    }
 }
