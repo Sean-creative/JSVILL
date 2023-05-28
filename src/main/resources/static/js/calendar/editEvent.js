@@ -1,12 +1,3 @@
-/* ****************
- *  일정 편집
- *  1. 원래 반복일정 x - 수정 후 반복일정이 x -> 해당 bundleId로 추가(bundleId가 1개임)
- *  2. 원래 반복일정 x - 수정 후 반복일정이 o -> 해당 bundleId로 추가(bundleId가 1개임)
- *  3. 원래 반복일정 o - 수정 후 반복일정이 x -> alert 생성 "해당 일정을 제외하고 반복일정은 사라집니다."   삭제버튼 누르면 나머지 반복일정은 삭제됨
- *  4. 원래 반복일정 o - 수정 후 반복일정이 o -> 해당 bundleId로 수정
- *  4.1 A B C D 중 C에서 반복일정을 수정해도 전체 반복일정이 영향을 받으면 된다. (연대책임으로 ㄱㄱ)
- *
- * ************** */
 
 const getBundleIdCount = (arr, el) => arr.filter(v => v.bundleId === el).length
 let bundleIdCount = 0
@@ -17,7 +8,7 @@ let editEvent = function (event, element, view) {
     modalDeleteTitle.html('반복 삭제 여부');
 
     bundleIdCount = getBundleIdCount(fixedDate, event.bundleId)
-    const isRepetition = event.repetition !== "notRepeat"
+    let isRepetition = event.repetition !== "notRepeat"
 
     $('#deleteEvent').data('bundleId', event.bundleId);
     $('#deleteEvent').data('id', event.calendarRowid);
@@ -32,10 +23,12 @@ let editEvent = function (event, element, view) {
     } else {
         editAllDay.prop('checked', false);
     }
-
     if (event.end === null) {
         event.end = event.start;
     }
+
+    //변경전 반복일정 기록해놓기
+    const originalRepetition = event.repetition
 
 
 
@@ -59,21 +52,10 @@ let editEvent = function (event, element, view) {
     modifyBtnContainer.show();
     eventModal.modal('show');
 
-    //업데이트 버튼 클릭시
+
+
+    //업데이트 버튼 클릭시************************
     $('#updateEvent').off().on('click', function () {
-        if (editStart.val() > editEnd.val()) {
-            alert('끝나는 날짜가 앞설 수 없습니다.');
-            return false;
-        }
-        if (editTitle.val() === '') {
-            alert('일정명은 필수입니다.')
-            return false;
-        }
-        //'반복 안 함'이 아니라면 반복 마감 체크를 해야함
-        if (editRepetition.val()!=="notRepeat" && editRepetitionEnd.val() === '') {
-            alert('반복을 선택했다면 반복 마감은 필수입니다.')
-            return false;
-        }
 
         let statusAllDay;
         let startDate;
@@ -100,14 +82,53 @@ let editEvent = function (event, element, view) {
         event.repetitionEnd = editRepetitionEnd.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
+        isRepetition = event.repetition !== "notRepeat" //업데이트 버튼 클릭 시 변경되었을 수도 있음
 
         $("#calendar").fullCalendar('updateEvent', event);
 
+        //벨리데이션 --------------------------------
+        if (editStart.val() > editEnd.val()) {
+            alert('끝나는 날짜가 앞설 수 없습니다.');
+            return false;
+        }
+        if (editTitle.val() === '') {
+            alert('일정명은 필수입니다.')
+            return false;
+        }
+        //'반복 안 함'이 아니라면 반복 마감 체크를 해야함
+        if(isRepetition) {
+            if(editRepetitionEnd.val() === '') {
+                alert('반복을 선택했다면 반복 마감은 필수입니다.')
+                return false;
+            }
+            if (editEnd.val() > editRepetitionEnd.val()) {
+                alert('반복 마감은 끝나는 날짜 이후여야 합니다.');
+                return false;
+            }
+        }
+
+/* ****************
+ *  일정 편집, type 번호가 된다.
+ *  1. 원래 반복일정 x - 수정 후 반복일정이 x -> 해당 bundleId로 추가(bundleId가 1개임)
+ *  2. 원래 반복일정 x - 수정 후 반복일정이 o -> 해당 bundleId로 추가(bundleId가 1개임)
+ *  3. 원래 반복일정 o - 수정 후 반복일정이 x -> alert 생성 "해당 일정을 제외하고 반복일정은 사라집니다."   삭제버튼 누르면 나머지 반복일정은 삭제됨
+ *  4. 원래 반복일정 o - 수정 후 반복일정이 o -> 해당 bundleId로 수정
+ *  4.1 A B C D 중 C에서 반복일정을 수정해도 전체 반복일정이 영향을 받으면 된다. (연대책임으로 ㄱㄱ)
+ *
+ * StartLoopDays 배열 사이즈에 따라  레코드가 늘어난다.
+ * bundleIdCount
+ * isRepetition
+ * */
+        let typeNo = 0;
+        if (originalRepetition === "notRepeat") typeNo = event.repetition === "notRepeat" ? 1 : 2;
+        else typeNo = event.repetition === "notRepeat" ? 3 : 4;
+
+        console.log(`typeNo : ${typeNo}`)
 
         let startLoopDays = [];
         let endLoopDays = [];
 
-        let diffMonths = moment(event.editRepetitionEnd).diff(event.start, 'months')
+        let diffMonths = moment(event.repetitionEnd).diff(event.start, 'months')
         if(event.repetition !== "notRepeat" && diffMonths > 35) {
             alert('반복일정은 3년 이내만 가능합니다.');
             return false;
@@ -160,7 +181,8 @@ let editEvent = function (event, element, view) {
                 repetitionEnd:event.repetitionEnd,
                 backgroundColor:event.backgroundColor,
                 textColor:event.textColor,
-                isallday:event.allDay
+                isallday:event.allDay,
+                typeNo:typeNo,
             },
             success: function (response) {
                 alert('수정되었습니다.')
@@ -168,6 +190,9 @@ let editEvent = function (event, element, view) {
         });
     });
 };
+
+
+
 
 // 삭제버튼은 삭제 모달을 켜주기만 한다.
 $('#deleteEvent').off().on('click', function () {

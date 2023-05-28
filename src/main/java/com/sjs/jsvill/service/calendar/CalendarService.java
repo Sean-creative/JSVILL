@@ -38,7 +38,6 @@ public interface CalendarService {
 
         for (int i = 0; i < calendarDTO.getStartLoopDays().length; i++) {
             Calendar calendar = Calendar.builder()
-                    .calendar_rowid(calendarDTO.getCalendarRowid())
                     .group(Group.builder().group_rowid(calendarDTO.getGroupRowid()).build())
                     .bundleid(calendarDTO.getBundleId())
                     .title(calendarDTO.getTitle())

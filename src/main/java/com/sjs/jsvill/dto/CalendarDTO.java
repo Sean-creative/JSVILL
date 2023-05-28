@@ -28,6 +28,7 @@ public class CalendarDTO {
     private String backgroundColor;
     private String textColor;
     private boolean isallday; //isAllDay로 하면 항상 false로만 오는 버그가 있음
+    private Integer typeNo;
 
     public static CalendarDTO entityToDTO(Calendar calendar) {
         return CalendarDTO.builder()

@@ -53,6 +53,7 @@ let newEvent = function (start, end) {
             textColor: '#ffffff',
             allDay: false
         };
+        let isRepetition = eventData.repetition !== "notRepeat"
 
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -63,10 +64,17 @@ let newEvent = function (start, end) {
             return false;
         }
         //'반복 안 함'이 아니라면 반복 마감 체크를 해야함
-        if (editRepetition.val()!=="notRepeat" && editRepetitionEnd.val() === '') {
-            alert('반복을 선택했다면 반복 마감은 필수입니다.')
-            return false;
+        if(isRepetition) {
+            if(editRepetitionEnd.val() === '') {
+                alert('반복을 선택했다면 반복 마감은 필수입니다.2')
+                return false;
+            }
+            if (editEnd.val() > editRepetitionEnd.val()) {
+                alert('반복 마감은 끝나는 날짜 이후여야 합니다.');
+                return false;
+            }
         }
+
 
         let realEndDay; //필요할까?
         if (editAllDay.is(':checked')) {
@@ -80,7 +88,7 @@ let newEvent = function (start, end) {
         let startLoopDays = [];
         let endLoopDays = [];
 
-        let diffMonths = moment(eventData.editRepetitionEnd).diff(eventData.start, 'months')
+        let diffMonths = moment(eventData.repetitionEnd).diff(eventData.start, 'months')
         if(eventData.repetition !== "notRepeat" && diffMonths > 35) {
             alert('반복일정은 3년 이내만 가능합니다.');
             return false;
