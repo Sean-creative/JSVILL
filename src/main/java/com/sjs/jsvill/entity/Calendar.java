@@ -39,6 +39,8 @@ public class Calendar extends BaseEntity {
     @Column
     private String repetition;
     @Column
+    private String repetitionEnd;
+    @Column
     private String backgroundcolor;
     @Column
     private String textcolor;

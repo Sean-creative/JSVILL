@@ -26,6 +26,7 @@ public interface CalendarService {
                 .start(calendarDTO.getStart())
                 .end(calendarDTO.getEnd())
                 .repetition(calendarDTO.getRepetition())
+                .repetitionEnd(calendarDTO.getRepetitionEnd())
                 .backgroundcolor(calendarDTO.getBackgroundColor())
                 .textcolor(calendarDTO.getTextColor())
                 .isallday(calendarDTO.isIsallday())
@@ -45,6 +46,7 @@ public interface CalendarService {
                     .start(calendarDTO.getStartLoopDays()[i])
                     .end(calendarDTO.getEndLoopDays()[i])
                     .repetition(calendarDTO.getRepetition())
+                    .repetitionEnd(calendarDTO.getRepetitionEnd())
                     .backgroundcolor(calendarDTO.getBackgroundColor())
                     .textcolor(calendarDTO.getTextColor())
                     .isallday(calendarDTO.isIsallday())
@@ -52,9 +54,6 @@ public interface CalendarService {
             calendarList.add(calendar);
         }
 
-        for (String loopDay : calendarDTO.getStartLoopDays()) {
-
-        }
         return calendarList;
     }
 }

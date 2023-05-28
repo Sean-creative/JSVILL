@@ -24,6 +24,7 @@ public class CalendarDTO {
     private String repetition;
     private String[] startLoopDays;
     private String[] endLoopDays;
+    private String repetitionEnd;
     private String backgroundColor;
     private String textColor;
     private boolean isallday; //isAllDay로 하면 항상 false로만 오는 버그가 있음
@@ -38,6 +39,7 @@ public class CalendarDTO {
                 .start(calendar.getStart())
                 .end(calendar.getEnd())
                 .repetition(calendar.getRepetition())
+                .repetitionEnd(calendar.getRepetitionEnd())
                 .backgroundColor(calendar.getBackgroundcolor())
                 .textColor(calendar.getTextcolor())
                 .isallday(calendar.isIsallday())

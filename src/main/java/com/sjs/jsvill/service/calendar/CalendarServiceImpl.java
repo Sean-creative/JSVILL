@@ -51,6 +51,8 @@ public class CalendarServiceImpl implements CalendarService {
         calendar.setDescription(calendarDTO.getDescription());
         calendar.setStart(calendarDTO.getStart());
         calendar.setEnd(calendarDTO.getEnd());
+        calendar.setRepetition(calendarDTO.getRepetition());
+        calendar.setRepetitionEnd(calendarDTO.getRepetitionEnd());
         calendar.setBackgroundcolor(calendarDTO.getBackgroundColor());
         calendar.setTextcolor(calendarDTO.getTextColor());
         calendar.setIsallday(calendarDTO.isIsallday());

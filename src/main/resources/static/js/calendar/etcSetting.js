@@ -14,9 +14,12 @@ $("#edit-start, #edit-end, #edit-repetition-end").datetimepicker({
 });
 
 $('#edit-repetition').change(function () {
-    if($(this).val()!=="notRepeat") $("#edit-repetition-end").removeAttr("disabled");
-    else {
-        $("#edit-repetition-end").val('')
-        $("#edit-repetition-end").attr("disabled", true);
-    }
+    repetitionEndChange($(this).val()!=="notRepeat")
 });
+
+function repetitionEndChange(isRepetition) {
+    if(isRepetition) $("#edit-repetition-end").removeAttr("disabled");
+    else {
+        $("#edit-repetition-end").attr("disabled", true).val('');
+    }
+}
