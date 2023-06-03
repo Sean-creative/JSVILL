@@ -4,6 +4,7 @@ import com.sjs.jsvill.entity.Community;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface CommunityRepository extends JpaRepository<Community, Long> {
     Page<Community> findAll(Pageable pageable);
@@ -15,7 +16,9 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Community save(Community community);
     Community findByComRowid(Long comRowid);
-/* Todo kjs 조회수 업데이트 쿼리문 안 쓰고 할 수 있는 방법 찾기 */
-//    int updateByComRowid(Long comRowid,int readCnt);
+
+    @Transactional
+    void deleteByComRowid(Long comRowid);
+
 
 }

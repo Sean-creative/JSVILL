@@ -16,12 +16,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 @Log4j2
 @Controller
@@ -37,6 +35,7 @@ public class CommunityController {
     public String community(Model model, @PageableDefault(sort = "comRowid", direction = Sort.Direction.DESC) Pageable pageable,
                             @Param("searchKey") String searchKey, @Param("searchTxt") String searchTxt) {
         /* todo kjs sort에 언더바가 들어가면 안되는 것 같음 @PageableDefault 어노케이션에 대해서 더 자세히 알아봐야 함*/
+        /* todo kjs rownum 사용법 알아보기 */
         log.info("controller");
 //        String searchKey = (String) req.getAttribute("searchKey");
 //        String searchTxt = (String) req.getAttribute("searchTxt"); /* Todo kjs 왜 req.getAttribute가 안 먹는걸까 생각해보기*/
@@ -68,22 +67,8 @@ public class CommunityController {
     }
 
     @PostMapping("/insert")
-    public String insert(@Param("type") String type, @Param("title") String title, @Param("cont") String cont, CommunityDTO communityDTO) {
+    public String insert(CommunityDTO communityDTO) {
         log.info("controller");
-        log.info("type >>>>>>>>>>>>>>>> " + type);
-        log.info("title >>>>>>>>>>>>>>>>> " + title);
-        log.info("cont >>>>>>>>>>>>>>>> " + cont);
-        log.info("communityDTO >>>>>>>>>>>>>>>> " + communityDTO);
-
-        if(type == null) {
-            type = "";
-        }
-        if(title == null) {
-            title = "";
-        }
-        if(cont == null) {
-            cont = "";
-        }
 
         communityService.save(communityDTO);
 
@@ -94,6 +79,22 @@ public class CommunityController {
     public String read(@RequestParam("id") Long comRowid, Model model) {
         model.addAttribute("dto", communityService.findByComRowid(comRowid));
         return "/community/read.html";
+    }
+
+    @ResponseBody
+    @PostMapping("/delete")
+    public HashMap delete(@RequestParam("comRowid") Long comRowid) {
+        HashMap<String,Object> map = new HashMap<>();
+        communityService.deleteByComRowid(comRowid);
+        /*if(community != null) {
+            map.put("code", 200);
+            map.put("msg", "삭제성공");
+        } else {
+            map.put("code", 500);
+            map.put("msg", "삭제실패");
+        }*/
+
+        return map;
     }
 
 }

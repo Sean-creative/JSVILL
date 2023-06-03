@@ -47,11 +47,6 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public Community save(CommunityDTO communityDTO) {
-//        CommunityDTO communityDTO = new CommunityDTO();
-//        communityDTO.setType(type);
-//        communityDTO.setTitle(title);
-//        communityDTO.setCont(cont);
-//        Community community = modelMapper.map(communityDTO, Community.class);
         Community community = dtoToEntity(communityDTO);
 
         log.info("community >>>>>>>>>>>>> " + community);
@@ -60,11 +55,19 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public Community findByComRowid(Long comRowid) {
-        Community community = new Community();
+        Community community;
         community = communityRepository.findByComRowid(comRowid);
-        int readCnt = community.getReadCnt() + 1;
-        log.info("readCnt >>>>>>>>>>>>>>>>>>>>> " + readCnt);
-//        communityRepository.updateByComRowid(comRowid, readCnt);
+        CommunityDTO communityDTO = entityToDTO(community);
+        int readCnt = communityDTO.getReadCnt() + 1;
+        communityDTO.setReadCnt(readCnt);
+        community = dtoToEntity(communityDTO);
+        communityRepository.save(community);
+
         return community;
+    }
+
+    @Override
+    public void deleteByComRowid(Long comRowid) {
+        communityRepository.deleteByComRowid(comRowid);
     }
 }
