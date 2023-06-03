@@ -84,8 +84,6 @@ let editEvent = function (event, element, view) {
         event.description = editDesc.val();
         isRepetition = event.repetition !== "notRepeat" //업데이트 버튼 클릭 시 변경되었을 수도 있음
 
-        $("#calendar").fullCalendar('updateEvent', event);
-
         //벨리데이션 --------------------------------
         if (editStart.val() > editEnd.val()) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -133,6 +131,15 @@ let editEvent = function (event, element, view) {
             alert('반복일정은 3년 이내만 가능합니다.');
             return false;
         }
+        //반복일정 o -> 반복일정 x 가 되는 상황이면 해당일정은 제외하고 나머지 반복일정은 사라짐
+        if(typeNo===3) {
+            const result = confirm("해당 일정을 제외하고 반복일정은 사라집니다.\n수정할까요?")
+            if(!result) {
+                alert("수정을 다시 입력해주세요.");
+                eventModal.modal('hide');
+                return false
+            }
+        }
 
         //loopDays init - 반복이 아니더라고 초기값은 들어가있다.
         startLoopDays.push(event.start)
@@ -163,6 +170,7 @@ let editEvent = function (event, element, view) {
 
         eventModal.modal('hide');
         console.log("event.calendarRowid : " + event.calendarRowid)
+        $("#calendar").fullCalendar('updateEvent', event);
         //일정 업데이트
         $.ajax({
             type: "post",
@@ -185,7 +193,9 @@ let editEvent = function (event, element, view) {
                 typeNo:typeNo,
             },
             success: function (response) {
-                alert('수정되었습니다.')
+                if(typeNo===4) alert('반복일정이 모두 수정되었습니다.')
+                else alert('수정되었습니다.')
+                location.reload()
             }
         });
     });

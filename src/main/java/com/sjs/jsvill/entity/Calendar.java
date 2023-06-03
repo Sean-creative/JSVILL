@@ -1,11 +1,14 @@
 package com.sjs.jsvill.entity;
 
+import com.sjs.jsvill.dto.CalendarDTO;
 import com.sjs.jsvill.entity.common.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "calendar")
@@ -46,4 +49,45 @@ public class Calendar extends BaseEntity {
     private String textcolor;
     @Column
     private boolean isallday;
+
+
+    public static Calendar dtoToEntity(CalendarDTO calendarDTO, Boolean hasRowid) {
+         Calendar calendar = Calendar.builder()
+                .group(Group.builder().group_rowid(calendarDTO.getGroupRowid()).build())
+                .bundleid(calendarDTO.getBundleId())
+                .title(calendarDTO.getTitle())
+                .description(calendarDTO.getDescription())
+                .start(calendarDTO.getStart())
+                .end(calendarDTO.getEnd())
+                .repetition(calendarDTO.getRepetition())
+                .repetitionEnd(calendarDTO.getRepetitionEnd())
+                .backgroundcolor(calendarDTO.getBackgroundColor())
+                .textcolor(calendarDTO.getTextColor())
+                .isallday(calendarDTO.isIsallday())
+                .build();
+        if(hasRowid) calendar.setCalendar_rowid(calendarDTO.getCalendarRowid());
+        return calendar;
+    }
+
+    public static List<Calendar> dtoToEntities(CalendarDTO calendarDTO, Boolean hasRowid) {
+        List<Calendar> calendarList = new ArrayList<>();
+        for (int i = 0; i < calendarDTO.getStartLoopDays().length; i++) {
+            Calendar calendar = Calendar.builder()
+                    .group(Group.builder().group_rowid(calendarDTO.getGroupRowid()).build())
+                    .bundleid(calendarDTO.getBundleId())
+                    .title(calendarDTO.getTitle())
+                    .description(calendarDTO.getDescription())
+                    .start(calendarDTO.getStartLoopDays()[i])
+                    .end(calendarDTO.getEndLoopDays()[i])
+                    .repetition(calendarDTO.getRepetition())
+                    .repetitionEnd(calendarDTO.getRepetitionEnd())
+                    .backgroundcolor(calendarDTO.getBackgroundColor())
+                    .textcolor(calendarDTO.getTextColor())
+                    .isallday(calendarDTO.isIsallday())
+                    .build();
+            if(hasRowid) calendar.setCalendar_rowid(calendarDTO.getCalendarRowid());
+            calendarList.add(calendar);
+        }
+        return calendarList;
+    }
 }
