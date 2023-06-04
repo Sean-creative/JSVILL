@@ -96,5 +96,10 @@ public class CommunityController {
 
         return map;
     }
+    @GetMapping("/edit")
+    public String edit(@RequestParam("id") Long comRowid, Model model) {
+        model.addAttribute("dto", communityService.findByComRowid(comRowid));
+        return "/community/edit.html";
+    }
 
 }

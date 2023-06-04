@@ -1,6 +1,5 @@
 package com.sjs.jsvill.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sjs.jsvill.entity.common.BaseEntity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -39,6 +38,7 @@ public class Community extends BaseEntity {
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") /* Todo kjs date format 변경할 수 있는 방법 찾기 */
     @Column(name="regdate", updatable = false, insertable = false) /* Todo kjs updatable, insetable 정확히 어떤 역할인지 알아보기 */
+//    @Convert(converter= StringToFormatDateStringConverter.class)
     private LocalDateTime regdate;
 
     @Column(name="moddate", updatable = false, insertable = false)

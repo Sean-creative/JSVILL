@@ -12,7 +12,7 @@
 
         <div class="pageTitle">커뮤니티 / 공지사항 / [[${dto.title}]]</div>
         <div style="display:flex;justify-content:space-between;margin-top:20px;justify-content:flex-end">
-            <a href="/community/edit" class="btn">수정</a>
+            <a th:href="@{/community/edit(id=${dto.comRowid})}" class="btn">수정</a>
             <a href="javascript:;" th:onclick="del([[${dto.comRowid}]]);" class="btn" style="margin-left:10px">삭제</a>
         </div>
 

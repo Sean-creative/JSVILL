@@ -3,37 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/registerGroup.css"/>
-    <title>커뮤니티 / 글 수정</title>
+    <title>커뮤니티 / 글 수정 / [[${dto.title}]]</title>
 </head>
 <body>
 
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
 
-        <div class="pageTitle">커뮤니티 / 글 수정</div>
+        <div class="pageTitle">커뮤니티 / 글 수정 / [[${dto.title}]]</div>
+        <form method="POST" action="/community/insert">
+            <input type="hidden" name="comRowid" th:value="${dto.comRowid}">
+            <div class="info">
+                <span class="subTitle" style="bottom:72px">분류</span>
+                <div style="display:flex">
 
-        <div class="info">
-            <span class="subTitle" style="bottom:72px">분류</span>
-            <div style="display:flex">
-                <div style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">일반</div>
-                <div style="font-size:13px;width:40px;text-align:center;border:3px solid gray;border-radius:30px;padding:5px 10px;color:#495057;margin-left:15px">납부</div>
+                    <label style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
+                        <input type="radio"  name="type" value="1" th:checked="${dto.type eq '1'}">
+                        일반
+                    </label>
+                    <label style="font-size:13px;width:40px;text-align:center;border:3px solid rgb(29, 192, 120);border-radius:30px;padding:5px 10px;color:#495057">
+                        <input type="radio"  name="type" value="2" th:checked="${dto.type eq '2'}">
+                        납부
+                    </label>
+                </div>
+
             </div>
 
-        </div>
+            <div class="info">
+                <div class="subTitle">제목</div>
+                <input type="text" style="background-color:#f6f6f6;width: 100%" th:value="${dto.title}" name="title"/>
+            </div>
 
-        <div class="info">
-            <div class="subTitle">제목</div>
-            <input type="text" style="background-color:#f6f6f6;width: 100%"/>
-        </div>
-
-        <div class="info">
-            <span class="subTitle" style="bottom:77px">내용</span>
-            <textarea></textarea>
-        </div>
-        <div style="margin-top:20px;display:flex;justify-content:flex-end">
-            <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
-            <button type="button" class="registerBtn">등록</button>
-        </div>
+            <div class="info">
+                <span class="subTitle" style="bottom:77px">내용</span>
+                <textarea name="cont">[[${dto.cont}]]</textarea>
+            </div>
+            <div style="margin-top:20px;display:flex;justify-content:flex-end">
+                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                <button type="submit" class="registerBtn">수정</button>
+            </div>
+        </form>
     </th:block>
 </th:block>
 
