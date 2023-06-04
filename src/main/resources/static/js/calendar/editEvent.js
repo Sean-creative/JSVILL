@@ -12,7 +12,8 @@ let editEvent = function (event, element, view) {
 
     $('#deleteEvent').data('bundleId', event.bundleId);
     $('#deleteEvent').data('id', event.calendarRowid);
-    //삭제는 calendarRowid가 아니라 bundleId로 삭제한다.
+
+    $('#deleteOneEvent').data('id', event.calendarRowid);
     $('#deleteAllEvent').data('bundleId', event.bundleId);
 
     $('.popover.fade.top').remove();
@@ -118,10 +119,10 @@ let editEvent = function (event, element, view) {
  * isRepetition
  * */
         let typeNo = 0;
-        if (originalRepetition === "notRepeat") typeNo = event.repetition === "notRepeat" ? 1 : 2;
-        else typeNo = event.repetition === "notRepeat" ? 3 : 4;
+        if (originalRepetition === "notRepeat") typeNo = event.repetition === "notRepeat" ? 1:2;
+        else typeNo = event.repetition === "notRepeat" ? 3:4;
 
-        console.log(`typeNo : ${typeNo}`)
+        console.log(`typeNo:${typeNo}`)
 
         let startLoopDays = [];
         let endLoopDays = [];
@@ -169,7 +170,7 @@ let editEvent = function (event, element, view) {
         }
 
         eventModal.modal('hide');
-        console.log("event.calendarRowid : " + event.calendarRowid)
+        console.log("event.calendarRowid:" + event.calendarRowid)
         $("#calendar").fullCalendar('updateEvent', event);
         //일정 업데이트
         $.ajax({
@@ -215,8 +216,9 @@ $('#deleteEvent').off().on('click', function () {
 
 //해당 일정만 삭제
 $('#deleteOneEvent').off().on('click', function () {
+    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     removeConfirmModal.modal('hide');
-    deleteOneEvent();
+    deleteOneEvent($(this).data('id'));
 
 });
 //반복 일정 모두 삭제
@@ -230,7 +232,7 @@ $('#deleteAllEvent').off().on('click', function () {
         url: "/calendar/remove",
         data: {
             id:$(this).data('bundleId'),
-            isAllDelete : true
+            isAllDelete:true
         },
         success: function (response) {
             alert('반복 일정이 모두 삭제되었습니다.');
@@ -241,13 +243,14 @@ $('#deleteAllEvent').off().on('click', function () {
 
 function deleteOneEvent(rowId) {
     eventModal.modal('hide');
+    removeConfirmModal.modal('hide');
 
     $.ajax({
         type: "post",
         url: "/calendar/remove",
         data: {
             id:rowId,
-            isAllDelete : false
+            isAllDelete:false
         },
         success: function (response) {
             alert('해당 일정이 삭제되었습니다.');

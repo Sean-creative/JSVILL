@@ -70,8 +70,9 @@ public class CalendarServiceImpl implements CalendarService {
             case 4 -> {
                 // 4. 원래 반복일정 o - 수정 후 반복일정이 o -> 해당 bundleId로 수정
                 // 4.1 A B C D 중 C에서 반복일정을 수정해도 전체 반복일정이 영향을 받으면 된다. (연대책임으로 ㄱㄱ)
-                List<Calendar> calendarList = Calendar.dtoToEntities(calendarDTO, false);
-                calendarList.forEach(i -> calendarRepository.save(i));
+                // 4.2 bundleId로 전부 삭제하고 -> 다시 등록하자 (찝찝하긴 하지만..)
+                remove(calendarDTO.getBundleId(), true);
+                register(calendarDTO);
             }
             default -> throw new IllegalStateException("Unexpected value: " + calendarDTO.getTypeNo());
         }
