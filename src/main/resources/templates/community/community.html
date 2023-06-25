@@ -51,16 +51,18 @@
                 <th scope="col" class="middle">조회</th>
             </tr>
             </thead>
-            <tbody th:each="dto : ${list}">
+            <!--게시글 번호 : total - (index+(현재페이지-1)*10) => total-(stat.index+(currentPage*10))-->
+            <tbody th:each="dto, stat : ${list}">
             <tr>
                 <th scope="row">
-                    <a th:href="@{/community/read(id=${dto.comRowid})}">[[${dto.comRowid}]]</a>
+                    <a th:href="@{/community/read(id=${dto.comRowid})}">[[${total-(stat.index+(currentPage*10))}]]</a>
                 </th>
                 <td th:text="${dto.type == '1'}? '일반' : '납부'"></td>
                 <td th:text="${dto.title}"></td>
-                <td class="middle" th:text="${dto.regdate}"></td>
+                <td class="middle" th:text="${#strings.substring(dto.regdate, 0, 10)}"></td>
                 <td class="middle" th:text="${dto.readCnt}"></td>
             </tr>
+
 
             <!--<tr>
                 <th scope="row">

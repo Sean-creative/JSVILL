@@ -36,7 +36,7 @@ public class Community extends BaseEntity {
     private String writer;
 
     @CreatedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss") /* Todo kjs date format 변경할 수 있는 방법 찾기 */
+    @DateTimeFormat(pattern = "yyyy-MM-dd") /* Todo kjs date format 변경할 수 있는 방법 찾기 */
     @Column(name="regdate", updatable = false, insertable = false) /* Todo kjs updatable, insetable 정확히 어떤 역할인지 알아보기 */
 //    @Convert(converter= StringToFormatDateStringConverter.class)
     private LocalDateTime regdate;

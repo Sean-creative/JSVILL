@@ -50,13 +50,15 @@ public class CommunityController {
         log.info("searchTxt >>>>>>>>>>>>>>> " + searchTxt);
 
         Page<Community> list = communityService.findAll(pageable, searchKey, searchTxt);
-
+        log.info("totalElements  >>>>>>>>>>>>>>>>>>>> " + list.getTotalElements());
         model.addAttribute("list", list);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
         model.addAttribute("pages", list.getTotalPages());
+        model.addAttribute("total", list.getTotalElements());
+        model.addAttribute("currentPage", pageable.getPageNumber());
 
         return "/community/community.html";
     }
