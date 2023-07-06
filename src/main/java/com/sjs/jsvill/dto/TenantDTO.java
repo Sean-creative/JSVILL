@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Data
 public class TenantDTO {
-    private Long tenantRowid;
-    private Long livingType;
+    private long tenantRowid;
+    private long livingType;
     private String title;
     private String phone;
+    private String birthYear;
+    private int age;
     private Boolean isContractor;
 
 
@@ -29,11 +32,22 @@ public class TenantDTO {
                     .tenantRowid(tenant.getTenant_rowid())
                     .title(tenant.getTitle())
                     .phone(tenant.getPhone())
-                    .isContractor(tenant.getIscontractor())
+                    .birthYear(tenant.getBirthYear())
+                    .age(calAge(tenant.getBirthYear()))
+                    .isContractor(tenant.getIsContractor())
                     .livingType(tenant.get_livingtype().get_livingtype_rowid())
                     .build()
             ).collect(Collectors.toList());
         }
         return tenantDTOList;
+    }
+
+    private static int calAge(String birthYear){
+        // 현재 날짜 가져오기
+        LocalDate currentDate = LocalDate.now();
+        // 현재 연도 가져오기
+        int currentYear = currentDate.getYear();
+        // 나이 계산
+        return currentYear - Integer.parseInt(birthYear);
     }
 }

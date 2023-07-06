@@ -31,13 +31,16 @@ public class Tenant extends BaseEntity {
     @Column(length = 64, nullable = false, unique = true)
     private String phone;
 
+    @Column(length = 16, nullable = false)
+    private String birthYear;
+
     @Column(nullable = false)
-    private Boolean iscontractor;
+    private Boolean isContractor;
 
     public void changeLivingType(_LivingType _livingtype) {this._livingtype = _livingtype;}
     public void changeTilte(String title) {this.title = title;}
     public void changePhone(String phone) {this.phone = phone;}
-    public void changeIsContractor(Boolean iscontractor) {this.iscontractor = iscontractor;}
+    public void changeIsContractor(Boolean isContractor) {this.isContractor = isContractor;}
 
     public static Tenant DTOToEntitiy(TenantDTO tenantDTO) {
         //title이나 phone이 null 인것들은 pass
@@ -46,7 +49,8 @@ public class Tenant extends BaseEntity {
                 ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build())
                 .title(tenantDTO.getTitle())
                 .phone(tenantDTO.getPhone())
-                .iscontractor(tenantDTO.getIsContractor())
+                .birthYear(tenantDTO.getBirthYear())
+                .isContractor(tenantDTO.getIsContractor())
                 .build();
     }
 
@@ -61,7 +65,8 @@ public class Tenant extends BaseEntity {
                     ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build())
                     .title(tenantDTO.getTitle())
                     .phone(tenantDTO.getPhone())
-                    .iscontractor(tenantDTO.getIsContractor())
+                    .birthYear(tenantDTO.getBirthYear())
+                    .isContractor(tenantDTO.getIsContractor())
                     .build();
             tenantList.add(tenant);
         }

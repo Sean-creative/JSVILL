@@ -82,7 +82,7 @@ public class ContractServiceImpl implements ContractService {
             previousContract.setEndDate(contract.getEnddate());
 
             contractTenantRepository.findAllByContract(contract).forEach(contractTenant -> {
-                if(contractTenant.getTenant().getIscontractor()) previousContract.setTenantTitle(contractTenant.getTenant().getTitle());
+                if(contractTenant.getTenant().getIsContractor()) previousContract.setTenantTitle(contractTenant.getTenant().getTitle());
             });
             dto.getPreviousContractDTOList().add(previousContract);
         });
@@ -146,7 +146,7 @@ public class ContractServiceImpl implements ContractService {
                 carDTOList.add(CarDTO.entityToDTO(car, contractTenant.getTenant().getPhone()));
             });
         });
-        tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
+        tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
         return ContractDTO.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option));
     }
     @Override

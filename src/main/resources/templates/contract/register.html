@@ -24,7 +24,7 @@
                             <input type="date" name="startdate" required style="border:1px solid black;border-radius:8px">
                         </div>
                     </div>
-                    <div style="flex:0.5;text-align: center;font-size: 25px;">~</div>
+                    <div style="font-size:30px">~</div>
                     <div style="flex:1">
                         계약 만료일
                         <div class="wrapper" style="margin-top:10px">
@@ -40,8 +40,9 @@
                 </div>
                 <div style="display:flex;align-items: center;justify-content: space-between">
                     <div style="width:82%;display:flex;align-items:center">
-                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력"  required style="background:#F6F6F6">
-                        <input type="tel" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="ex) 010-1234-5678" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}"  maxlength="13" style="margin-left:20px;background:#F6F6F6">
+                        <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력"  style="background:#F6F6F6;width:130px" required="required">
+                        <input type="tel" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="ex) 010-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6;width:130px" required="required">
+                        <input type="text" class="tenantBirthYear" name="tenantDTOList[0].birthYear" placeholder="ex) 출생년도" pattern="^\d{4}$" maxlength="4" style="margin-left:20px;background:#F6F6F6;width:100px" required="required">
                         <input type="checkbox" name="tenantDTOList[0].isContractor" th:value=true style="height:fit-content;margin-left:20px;background:#F6F6F6" checked onClick="return false">
                         <input type="hidden" name="tenantDTOList[0].livingType" th:value="20">
                         <span style="margin-left:5px">세대주</span>
@@ -138,11 +139,15 @@
         //일단 초급코드로 구현 해놓음.....
         let titleList = [];
         let phoneList = [];
+        let birthYearList = [];
         $(".tenantTitle").each(function() {
             titleList.push($(this).val());
         })
         $(".tenantPhone").each(function() {
             phoneList.push($(this).val());
+        })
+        $(".tenantBirthYear").each(function() {
+            birthYearList.push($(this).val());
         })
 
         $.ajax({
@@ -179,6 +184,7 @@
     let optionBackupList = []
     let tenantTitleBackupList = []
     let tenantPhoneBackupList = []
+    let tenantBirthYearBackupList = []
     function updateOption(str) {
         $(".option").each(function() {
             optionBackupList[$(this).attr('id')] = $(this).val();
@@ -210,11 +216,15 @@
 
 
     function updateTenant(str) {
+        //백업을 한다
         $(".tenantTitle").each(function() {
             tenantTitleBackupList[$(this).attr('id')] = $(this).val();
         })
         $(".tenantPhone").each(function() {
             tenantPhoneBackupList[$(this).attr('id')] = $(this).val();
+        })
+        $(".tenantBirthYear").each(function() {
+            tenantBirthYearBackupList[$(this).attr('id')] = $(this).val();
         })
         $(".tenantAddSection").html(str)
         // 백업한 값들을 다시 넣어준다.
@@ -224,8 +234,12 @@
         $(".tenantPhone").each(function() {
             $(this).val(tenantPhoneBackupList[$(this).attr('id')]);
         })
+        $(".tenantBirthYear").each(function() {
+            $(this).val(tenantBirthYearBackupList[$(this).attr('id')]);
+        })
         tenantTitleBackupList = [] // 혹시 모르니까 초기화
         tenantPhoneBackupList = []
+        tenantBirthYearBackupList = []
     }
     //TODO 나중에는 서버에서 빈값을 무시하게끔 하는게아니라, 깔끔하게 프론트에서 가공된 데이터를 보내도록(빈건 빼고 보내도록) 작업하기
     // 추가를하면
@@ -233,16 +247,20 @@
     // 2. 반복문 돌면서 템플릿 만들어 내기
 
     function removeTenant(cnt) {
+        console.log("removeTenant - ", cnt)
         let str = $(".tenantAddSection").html()
+        console.log("removeTenant - ", tenantList[cnt])
+        console.log("11", str.replace(tenantList[cnt], ''))
         updateTenant(str.replace(tenantList[cnt], ''))
     }
     $("#tenantAddBtn").on("click", function () {
-        tenantCnt++
+        tenantCnt++ //tenantCnt 0은 세대주임, 그외는 0초과
         let str = $(".tenantAddSection").html()
         let temp =
             `<div style="width:82%;display:flex;align-items:center;margin-top:10px">
-                <input type="text" name="tenantDTOList[${tenantCnt}].title" class="tenantTitle" id="${tenantCnt}" placeholder="이름 또는 별명 입력" required="required" style="background:#F6F6F6">
-                <input type="tel" name="tenantDTOList[${tenantCnt}].phone" class="tenantPhone" id="${tenantCnt}" placeholder="ex) 010-1234-5678" required="required" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6">
+                <input type="text" name="tenantDTOList[${tenantCnt}].title" class="tenantTitle" id="${tenantCnt}" placeholder="이름 또는 별명 입력" style="background:#F6F6F6;width:130px" required="required">
+                <input type="tel" name="tenantDTOList[${tenantCnt}].phone" class="tenantPhone" id="${tenantCnt}" placeholder="ex) 010-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6;width:130px" required="required">
+                <input type="text" name="tenantDTOList[${tenantCnt}].birthYear" class="tenantBirthYear" id="${tenantCnt}" placeholder="ex) 출생년도" pattern="^\\d{4}$" maxlength="4" style="margin-left:20px;background:#F6F6F6;width:100px" required="required">
                 <button type="button" onclick="removeTenant(${tenantCnt})" style="margin-left:20px">X</button>
                 <input type="hidden" name="tenantDTOList[${tenantCnt}].isContractor" value="false">
                 <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20"> <!--요기 아직 20인지 30인지 모르는구나..-->

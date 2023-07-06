@@ -52,7 +52,7 @@ public class UnitServiceImpl implements UnitService {
                 carList.addAll(carRepository.findAllByTenant(ContractTenant.getTenant()));
             });
 
-            tenantList.sort((a, b) -> Boolean.compare(b.getIscontractor(), a.getIscontractor()));
+            tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
             contractDTOList.add(ContractDTO.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList), CarDTO.entitiesToDTOList(carList), OptionDTO.entityToDTO(option)));
         }
         UnitDTO unitDTO = UnitDTO.entityToDTOWithContract(unit, contractDTOList);

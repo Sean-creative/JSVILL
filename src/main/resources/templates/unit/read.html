@@ -95,8 +95,8 @@
                                         <ul>
                                             <li th:each="tenantDTO:${contractDTO.tenantDTOList}" style="border-top:2px solid gray;padding:5px 15px 5px 10px;display:flex;align-items:center;justify-content:space-between">
                                                 <div style="display:flex;align-items:center">
-                                                    <span>[[${tenantDTO.title}]]</span>
-                                                    <div th:if="${tenantDTO.isContractor==true}" style="margin-left:10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;width:34px">
+                                                    <span>[[${tenantDTO.title}]]</span><span style="margin-left:4px">([[${tenantDTO.age}]])</span>
+                                                    <div th:if="${tenantDTO.isContractor==true}" style="margin:4px 0 0 10px;background-color:#1dc078;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;width:34px">
                                                         세대주
                                                     </div>
                                                 </div>
