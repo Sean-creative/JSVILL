@@ -38,7 +38,7 @@
                 <div class="subTitle">
                     입주자
                 </div>
-                <div style="display:flex;align-items: center;justify-content: space-between">
+                <div style="display:flex;align-items:center;justify-content:space-between">
                     <div style="width:82%;display:flex;align-items:center">
                         <input type="text" class="tenantTitle" name="tenantDTOList[0].title" placeholder="이름 또는 별명 입력"  style="background:#F6F6F6;width:130px" required="required">
                         <input type="tel" class="tenantPhone" name="tenantDTOList[0].phone" placeholder="ex) 010-1234-5678" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" style="margin-left:20px;background:#F6F6F6;width:130px" required="required">
@@ -263,7 +263,7 @@
                 <input type="text" name="tenantDTOList[${tenantCnt}].birthYear" class="tenantBirthYear" id="${tenantCnt}" placeholder="ex) 출생년도" pattern="^\\d{4}$" maxlength="4" style="margin-left:20px;background:#F6F6F6;width:100px" required="required">
                 <button type="button" onclick="removeTenant(${tenantCnt})" style="margin-left:20px">X</button>
                 <input type="hidden" name="tenantDTOList[${tenantCnt}].isContractor" value="false">
-                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20"> <!--요기 아직 20인지 30인지 모르는구나..-->
+                <input type="hidden" name="tenantDTOList[${tenantCnt}].livingType" value="20">
             </div>`
         tenantList[tenantCnt] = temp
         str += temp

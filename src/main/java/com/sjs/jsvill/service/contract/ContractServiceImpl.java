@@ -161,17 +161,15 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = contractRepository.getById(contractDTO.getContractRowid());
         Option option = optionRepository.findByContract(Contract.builder().contract_rowid(contractDTO.getContractRowid()).build());
 
-        if(contract != null) {
-            contract.changeStartDate(contractDTO.getStartdate());
-            contract.changeEndDate(contractDTO.getEnddate());
-            contract.changeDeposit(contractDTO.getDeposit());
-            contract.changeRentfee(contractDTO.getRentFee());
-            contract.changeManagemnetfees(contractDTO.getManagementFees());
-            contract.changePaymentday(contractDTO.getPaymentDay());
-            System.out.println("contractDTO.getContractRowid() : " + contractDTO.getContractRowid());
-            System.out.println("contract : " + contract.getContract_rowid());
-            contractRepository.save(contract);
-        } /*else throw new Exception("modify 오류 발생");*/
+        contract.changeStartDate(contractDTO.getStartdate());
+        contract.changeEndDate(contractDTO.getEnddate());
+        contract.changeDeposit(contractDTO.getDeposit());
+        contract.changeRentfee(contractDTO.getRentFee());
+        contract.changeManagemnetfees(contractDTO.getManagementFees());
+        contract.changePaymentday(contractDTO.getPaymentDay());
+        System.out.println("contractDTO.getContractRowid() : " + contractDTO.getContractRowid());
+        System.out.println("contract : " + contract.getContract_rowid());
+        contractRepository.save(contract);
         if(option != null) {
             option.changeOptionList(Option.listToCsv(contractDTO.getOptionDTO().getOptionList()));
             optionRepository.save(option);
@@ -193,7 +191,9 @@ public class ContractServiceImpl implements ContractService {
             if(tenant==null) { //등록이 안된 사람이라면 -> 새로 등록!
                 //1. Tenant에 등록을 해주고
                 //2. TenantContarct, TenantContarctLog에 등록을 해준다.
+                System.out.println("1111");
                 tenant = tenantRepository.save(Tenant.DTOToEntitiy(tenantDTO));
+                System.out.println("2222");
                 ContractTenant contractTenant = ContractTenant.builder().contract(contract).tenant(tenant).build();
                 contractTenantRepository.save(contractTenant);
                 _LivingType livingType = _LivingType.isStartedContract(contractDTO.getStartdate());

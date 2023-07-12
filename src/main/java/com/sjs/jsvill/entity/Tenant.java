@@ -45,6 +45,7 @@ public class Tenant extends BaseEntity {
     public static Tenant DTOToEntitiy(TenantDTO tenantDTO) {
         //title이나 phone이 null 인것들은 pass
         if(tenantDTO.getTitle() ==null || tenantDTO.getPhone() ==null) return null;
+        System.out.println("tenantDTO.getIsContractor() :" + tenantDTO.getIsContractor());
         return Tenant.builder()
                 ._livingtype(_LivingType.builder()._livingtype_rowid(tenantDTO.getLivingType()).build())
                 .title(tenantDTO.getTitle())
