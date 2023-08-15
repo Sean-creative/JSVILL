@@ -49,6 +49,11 @@ dependencies {
 	implementation group: 'org.json', name: 'json', version: '20220924'
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.3'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//파일 처리 관련 - IOUtils 패키지는 대부분 static 메소드이므로 객체를 생성하지 않고 바로 사용 가능
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+
 }
 test {
 	useJUnitPlatform()
@@ -74,3 +79,5 @@ compileQuerydsl {
 }
 //querydsl 추가 끝
 //targetCompatibility = JavaVersion.VERSION_11
+
+server.tomcat.basedir

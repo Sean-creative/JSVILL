@@ -3,7 +3,9 @@ package com.sjs.jsvill.service.unit;
 import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.*;
+import com.sjs.jsvill.util.FileHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,25 @@ public class UnitServiceImpl implements UnitService {
     private final TenantRepository tenantRepository;
     private final CarRepository carRepository;
     private final ContractTenantRepository contractTenantRepository;
+    private final PhotoRepository photoRepository;
+    private final FileHandler fileHandler;
 
+    @SneakyThrows
     @Override
-    public Long register(UnitDTO dto) {
+    public Long register(UnitDTO unitDTO, UnitFileDTO unitFileDTO) {
         log.info("DTO-------------");
-        log.info(dto);
-        Unit unit = dtoToEntity(dto);
+        log.info(unitDTO);
+        List<Photo> photoList = fileHandler.parseFileInfo(unitFileDTO.getFiles());
+        Unit unit = dtoToEntity(unitDTO);
+
+        // 파일이 존재할 때에만 처리
+        if(!photoList.isEmpty()) {
+            for(Photo photo : photoList) {
+                // 파일을 DB에 저장
+                unit.addPhoto(photoRepository.save(photo));
+            }
+        }
+
         unitRepository.save(unit);
         return unit.getUnit_rowid();
     }

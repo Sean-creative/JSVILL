@@ -1,17 +1,22 @@
 package com.sjs.jsvill.controller.unit;
 
 import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.dto.UnitFileDTO;
+import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.service.contract.ContractService;
+import com.sjs.jsvill.service.photo.PhotoService;
 import com.sjs.jsvill.service.unit.UnitService;
 import com.sjs.jsvill.service.util.SmsService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -23,6 +28,7 @@ public class UnitController {
     private final UnitService unitService;
     private final ContractService contractService;
     private final SmsService smsService;
+    private final PhotoService fileService;
 
     @GetMapping("/read")
     public String String(Long unitRowid, Model model) {
@@ -36,15 +42,20 @@ public class UnitController {
 
     @GetMapping("/register")
     public String register(int groupRowid, Model model) {
-
         model.addAttribute("groupRowid", groupRowid);
         return "unit/register";
     }
 
     @PostMapping("/register")
-    public String register(UnitDTO dto, RedirectAttributes redirectAttributes) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public String register(UnitDTO dto, UnitFileDTO unitFileDTO) {
         //TODO 로그인이 유지가 되면 컨트롤러에서 넣어줘도 상관없음
-        Long gno = unitService.register(dto);
+
+//        // Member id로 조회하는 메소드 존재한다고 가정하에 진행
+//        Member member = memberService.searchMemberById(
+//                Long.parseLong(boardFileVO.getId()));
+
+        Long gno = unitService.register(dto, unitFileDTO);
         return "redirect:/group/list";
     }
 
