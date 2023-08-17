@@ -13,3 +13,4 @@ public class PhotoDTO {
     private String filePath;
     private Long fileSize;
 }
+
