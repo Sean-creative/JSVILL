@@ -81,3 +81,4 @@ compileQuerydsl {
 //targetCompatibility = JavaVersion.VERSION_11
 
 server.tomcat.basedir
+
