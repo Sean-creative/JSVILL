@@ -34,23 +34,7 @@ public class Unit extends BaseEntity {
     @Column(nullable = false)
     private String memo; // 메모 (선택적)
 
-    @OneToMany(
-            mappedBy = "unit",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    private List<Photo> photo = new ArrayList<>();
 
     public void changedetailAddr(String detailAddr) { this.detailaddr = detailAddr; }
     public void changeMemo(String memo) { this.memo = memo; }
-
-    // 호실에서 파일 처리 위함
-    public void addPhoto(Photo photo) {
-        this.photo.add(photo);
-
-        // 호실에 파일이 저장되어있지 않은 경우
-        if(photo.getUnit() != this)
-            // 파일 저장
-            photo.setUnit(this);
-    }
 }

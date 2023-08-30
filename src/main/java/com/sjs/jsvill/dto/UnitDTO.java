@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class UnitDTO {
 
     private String groupTitle;//건물이름
     private String groupAddr;//건물주소
+
+    private List<MultipartFile> files;
 
     //계약리스트
     @Builder.Default

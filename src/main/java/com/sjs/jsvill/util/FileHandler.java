@@ -25,10 +25,12 @@ public class FileHandler {
     public List<Photo> parseFileInfo(
             List<MultipartFile> multipartFiles
     )throws Exception {
+
         // 반환할 파일 리스트
         List<Photo> fileList = new ArrayList<>();
 
         // 전달되어 온 파일이 존재할 경우
+        //Apache Commons 라이브러리 중 Null 체크를 해주는 함수 (Null일때 오류 발생하지 않음)
         if(!CollectionUtils.isEmpty(multipartFiles)) {
             // 파일명을 업로드 한 날짜로 변환하여 저장
             LocalDateTime now = LocalDateTime.now();

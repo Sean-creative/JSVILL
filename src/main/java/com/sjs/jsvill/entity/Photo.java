@@ -4,6 +4,8 @@ import com.sjs.jsvill.entity.common.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,9 +20,11 @@ public class Photo extends BaseEntity {
     private Long file_rowid;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "unit_rowid")
     private Unit unit;
 
+    //동일한 이름을 가진 파일이 업로드 되면 오류가 발생해서  -> 파일 원본명과 저장경로를 따로 지정함
     @Column(nullable = false)
     private String origFileName;  // 파일 원본명
 
@@ -39,9 +43,5 @@ public class Photo extends BaseEntity {
     // Unit 정보 저장
     public void setUnit(Unit unit){
         this.unit = unit;
-        // 게시글에 현재 파일이 존재하지 않는다면
-        if(!unit.getPhoto().contains(this))
-            // 파일 추가
-            unit.getPhoto().add(this);
     }
 }

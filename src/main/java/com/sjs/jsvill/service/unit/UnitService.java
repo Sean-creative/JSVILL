@@ -1,12 +1,11 @@
 package com.sjs.jsvill.service.unit;
 
 import com.sjs.jsvill.dto.UnitDTO;
-import com.sjs.jsvill.dto.UnitFileDTO;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Unit;
 
 public interface UnitService {
-    Long register(UnitDTO unitDTO, UnitFileDTO unitFileDTO);
+    Long register(UnitDTO unitDTO);
     UnitDTO getWithContractList(Long unitRowid);
 
     Unit get(Long unitRowid);

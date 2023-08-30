@@ -30,21 +30,21 @@ public class UnitServiceImpl implements UnitService {
 
     @SneakyThrows
     @Override
-    public Long register(UnitDTO unitDTO, UnitFileDTO unitFileDTO) {
+    public Long register(UnitDTO unitDTO) {
         log.info("DTO-------------");
         log.info(unitDTO);
-        List<Photo> photoList = fileHandler.parseFileInfo(unitFileDTO.getFiles());
+        List<Photo> photoList = fileHandler.parseFileInfo(unitDTO.getFiles());
         Unit unit = dtoToEntity(unitDTO);
-
+        unit = unitRepository.save(unit);
         // 파일이 존재할 때에만 처리
         if(!photoList.isEmpty()) {
             for(Photo photo : photoList) {
+                //photo는 unit을 모른다.
+                photo.setUnit(unit);
                 // 파일을 DB에 저장
-                unit.addPhoto(photoRepository.save(photo));
+                photoRepository.save(photo);
             }
         }
-
-        unitRepository.save(unit);
         return unit.getUnit_rowid();
     }
 
