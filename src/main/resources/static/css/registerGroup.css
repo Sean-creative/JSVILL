@@ -9,3 +9,23 @@
 .content .cancelBtn {padding:6px 20px;border:1px solid lightgray;font-size:14px;font-weight:bold;color:gray;background-color:white}
 .content .cancelBtn:active{color:black}
 .content .registerBtn {padding:6px 20px;border:1px solid rgb(29, 192, 120);font-size:14px;color:white;background-color:rgb(29, 192, 120);margin-left:7px;font-weight:bold}
+.radioBtn {
+    font-size:13px;
+    width:40px;
+    text-align:center;
+    border:3px solid rgb(29, 192, 120);
+    border-radius:30px;
+    padding:5px 10px;
+    color:#495057
+}
+/*.radioBtn input[type="radio"] { display: none; }*/
+/*.radioBtn on {*/
+/*    font-size:13px;*/
+/*    width:40px;*/
+/*    text-align:center;*/
+/*    border:3px solid rgb(29, 192, 120);*/
+/*    border-radius:30px;*/
+/*    padding:5px 10px;*/
+/*    !*color:#31b0d5;*!*/
+/*    background-color: #c1e2b3;*/
+/*}*/
