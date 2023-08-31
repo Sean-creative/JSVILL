@@ -119,14 +119,9 @@
                         </li>
                     </ul>
 
-                    <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
+                    <div class="infoInner" style="padding:15px 20px;margin-top:15px">
                         <div>계약 사진</div>
-                        <div>
-
-
-                            <img src="image/bell.png" width="200px" height="200px" alt="안나옴222">
-                            <img src="images/20230829/1527751041030100.jpg" width="200px" height="200px" alt="안나옴">
-                        </div>
+                        <img th:each="photoDTO:${unitDTO.photoDTOList}" th:src="${photoDTO.filePath}" alt="photo" width="200px" height="200px" style="display:block">
                     </div>
                 </div>
             </div>

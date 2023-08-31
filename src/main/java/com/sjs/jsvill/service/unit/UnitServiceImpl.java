@@ -7,6 +7,7 @@ import com.sjs.jsvill.util.FileHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -70,7 +71,10 @@ public class UnitServiceImpl implements UnitService {
             tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
             contractDTOList.add(ContractDTO.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList), CarDTO.entitiesToDTOList(carList), OptionDTO.entityToDTO(option)));
         }
-        UnitDTO unitDTO = UnitDTO.entityToDTOWithContract(unit, contractDTOList);
+        val photoList = photoRepository.findByUnit(unit);
+        System.out.println(photoList);
+
+        UnitDTO unitDTO = UnitDTO.entityToDTOWithContract(unit, contractDTOList, PhotoDTO.entityToDTOList(photoRepository.findByUnit(unit)));
         //미래 계약중인 계약 하나 가져와서 똑같이 1.입주자 가져오고 2.계약일 가져오고!
         return unitDTO;
     }

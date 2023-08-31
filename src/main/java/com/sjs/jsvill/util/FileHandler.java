@@ -36,15 +36,17 @@ public class FileHandler {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter dateTimeFormatter =
                     DateTimeFormatter.ofPattern("yyyyMMdd");
-            String current_date = now.format(dateTimeFormatter);
+            String currentDate = now.format(dateTimeFormatter);
 
             // 프로젝트 디렉터리 내의 저장을 위한 절대 경로 설정
             // 경로 구분자 File.separator 사용
             String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
 
             // 파일을 저장할 세부 경로 지정
-            String path = "images" + File.separator + current_date;
-            File file = new File(path);
+            String staticResource = "src/main/resources/static".replace("/", File.separator);
+            String targetResource = "/image".replace("/", File.separator) + File.separator + currentDate;
+            String fileSavePath = staticResource + targetResource;
+            File file = new File(fileSavePath);
 
             // 디렉터리가 존재하지 않을 경우
             if(!file.exists()) {
@@ -78,25 +80,19 @@ public class FileHandler {
                 // 파일명 중복 피하고자 나노초까지 얻어와 지정
                 String new_file_name = System.nanoTime() + originalFileExtension;
 
-                // 파일 DTO 생성
-                PhotoDTO photoDto = PhotoDTO.builder()
-                        .origFileName(multipartFile.getOriginalFilename())
-                        .filePath(path + File.separator + new_file_name)
-                        .fileSize(multipartFile.getSize())
-                        .build();
-
-                // 파일 DTO 이용하여 Photo 엔티티 생성
+                String fileEntityPath = targetResource + File.separator + new_file_name;
+                // Photo 엔티티 생성
                 Photo photo = new Photo(
-                        photoDto.getOrigFileName(),
-                        photoDto.getFilePath(),
-                        photoDto.getFileSize()
+                        multipartFile.getOriginalFilename(),
+                        fileEntityPath,
+                        multipartFile.getSize()
                 );
 
                 // 생성 후 리스트에 추가
                 fileList.add(photo);
 
                 // 업로드 한 파일 데이터를 지정한 파일에 저장
-                file = new File(absolutePath + path + File.separator + new_file_name);
+                file = new File(absolutePath + fileSavePath + File.separator + new_file_name);
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)

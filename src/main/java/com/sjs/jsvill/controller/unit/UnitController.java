@@ -49,7 +49,6 @@ public class UnitController {
 //                Long.parseLong(boardFileVO.getId()));
 
         Long gno = unitService.register(dto);
-        System.out.println("unitService.register(dto) 완료~~~~");
         return "redirect:/group/list";
     }
 
