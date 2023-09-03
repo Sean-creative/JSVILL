@@ -4,13 +4,14 @@ import com.sjs.jsvill.dto.CarDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RegisterCarReqDTO {
+public class RegisterPhotoReqDTO {
     private Long unitRowid;
-    private List<CarDTO> carDTOList;
+    private List<MultipartFile> files;
 }

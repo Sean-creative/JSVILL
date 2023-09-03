@@ -23,6 +23,4 @@ public class CtlApiNoticeWp {
 
         return noticeService.register(dto);
     }
-
-
 }

@@ -22,6 +22,4 @@ public class CtlApiNotice {
         log.info("user notice");
         return noticeService.getNoticeList();
     }
-
-
 }

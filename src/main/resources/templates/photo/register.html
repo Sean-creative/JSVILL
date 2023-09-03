@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사진 등록</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/registerContract.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+
+<th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 사진 등록</div>
+        <form action="/car/register" method="post" enctype="multipart/form-data" onsubmit="return valiCheck()">
+            <input type="hidden" name="unitRowid" th:value="${data.unitRowid}">
+
+            <div class="info">
+                <div class="subTitle">사진</div>
+                <input type="file" name="files" multiple="multiple">
+
+                <div class="carAddSection"></div>
+            </div>
+
+            <div style="margin:30px 0 40px 0;float:right">
+                <button type="button" onclick="history.back()" class="cancelBtn">취소</button>
+                <button class="registerBtn">등록</button>
+            </div>
+        </form>
+    </th:block>
+</th:block>
+</body>
+</html>

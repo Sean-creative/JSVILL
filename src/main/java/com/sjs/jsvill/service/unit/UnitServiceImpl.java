@@ -27,25 +27,14 @@ public class UnitServiceImpl implements UnitService {
     private final CarRepository carRepository;
     private final ContractTenantRepository contractTenantRepository;
     private final PhotoRepository photoRepository;
-    private final FileHandler fileHandler;
 
-    @SneakyThrows
     @Override
     public Long register(UnitDTO unitDTO) {
         log.info("DTO-------------");
         log.info(unitDTO);
-        List<Photo> photoList = fileHandler.parseFileInfo(unitDTO.getFiles());
+
         Unit unit = dtoToEntity(unitDTO);
         unit = unitRepository.save(unit);
-        // 파일이 존재할 때에만 처리
-        if(!photoList.isEmpty()) {
-            for(Photo photo : photoList) {
-                //photo는 unit을 모른다.
-                photo.setUnit(unit);
-                // 파일을 DB에 저장
-                photoRepository.save(photo);
-            }
-        }
         return unit.getUnit_rowid();
     }
 
@@ -100,6 +89,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
+    @Transactional
     public void remove(Long unitRowid) {
         unitRepository.deleteById(unitRowid);
     }

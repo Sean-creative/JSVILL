@@ -24,14 +24,11 @@ public class UnitDTO {
     private String groupTitle;//건물이름
     private String groupAddr;//건물주소
 
-    private List<MultipartFile> files;
 
     //계약리스트
     @Builder.Default
     private List<ContractDTO> contractDTOList = new ArrayList<>();
 
-    @Builder.Default
-    private List<PhotoDTO> photoDTOList = new ArrayList<>();
 
     public static UnitDTO entityToDTO(Unit unit) {
         UnitDTO unitDTO = UnitDTO.builder()
@@ -54,7 +51,6 @@ public class UnitDTO {
                 .groupTitle(group.getTitle())
                 .groupAddr(group.getLandaddr())
                 .contractDTOList(contractDTOList)
-                .photoDTOList(photoList)
                 .build();
         return unitDTO;
     }

@@ -12,17 +12,17 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "file")
+@Table(name = "photo")
 public class Photo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long file_rowid;
+    private Long photo_rowid;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "unit_rowid")
-    private Unit unit;
+    @JoinColumn(name = "contract_rowid")
+    private Contract contract;
 
     //동일한 이름을 가진 파일이 업로드 되면 오류가 발생해서  -> 파일 원본명과 저장경로를 따로 지정함
     @Column(nullable = false)
@@ -40,8 +40,8 @@ public class Photo extends BaseEntity {
         this.fileSize = fileSize;
     }
 
-    // Unit 정보 저장
-    public void setUnit(Unit unit){
-        this.unit = unit;
+    // Contract 정보 저장
+    public void setContract(Contract contract){
+        this.contract = contract;
     }
 }

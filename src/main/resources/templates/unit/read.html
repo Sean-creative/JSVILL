@@ -10,12 +10,12 @@
         <div style="width:1221px">
             <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.detailAddr}]]</div>
             <a th:if="${#lists.size(unitDTO.contractDTOList)}!=2" th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
-               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약추가</a>
+               style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약등록</a>
             <div style="display:flex;margin-top:40px">
                 <div>
                     <div class="info" style="flex:1">
                         <div class="subTitle">호실 정보</div>
-                        <div style="display:flex;justify-content:space-between;align-items:center">
+                        <div style="display:flex;justify-content:space-between">
                             <div style="font-size:11px;color:gray">현재 계약 기준에 의거한 정보입니다.</div>
                             <div style="display:flex">
                                 <a th:href="@{/unit/edit(unitRowid=${unitDTO.unitRowid})}" class="btn">수정</a>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="info" style="width:650px;text-align:center;margin-left:40px">
+                <div class="info" style="width:650px;margin-left:40px">
                     <div class="subTitle">계약정보</div>
                     <div th:if="${#lists.size(unitDTO.contractDTOList)}==0">계약정보가 없습니다.</div>
                     <ul th:unless="${#lists.size(unitDTO.contractDTOList)}==0">
@@ -89,7 +89,7 @@
                                     <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
                                         <div style="position:relative">
                                             <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(contractDTO.tenantDTOList)}]]명의 입주자</div>
-                                            <a th:href="@{/car/register(contractRowid=${contractDTO.contractRowid})}" class="btn" style="position:absolute;padding:0 8px;top:4px;right:0">차량 추가</a>
+                                            <a th:href="@{/car/register(contractRowid=${contractDTO.contractRowid})}" class="btn" style="position:absolute;padding:0 8px;top:4px;right:0">차량 등록</a>
                                         </div>
 
                                         <ul>
@@ -107,7 +107,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px">
+                                    <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px;align-items:center">
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>
                                         <ul>
@@ -116,13 +116,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="infoInner" style="display:flex;justify-content:space-between;padding:15px 20px;margin-top:15px">
+<!--                                <div style="font-weight:bold;padding:5px 10px;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>-->
+<!--                                <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>-->
+
+                                <div style="font-weight:bold;padding:5px 0;font-size:14px">사진이 없습니다.</div>
+                                <a th:href="@{/car/register(contractRowid=${3})}" class="btn" style="">사진 등록</a>
+<!--                                <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>-->
+                            </div>
                         </li>
                     </ul>
-
-                    <div class="infoInner" style="padding:15px 20px;margin-top:15px">
-                        <div>계약 사진</div>
-                        <img th:each="photoDTO:${unitDTO.photoDTOList}" th:src="${photoDTO.filePath}" alt="photo" width="200px" height="200px" style="display:block">
-                    </div>
                 </div>
             </div>
         </div>
