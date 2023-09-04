@@ -52,8 +52,17 @@
             </tr>
             </thead>
             <!--게시글 번호 : total - (index+(현재페이지-1)*10) => total-(stat.index+(currentPage*10))-->
-            <tbody th:each="dto, stat : ${list}">
+            <tbody>
             <tr>
+                <th scope="row">
+                    <a th:href="@{/guest/guestGuide1}">0</a>
+                </th>
+                <td>중요</td>
+                <td>생활가이드</td>
+                <td class="middle">2023-09-04</td>
+                <td class="middle">-</td>
+            </tr>
+            <tr th:each="dto, stat : ${list}">
                 <th scope="row">
                     <a th:href="@{/community/read(id=${dto.comRowid})}">[[${total-(stat.index+(currentPage*10))}]]</a>
                 </th>
