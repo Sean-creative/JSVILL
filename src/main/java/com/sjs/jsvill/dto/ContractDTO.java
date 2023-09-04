@@ -32,10 +32,12 @@ public class ContractDTO {
     private List<CarDTO> carDTOList = new ArrayList<>();
     @Builder.Default
     private OptionDTO optionDTO = new OptionDTO();
+    @Builder.Default
+    private List<PhotoDTO> photoDTOList = new ArrayList<>();
 
 
     //하나의 계약에 각종 리스트들을 넣어줄것임
-    public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, List<CarDTO> carDTOList, OptionDTO optionDTO) {
+    public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, List<CarDTO> carDTOList, OptionDTO optionDTO, List<PhotoDTO> photoDTOList) {
         ContractDTO contractDTO = ContractDTO.builder()
                 .contractRowid(contarct.getContract_rowid())
                 .unitRowid(contarct.getUnit().getUnit_rowid())
@@ -50,6 +52,7 @@ public class ContractDTO {
                 .carDTOList(carDTOList)
                 .optionDTO(optionDTO)
                 .dDay(contarct.dDayOperator(contarct.getEnddate()))
+                .photoDTOList(photoDTOList)
                 .build();
         return contractDTO;
     }

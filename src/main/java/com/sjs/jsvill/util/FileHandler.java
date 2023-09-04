@@ -17,14 +17,8 @@ import java.util.List;
 /**List<MultipartFile> 을 전달받아 파일을 저장한 후 관련 정보를 List<Photo>로 변환하여 반환*/
 @Component
 public class FileHandler {
-    private final PhotoService photoService;
-    public FileHandler(PhotoService photoService) {
-        this.photoService = photoService;
-    }
 
-    public List<Photo> parseFileInfo(
-            List<MultipartFile> multipartFiles
-    )throws Exception {
+    public List<Photo> parseFileInfo(List<MultipartFile> multipartFiles) throws Exception {
 
         // 반환할 파일 리스트
         List<Photo> fileList = new ArrayList<>();
@@ -80,17 +74,6 @@ public class FileHandler {
                 // 파일명 중복 피하고자 나노초까지 얻어와 지정
                 String new_file_name = System.nanoTime() + originalFileExtension;
 
-                String fileEntityPath = targetResource + File.separator + new_file_name;
-                // Photo 엔티티 생성
-                Photo photo = new Photo(
-                        multipartFile.getOriginalFilename(),
-                        fileEntityPath,
-                        multipartFile.getSize()
-                );
-
-                // 생성 후 리스트에 추가
-                fileList.add(photo);
-
                 // 업로드 한 파일 데이터를 지정한 파일에 저장
                 file = new File(absolutePath + fileSavePath + File.separator + new_file_name);
                 multipartFile.transferTo(file);
@@ -98,6 +81,16 @@ public class FileHandler {
                 // 파일 권한 설정(쓰기, 읽기)
                 file.setWritable(true);
                 file.setReadable(true);
+
+                String fileEntityPath = targetResource + File.separator + new_file_name;
+                // Photo 엔티티 생성
+                Photo photo = new Photo(
+                        multipartFile.getOriginalFilename(),
+                        fileEntityPath,
+                        multipartFile.getSize()
+                );
+                // 생성 후 리스트에 추가
+                fileList.add(photo);
             }
         }
         return fileList;

@@ -29,6 +29,7 @@ public class ContractServiceImpl implements ContractService {
     private final CarRepository carRepository;
     private final ContractTenantRepository contractTenantRepository;
     private final ContractTenantLogRepository contractTenantLogRepository;
+    private final PhotoRepository photoRepository;
 
     @Override
     public String phoneCheck(List<UserDuplicateCheck> duplicateCheckList) {
@@ -147,7 +148,7 @@ public class ContractServiceImpl implements ContractService {
             });
         });
         tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
-        return ContractDTO.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option));
+        return ContractDTO.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option), PhotoDTO.entityToDTOList(photoRepository.findByContract(contract.get())));
     }
     @Override
     @Transactional
