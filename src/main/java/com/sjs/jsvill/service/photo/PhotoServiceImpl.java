@@ -1,5 +1,6 @@
 package com.sjs.jsvill.service.photo;
 
+import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Photo;
 import com.sjs.jsvill.repository.ContractRepository;
@@ -24,7 +25,7 @@ public class PhotoServiceImpl implements PhotoService {
 
     @SneakyThrows
     @Override
-    public Long register(List<MultipartFile> files, Long contractRowid) {
+    public List<Photo> register(List<MultipartFile> files, Long contractRowid) {
         List<Photo> photoList = fileHandler.parseFileInfo(files);
         // 파일이 존재할 때에만 처리
         if(!photoList.isEmpty()) {
@@ -34,6 +35,12 @@ public class PhotoServiceImpl implements PhotoService {
                 photoRepository.save(photo);
             }
         }
-        return null;
+        return photoList;
+    }
+
+    @Override
+    public List<PhotoDTO> getList(Long contractRowid) {
+        Contract contract = Contract.builder().contract_rowid(contractRowid).build();
+        return PhotoDTO.entityToDTOList(photoRepository.findByContract(contract));
     }
 }

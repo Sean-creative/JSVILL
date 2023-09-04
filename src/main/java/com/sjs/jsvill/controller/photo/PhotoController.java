@@ -1,6 +1,8 @@
 package com.sjs.jsvill.controller.photo;
 
+import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.dto.view.RegisterPhotoResDTO;
+import com.sjs.jsvill.entity.Photo;
 import com.sjs.jsvill.service.contract.ContractService;
 import com.sjs.jsvill.service.photo.PhotoService;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +27,18 @@ public class PhotoController {
     @GetMapping("/register")
     public String register(Long contractRowid, Model model) {
         model.addAttribute("data",
-                new RegisterPhotoResDTO(contractService.get(contractRowid)));
+                new RegisterPhotoResDTO(contractService.get(contractRowid), photoService.getList(contractRowid)));
         return "photo/register";
     }
 
     @PostMapping("/register")
-    public String register(List<MultipartFile> files, Long contractRowid) {
-        photoService.register(files, contractRowid);
-        return "redirect:/unit/read?unitRowid=" + contractService.get(contractRowid).getUnit().getUnit_rowid();
+    public String register(List<MultipartFile> files, Long contractRowid, Model model) {
+        List<Photo> photoList = photoService.register(files, contractRowid);
+
+        model.addAttribute("data",
+                new RegisterPhotoResDTO(contractService.get(contractRowid), PhotoDTO.entityToDTOList(photoList)));
+//        return "redirect:/unit/read?unitRowid=" + contractService.get(contractRowid).getUnit().getUnit_rowid();
+        return "photo/register";
     }
 
 //    @GetMapping("/edit")
