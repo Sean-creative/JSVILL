@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GuestController {
     @GetMapping("/guestGuide1")
     public String guestGuide1() {
-        return "/guest/guestGuide.html";
+        return "/guest/guestGuide1.html";
     }
     @GetMapping("/guestGuide2")
     public String guestGuide2() {
