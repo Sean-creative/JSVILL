@@ -33,10 +33,10 @@ public class PhotoController {
 
     @PostMapping("/register")
     public String register(List<MultipartFile> files, Long contractRowid, Model model) {
-        List<Photo> photoList = photoService.register(files, contractRowid);
+        photoService.register(files, contractRowid);
 
         model.addAttribute("data",
-                new RegisterPhotoResDTO(contractService.get(contractRowid), PhotoDTO.entityToDTOList(photoList)));
+                new RegisterPhotoResDTO(contractService.get(contractRowid), photoService.getList(contractRowid)));
 //        return "redirect:/unit/read?unitRowid=" + contractService.get(contractRowid).getUnit().getUnit_rowid();
         return "photo/register";
     }

@@ -107,7 +107,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px;align-items:center">
+                                    <div class="infoInner" style="flex:1;margin-left:30px;height:fit-content;line-height:25px;padding:0 8px;text-align:center">
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>
                                         <ul>
@@ -117,8 +117,9 @@
                                 </div>
                             </div>
                             <div class="infoInner" style="display:flex;justify-content:space-between;padding:15px 20px;margin-top:15px">
-                                <div style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.photoDTOList)}==0">사진이 없습니다.</div>
-                                <div style="font-weight:bold;padding:5px 0;height:fit-content" th:unless="${#lists.size(contractDTO.photoDTOList)}==0" th:text="${#lists.size(contractDTO.photoDTOList)} + '개의 사진'"></div>
+                                <div style="font-weight:bold;padding:5px 0;font-size:14px" th:if="${#lists.size(contractDTO.photoDTOList)}==0">사진이 없습니다.</div>
+<!--                                <div style="font-weight:bold;padding:5px 0" th:unless="${#lists.size(contractDTO.photoDTOList)}==0" th:text="${#lists.size(contractDTO.photoDTOList)} + '개의 사진'"></div>-->
+                                <a th:href="@{/photo/register(contractRowid=${contractDTO.contractRowid})}" th:unless="${#lists.size(contractDTO.photoDTOList)}==0" th:text="${#lists.size(contractDTO.photoDTOList)} + '개의 사진'" style="font-weight:bold;padding:5px 0;display:block;color:black"></a>
                                 <a th:href="@{/photo/register(contractRowid=${contractDTO.contractRowid})}" class="btn" style="">사진 등록</a>
 
                             </div>
