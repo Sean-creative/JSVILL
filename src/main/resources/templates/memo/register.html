@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>호실 등록</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/registerUnit.css"/>
+</head>
+<body>
+
+<th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 메모 등록</div>
+        <form action="/memo/register" method="post">
+            <input type="hidden" name="unitRowid" th:value="${data.unitRowid}">
+            <div class="info">
+                <label for="memo" class="subTitle">메모</label>
+                <div>
+                    <textarea name="content" id="memo" placeholder="(선택사항)" style="width:100%;height:100px;border:none;background:#F6F6F6"></textarea>
+                </div>
+            </div>
+
+            <div style="margin-top:20px">
+                <button type="reset" class="cancelBtn" style="cursor:pointer">취소</button>
+                <button type="button" class="registerBtn" style="cursor:pointer">등록</button>
+            </div>
+        </form>
+    </th:block>
+</th:block>
+
+</body>
+</html>

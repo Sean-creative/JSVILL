@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @Data
 public class PhotoDTO {
-    private String contractRowid;
+    private Long contractRowid;
     private String origFileName;
     private String filePath;
     private Long fileSize;
