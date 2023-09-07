@@ -30,16 +30,15 @@ public class MemoController {
 
     @GetMapping("/register")
     public String register(Long unitRowid, Model model) {
-        memoService.getList(unitRowid);
         model.addAttribute("data",
                 new RegisterMemoResDTO(unitService.get(unitRowid), memoService.getList(unitRowid)));
         return "memo/register";
     }
 
     @PostMapping("/register")
-    public String register(MemoDTO memoDTO) {
-
-        memoService.register(Memo.dtoToEntity(memoDTO));
+    public String register(MemoDTO memoDTO, RedirectAttributes redirectAttributes) {
+        memoService.register(memoDTO);
+        redirectAttributes.addAttribute("unitRowid", memoDTO.getUnitRowid());
         return "redirect:/memo/register";
     }
 
