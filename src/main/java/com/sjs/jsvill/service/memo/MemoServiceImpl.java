@@ -28,6 +28,6 @@ public class MemoServiceImpl implements MemoService {
     @Override
     public List<Memo> getList(Long unitRowid) {
         System.out.println("unitRowid : " + unitRowid);
-        return memoRepository.findByUnit(unitRepository.getById(unitRowid));
+        return memoRepository.findByUnitOrderByMemo_rowidDesc(unitRepository.getById(unitRowid));
     }
 }
