@@ -35,7 +35,10 @@
             <div th:if="${data.memoList.empty}" style="font-size:13px">메모가 없습니다.</div>
             <div th:unless="${data.memoList.empty}">
                 <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(data.memoList)}]]개의 메모</div>
-                <div th:each="memo:${data.memoList}" style="border-top:2px solid gray;padding:5px 10px">[[${memo.content}]]</div>
+                <div th:each="memo:${data.memoList}" style="border-top:2px solid gray;padding:5px 10px;display:flex;justify-content:space-between">
+                    <div>[[${memo.content}]]</div>
+                    <div th:text="${#temporals.createDate(memo.regDate, 'yyyyMMdd')}"></div>
+                </div>
             </div>
         </div>
     </th:block>
