@@ -26,8 +26,13 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
-    public List<Memo> getList(Long unitRowid) {
+    public List<Memo> getListByUnit(Long unitRowid) {
         System.out.println("unitRowid : " + unitRowid);
         return memoRepository.findTop30ByUnitOrderByMemoRowidDesc(unitRepository.getById(unitRowid));
+    }
+
+    @Override
+    public void remove(Long memoRowid) {
+        memoRepository.delete(Memo.builder().memoRowid(memoRowid).build());
     }
 }

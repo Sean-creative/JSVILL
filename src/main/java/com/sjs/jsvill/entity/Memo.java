@@ -29,7 +29,6 @@ public class Memo extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-
     public static Memo dtoToEntity(MemoDTO memoDTO) {
         Unit unit = Unit.builder().unit_rowid(memoDTO.getUnitRowid()).build();
         return Memo.builder().unit(unit).content(memoDTO.getContent()).build();

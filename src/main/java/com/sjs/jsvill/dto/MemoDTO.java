@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class MemoDTO {
+    private Long memoRowid;
     private Long unitRowid;
     private String content;
+    private String regDate;
 
     public static List<MemoDTO> entityToDTOList(List<Memo> memoList) {
         List<MemoDTO> memoDTOList = new ArrayList<>();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm yy/MM/dd");
         for (Memo memo : memoList) {
             memoDTOList.add(MemoDTO.builder()
+                    .memoRowid(memo.getMemoRowid())
                     .unitRowid(memo.getUnit().getUnit_rowid())
-                    .content(memo.getContent()).build());
+                    .content(memo.getContent())
+                    .regDate(memo.getRegDate().format(formatter)).build());
         }
         return memoDTOList;
     }

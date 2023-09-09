@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>호실 등록</title>
+    <title>메모 등록</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/registerUnit.css"/>
     <style>
@@ -32,12 +32,15 @@
         </form>
 
         <div class="infoInner" style="margin-top:30px;line-height:25px;padding:0 8px">
-            <div th:if="${data.memoList.empty}" style="font-size:13px">메모가 없습니다.</div>
-            <div th:unless="${data.memoList.empty}">
-                <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(data.memoList)}]]개의 메모</div>
-                <div th:each="memo:${data.memoList}" style="border-top:2px solid gray;padding:5px 10px;display:flex;justify-content:space-between">
+            <div th:if="${data.memoDTOList.empty}" style="font-size:13px">메모가 없습니다.</div>
+            <div th:unless="${data.memoDTOList.empty}">
+                <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(data.memoDTOList)}]]개의 메모</div>
+                <div th:each="memo:${data.getMemoDTOList}" style="border-top:2px solid gray;padding:5px;display:flex;justify-content:space-between">
                     <div>[[${memo.content}]]</div>
-                    <div th:text="${#temporals.createDate(memo.regDate, 'yyyyMMdd')}"></div>
+                    <div style="display:flex">
+                        <div style="font-size:14px;color:grey">[[${memo.regDate}]]</div>
+                        <div th:onclick="|javascript:memoRemove(${memo.memoRowid}, ${memo.unitRowid})|" style="margin-left:8px;color:rgb(29, 192, 120);font-weight:bold;cursor:pointer">X</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,6 +50,30 @@
     /*<![CDATA[*/
     function unitPage()  {window.location.href = "/unit/read?unitRowid="+[[${data.unitRowid}]]}
     /*]]>*/
+
+    //메모 삭제 버튼
+    function memoRemove(memoRowid, unitRowid) {
+        let f = document.createElement('form')
+        f.setAttribute('method', 'post')
+        f.setAttribute('action', '/memo/remove')
+
+        let obj;
+        obj = document.createElement('input')
+        obj.setAttribute('type', 'hidden')
+        obj.setAttribute('name', 'memoRowid')
+        obj.setAttribute('value', memoRowid)
+        f.appendChild(obj)
+
+        obj = document.createElement('input')
+        obj.setAttribute('type', 'hidden')
+        obj.setAttribute('name', 'unitRowid')
+        obj.setAttribute('value', unitRowid)
+        f.appendChild(obj)
+
+
+        document.body.appendChild(f)
+        f.submit()
+    }
 </script>
 </body>
 </html>
