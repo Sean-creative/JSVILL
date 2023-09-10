@@ -68,8 +68,12 @@
             </div>
 
             <div class="container" style="width:100%;margin-top:40px">
-                <div id="wrapper">
+                <div style="display:flex">
                     <div id="calendar"></div>
+                    <div style="margin:78px 0 0 30px;border: 1px solid #DADFEA;">
+                        <div style="height: 36px;line-height: 36px;background: #705AF9;text-align: center;color: #fff;font-size: 19px;">미완료 일정</div>
+                        <div id="calendarTitleSetDiv" style="padding:0 7px"></div>
+                    </div>
                 </div>
 
                 <!-- 일정 추가 MODAL -->
@@ -82,7 +86,6 @@
                                 <h4 class="modal-title"></h4>
                             </div>
                             <div class="modal-body">
-
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <label class="col-xs-4" for="edit-allDay">하루종일</label>
@@ -199,7 +202,6 @@
             </div>
             <!-- /.container -->
         </div>
-
     </th:block>
 </th:block>
 
