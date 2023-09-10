@@ -62,6 +62,15 @@
                 <td class="middle">2023-09-04</td>
                 <td class="middle">-</td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <a th:href="@{/guest/guestGuide5}">0</a>
+                </th>
+                <td>중요</td>
+                <td>퇴거가이드</td>
+                <td class="middle">2023-09-10</td>
+                <td class="middle">-</td>
+            </tr>
             <tr th:each="dto, stat : ${list}">
                 <th scope="row">
                     <a th:href="@{/community/read(id=${dto.comRowid})}">[[${total-(stat.index+(currentPage*10))}]]</a>

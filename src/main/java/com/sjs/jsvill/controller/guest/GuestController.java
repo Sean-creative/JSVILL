@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/guest")
 @RequiredArgsConstructor
 public class GuestController {
+    //입실 시 가이드
     @GetMapping("/guestGuide1")
     public String guestGuide1() {
         return "/guest/guestGuide1.html";
@@ -26,6 +27,12 @@ public class GuestController {
     @GetMapping("/guestGuide4")
     public String guestGuide4() {
         return "/guest/guestGuide4.html";
+    }
+
+    //퇴실 시 가이드
+    @GetMapping("/guestGuide5")
+    public String guestGuide5() {
+        return "/guest/guestGuide5.html";
     }
 
 }
