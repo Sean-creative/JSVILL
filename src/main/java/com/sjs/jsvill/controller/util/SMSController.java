@@ -25,7 +25,7 @@ public class SMSController {
     @ResponseBody
     @PostMapping("/send")
     public void send(@RequestBody SMSDTOReq smsDtoReq, @AuthenticationPrincipal MemberDTO memberDTO) {
-        System.out.println("sms-send");
+        System.out.println("sms-send 되는중??");
         Json.stringToJson(memberDTO, "SMSController-send/Post/send");
         try {
             smsService.sendNormalMessage(smsDtoReq);
