@@ -28,6 +28,8 @@ public class SMSController {
         System.out.println("sms-send 되는중??");
 
         Json.stringToJson(memberDTO, "SMSController-send/Post/send");
+
+        
         try {
             smsService.sendNormalMessage(smsDtoReq);
         } catch (UnsupportedEncodingException e) {
