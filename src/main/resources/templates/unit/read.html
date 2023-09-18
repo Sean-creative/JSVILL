@@ -4,6 +4,7 @@
     <title>건물 관리 페이지</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="/css/detailUnit.css"/>
+    <link rel="stylesheet" href="/css/modal.css"/> <!--캘린더 쪽이랑 css 충돌이 나서 빼두었는데, 복귀시킴-->
 </head>
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
@@ -80,7 +81,7 @@
                                 <div class="infoInner" style="display:flex;justify-content:space-between;position:relative;padding:15px 20px;margin-top:15px">
                                     <div style="text-align:left;position:relative">
                                         <div style="display:inline-block">계약일</div>
-                                        <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">
+                                        <div style="display:inline-block;margin-left:10px;background-color:darkorange;color:white;padding:1px 4px;font-size:11px;line-height:15px;font-weight:bold;position:absolute">`
                                             종료 D-[[${contractDTO.dDay}]]
                                         </div>
                                         <div style="font-size:12px;margin-top:7px">[[${contractDTO.startdate}]] ~ [[${contractDTO.enddate}]]</div>
@@ -130,7 +131,7 @@
             </div>
         </div>
         <!-- 계약즉시만료 모달 영역 -->
-        <div id="expiresModal" class="modal fade" role="dialog">
+        <div id="expiresModal" class="modal fade" role="dialog" style="top:7%;left:7%">
             <div class="modal-dialog" role="document" style="transform: translate(0, 100px)">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -150,7 +151,7 @@
             </div>
         </div>
         <!-- 문자 모달 영역 -->
-        <div id="smsModal" class="modal fade" role="dialog" style="top:19%">
+        <div id="smsModal" class="modal fade" role="dialog" style="top:20%;width:111%">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form id="smsForm" action="/sms/send" method="post">
