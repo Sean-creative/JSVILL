@@ -49,12 +49,7 @@ public class GroupServiceImpl implements GroupService {
         List<GroupDTO> groupDTOList = new ArrayList<>();
 
         for (Group group : groupList) {
-//            System.out.println("group : " + group);
             List<Unit> unitList = groupRepository.getUnitWithGroup(group.getGroup_rowid());
-//            for (Unit unit : unitList) {
-//                System.out.println("unit : " + unit);
-//            }
-//                System.out.println("unitList : " + unitList);
             groupDTOList.add(entitiesToDTO(group, unitList));
         }
         return groupDTOList;

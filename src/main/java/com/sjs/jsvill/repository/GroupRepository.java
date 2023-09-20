@@ -23,7 +23,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query("select g from Group g LEFT JOIN GroupMember gm On gm.group=g where gm.member.memberRowid=:memberRowid")
     List<Group> getGroupWithAll(@Param("memberRowid") Long memberRowid);
 
-    //테스트 해보자 - 되는건지는 잘 모르겠다
+    //테스트 해보자 - 되는건지는 잘 모르겠음
     @Query("select g, u from Group g left outer join GroupMember gm on gm.group=g " +
             "left outer join Unit u on u.group=g where gm.member.memberRowid=:memberRowid group by g")
     Object[] getGroupList(@Param("memberRowid") Long memberRowid);
