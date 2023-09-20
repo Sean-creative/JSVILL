@@ -1,5 +1,7 @@
 # JSVill
 
 
-<img src="wilson.jpg" style="width:700px;height:900px;">
+- 임대인과 임차인의 필요한 기능 제공 및 불편함을 해소해주는 
+임대관리 서비스
+    - 건물관리, 연체관리, 공실관리, 계약서 관리 등을 지원
 
