@@ -17,6 +17,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class GroupController {
     private final GroupService groupService;
+    @GetMapping("/register")
+    public String register() {
+        return "group/register";
+    }
+
+    @PostMapping("/register")
+    public String registerPost(GroupDTO dto, RedirectAttributes redirectAttributes) {
+        //일단 멤버는 이걸로 고정;
+        log.info("dto..." + dto);
+
+        Long gno = groupService.register(dto);
+        log.info("result", gno);
+        return "redirect:/group/list";
+    }
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("result", groupService.getList(1L));
+        return "group/list";
+    }
 
     @GetMapping("/edit")
     public String edit(long groupRowid, Model model) {
@@ -32,32 +51,7 @@ public class GroupController {
         return "redirect:/group/list";
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "group/register";
-    }
 
-    @PostMapping("/register")
-    public String registerPost(GroupDTO dto, RedirectAttributes redirectAttributes) {
-        //일단 멤버는 이걸로 고정;
-        log.info("dto..." + dto);
-
-        Long gno = groupService.register(dto);
-        log.info("result", gno);
-        return "redirect:/group/list";
-    }
-
-    @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("result", groupService.getList(1L));
-        return "group/list";
-    }
-
-//    @GetMapping("/detail")
-//    public String detail(Model model) {
-//        model.addAttribute("result", groupService.getList(1L).get(0));
-//        return "group/detail";
-//    }
 
     @PostMapping("/remove")
     public String remove(long groupRowid, RedirectAttributes redirectAttributes){

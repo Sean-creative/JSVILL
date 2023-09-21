@@ -1,5 +1,7 @@
 package com.sjs.jsvill.dto;
 
+import com.sjs.jsvill.entity.Group;
+import com.sjs.jsvill.entity.sub._GroupType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,4 +37,20 @@ public class GroupDTO {
 
     @Builder.Default
     private List<UnitDTO> unitDTOList = new ArrayList<>();
+
+
+    public static Group dtoToEntity(GroupDTO groupDTO) {
+        return Group.builder()
+                .group_rowid(groupDTO.groupRowid)
+                ._grouptype(_GroupType.builder()._grouptype_rowid(groupDTO.groupTypeRowid).build())
+                .title(groupDTO.title)
+                .landaddr(groupDTO.landAddr)
+                .roadaddr(groupDTO.roadAddr)
+                .lat(groupDTO.lat)
+                .lng(groupDTO.lng)
+                .postNum(groupDTO.postNum)
+                .memo(groupDTO.memo)
+                .completiondate(groupDTO.completionDate)
+            .build();
+    }
 }

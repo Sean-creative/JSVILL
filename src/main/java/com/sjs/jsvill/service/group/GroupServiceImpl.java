@@ -71,16 +71,10 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     @Override
     public void modify(GroupDTO groupDTO) {
-        Group group = groupRepository.getById(groupDTO.getGroupRowid());
+//        Group group = groupRepository.getById(groupDTO.getGroupRowid());
 
-        if(group != null) {
-            group.changeTitle(groupDTO.getTitle());
-            group.changeLandAddr(groupDTO.getLandAddr());
-            group.changePostNum(groupDTO.getPostNum());
-            group.changeMemo(groupDTO.getMemo());
-            group.changeCompletionDate(groupDTO.getCompletionDate());
-            groupRepository.save(group);
-        }
+        Group group = GroupDTO.dtoToEntity(groupDTO);
+        groupRepository.save(group);
     }
 
 

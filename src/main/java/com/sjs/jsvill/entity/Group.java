@@ -46,20 +46,4 @@ public class Group extends BaseEntity {
 
     @Column(length = 32, nullable = false)
     private String completiondate;
-
-    public void changeTitle(String title){
-        this.title = title;
-    }
-    public void changeLandAddr(String landaddr){
-        this.landaddr = landaddr;
-    }
-    public void changePostNum(String postNum){
-        this.postNum = postNum;
-    }
-    public void changeMemo(String memo){
-        this.memo = memo;
-    }
-    public void changeCompletionDate(String completiondate){
-        this.completiondate = completiondate;
-    }
 }
