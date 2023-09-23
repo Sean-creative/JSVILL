@@ -42,7 +42,7 @@ public class UnitServiceImpl implements UnitService {
         List<ContractDTO> contractDTOList = new ArrayList<>();
 
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
-        List<Contract> contarctList = contractRepository.findContarctByUnitNotOld(unitRowid);
+        List<Contract> contarctList = contractRepository.findContarctByUnitNotOldLimit2(unitRowid);
         for (Contract contract : contarctList) {
             Option option = optionRepository.findByContract(contract);
             List<Tenant> tenantList = new ArrayList<>();

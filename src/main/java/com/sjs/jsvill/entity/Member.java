@@ -41,7 +41,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 64)
     private String email;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<MemberRole> roleSet;
 
     public void addMemberRole(MemberRole clubMemberRole){

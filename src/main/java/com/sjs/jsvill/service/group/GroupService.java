@@ -2,10 +2,13 @@ package com.sjs.jsvill.service.group;
 
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.entity.Contract;
+import com.sjs.jsvill.entity.ContractTenant;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._GroupType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +54,7 @@ public interface GroupService {
     }
 
     //unit이 여러개일 때
-    default GroupDTO entitiesToDTO(Group group, List<Unit> unitList) {
+    default GroupDTO entitiesToDTO(Group group, List<Unit> unitList, List<Contract> contractList, Long totalTenantCnt) {
         GroupDTO groupDTO = GroupDTO.builder()
                 .groupRowid(group.getGroup_rowid())
                 .groupTypeRowid(group.get_grouptype().get_grouptype_rowid())
@@ -74,11 +77,11 @@ public interface GroupService {
                     .build()
             ).collect(Collectors.toList());
             groupDTO.setUnitDTOList(unitDTOList);
-//            groupDTO.setTotalDeposit(unitList.stream().mapToLong(Unit::getDeposit).sum());
-//            groupDTO.setTotalRentFee(unitList.stream().mapToLong(Unit::getRentfee).sum());
-//            groupDTO.setTotalManagementFees(unitList.stream().mapToLong(Unit::getManagementfees).sum());
-            //TODO 계약쪽 해결되면 고칠 것!
-            groupDTO.setTotalTenantCnt(0L);
+
+            groupDTO.setTotalDeposit(contractList.stream().mapToLong(Contract::getDeposit).sum());
+            groupDTO.setTotalRentFee(contractList.stream().mapToLong(Contract::getRentfee).sum());
+            groupDTO.setTotalManagementFees(contractList.stream().mapToLong(Contract::getManagementfees).sum());
+            groupDTO.setTotalTenantCnt(totalTenantCnt);
         }
 
         return groupDTO;

@@ -5,6 +5,7 @@ import com.sjs.jsvill.entity.GroupMember;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,11 +50,11 @@ public class GroupRepositoryTests {
 
     @Test
     public void getUnitWithGroup() {
-        List<Unit> result = groupRepository.getUnitWithGroup(1L);
+        List<Unit> result = groupRepository.getUnitByGroup(3L);
         System.out.println("result.length : " + result.size());
         for (Unit unit : result) {
             System.out.println("unit : " + unit);
-
+            Json.stringToJson(unit, "getUnitWithGroup");
         }
     }
 
@@ -67,18 +68,10 @@ public class GroupRepositoryTests {
 
     @Test
     public void getGroupWithMember() {
-        List<Group> result = groupRepository.getGroupWithAll(1L);
+        List<Group> result = groupRepository.getGroupByMember(1L);
         for (Group arr : result) {
             System.out.println("arr : " + arr);
         }
-    }
-
-    @Test
-    public void read() {
-        Object[] arr = groupRepository.getGroupList(1L);
-
-        System.out.println(arr[0].toString());
-        System.out.println(arr[1].toString());
     }
 
 

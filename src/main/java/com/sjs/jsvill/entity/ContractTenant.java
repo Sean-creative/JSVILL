@@ -20,7 +20,7 @@ public class ContractTenant extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contract_tenant_rowid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "contract_rowid", nullable = false)
     private Contract contract;

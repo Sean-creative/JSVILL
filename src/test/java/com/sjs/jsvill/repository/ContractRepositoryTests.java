@@ -3,10 +3,12 @@ package com.sjs.jsvill.repository;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._ContractType;
+import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.LongStream;
@@ -39,7 +41,7 @@ public class ContractRepositoryTests {
 
     @Test
     public void findContarctByUnitNotOld() {
-        List<Contract> result = contractRepository.findContarctByUnitNotOld(1L);
+        List<Contract> result = contractRepository.findContarctByUnitNotOldLimit2(2L);
         System.out.println("result.length : " + result.size());
 
         result.forEach(i -> System.out.println(i));
@@ -47,8 +49,8 @@ public class ContractRepositoryTests {
 
     @Test
     public void findById(){
-        Optional<Contract> contract = contractRepository.findById(27L);
-        System.out.println(contract.get().getUnit());
+        Optional<Contract> contract = contractRepository.findById(11L);
+        Json.stringToJson(contract.get(), "findById Test");
     }
 
     @Test
@@ -64,6 +66,14 @@ public class ContractRepositoryTests {
     @Test
     public void findAllByUnit() {
         System.out.println("contractRepository.findAllByUnit(1L) : " + contractRepository.findContractByUnitOldAsc(14L));
+    }
+
+    @Test
+    public void findProgressContractsByUnits() {
+        List<Long> unitRowids = List.of(2L, 43L );
+        List<Contract> contractList = contractRepository.findProgressContractsByUnits(unitRowids);
+        System.out.println("size :" + contractList.size());
+        Json.stringToJson(contractList, "findProgressContractsByUnits Test");
     }
 
 }

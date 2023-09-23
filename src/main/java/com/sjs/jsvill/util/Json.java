@@ -8,7 +8,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Json {
-
         static ObjectMapper objectMapper = new ObjectMapper();
         static  {
             objectMapper.registerModule(new JavaTimeModule());
