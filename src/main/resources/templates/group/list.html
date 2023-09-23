@@ -24,7 +24,7 @@
         <div style="display:flex;justify-content:space-between">
             <!--타임리프에 #을 써준 이유는 -> 정해진 함수를 사용하기 위함이다.-->
             <span style="line-height:25px"><span th:text="${#lists.size(result)}"></span>개의 건물</span>
-            <a href="/group/register" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">건물등록</a>
+            <a th:if="${#lists.size(result)}==0" href="/group/register" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">건물등록</a>
         </div>
 
         <div th:each="dto:${result}">
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div style="width:100%;margin-top:40px">
+            <div style="width:100%;margin:40px 0 80px 0">
                 <div style="display:flex">
                     <div id="calendar"></div>
                     <div style="margin:78px 0 0 30px;border: 1px solid #DADFEA;">
@@ -206,9 +206,10 @@
 </th:block>
 
 <!--외부 jS 파일로 타임리프 변수 전달-->
-<script type="text/javascript" th:inline="javascript">
-    // 나중에 groupRowid를 선택한 값에 대해서 가져오도록 수정해야함 - sean 230514
-    const groupRowid = $.parseJSON('[[ ${result[0].groupRowid} ]]');
+<script th:inline="javascript">
+    const size = [[${result.size}]]*1
+    let groupRowid
+    if(size!==0) groupRowid = $.parseJSON('[[ ${result[0].groupRowid} ]]'); //calendar에서 사용할 값
 </script>
 <script src="/vendor/js/jquery.min.js"></script>
 <script src="/vendor/js/bootstrap.min.js"></script>

@@ -3,17 +3,15 @@ package com.sjs.jsvill.service.group;
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.entity.Contract;
-import com.sjs.jsvill.entity.ContractTenant;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.sub._GroupType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public interface GroupService {
-    Long register(GroupDTO dto);
+    Long register(GroupDTO dto, Long memberRowid);
     List<GroupDTO> getList(Long memberRowid);
     Long remove(Long group_rowid);
     Group get(Long group_rowid);
@@ -66,9 +64,9 @@ public interface GroupService {
                 .postNum(group.getPostNum())
                 .memo(group.getMemo())
                 .completionDate(group.getCompletiondate())
-                .build();
+            .build();
 
-        if(unitList.get(0) != null) {
+        if(!unitList.isEmpty()) {
             List<UnitDTO> unitDTOList = unitList.stream().map(unit -> UnitDTO.builder()
                     .unitRowid(unit.getUnit_rowid())
                     .groupRowid(unit.getGroup().getGroup_rowid())

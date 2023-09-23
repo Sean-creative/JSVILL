@@ -12,7 +12,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     //한개의 로우내에 Object[]로 나온다
     //해당 그룹에 있는 유닛들을 가져오는 쿼리
-    @Query("select u from Group g LEFT JOIN Unit u On u.group=g where g.group_rowid=:group_rowid")
+    @Query("select u from Group g LEFT JOIN Unit u On u.group=g where u.group.group_rowid=:group_rowid")
     List<Unit> getUnitByGroup(@Param("group_rowid") Long group_rowid);
 
     //해당 그룹의 총합을 계산해주는 쿼리

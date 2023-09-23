@@ -30,11 +30,11 @@ public class GroupController {
     }
 
     @PostMapping("/register")
-    public String registerPost(GroupDTO dto, RedirectAttributes redirectAttributes) {
+    public String register(GroupDTO groupDTO, @AuthenticationPrincipal MemberDTO memberDTO) {
         //일단 멤버는 이걸로 고정;
-        log.info("dto..." + dto);
+        log.info("dto..." + groupDTO);
 
-        Long gno = groupService.register(dto);
+        Long gno = groupService.register(groupDTO, memberDTO.getMemberRowid());
         log.info("result", gno);
         return "redirect:/group/list";
     }

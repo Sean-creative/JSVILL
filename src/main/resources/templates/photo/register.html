@@ -37,7 +37,7 @@
 
             <div class="info">
                 <div class="subTitle">기존 사진</div>
-                <div style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px" th:if="${#lists.size(data.photoDTOList)}==0">기존 사진이 없습니다.</div>
+                <div th:if="${#lists.size(data.photoDTOList)}==0" style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px">기존 사진이 없습니다.</div>
 
                 <div style="font-weight:bold;padding:5px 0;height:fit-content" th:unless="${#lists.size(data.photoDTOList)}==0" th:text="${#lists.size(data.photoDTOList)} + '개의 사진'"></div>
                 <img th:each="photoDTO:${data.photoDTOList}" th:src="${photoDTO.filePath}" alt="photo" width="200px" height="200px">
