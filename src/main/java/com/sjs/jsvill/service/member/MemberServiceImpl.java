@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+    public MemberDTO loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
 
         log.info("ClubUserDetailsService loadUserByUsername " + phoneNumber);
         Optional<Member> result = memberRepository.findByPhoneNumber(phoneNumber, false);
