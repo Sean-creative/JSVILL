@@ -27,6 +27,9 @@
             <a th:if="${#lists.size(result)}==0" href="/group/register" style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold">건물등록</a>
         </div>
 
+        <div th:if="${#lists.size(result)}==0" style="font-size:27px;margin-top:50px">
+            🥹 건물을 등록해주세요 🥹
+        </div>
         <div th:each="dto:${result}">
             <div class="groupDiv">
                 <div style="flex:2;padding:0 30px">
