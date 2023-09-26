@@ -53,6 +53,8 @@ dependencies {
 	//파일 처리 관련 - IOUtils 패키지는 대부분 static 메소드이므로 객체를 생성하지 않고 바로 사용 가능
 	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
+	//S3 연동
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 }
 test {
