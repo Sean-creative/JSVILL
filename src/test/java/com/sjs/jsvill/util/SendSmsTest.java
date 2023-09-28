@@ -1,7 +1,7 @@
 package com.sjs.jsvill.util;
 
 
-import com.sjs.jsvill.service.util.SmsService;
+import com.sjs.jsvill.service.sms.NaverSmsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +12,13 @@ import java.io.UnsupportedEncodingException;
 public class SendSmsTest {
 
     @Autowired
-    SmsService smsService;
+    NaverSmsService naverSmsService;
 
     @Test
     public void sendSms() {
         String code;
         try {
-            code = smsService.sendRandomMessage("01050070615");
+            code = naverSmsService.sendRandomMessage("01050070615");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

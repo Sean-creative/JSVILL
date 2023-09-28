@@ -1,21 +1,22 @@
-package com.sjs.jsvill.entity.sub;
+package com.sjs.jsvill.entity.defaultType;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="_grouptype")
+@Table(name="_membertype")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class _GroupType {
+public class _MemberType {
 
     @Id
-    private Long _grouptype_rowid;
+    private Long _membertype_rowid;
 
     @Column(length = 64, nullable = false)
     private String title;
+
 }

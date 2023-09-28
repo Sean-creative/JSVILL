@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**List<MultipartFile> 을 전달받아 파일을 저장한 후 관련 정보를 List<Photo>로 변환하여 반환*/
 @Component
 @RequiredArgsConstructor
 public class AWSFileHandler {

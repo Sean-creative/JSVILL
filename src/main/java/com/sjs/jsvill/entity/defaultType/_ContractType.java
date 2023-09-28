@@ -1,4 +1,4 @@
-package com.sjs.jsvill.entity.sub;
+package com.sjs.jsvill.entity.defaultType;
 
 import lombok.*;
 

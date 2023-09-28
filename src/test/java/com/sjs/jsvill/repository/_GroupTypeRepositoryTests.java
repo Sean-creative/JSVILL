@@ -1,6 +1,6 @@
 package com.sjs.jsvill.repository;
 
-import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.entity.defaultType._GroupType;
 import com.sjs.jsvill.repository.sub._GroupTypeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

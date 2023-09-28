@@ -5,7 +5,7 @@ import com.sjs.jsvill.dto.ContractDTO;
 import com.sjs.jsvill.dto.PreviousContractHistoryDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Unit;
-import com.sjs.jsvill.entity.sub._ContractType;
+import com.sjs.jsvill.entity.defaultType._ContractType;
 
 import java.util.List;
 

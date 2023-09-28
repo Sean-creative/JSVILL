@@ -1,10 +1,11 @@
-package com.sjs.jsvill.util;
+package com.sjs.jsvill.service.aws;
 
 import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Photo;
 import com.sjs.jsvill.repository.ContractRepository;
 import com.sjs.jsvill.repository.PhotoRepository;
+import com.sjs.jsvill.util.AWSFileHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;

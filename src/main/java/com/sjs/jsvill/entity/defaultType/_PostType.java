@@ -1,22 +1,21 @@
-package com.sjs.jsvill.entity.sub;
+package com.sjs.jsvill.entity.defaultType;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="_membertype")
+@Table(name="_posttype")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class _MemberType {
+public class _PostType {
 
     @Id
-    private Long _membertype_rowid;
+    private Long _posttype_rowid;
 
     @Column(length = 64, nullable = false)
     private String title;
-
 }

@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service.util;
+package com.sjs.jsvill.util;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

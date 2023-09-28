@@ -1,7 +1,7 @@
 package com.sjs.jsvill.entity;
 
 import com.sjs.jsvill.entity.common.BaseEntity;
-import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.entity.defaultType._GroupType;
 import lombok.*;
 
 import javax.persistence.*;

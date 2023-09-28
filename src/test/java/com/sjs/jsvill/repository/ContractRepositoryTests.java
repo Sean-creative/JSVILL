@@ -2,13 +2,12 @@ package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Unit;
-import com.sjs.jsvill.entity.sub._ContractType;
+import com.sjs.jsvill.entity.defaultType._ContractType;
 import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.LongStream;

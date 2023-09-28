@@ -3,7 +3,7 @@ package com.sjs.jsvill.service.contract;
 import com.sjs.jsvill.controller.util.UserDuplicateCheck;
 import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.*;
-import com.sjs.jsvill.entity.sub._LivingType;
+import com.sjs.jsvill.entity.defaultType._LivingType;
 import com.sjs.jsvill.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

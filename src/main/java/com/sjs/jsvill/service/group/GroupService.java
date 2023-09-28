@@ -5,7 +5,7 @@ import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Unit;
-import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.entity.defaultType._GroupType;
 
 import java.util.List;
 import java.util.stream.Collectors;

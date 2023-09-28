@@ -19,7 +19,7 @@
     <form action="/member/login" method="post">
         <div th:if="${param.error}" class="fieldMsgError">사용자ID 또는 비밀번호를 확인해 주세요.</div>
         <input placeholder="휴대폰번호 ex) 010-1234-5678" name="phoneNumber" id="phoneNumber" class="phoneNumber" oninput="oninputPhone(this)"/>
-        <input placeholder="핀번호 (4자리)" type="password" name="pinNumber" id="pinNumber" class="pinNumber" oninput="oninputNumber(this)"/>
+        <input placeholder="핀번호 (4자리)" type="password" name="pinNumber" id="pinNumber" class="pinNumber" oninput="oninputPassword(this)"/>
 
         <button class="submitButton" id="loginSubmitButton">
             <span class="submitButtonLabel">로그인</span>
@@ -30,14 +30,14 @@
     <a href="/member/signUpOld" class="aButton homeButton">🅿 핀번호 찾기</a>
 
     <script>
-        function oninputNumber(target) {
-            target.value = target.value
-                .replace(/[^0-9]/g, '')
-        }
         function oninputPhone(target) {
             target.value = target.value
                 .replace(/[^0-9]/g, '')
                 .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+        }
+        function oninputPassword(target) {
+            target.value = target.value
+                .replace(/[^0-9]/g, '')
         }
     </script>
 </body>

@@ -4,7 +4,7 @@ import com.sjs.jsvill.dto.member.SignUpPinNewDTOReq;
 import com.sjs.jsvill.dto.member.SignUpPinOldDTOReq;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.service.member.MemberService;
-import com.sjs.jsvill.service.util.SmsService;
+import com.sjs.jsvill.service.sms.NaverSmsService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,17 +29,7 @@ import java.util.Optional;
 public class CtlMemberLogin {
 
     private final MemberService memberService;
-    private final SmsService smsService;
-
-//    @ResponseBody
-//    @GetMapping("/member/login/{phone}")
-//    public MemberUserLoginDTO action(@PathVariable("phoneNumber") String phone, @RequestBody MemberLoginDTO memberLogin) {
-//        MemberUserLoginDTO memberUser = memberUserService.login(phone, memberLogin);
-//        if(memberUser==null) { //memberUser가 없다면, 빈 MemberUser 객체를 만들기
-//            memberUser = new MemberUserLoginDTO();
-//        }
-//       return memberUser;
-//    }
+    private final NaverSmsService naverSmsService;
 
     //로그인
     @GetMapping("/login")
@@ -57,7 +47,6 @@ public class CtlMemberLogin {
 
         // 이미 가입된 전화번호 있음 -> 안돼 돌아가
         if(member.isPresent()) {
-            //flash를 사용하기 위해서, 일단 redirect 처리로 해결
             attributes.addFlashAttribute("phoneNumber", member.get().getPhoneNumber());
             return "redirect:/member/signUpNew";
         }
@@ -65,14 +54,14 @@ public class CtlMemberLogin {
         else {
             String code;
             try {
-                code = smsService.sendRandomMessage(phoneNumber.replaceAll("-", ""));
+                code = naverSmsService.sendRandomMessage(phoneNumber.replaceAll("-", ""));
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
             session.setAttribute("rand", code);
             session.setAttribute("phoneNumber", phoneNumber);
             session.setAttribute("from", "signUpNew");
-            return "member/signUpAuth";
+            return "redirect:/member/signUpAuth";
         }
     }
 
@@ -140,7 +129,7 @@ public class CtlMemberLogin {
         else {
             String code;
             try {
-                code = smsService.sendRandomMessage(phoneNumber.replaceAll("-", ""));
+                code = naverSmsService.sendRandomMessage(phoneNumber.replaceAll("-", ""));
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }

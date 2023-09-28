@@ -2,7 +2,7 @@ package com.sjs.jsvill.controller.util;
 
 import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.dto.sms.SMSDTOReq;
-import com.sjs.jsvill.service.util.SmsService;
+import com.sjs.jsvill.service.sms.NaverSmsService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 @Log4j2
 @RequiredArgsConstructor
 public class SMSController {
-    private final SmsService smsService;
+    private final NaverSmsService naverSmsService;
 
     @ResponseBody
     @PostMapping("/send")
@@ -31,7 +31,7 @@ public class SMSController {
 
         
         try {
-            smsService.sendNormalMessage(smsDtoReq);
+            naverSmsService.sendNormalMessage(smsDtoReq);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

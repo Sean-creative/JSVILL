@@ -2,7 +2,7 @@ package com.sjs.jsvill.controller.photo;
 
 import com.sjs.jsvill.dto.view.RegisterPhotoResDTO;
 import com.sjs.jsvill.service.contract.ContractService;
-import com.sjs.jsvill.util.AwsS3Service;
+import com.sjs.jsvill.service.aws.AwsS3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

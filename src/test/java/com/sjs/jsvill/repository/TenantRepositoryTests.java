@@ -1,7 +1,7 @@
 package com.sjs.jsvill.repository;
 
 import com.sjs.jsvill.entity.Tenant;
-import com.sjs.jsvill.entity.sub._LivingType;
+import com.sjs.jsvill.entity.defaultType._LivingType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

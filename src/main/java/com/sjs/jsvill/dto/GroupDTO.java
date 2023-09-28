@@ -1,7 +1,7 @@
 package com.sjs.jsvill.dto;
 
 import com.sjs.jsvill.entity.Group;
-import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.entity.defaultType._GroupType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -4,7 +4,7 @@ import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.GroupMember;
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.Unit;
-import com.sjs.jsvill.entity.sub._GroupType;
+import com.sjs.jsvill.entity.defaultType._GroupType;
 import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

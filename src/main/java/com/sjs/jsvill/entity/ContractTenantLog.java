@@ -1,7 +1,7 @@
 package com.sjs.jsvill.entity;
 
 import com.sjs.jsvill.entity.common.BaseEntity;
-import com.sjs.jsvill.entity.sub._LivingType;
+import com.sjs.jsvill.entity.defaultType._LivingType;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

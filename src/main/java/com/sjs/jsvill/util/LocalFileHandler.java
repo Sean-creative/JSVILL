@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**List<MultipartFile> 을 전달받아 파일을 저장한 후 관련 정보를 List<Photo>로 변환하여 반환*/
+/**추후에 사용*/
 @Component
 public class LocalFileHandler {
 

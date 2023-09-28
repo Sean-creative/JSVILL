@@ -3,7 +3,7 @@ package com.sjs.jsvill.controller.unit;
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.contract.ContractService;
 import com.sjs.jsvill.service.unit.UnitService;
-import com.sjs.jsvill.service.util.SmsService;
+import com.sjs.jsvill.service.sms.NaverSmsService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +22,7 @@ public class UnitController {
 
     private final UnitService unitService;
     private final ContractService contractService;
-    private final SmsService smsService;
+    private final NaverSmsService naverSmsService;
 
     @GetMapping("/read")
     public String String(Long unitRowid, Model model) {
