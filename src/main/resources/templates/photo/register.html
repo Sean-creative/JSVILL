@@ -25,7 +25,7 @@
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 사진 등록</div>
-        <form action="/photo/register" method="post" enctype="multipart/form-data"">
+        <form action="/photo/register" method="post" enctype="multipart/form-data">
             <input type="hidden" name="contractRowid" th:value="${data.contractRowid}">
 
             <div class="info">
@@ -75,7 +75,6 @@
                 }
             }
 
-
             // 탐색기에서 드래그앤 드롭 사용
             attZone.addEventListener('dragenter', function(e){
                 e.preventDefault();
@@ -97,10 +96,7 @@
                 for(f of files){
                     imageLoader(f);
                 }
-
             }, false)
-
-
 
             /*첨부된 이미리즐을 배열에 넣고 미리보기 */
             imageLoader = function(file){

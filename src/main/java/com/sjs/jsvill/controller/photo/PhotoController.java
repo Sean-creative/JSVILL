@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,19 +25,19 @@ public class PhotoController {
 
     @GetMapping("/register")
     public String register(Long contractRowid, Model model) {
+        log.info("GetMapping-register-Get");
         model.addAttribute("data",
                 new RegisterPhotoResDTO(contractService.get(contractRowid), awsS3Service.contractPhotogetList(contractRowid)));
         return "photo/register";
     }
 
     @PostMapping("/register")
-    public String register(List<MultipartFile> files, Long contractRowid, Model model) {
+    public String register(List<MultipartFile> files, Long contractRowid, RedirectAttributes redirectAttributes) {
+        log.info("GetMapping-register-Post");
         awsS3Service.contractPhotoRegister(files, contractRowid);
 
-        model.addAttribute("data",
-                new RegisterPhotoResDTO(contractService.get(contractRowid), awsS3Service.contractPhotogetList(contractRowid)));
-//        return "redirect:/unit/read?unitRowid=" + contractService.get(contractRowid).getUnit().getUnit_rowid();
-        return "photo/register";
+        redirectAttributes.addAttribute("contractRowid", contractRowid);
+        return "redirect:/photo/register";
     }
 
     @DeleteMapping("/file")
