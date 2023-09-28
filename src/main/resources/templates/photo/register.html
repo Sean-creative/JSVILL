@@ -25,7 +25,7 @@
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 사진 등록</div>
-        <form action="/photo/register" method="post" enctype="multipart/form-data" onsubmit="return valiCheck()">
+        <form action="/photo/register" method="post" enctype="multipart/form-data"">
             <input type="hidden" name="contractRowid" th:value="${data.contractRowid}">
 
             <div class="info">
@@ -40,7 +40,7 @@
                 <div th:if="${#lists.size(data.photoDTOList)}==0" style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px">기존 사진이 없습니다.</div>
 
                 <div style="font-weight:bold;padding:5px 0;height:fit-content" th:unless="${#lists.size(data.photoDTOList)}==0" th:text="${#lists.size(data.photoDTOList)} + '개의 사진'"></div>
-                <img th:each="photoDTO:${data.photoDTOList}" th:src="${photoDTO.filePath}" alt="photo" width="200px" height="200px">
+                <img th:each="photoDTO:${data.photoDTOList}" th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
             </div>
 
             <div style="margin:30px 0 40px 0;float:right">

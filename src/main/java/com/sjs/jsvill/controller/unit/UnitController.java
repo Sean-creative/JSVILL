@@ -2,7 +2,6 @@ package com.sjs.jsvill.controller.unit;
 
 import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.service.contract.ContractService;
-import com.sjs.jsvill.service.photo.PhotoService;
 import com.sjs.jsvill.service.unit.UnitService;
 import com.sjs.jsvill.service.util.SmsService;
 import com.sjs.jsvill.util.Json;
@@ -24,7 +23,6 @@ public class UnitController {
     private final UnitService unitService;
     private final ContractService contractService;
     private final SmsService smsService;
-    private final PhotoService fileService;
 
     @GetMapping("/read")
     public String String(Long unitRowid, Model model) {

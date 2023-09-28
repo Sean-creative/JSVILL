@@ -22,17 +22,6 @@ public class PhotoController {
     private final ContractService contractService;
     private final AwsS3Service awsS3Service;
 
-    @PostMapping(path = "/teams")
-    public ResponseEntity<List<String>> uploadFile(@RequestPart List<MultipartFile> multipartFile) {
-        return new ResponseEntity<>(awsS3Service.uploadFile(multipartFile), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/file")
-    public ResponseEntity<Void> deleteFile(@RequestParam String fileName) {
-        awsS3Service.deleteFile(fileName);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/register")
     public String register(Long contractRowid, Model model) {
         model.addAttribute("data",
@@ -48,6 +37,12 @@ public class PhotoController {
                 new RegisterPhotoResDTO(contractService.get(contractRowid), awsS3Service.contractPhotogetList(contractRowid)));
 //        return "redirect:/unit/read?unitRowid=" + contractService.get(contractRowid).getUnit().getUnit_rowid();
         return "photo/register";
+    }
+
+    @DeleteMapping("/file")
+    public ResponseEntity<Void> deleteFile(@RequestParam String fileName) {
+        awsS3Service.deleteFile(fileName);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //    @GetMapping("/edit")

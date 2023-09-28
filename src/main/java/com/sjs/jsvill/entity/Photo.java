@@ -29,19 +29,22 @@ public class Photo extends BaseEntity {
     private String origFileName;  // 파일 원본명
 
     @Column(nullable = false)
-    private String filePath;  // 파일 저장 경로
+    private String fileKey;  // 파일 저장 경로
 
     private Long fileSize;
 
     @Builder
-    public Photo(String origFileName, String filePath, Long fileSize){
+    public Photo(String origFileName, String fileKey, Long fileSize){
         this.origFileName = origFileName;
-        this.filePath = filePath;
+        this.fileKey = fileKey;
         this.fileSize = fileSize;
     }
 
     // Contract 정보 저장
     public void setContract(Contract contract){
         this.contract = contract;
+    }
+    public void setFileKey(String filePath){
+        this.fileKey = filePath;
     }
 }

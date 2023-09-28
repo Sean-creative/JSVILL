@@ -1,15 +1,22 @@
 package com.sjs.jsvill.util;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sjs.jsvill.entity.Photo;
-import com.sjs.jsvill.service.photo.PhotoService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,49 +25,48 @@ import java.util.UUID;
 
 /**List<MultipartFile> 을 전달받아 파일을 저장한 후 관련 정보를 List<Photo>로 변환하여 반환*/
 @Component
+@RequiredArgsConstructor
 public class AWSFileHandler {
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+    private final AmazonS3 amazonS3; //AWS에 파일을 CRUD
 
-    //파일의 경로를 지정하고 Photo 엔티티 형태로 반환
-    public List<Photo> parseFileInfo(List<MultipartFile> multipartFiles) throws Exception {
+    /**계약서 사진 업로드 후, photoList 반환*/
+    public List<Photo> uploadFileForContractImage(List<MultipartFile> multipartFileList) {
+        List<Photo> photoList = new ArrayList<>();
+        multipartFileList.forEach(file -> {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentLength(file.getSize());
+            objectMetadata.setContentType(file.getContentType());
 
-        // 반환할 파일 리스트
-        List<Photo> fileList = new ArrayList<>();
-
-        // 전달되어 온 파일이 존재할 경우
-        //Apache Commons 라이브러리 중 Null 체크를 해주는 함수 (Null일때 오류 발생하지 않음)
-        if(!CollectionUtils.isEmpty(multipartFiles)) {
-
-            // 파일명을 업로드 한 날짜로 변환하여 저장
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            String currentDate = LocalDateTime.now().format(dateTimeFormatter);
-            String targetResource = "/contractImage".replace("/", File.separator) + File.separator + currentDate;
-
-            // 다중 파일 처리
-            for(MultipartFile multipartFile : multipartFiles) {
-
-
-
-
-                String fileEntityPath = targetResource + File.separator + createFileName(multipartFile.getOriginalFilename());
-                // Photo 엔티티 생성
-                Photo photo = new Photo(
-                        multipartFile.getOriginalFilename(),
-                        fileEntityPath,
-                        multipartFile.getSize()
-                );
-                // 생성 후 리스트에 추가
-                fileList.add(photo);
+            String fileKey = createFileName("contractImage", file.getOriginalFilename());
+            try(InputStream inputStream = file.getInputStream()) {
+                amazonS3.putObject(new PutObjectRequest(bucket, fileKey, inputStream, objectMetadata)
+                        .withCannedAcl(CannedAccessControlList.PublicRead));
+            } catch(IOException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }
-        }
-        return fileList;
+            photoList.add(new Photo(file.getOriginalFilename(), fileKey, file.getSize()));
+        }); //end forEach
+        return photoList;
     }
 
-    // 먼저 파일 업로드 시, 파일명을 난수화하기 위해 random으로 돌립니다.
-    public String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+    public void deleteFile(String fileName) {
+        amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
 
-    // file 형식이 잘못된 경우를 확인하기 위해 만들어진 로직이며, 파일 타입과 상관없이 업로드할 수 있게 하기 위해 .의 존재 유무만 판단
+
+    /**먼저 파일 업로드 시, 중복을 피하기 위해 파일명을 난수화*/
+    public String createFileName(String firstFolder, String fileName) {
+        // 파일명을 업로드 한 날짜로 변환하여 저장
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String currentDate = LocalDateTime.now().format(dateTimeFormatter);
+        String targetResource = firstFolder + "/" + currentDate;
+        String uniqueFileName = UUID.randomUUID().toString().concat(fileName);
+        return targetResource + "/" + uniqueFileName;
+    }
+
+    /**file 형식이 잘못된 경우를 확인하기 위해 만들어진 로직이며, 파일 타입과 상관없이 업로드할 수 있게 하기 위해 .의 존재 유무만 판단*/
     public String getFileExtension(String fileName) {
         try {
             return fileName.substring(fileName.lastIndexOf("."));
@@ -82,5 +88,9 @@ public class AWSFileHandler {
 //            else  // 다른 확장자일 경우 처리 x
 //                break;
 //        }
+    }
+
+    public String changeToAwsUrl(String key) {
+        return amazonS3.getUrl(bucket, key).toString();
     }
 }
