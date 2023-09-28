@@ -24,7 +24,7 @@ public class GroupServiceTests {
                 .memo("moemo")
                 .completionDate("completiondate")
                 .build();
-        System.out.println(groupService.register(groupDTO, memberDTO.getMemberRowid()));
+//        System.out.println(groupService.register(groupDTO, memberDTO.getMemberRowid()));
     }
 
 //    @Test

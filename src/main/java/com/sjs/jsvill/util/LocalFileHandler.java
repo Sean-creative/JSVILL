@@ -1,8 +1,6 @@
 package com.sjs.jsvill.util;
 
-import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Photo;
-import com.sjs.jsvill.service.photo.PhotoService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -16,7 +14,7 @@ import java.util.List;
 
 /**List<MultipartFile> 을 전달받아 파일을 저장한 후 관련 정보를 List<Photo>로 변환하여 반환*/
 @Component
-public class FileHandler {
+public class LocalFileHandler {
 
     public List<Photo> parseFileInfo(List<MultipartFile> multipartFiles) throws Exception {
 
