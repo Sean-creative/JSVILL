@@ -20,28 +20,28 @@ public class Community extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comRowid;
 
-    @Column(name="type")
+    @Column
     private String type;
 
-    @Column(name="title")
+    @Column
     private String title;
 
-    @Column(name="cont")
+    @Column
     private String cont;
 
-    @Column(name="readcnt")
+    @Column
     private int readCnt;
 
-    @Column(name="writer")
+    @Column
     private String writer;
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd") /* Todo kjs date format 변경할 수 있는 방법 찾기 */
-    @Column(name="regdate", updatable = false, insertable = false) /* Todo kjs updatable, insetable 정확히 어떤 역할인지 알아보기 */
+    @Column(updatable = false, insertable = false) /* Todo kjs updatable, insetable 정확히 어떤 역할인지 알아보기 */
 //    @Convert(converter= StringToFormatDateStringConverter.class)
     private LocalDateTime regdate;
 
-    @Column(name="moddate", updatable = false, insertable = false)
+    @Column(updatable = false, insertable = false)
     private LocalDateTime moddate;
 
 

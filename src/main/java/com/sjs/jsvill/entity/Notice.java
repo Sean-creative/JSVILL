@@ -36,6 +36,4 @@ public class Notice extends BaseEntity {
     @CreatedDate
     @Column(name = "regdate", updatable = false)
     private LocalDateTime regDate;
-
-
 }
