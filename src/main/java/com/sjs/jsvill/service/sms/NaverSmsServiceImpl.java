@@ -1,7 +1,7 @@
 package com.sjs.jsvill.service.sms;
 
 import com.sjs.jsvill.dto.sms.SMSDTOReq;
-import com.sjs.jsvill.util.Naver_Sens_V2;
+import com.sjs.jsvill.util.NaverSensV2;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class NaverNaverSmsServiceImpl implements NaverSmsService {
 
     @Override
     public String sendRandomMessage(String tel) throws UnsupportedEncodingException {
-        Naver_Sens_V2 message = new Naver_Sens_V2();
+        NaverSensV2 message = new NaverSensV2();
         Random rand = new Random();
         String numStr = "";
         for (int i = 0; i < 6; i++) {
@@ -30,7 +30,7 @@ public class NaverNaverSmsServiceImpl implements NaverSmsService {
 
     @Override
     public String sendNormalMessage(SMSDTOReq smsDtoReq) throws UnsupportedEncodingException {
-        Naver_Sens_V2 message = new Naver_Sens_V2();
+        NaverSensV2 message = new NaverSensV2();
         message.send_msg(smsDtoReq.getToTel().replace("-", ""), "[JSVILL] "+smsDtoReq.getContent()+"\n from : "+smsDtoReq.getName()+", "+smsDtoReq.getFromTel());
         return "";
     }
