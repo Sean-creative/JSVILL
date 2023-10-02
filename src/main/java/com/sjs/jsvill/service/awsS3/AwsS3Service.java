@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service.aws;
+package com.sjs.jsvill.service.awsS3;
 
 import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Photo;

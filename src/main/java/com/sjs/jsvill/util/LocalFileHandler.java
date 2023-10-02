@@ -14,6 +14,7 @@ import java.util.List;
 
 /**추후에 사용*/
 @Component
+@Deprecated
 public class LocalFileHandler {
 
     public List<Photo> parseFileInfo(List<MultipartFile> multipartFiles) throws Exception {

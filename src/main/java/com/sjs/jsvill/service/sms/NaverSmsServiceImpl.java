@@ -12,7 +12,7 @@ import java.util.Random;
 @Service //스프링에서 빈으로 처리되도록
 @Log4j2
 @RequiredArgsConstructor //의존성 자동 주입
-public class NaverNaverSmsServiceImpl implements NaverSmsService {
+public class NaverSmsServiceImpl implements NaverSmsService {
 
     @Override
     public String sendRandomMessage(String tel) throws UnsupportedEncodingException {

@@ -12,7 +12,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Naver_Sens_V2 {
+public class NaverSensV2 {
     @SuppressWarnings("unchecked")
     public void send_msg(String tel, String msg) throws UnsupportedEncodingException {
         String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
