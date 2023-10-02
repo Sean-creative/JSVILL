@@ -132,7 +132,7 @@ let calendar = $('#calendar').fullCalendar({
 
                 $('#calendarTitleSetDiv').empty()
                 calendarTitleSet.forEach(function (value) {
-                    $('#calendarTitleSetDiv').append(`<div class="fc-event badge" style="display:block;width:fit-content;margin-top:15px;font-size:16px;font-weight:normal">${value}</div>`)
+                    $('#calendarTitleSetDiv').append(`<div class="fc-event badge" style="display:block;margin-top:15px;font-size:16px;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${value}</div>`)
                 })
 
                 callback(fixedDate);
