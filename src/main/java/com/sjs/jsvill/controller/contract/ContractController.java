@@ -33,9 +33,9 @@ public class ContractController {
 
     @PostMapping("/register")
     public String register(ContractDTO contractDTO, RedirectAttributes redirectAttributes) {
-        Json.stringToJson(contractDTO, "ContractController-register");
         contractService.register(contractDTO);
-        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
+        redirectAttributes.addAttribute("unitRowid", contractDTO.getUnitRowid());
+        return "redirect:/unit/read";
     }
 
     @GetMapping("/edit")
@@ -51,7 +51,8 @@ public class ContractController {
     public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
         Json.stringToJson(contractDTO, "ContractController-edit/post");
         contractService.modify(contractDTO);
-        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
+        redirectAttributes.addAttribute("unitRowid", contractDTO.getUnitRowid());
+        return "redirect:/unit/read";
     }
     @PostMapping("/remove")
     public String remove(long contractRowid, RedirectAttributes redirectAttributes){

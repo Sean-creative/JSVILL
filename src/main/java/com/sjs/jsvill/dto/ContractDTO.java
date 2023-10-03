@@ -1,6 +1,8 @@
 package com.sjs.jsvill.dto;
 
 import com.sjs.jsvill.entity.Contract;
+import com.sjs.jsvill.entity.Unit;
+import com.sjs.jsvill.entity.defaultType._ContractType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,47 +37,33 @@ public class ContractDTO {
     @Builder.Default
     private List<PhotoDTO> photoDTOList = new ArrayList<>();
 
-
-    //하나의 계약에 각종 리스트들을 넣어줄것임
-    public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, List<CarDTO> carDTOList, OptionDTO optionDTO, List<PhotoDTO> photoDTOList) {
-        ContractDTO contractDTO = ContractDTO.builder()
-                .contractRowid(contarct.getContract_rowid())
-                .unitRowid(contarct.getUnit().getUnit_rowid())
-                .ContractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
-                .startdate(contarct.getStartdate())
-                .enddate(contarct.getEnddate())
-                .deposit(contarct.getDeposit())
-                .rentFee(contarct.getRentfee())
-                .managementFees(contarct.getManagementfees())
-                .paymentDay(contarct.getPaymentday())
-                .tenantDTOList(tenantDTOList)
-                .carDTOList(carDTOList)
-                .optionDTO(optionDTO)
-                .dDay(contarct.dDayOperator(contarct.getEnddate()))
-                .photoDTOList(photoDTOList)
-                .build();
-        return contractDTO;
+    /**계약 종류가 '자가'라면 보증금/월세/관리비를 0으로 만듦 */
+    public static void realEstateOwner(ContractDTO contractDTO) {
+        if(contractDTO.getContractTypeRowid()==40L) {
+            contractDTO.setDeposit(0L);
+            contractDTO.setRentFee(0L);
+            contractDTO.setManagementFees(0L);
+            contractDTO.setPaymentDay(0L);
+        }
     }
-//
-//    //contract 여러개일 때
-//    default List<ContractDTO> entitiesToDTO(List<Contarct> contarctList) {
-//        List<ContractDTO> contractDTOList = new ArrayList<>();
-//        if(!contarctList.isEmpty()) {
-//            contractDTOList = contarctList.stream().map(contract -> ContractDTO.builder()
-//                    .tenantRowid(contract.getUnit().getUnit_rowid())
-//                    ._contracttypeRowid(contract.getContractType().get_contracttype_rowid())
-//                    .title(contract.getTitle())
-//                    .startdate(contract.getStartdate())
-//                    .enddate(contract.getEnddate())
-//                    .isprogressing(contract.getIsprogressing())
-//                    .deposit(contract.getDeposit())
-//                    .rentfee(contract.getRentfee())
-//                    .managementfees(contract.getManagementfees())
-//                    .paymentday(contract.getPaymentday())
-//                    .build()
-//            ).collect(Collectors.toList());
-//        }
-//
-//        return contractDTOList;
-//    }
+
+    public static Contract dtoToEntity(ContractDTO contractDTO) {
+        //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자
+        // 1. tenant에 insert
+        // 2. car를 등록했다면 car에 insert
+        // 3. contract에 insert
+        // 4. option에 insert
+
+        realEstateOwner(contractDTO);
+        return Contract.builder()
+                .unit(Unit.builder().unit_rowid(contractDTO.getUnitRowid()).build())
+                ._contracttype(_ContractType.builder()._contracttype_rowid(contractDTO.getContractTypeRowid()).build())
+                .startdate(contractDTO.getStartdate())
+                .enddate(contractDTO.getEnddate())
+                .deposit(contractDTO.getDeposit())
+                .rentfee(contractDTO.getRentFee())
+                .managementfees(contractDTO.getManagementFees())
+                .paymentday(contractDTO.getPaymentDay())
+                .build();
+    }
 }

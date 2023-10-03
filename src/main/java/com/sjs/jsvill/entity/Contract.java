@@ -1,5 +1,6 @@
 package com.sjs.jsvill.entity;
 
+import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.common.BaseEntity;
 import com.sjs.jsvill.entity.defaultType._ContractType;
 import lombok.*;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "contract")
@@ -91,6 +93,48 @@ public class Contract extends BaseEntity {
         return diffDays;
     }
 
+    //하나의 계약에 각종 리스트들을 넣어줄것임
+    public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, List<CarDTO> carDTOList, OptionDTO optionDTO, List<PhotoDTO> photoDTOList) {
+        ContractDTO contractDTO = ContractDTO.builder()
+                .contractRowid(contarct.getContract_rowid())
+                .unitRowid(contarct.getUnit().getUnit_rowid())
+                .ContractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
+                .startdate(contarct.getStartdate())
+                .enddate(contarct.getEnddate())
+                .deposit(contarct.getDeposit())
+                .rentFee(contarct.getRentfee())
+                .managementFees(contarct.getManagementfees())
+                .paymentDay(contarct.getPaymentday())
+                .tenantDTOList(tenantDTOList)
+                .carDTOList(carDTOList)
+                .optionDTO(optionDTO)
+                .dDay(contarct.dDayOperator(contarct.getEnddate()))
+                .photoDTOList(photoDTOList)
+                .build();
+        return contractDTO;
+    }
+//
+//    //contract 여러개일 때
+//    default List<ContractDTO> entitiesToDTO(List<Contarct> contarctList) {
+//        List<ContractDTO> contractDTOList = new ArrayList<>();
+//        if(!contarctList.isEmpty()) {
+//            contractDTOList = contarctList.stream().map(contract -> ContractDTO.builder()
+//                    .tenantRowid(contract.getUnit().getUnit_rowid())
+//                    ._contracttypeRowid(contract.getContractType().get_contracttype_rowid())
+//                    .title(contract.getTitle())
+//                    .startdate(contract.getStartdate())
+//                    .enddate(contract.getEnddate())
+//                    .isprogressing(contract.getIsprogressing())
+//                    .deposit(contract.getDeposit())
+//                    .rentfee(contract.getRentfee())
+//                    .managementfees(contract.getManagementfees())
+//                    .paymentday(contract.getPaymentday())
+//                    .build()
+//            ).collect(Collectors.toList());
+//        }
+//
+//        return contractDTOList;
+//    }
 
 
 }

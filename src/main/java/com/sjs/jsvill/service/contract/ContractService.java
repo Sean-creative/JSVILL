@@ -24,24 +24,4 @@ public interface ContractService {
 
     void expire(Long contractRowid);
     PreviousContractHistoryDTO getPreviousContractHistoryList(Long unitRowid, boolean isAsc);
-
-    default Contract dtoToEntity(ContractDTO contractDTO) {
-        //계약을 등록 하기위해 뷰에서 받은 값을 엔티티로 바꿔보자
-        // 1. tenant에 insert
-        // 2. car를 등록했다면 car에 insert
-        // 3. contract에 insert
-        // 4. option에 insert
-
-        Contract contract = Contract.builder()
-                .unit(Unit.builder().unit_rowid(contractDTO.getUnitRowid()).build())
-                ._contracttype(_ContractType.builder()._contracttype_rowid(contractDTO.getContractTypeRowid()).build())
-                .startdate(contractDTO.getStartdate())
-                .enddate(contractDTO.getEnddate())
-                .deposit(contractDTO.getDeposit())
-                .rentfee(contractDTO.getRentFee())
-                .managementfees(contractDTO.getManagementFees())
-                .paymentday(contractDTO.getPaymentDay())
-                .build();
-        return contract;
-    }
 }

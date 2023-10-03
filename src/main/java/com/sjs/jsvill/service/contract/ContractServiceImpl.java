@@ -5,6 +5,7 @@ import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.entity.defaultType._LivingType;
 import com.sjs.jsvill.repository.*;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -94,8 +95,10 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     //계약은 트랜잭션으로 이루어져 한다. 뭐 하나라도 잘못되면 롤백!!
     public void register(ContractDTO contractDTO) {
+        Json.stringToJson(contractDTO, "ContractServiceImpl-register");
+
 //        1. 계약 등록
-        Contract contract = contractRepository.save(dtoToEntity(contractDTO));
+        Contract contract = contractRepository.save(ContractDTO.dtoToEntity(contractDTO));
 //        1-1. 계약R -> 옵션 등록
         log.info("contract.getContract_rowid() : " + contract.getContract_rowid());
         OptionDTO optionDTO = contractDTO.getOptionDTO();
@@ -148,7 +151,7 @@ public class ContractServiceImpl implements ContractService {
             });
         });
         tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
-        return ContractDTO.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option), PhotoDTO.entityToDTOList(photoRepository.findByContract(contract.get())));
+        return Contract.entityToDTO(contract.get(),  TenantDTO.entitiesToDTOList(tenantList), carDTOList,OptionDTO.entityToDTO(option), PhotoDTO.entityToDTOList(photoRepository.findByContract(contract.get())));
     }
     @Override
     @Transactional
@@ -159,6 +162,7 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     @Override
     public void modify(ContractDTO contractDTO) {
+        ContractDTO.realEstateOwner(contractDTO);
         Contract contract = contractRepository.getById(contractDTO.getContractRowid());
         Option option = optionRepository.findByContract(Contract.builder().contract_rowid(contractDTO.getContractRowid()).build());
 

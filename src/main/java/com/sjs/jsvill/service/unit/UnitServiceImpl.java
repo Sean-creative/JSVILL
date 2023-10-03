@@ -57,7 +57,7 @@ public class UnitServiceImpl implements UnitService {
             //세대주 우선 정렬
             tenantList.sort((a, b) -> Boolean.compare(b.getIsContractor(), a.getIsContractor()));
 
-            contractDTOList.add(ContractDTO.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList),
+            contractDTOList.add(Contract.entityToDTO(contract, TenantDTO.entitiesToDTOList(tenantList),
                     CarDTO.entitiesToDTOList(carList), OptionDTO.entityToDTO(option), PhotoDTO.entityToDTOList(photoRepository.findByContract(contract))));
         }
 

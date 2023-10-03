@@ -36,7 +36,8 @@ public class InitData {
         List<_ContractType> contractTypeList = new ArrayList<>(Arrays.asList(
                 _ContractType.builder()._contracttype_rowid(10L).title("전세").build(),
                 _ContractType.builder()._contracttype_rowid(20L).title("반전세").build(),
-                _ContractType.builder()._contracttype_rowid(30L).title("월세").build()
+                _ContractType.builder()._contracttype_rowid(30L).title("월세").build(),
+                _ContractType.builder()._contracttype_rowid(40L).title("자가").build()
         ));
         List<_GroupType> groupTypeList = new ArrayList<>(Arrays.asList(
                 _GroupType.builder()._grouptype_rowid(10L).title("전세").build(),

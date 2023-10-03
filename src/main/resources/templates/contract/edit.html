@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/css/registerContract.css"/>
     <link rel="stylesheet" href="/css/common.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        input[disabled] {background:#CCCCCC !important;text-decoration:line-through}
+    </style>
 </head>
 <body>
 
@@ -53,7 +56,18 @@
                 <div style="font-size:10px;margin-top:10px">* 세대주 체크는 필수 입력사항 입니다.</div>
             </div>
 
+
             <div class="info">
+                <div class="subTitle">계약 종류</div>
+                <div class="contractType">
+                    <input type="radio" name="contractTypeRowid" id="10" th:value=10 th:checked="${contractDTO.contractTypeRowid}==10" checked><label for="10">전세</label>
+                    <input type="radio" name="contractTypeRowid" id="20" th:value=20 th:checked="${contractDTO.contractTypeRowid}==20"><label for="20">반전세</label>
+                    <input type="radio" name="contractTypeRowid" id="30" th:value=30 th:checked="${contractDTO.contractTypeRowid}==30"><label for="30">월세</label>
+                    <input type="radio" name="contractTypeRowid" id="40" th:value=40 th:checked="${contractDTO.contractTypeRowid}==40"><label for="40">자가</label>
+                </div>
+            </div>
+
+            <div class="info fee">
                 <div class="subTitle">보증금/월세/관리비</div>
                 <div style="display: flex">
                     <div style="flex:2">
@@ -88,15 +102,6 @@
                                      style="width:20%;height:30px;margin:0 4px 0 10px;border:none;background:#F6F6F6;padding-left:10px">일
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="info">
-                <div class="subTitle">계약 종류</div>
-                <div class="contractType">
-                    <input type="radio" name="contractTypeRowid" id="10" value=10 th:checked="${contractDTO.contractTypeRowid}==10" checked><label for="10">전세</label>
-                    <input type="radio" name="contractTypeRowid" id="20" value=20 th:checked="${contractDTO.contractTypeRowid}==20"><label for="20">반전세</label>
-                    <input type="radio" name="contractTypeRowid" id="30" value=30 th:checked="${contractDTO.contractTypeRowid}==30"><label for="30">월세</label>
                 </div>
             </div>
 
@@ -321,6 +326,24 @@
             .replace(/[^0-9]/g, '')
             .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
     }
+
+    function contractTypeRadio() {
+        console.log(1)
+        const numberSelector = '.fee input[type="number"]'
+        console.log(2)
+        $(numberSelector).prop('disabled', false); // 모든 number input 요소 활성화
+        console.log(3)
+        const selectedValue = $('.contractType input[type="radio"]:checked').val();
+        console.log(`selectedValue : ${selectedValue}`)
+        console.log(4)
+        if(selectedValue==='40') $(numberSelector).prop('disabled', true)
+    }
+
+    contractTypeRadio()
+    // 라디오 버튼의 변경 이벤트 처리
+    $('.contractType input[type="radio"]').change(function() {
+        contractTypeRadio()
+    });
 </script>
 </body>
 </html>
