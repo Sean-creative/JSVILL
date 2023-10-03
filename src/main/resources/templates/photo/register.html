@@ -7,17 +7,8 @@
     <link rel="stylesheet" href="/css/common.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style>
-        #att_zone{
-            width: 640px;
-            padding:10px;
-            border:1px dotted grey;
-            min-height: 130px;
-        }
-        #att_zone:empty:before{
-            content : attr(data-placeholder);
-            color : #999;
-            font-size:.9em;
-        }
+        #att_zone{width:640px;padding:10px;border:1px dotted grey;min-height:130px}
+        #att_zone:empty:before{content:attr(data-placeholder);color:#999;font-size:.9em}
     </style>
 </head>
 <body>
@@ -25,14 +16,13 @@
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 사진 등록</div>
-        <form action="/photo/register" method="post" enctype="multipart/form-data">
+        <form id="form" action="/photo/register" method="post" enctype="multipart/form-data">
             <input type="hidden" name="contractRowid" th:value="${data.contractRowid}">
 
             <div class="info">
                 <div class="subTitle">사진 업로드</div>
                 <input type='file' id='btnAtt' name="files" multiple="multiple" accept=".png, .jpeg" style="padding-left:0"/>
-                <div id='att_zone'
-                     data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+                <div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
             </div>
 
             <div class="info">
@@ -51,12 +41,12 @@
     </th:block>
 </th:block>
 <script>
+    let postFiles = [];
     ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
         imageView = function imageView(att_zone, btn){
 
             let attZone = document.getElementById(att_zone);
             let btnAtt = document.getElementById(btn)
-            let sel_files = [];
 
             // 이미지와 체크 박스를 감싸고 있는 div 속성
             let div_style = 'display:inline-block;position:relative;'
@@ -69,10 +59,8 @@
 
             btnAtt.onchange = function(e){
                 let files = e.target.files;
-                let fileArr = Array.prototype.slice.call(files)
-                for(f of fileArr){
-                    imageLoader(f);
-                }
+                let fileArr = Array.prototype.slice.call(files);
+                for(f of fileArr) imageLoader(f);
             }
 
             // 탐색기에서 드래그앤 드롭 사용
@@ -84,7 +72,6 @@
             attZone.addEventListener('dragover', function(e){
                 e.preventDefault();
                 e.stopPropagation();
-
             }, false)
 
             attZone.addEventListener('drop', function(e){
@@ -93,14 +80,12 @@
                 e.stopPropagation();
                 let dt = e.dataTransfer;
                 files = dt.files;
-                for(f of files){
-                    imageLoader(f);
-                }
+                for(f of files) imageLoader(f);
             }, false)
 
-            /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+            /*첨부된 이미지들을 배열에 넣고 미리보기 */
             imageLoader = function(file){
-                sel_files.push(file);
+                postFiles.push(file);
                 let reader = new FileReader();
                 reader.onload = function(ee){
                     let img = document.createElement('img')
@@ -108,7 +93,6 @@
                     img.src = ee.target.result;
                     attZone.appendChild(makeDiv(img, file));
                 }
-
                 reader.readAsDataURL(file);
             }
 
@@ -117,23 +101,22 @@
                 let div = document.createElement('div')
                 div.setAttribute('style', div_style)
 
-                let btn = document.createElement('input')
-                btn.setAttribute('type', 'button')
-                btn.setAttribute('value', 'x')
-                btn.setAttribute('delFile', file.name);
-                btn.setAttribute('style', chk_style);
-                btn.onclick = function(ev){
+                let removeBtn = document.createElement('input')
+                removeBtn.setAttribute('type', 'button')
+                removeBtn.setAttribute('value', 'x')
+                removeBtn.setAttribute('delFile', file.name);
+                removeBtn.setAttribute('style', chk_style);
+                removeBtn.onclick = function(ev){
                     let ele = ev.srcElement;
                     let delFile = ele.getAttribute('delFile');
-                    for(let i=0 ;i<sel_files.length; i++){
-                        if(delFile== sel_files[i].name){
-                            sel_files.splice(i, 1);
+                    for(let i=0 ;i<postFiles.length; i++){
+                        if(delFile== postFiles[i].name){
+                            postFiles.splice(i, 1);
                         }
                     }
-
                     dt = new DataTransfer();
-                    for(f in sel_files) {
-                        let file = sel_files[f];
+                    for(f in postFiles) {
+                        let file = postFiles[f];
                         dt.items.add(file);
                     }
                     btnAtt.files = dt.files;
@@ -141,12 +124,39 @@
                     attZone.removeChild(p)
                 }
                 div.appendChild(img)
-                div.appendChild(btn)
+                div.appendChild(removeBtn)
                 return div
             }
         }
     )('att_zone', 'btnAtt')
 
+    $('#form').submit(function (e) {
+        e.preventDefault(); // 기본 폼 제출 동작을 막음
+        let form = $(this);
+        let formData = new FormData(form[0]);
+        for (let i = 0; i < postFiles.length; i++) formData.append('uploadFiles', postFiles[i]);
+
+        $.ajax({
+            url : "/photo/register",
+            data : formData,
+            type : 'POST',
+            enctype : 'multipart/form-data',
+            processData : false,
+            contentType : false,
+            dataType : 'text',
+            cache : false,
+            success: function (response) {
+                // 성공적으로 처리된 경우
+                console.log('서버 응답:', response);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // 오류가 발생한 경우
+                console.error('오류:', error);
+                location.reload();
+            }
+        });
+    })
 </script>
 </body>
 </html>

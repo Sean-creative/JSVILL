@@ -32,12 +32,12 @@ public class PhotoController {
     }
 
     @PostMapping("/register")
-    public String register(List<MultipartFile> files, Long contractRowid, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<String> register(List<MultipartFile> uploadFiles, Long contractRowid, RedirectAttributes redirectAttributes) {
         log.info("GetMapping-register-Post");
-        awsS3Service.contractPhotoRegister(files, contractRowid);
+        awsS3Service.contractPhotoRegister(uploadFiles, contractRowid);
 
         redirectAttributes.addAttribute("contractRowid", contractRowid);
-        return "redirect:/photo/register";
+        return ResponseEntity.ok("파일 업로드 및 데이터 처리 완료");
     }
 
     @DeleteMapping("/file")

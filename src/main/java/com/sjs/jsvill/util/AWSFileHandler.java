@@ -34,6 +34,8 @@ public class AWSFileHandler {
     public List<Photo> uploadFileForContractImage(List<MultipartFile> multipartFileList) {
         List<Photo> photoList = new ArrayList<>();
         multipartFileList.forEach(file -> {
+            System.out.println("file.getOriginalFilename() : " + file.getOriginalFilename());
+            System.out.println("file.getName() : " + file.getName());
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(file.getSize());
             objectMetadata.setContentType(file.getContentType());
