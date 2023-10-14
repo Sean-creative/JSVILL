@@ -2,7 +2,7 @@
 
 ## Description
 
-- 🔗링크 : https://www.jsvill.com
+- 🔗링크 : www.jsvill.com
 
 
 - ### 🔊 저희 JSVILL은요... (프로젝트 소개)
