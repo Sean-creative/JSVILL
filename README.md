@@ -2,7 +2,7 @@
 
 ## Description
 
-- 🔗링크 : <a href="www.jsvill.com" target="_blank">jsvill</a>
+- 🔗링크 : <a href="www.jsvill.com" target="_blank"> jsvill </a>
 
 
 - ### 🔊 저희 JSVILL은요... (프로젝트 소개)
