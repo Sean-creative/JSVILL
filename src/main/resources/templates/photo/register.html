@@ -32,7 +32,8 @@
                 <a th:each="photoDTO:${data.photoDTOList}" th:href="${photoDTO.getFileKey}" target="_blank">
                     <div style="display:inline-block;position:relative">
                         <img th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
-                        <img src="/image/photo/empty-bookmark.png" alt="bookmark" width="20" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img class="bookmark" src="/image/photo/empty-bookmark.png" alt="bookmark" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img class="remove" src="/image/photo/remove.png" alt="remove" style="position:absolute;bottom:16px;right:15px;width:20px">
                     </div>
                 </a>
 
@@ -59,8 +60,7 @@
             // 미리보기 이미지 속성
             let img_style = 'width:100%;height:100%;z-index:none';
             // 이미지안에 표시되는 체크박스의 속성
-            let chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
-                + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.01);color:rgb(29, 192, 120)';
+            let remove_img_style = 'width:20px;position:absolute;right:2px;bottom:3px';
 
             btnAtt.onchange = function(e){
                 let files = e.target.files;
@@ -105,13 +105,12 @@
             makeDiv = function(img, file){
                 let div = document.createElement('div')
                 div.setAttribute('style', div_style)
-
-                let removeBtn = document.createElement('input')
-                removeBtn.setAttribute('type', 'button')
-                removeBtn.setAttribute('value', 'x')
-                removeBtn.setAttribute('delFile', file.name);
-                removeBtn.setAttribute('style', chk_style);
-                removeBtn.onclick = function(ev){
+                const removeImage = document.createElement("img");
+                removeImage.src = "/image/photo/remove.png";
+                removeImage.alt = "remove";
+                removeImage.setAttribute('style', remove_img_style)
+                removeImage.setAttribute('delFile', file.name);
+                removeImage.onclick = function(ev){
                     let ele = ev.srcElement;
                     let delFile = ele.getAttribute('delFile');
                     for(let i=0 ;i<postFiles.length; i++){
@@ -129,7 +128,7 @@
                     attZone.removeChild(p)
                 }
                 div.appendChild(img)
-                div.appendChild(removeBtn)
+                div.appendChild(removeImage)
                 return div
             }
         }
@@ -161,6 +160,11 @@
                 location.reload();
             }
         });
+    })
+
+    $(".bookmark").on("click", function (e) {
+        alert("bookmark clicked")
+        return false; //a태그 실행을 막아줌
     })
 </script>
 </body>

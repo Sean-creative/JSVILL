@@ -17,7 +17,7 @@ public class Photo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long photo_rowid;
+    private Long photoRowid;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -30,6 +30,9 @@ public class Photo extends BaseEntity {
 
     @Column(nullable = false)
     private String fileKey;  // 파일 저장 경로
+
+    @Column(nullable = false)
+    private boolean bookMark;
 
     private Long fileSize;
 
