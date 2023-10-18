@@ -32,7 +32,8 @@
                 <a th:each="photoDTO:${data.photoDTOList}" th:href="${photoDTO.getFileKey}" target="_blank">
                     <div style="display:inline-block;position:relative">
                         <img th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
-                        <img class="bookmark" src="/image/photo/empty-bookmark.png" alt="bookmark" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img th:if="${photoDTO.bookmark} == true" class="bookMark" src="/image/photo/fill-bookMark.png" alt="bookMark" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img th:unless="${photoDTO.bookmark} == true" class="bookMark" src="/image/photo/empty-bookMark.png" alt="bookMark" style="position:absolute;top:9px;right:6px;width:50px">
                         <img class="remove" src="/image/photo/remove.png" alt="remove" style="position:absolute;bottom:16px;right:15px;width:20px">
                     </div>
                 </a>
@@ -59,8 +60,9 @@
                 + 'width:150px;height:120px;margin:5px;border:1px dotted grey;z-index:1';
             // 미리보기 이미지 속성
             let img_style = 'width:100%;height:100%;z-index:none';
+            let bookmark_img_style = 'position:absolute;top:0px;right:-2px;width:28px;cursor:pointer';
             // 이미지안에 표시되는 체크박스의 속성
-            let remove_img_style = 'width:20px;position:absolute;right:2px;bottom:3px';
+            let remove_img_style = 'width:18px;position:absolute;right:2px;bottom:3px;cursor:pointer';
 
             btnAtt.onchange = function(e){
                 let files = e.target.files;
@@ -80,7 +82,7 @@
             }, false)
 
             attZone.addEventListener('drop', function(e){
-                let files = {};
+                let files;
                 e.preventDefault();
                 e.stopPropagation();
                 let dt = e.dataTransfer;
@@ -90,7 +92,12 @@
 
             /*첨부된 이미지들을 배열에 넣고 미리보기 */
             imageLoader = function(file){
-                postFiles.push(file);
+                //이때에 bookMark 설정도 같이 넣어줘야함
+                postFiles.push({
+                    file: file,
+                    bookMark: false // 파일과 관련된 추가 정보를 포함하여 push
+                });
+
                 let reader = new FileReader();
                 reader.onload = function(ee){
                     let img = document.createElement('img')
@@ -105,16 +112,41 @@
             makeDiv = function(img, file){
                 let div = document.createElement('div')
                 div.setAttribute('style', div_style)
+
+                const bookMarkImage = document.createElement("img");
+                bookMarkImage.src = "/image/photo/empty-bookMark.png";
+                bookMarkImage.alt = "bookMark";
+                bookMarkImage.setAttribute('style', bookmark_img_style)
+                bookMarkImage.setAttribute('isBookMark', "0");
+                bookMarkImage.onclick = function(ev){
+                    let ele = ev.srcElement;
+                    let idx;
+                    for(let i=0 ;i<postFiles.length; i++){
+                        if(file.name===postFiles[i].file.name){
+                            idx = i
+                        }
+                    }
+                    let isBookMark = ele.getAttribute('isBookMark');
+                    if(isBookMark==="1") {
+                        postFiles[idx].bookMark = false
+                        bookMarkImage.src = "/image/photo/empty-bookMark.png";
+                        bookMarkImage.setAttribute('isBookMark', "0");
+                    }
+                    else {
+                        postFiles[idx].bookMark = true
+                        bookMarkImage.src = "/image/photo/fill-bookMark.png";
+                        bookMarkImage.setAttribute('isBookMark', "1");
+                    }
+                }
+
                 const removeImage = document.createElement("img");
                 removeImage.src = "/image/photo/remove.png";
                 removeImage.alt = "remove";
                 removeImage.setAttribute('style', remove_img_style)
-                removeImage.setAttribute('delFile', file.name);
                 removeImage.onclick = function(ev){
                     let ele = ev.srcElement;
-                    let delFile = ele.getAttribute('delFile');
                     for(let i=0 ;i<postFiles.length; i++){
-                        if(delFile== postFiles[i].name){
+                        if(file.name===postFiles[i].file.name){
                             postFiles.splice(i, 1);
                         }
                     }
@@ -128,6 +160,7 @@
                     attZone.removeChild(p)
                 }
                 div.appendChild(img)
+                div.appendChild(bookMarkImage)
                 div.appendChild(removeImage)
                 return div
             }
@@ -138,7 +171,10 @@
         e.preventDefault(); // 기본 폼 제출 동작을 막음
         let form = $(this);
         let formData = new FormData(form[0]);
-        for (let i = 0; i < postFiles.length; i++) formData.append('uploadFiles', postFiles[i]);
+        for (let i = 0; i < postFiles.length; i++) {
+            formData.append('uploadFiles', postFiles[i].file);
+            formData.append('bookMarks', postFiles[i].bookMark);
+        }
 
         $.ajax({
             url : "/photo/register",
@@ -162,8 +198,8 @@
         });
     })
 
-    $(".bookmark").on("click", function (e) {
-        alert("bookmark clicked")
+    $(".bookMark").on("click", function (e) {
+        alert("bookMark clicked")
         return false; //a태그 실행을 막아줌
     })
 </script>

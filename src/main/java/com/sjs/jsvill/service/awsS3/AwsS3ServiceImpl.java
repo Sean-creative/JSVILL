@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 @Log4j2
@@ -26,12 +27,22 @@ public class AwsS3ServiceImpl implements AwsS3Service {
 
     @SneakyThrows
     @Override
-    public List<Photo> contractPhotoRegister(List<MultipartFile> multipartFileList, Long contractRowid) {
+    public List<Photo> contractPhotoRegister(List<MultipartFile> multipartFileList, List<Boolean> bookMarks, Long contractRowid) {
+        System.out.println("bookMarks: " + bookMarks);
+        bookMarks.forEach(i -> {
+            System.out.println("i :" + i);
+        });
         List<Photo> photoList = awsFileHandler.uploadFileForContractImage(multipartFileList);
         // 파일이 존재할 때에만 처리
         if(!photoList.isEmpty()) {
             Contract contract = contractRepository.getById(contractRowid);
-            photoList.forEach(photo -> {photo.setContract(contract);});
+            IntStream.range(0, photoList.size())
+                    .forEach(idx -> {
+                        Photo photo = photoList.get(idx);
+                        photo.setContract(contract);
+                        photo.setBookMark(bookMarks.get(idx));
+                    });
+
             photoRepository.saveAll(photoList);
         }
         return photoList;

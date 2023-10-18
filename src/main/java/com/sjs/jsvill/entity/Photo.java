@@ -32,7 +32,7 @@ public class Photo extends BaseEntity {
     private String fileKey;  // 파일 저장 경로
 
     @Column(nullable = false)
-    private boolean bookMark;
+    private Boolean bookMark;
 
     private Long fileSize;
 
@@ -46,6 +46,9 @@ public class Photo extends BaseEntity {
     // Contract 정보 저장
     public void setContract(Contract contract){
         this.contract = contract;
+    }
+    public void setBookMark(Boolean bookMark){
+        this.bookMark = bookMark;
     }
     public void setFileKey(String filePath){
         this.fileKey = filePath;
