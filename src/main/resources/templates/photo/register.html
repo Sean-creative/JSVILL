@@ -3,7 +3,7 @@
 <head>
     <title>사진 등록</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/registerContract.css"/>
+    <link rel="stylesheet" href="/css/photo.css"/>
     <link rel="stylesheet" href="/css/common.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style>
@@ -14,7 +14,7 @@
 <body>
 
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
-    <th:block th:fragment="content">
+    <th:block th:fragment="content" style="712px !important">
         <div class="pageTitle">건물관리 / [[${data.groupTitle}]] / [[${data.unitTitle}]] / 사진 등록</div>
         <form id="form" action="/photo/register" method="post" enctype="multipart/form-data">
             <input type="hidden" name="contractRowid" th:value="${data.contractRowid}">
@@ -30,8 +30,12 @@
                 <div th:if="${#lists.size(data.photoDTOList)}==0" style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px">기존 사진이 없습니다.</div>
                 <div style="font-weight:bold;padding:5px 0;height:fit-content" th:unless="${#lists.size(data.photoDTOList)}==0" th:text="${#lists.size(data.photoDTOList)} + '개의 사진'"></div>
                 <a th:each="photoDTO:${data.photoDTOList}" th:href="${photoDTO.getFileKey}" target="_blank">
-                    <img th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
+                    <div style="display:inline-block;position:relative">
+                        <img th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
+                        <img src="/image/photo/empty-bookmark.png" alt="bookmark" width="20" style="position:absolute;top:9px;right:6px;width:50px">
+                    </div>
                 </a>
+
             </div>
 
             <div style="margin:30px 0 40px 0;float:right">
