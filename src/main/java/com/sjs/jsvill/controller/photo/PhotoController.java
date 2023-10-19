@@ -2,7 +2,7 @@ package com.sjs.jsvill.controller.photo;
 
 import com.sjs.jsvill.dto.view.RegisterPhotoResDTO;
 import com.sjs.jsvill.service.contract.ContractService;
-import com.sjs.jsvill.service.awsS3.AwsS3Service;
+import com.sjs.jsvill.service.photo.PhotoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -21,51 +21,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PhotoController {
     private final ContractService contractService;
-    private final AwsS3Service awsS3Service;
+    private final PhotoService photoService;
 
     @GetMapping("/register")
     public String register(Long contractRowid, Model model) {
         log.info("GetMapping-register-Get");
         model.addAttribute("data",
-                new RegisterPhotoResDTO(contractService.get(contractRowid), awsS3Service.contractPhotogetList(contractRowid)));
+                new RegisterPhotoResDTO(contractService.get(contractRowid), photoService.contractPhotogetList(contractRowid)));
         return "photo/register";
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(List<MultipartFile> uploadFiles, @RequestParam("bookMarks") List<Boolean> bookMarks, Long contractRowid, RedirectAttributes redirectAttributes) {
         log.info("GetMapping-register-Post");
-        awsS3Service.contractPhotoRegister(uploadFiles, bookMarks, contractRowid);
-
+        photoService.contractPhotoRegister(uploadFiles, bookMarks, contractRowid);
         redirectAttributes.addAttribute("contractRowid", contractRowid);
         return ResponseEntity.ok("파일 업로드 및 데이터 처리 완료");
     }
 
-    @DeleteMapping("/file")
-    public ResponseEntity<Void> deleteFile(@RequestParam String fileName) {
-        awsS3Service.deleteFile(fileName);
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deletePhoto(String fileKey) {
+        photoService.deletePhoto(fileKey);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/edit")
-//    public String edit(Long contractRowid, Model model) {
-//        ContractDTO contractDTO = contractService.getDTO(contractRowid);
-//        UnitDTO unitDTO = unitService.getWithContractList(contractDTO.getUnitRowid());
-//        model.addAttribute("contractDTO", contractDTO);
-//        model.addAttribute("unitDTO", unitDTO);
-//        Json.stringToJson(contractDTO, "ContractController-edit/get");
-//        return "/contract/edit";
-//    }
-//    @PostMapping("/edit")
-//    public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
-//        Json.stringToJson(contractDTO, "ContractController-edit/post");
-//        contractService.modify(contractDTO);
-//        return "redirect:/unit/read?unitRowid=" + contractDTO.getUnitRowid();
-//    }
-//    @PostMapping("/remove")
-//    public String remove(long contractRowid, RedirectAttributes redirectAttributes){
-//        String unitRowid = contractService.getDTO(contractRowid).getUnitRowid().toString();
-//        contractService.remove(contractRowid);
-//        redirectAttributes.addFlashAttribute("msg", contractRowid);
-//        return "redirect:/unit/read?unitRowid="+unitRowid;
-//    }
+    @PostMapping("/bookmark")
+    public ResponseEntity<Void> bookMarkPhoto(Long photoRowid, Boolean bookmark) {
+        photoService.bookmark(photoRowid, bookmark);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

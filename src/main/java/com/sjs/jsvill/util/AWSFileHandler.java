@@ -34,8 +34,6 @@ public class AWSFileHandler {
     public List<Photo> uploadFileForContractImage(List<MultipartFile> multipartFileList) {
         List<Photo> photoList = new ArrayList<>();
         multipartFileList.forEach(file -> {
-            System.out.println("file.getOriginalFilename() : " + file.getOriginalFilename());
-            System.out.println("file.getName() : " + file.getName());
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(file.getSize());
             objectMetadata.setContentType(file.getContentType());
@@ -52,6 +50,7 @@ public class AWSFileHandler {
         return photoList;
     }
 
+    /**AWS에서 파일 삭제*/
     public void deleteFile(String fileName) {
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
@@ -65,6 +64,12 @@ public class AWSFileHandler {
         String targetResource = firstFolder + "/" + currentDate;
         String uniqueFileName = UUID.randomUUID().toString().concat(fileName);
         return targetResource + "/" + uniqueFileName;
+    }
+
+
+    /**fileKey를 사용해서 aws의 fileUrl을 가져는 함수*/
+    public String changeToAwsUrl(String key) {
+        return amazonS3.getUrl(bucket, key).toString();
     }
 
     /**file 형식이 잘못된 경우를 확인하기 위해 만들어진 로직이며, 파일 타입과 상관없이 업로드할 수 있게 하기 위해 .의 존재 유무만 판단*/
@@ -89,9 +94,5 @@ public class AWSFileHandler {
 //            else  // 다른 확장자일 경우 처리 x
 //                break;
 //        }
-    }
-
-    public String changeToAwsUrl(String key) {
-        return amazonS3.getUrl(bucket, key).toString();
     }
 }

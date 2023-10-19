@@ -25,19 +25,18 @@
                 <div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
             </div>
 
-            <div class="info">
+            <div class="info" id="info">
                 <div class="subTitle">기존 사진</div>
                 <div th:if="${#lists.size(data.photoDTOList)}==0" style="font-weight:bold;padding:5px 0;height:fit-content;font-size:14px">기존 사진이 없습니다.</div>
                 <div style="font-weight:bold;padding:5px 0;height:fit-content" th:unless="${#lists.size(data.photoDTOList)}==0" th:text="${#lists.size(data.photoDTOList)} + '개의 사진'"></div>
-                <a th:each="photoDTO:${data.photoDTOList}" th:href="${photoDTO.getFileKey}" target="_blank">
+                <a th:each="photoDTO:${data.photoDTOList}" th:href="${photoDTO.fileUrl}" target="_blank">
                     <div style="display:inline-block;position:relative">
-                        <img th:src="${photoDTO.getFileKey}" alt="photo" width="200px" height="200px" style="padding:10px">
-                        <img th:if="${photoDTO.bookmark} == true" class="bookMark" src="/image/photo/fill-bookMark.png" alt="bookMark" style="position:absolute;top:9px;right:6px;width:50px">
-                        <img th:unless="${photoDTO.bookmark} == true" class="bookMark" src="/image/photo/empty-bookMark.png" alt="bookMark" style="position:absolute;top:9px;right:6px;width:50px">
-                        <img class="remove" src="/image/photo/remove.png" alt="remove" style="position:absolute;bottom:16px;right:15px;width:20px">
+                        <img th:src="${photoDTO.fileUrl}" alt="photo" width="200px" height="200px" style="padding:10px">
+                        <img th:if="${photoDTO.bookmark}" th:data-bookmark="${!photoDTO.bookmark}" th:data-photoRowid="${photoDTO.photoRowid}" class="bookmark" src="/image/photo/fill-bookmark.png" alt="bookmark" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img th:unless="${photoDTO.bookmark}" th:data-bookmark="${!photoDTO.bookmark}" th:data-photoRowid="${photoDTO.photoRowid}" class="bookmark" src="/image/photo/empty-bookmark.png" alt="bookmark" style="position:absolute;top:9px;right:6px;width:50px">
+                        <img src="/image/photo/remove.png" class="removePhoto" alt="removePhoto" th:data-fileKey="${photoDTO.fileKey}" style="position:absolute;bottom:16px;right:15px;width:20px">
                     </div>
                 </a>
-
             </div>
 
             <div style="margin:30px 0 40px 0;float:right">
@@ -56,13 +55,12 @@
             let btnAtt = document.getElementById(btn)
 
             // 이미지와 체크 박스를 감싸고 있는 div 속성
-            let div_style = 'display:inline-block;position:relative;'
-                + 'width:150px;height:120px;margin:5px;border:1px dotted grey;z-index:1';
+            let div_style = 'display:inline-block;position:relative;width:200px;height:200px;margin:5px;border:1px dotted grey;z-index:1';
             // 미리보기 이미지 속성
             let img_style = 'width:100%;height:100%;z-index:none';
-            let bookmark_img_style = 'position:absolute;top:0px;right:-2px;width:28px;cursor:pointer';
+            let bookmark_img_style = 'position:absolute;width:40px;top:0px;right:-2px;cursor:pointer';
             // 이미지안에 표시되는 체크박스의 속성
-            let remove_img_style = 'width:18px;position:absolute;right:2px;bottom:3px;cursor:pointer';
+            let remove_img_style = 'position:absolute;width:25px;right:2px;bottom:3px;cursor:pointer';
 
             btnAtt.onchange = function(e){
                 let files = e.target.files;
@@ -92,10 +90,10 @@
 
             /*첨부된 이미지들을 배열에 넣고 미리보기 */
             imageLoader = function(file){
-                //이때에 bookMark 설정도 같이 넣어줘야함
+                //이때에 bookmark 설정도 같이 넣어줘야함
                 postFiles.push({
                     file: file,
-                    bookMark: false // 파일과 관련된 추가 정보를 포함하여 push
+                    bookmark: false // 파일과 관련된 추가 정보를 포함하여 push
                 });
 
                 let reader = new FileReader();
@@ -114,8 +112,8 @@
                 div.setAttribute('style', div_style)
 
                 const bookMarkImage = document.createElement("img");
-                bookMarkImage.src = "/image/photo/empty-bookMark.png";
-                bookMarkImage.alt = "bookMark";
+                bookMarkImage.src = "/image/photo/empty-bookmark.png";
+                bookMarkImage.alt = "bookmark";
                 bookMarkImage.setAttribute('style', bookmark_img_style)
                 bookMarkImage.setAttribute('isBookMark', "0");
                 bookMarkImage.onclick = function(ev){
@@ -128,23 +126,23 @@
                     }
                     let isBookMark = ele.getAttribute('isBookMark');
                     if(isBookMark==="1") {
-                        postFiles[idx].bookMark = false
-                        bookMarkImage.src = "/image/photo/empty-bookMark.png";
+                        postFiles[idx].bookmark = false
+                        bookMarkImage.src = "/image/photo/empty-bookmark.png";
                         bookMarkImage.setAttribute('isBookMark', "0");
                     }
                     else {
-                        postFiles[idx].bookMark = true
-                        bookMarkImage.src = "/image/photo/fill-bookMark.png";
+                        postFiles[idx].bookmark = true
+                        bookMarkImage.src = "/image/photo/fill-bookmark.png";
                         bookMarkImage.setAttribute('isBookMark', "1");
                     }
                 }
 
-                const removeImage = document.createElement("img");
-                removeImage.src = "/image/photo/remove.png";
-                removeImage.alt = "remove";
-                removeImage.setAttribute('style', remove_img_style)
-                removeImage.onclick = function(ev){
-                    let ele = ev.srcElement;
+                const removePhoto = document.createElement("img");
+                removePhoto.src = "/image/photo/remove.png";
+                removePhoto.alt = "remove";
+                removePhoto.setAttribute('style', remove_img_style)
+                removePhoto.onclick = function(ev){
+                    let ele = ev.target;
                     for(let i=0 ;i<postFiles.length; i++){
                         if(file.name===postFiles[i].file.name){
                             postFiles.splice(i, 1);
@@ -152,7 +150,7 @@
                     }
                     dt = new DataTransfer();
                     for(f in postFiles) {
-                        let file = postFiles[f];
+                        let file = postFiles[f].file;
                         dt.items.add(file);
                     }
                     btnAtt.files = dt.files;
@@ -161,7 +159,7 @@
                 }
                 div.appendChild(img)
                 div.appendChild(bookMarkImage)
-                div.appendChild(removeImage)
+                div.appendChild(removePhoto)
                 return div
             }
         }
@@ -173,9 +171,8 @@
         let formData = new FormData(form[0]);
         for (let i = 0; i < postFiles.length; i++) {
             formData.append('uploadFiles', postFiles[i].file);
-            formData.append('bookMarks', postFiles[i].bookMark);
+            formData.append('bookMarks', postFiles[i].bookmark);
         }
-
         $.ajax({
             url : "/photo/register",
             data : formData,
@@ -197,11 +194,56 @@
             }
         });
     })
+    $('.bookmark').click(function(e) {
+        //필요한것 - bookmark, photoRowid
+        e.preventDefault();
+        e.stopPropagation();
 
-    $(".bookMark").on("click", function (e) {
-        alert("bookMark clicked")
-        return false; //a태그 실행을 막아줌
-    })
+        const bookmark = $(this).attr('data-bookmark');
+        const photoRowid = $(this).attr('data-photoRowid');
+
+        $.ajax({
+            url: "/photo/bookmark",
+            type: "POST",
+            data : {
+                "photoRowid": photoRowid,
+                "bookmark": bookmark
+            },
+            success: function(response) {
+                // 서버로부터 받은 응답을 처리
+                console.log("서버로부터의 응답: ", response);
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("북마크 중 오류가 발생했습니다:", error);
+                location.reload();
+            }
+        });
+    });
+
+    $('.removePhoto').click(function(e) {
+        //필요한것 fileKey
+        e.preventDefault();
+        e.stopPropagation();
+
+        const fileKey = $(this).attr('data-fileKey');
+        if (confirm("파일을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "/photo/delete",
+                type: "POST",
+                data : {"fileKey": fileKey},
+                success: function(response) {
+                    // 서버로부터 받은 응답을 처리
+                    console.log("서버로부터의 응답: ", response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("파일 삭제 중 오류가 발생했습니다:", error);
+                    location.reload();
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service.awsS3;
+package com.sjs.jsvill.service.photo;
 
 import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Contract;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -18,9 +19,8 @@ import java.util.stream.IntStream;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-//계약서 사진 등과 같은 S3 관련 작업 처리
-public class AwsS3ServiceImpl implements AwsS3Service {
-    
+public class PhotoServiceImpl implements PhotoService {
+
     private final PhotoRepository photoRepository;
     private final ContractRepository contractRepository;
     private final AWSFileHandler awsFileHandler;
@@ -28,10 +28,6 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     @SneakyThrows
     @Override
     public List<Photo> contractPhotoRegister(List<MultipartFile> multipartFileList, List<Boolean> bookMarks, Long contractRowid) {
-        System.out.println("bookMarks: " + bookMarks);
-        bookMarks.forEach(i -> {
-            System.out.println("i :" + i);
-        });
         List<Photo> photoList = awsFileHandler.uploadFileForContractImage(multipartFileList);
         // 파일이 존재할 때에만 처리
         if(!photoList.isEmpty()) {
@@ -42,7 +38,6 @@ public class AwsS3ServiceImpl implements AwsS3Service {
                         photo.setContract(contract);
                         photo.setBookMark(bookMarks.get(idx));
                     });
-
             photoRepository.saveAll(photoList);
         }
         return photoList;
@@ -53,13 +48,22 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         List<Photo> photoList = photoRepository.findByContract(contract);
         photoList.forEach(photo -> {
             String awsFileUrl = awsFileHandler.changeToAwsUrl(photo.getFileKey());
-            photo.setFileKey(awsFileUrl);
+            photo.setFileUrl(awsFileUrl);
         });
         return PhotoDTO.entityToDTOList(photoList);
     }
 
     @Override
-    public void deleteFile(String fileName) {
-        awsFileHandler.deleteFile(fileName);
+    @Transactional
+    public void deletePhoto(String fileKey) {
+        //DB와 AWS에서 둘 다 삭제
+        photoRepository.deleteByFileKey(fileKey);
+        awsFileHandler.deleteFile(fileKey);
+    }
+
+    @Override
+    @Transactional
+    public void bookmark(Long photoRowid, Boolean bookmark) {
+        photoRepository.updateBookmarkByPhotoRowid(bookmark, photoRowid);
     }
 }

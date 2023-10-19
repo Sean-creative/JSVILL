@@ -28,13 +28,17 @@ public class Photo extends BaseEntity {
     @Column(nullable = false)
     private String origFileName;  // 파일 원본명
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String fileKey;  // 파일 저장 경로
 
     @Column(nullable = false)
-    private Boolean bookMark;
+    private Boolean bookmark;
 
+    @Column(nullable = false)
     private Long fileSize;
+
+    @Transient
+    private String fileUrl;
 
     @Builder
     public Photo(String origFileName, String fileKey, Long fileSize){
@@ -47,10 +51,10 @@ public class Photo extends BaseEntity {
     public void setContract(Contract contract){
         this.contract = contract;
     }
-    public void setBookMark(Boolean bookMark){
-        this.bookMark = bookMark;
+    public void setBookMark(Boolean bookmark){
+        this.bookmark = bookmark;
     }
-    public void setFileKey(String filePath){
-        this.fileKey = filePath;
+    public void setFileUrl(String fileUrl){
+        this.fileUrl = fileUrl;
     }
 }

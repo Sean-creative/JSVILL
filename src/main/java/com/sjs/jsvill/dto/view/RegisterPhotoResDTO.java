@@ -17,7 +17,7 @@ public class RegisterPhotoResDTO {
     private String unitTitle;
     private Long contractRowid;
     private List<PhotoDTO> photoDTOList;
-    private Boolean bookMark;
+    private Boolean bookmark;
 
 
     public RegisterPhotoResDTO(Contract contract, List<PhotoDTO> photoDTOList) {
