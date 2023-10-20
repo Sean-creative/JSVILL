@@ -16,26 +16,19 @@
         새로 등록할 휴대폰번호는 가입을 이용해주세요.
     </p>
 
-    <form action="/member/signUpOld" method="post">
-        <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" oninput="oninputPhone(this)" required>
+    <form action="/member/phoneAuthOld" method="post">
+        <input placeholder="휴대폰번호 ex) 010-1234-5678" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" name="phoneNumber" id="phoneNumber" class="phoneNumber" maxlength="13" oninput="oninputPhoneOrPassword(this, true)" required/>
         <button class="submitButton submitButtonLabel" id="phoneSubmitButton">인증번호 받기</button>
     </form>
 
-    <a href="/member/signUpNew" class="aButton signupButton">📱 휴대폰번호 인증 (최초 1회)</a>
+    <a href="/member/phoneAuthNew" class="aButton signupButton">📱 휴대폰번호 인증 (최초 1회)</a>
     <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
 
     <script th:inline="javascript">
         const phoneNumber = [[${phoneNumber}]];
-        if(phoneNumber!=null) {
-            alert("가입되지 않은 폰 번호 입니다.\n휴대폰번호 : " + phoneNumber)
-        }
-
-        function oninputPhone(target) {
-            target.value = target.value
-                .replace(/[^0-9]/g, '')
-                .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-        }
+        if(phoneNumber!=null) alert("가입되지 않은 폰 번호 입니다.\n휴대폰번호 : " + phoneNumber)
     </script>
+    <script src="/js/member/memberInput.js"></script>
 </body>
 </html>
 

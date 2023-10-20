@@ -37,18 +37,18 @@ public class CtlMemberLogin {
         return "member/login";
     }
 
-    @GetMapping("/signUpNew")
-    public String signUpNew() {
-        return "member/signUpNew";
+    @GetMapping("/phoneAuthNew")
+    public String phoneAuthNew() {
+        return "member/phoneAuthNew";
     }
-    @PostMapping("/signUpNew")
-    public String signUpNew(HttpSession session, String phoneNumber, RedirectAttributes attributes) {
+    @PostMapping("/phoneAuthNew")
+    public String phoneAuthNew(HttpSession session, String phoneNumber, RedirectAttributes attributes) {
         Optional<Member> member = memberService.findByPhoneNumber(phoneNumber);
 
         // 이미 가입된 전화번호 있음 -> 안돼 돌아가
         if(member.isPresent()) {
             attributes.addFlashAttribute("phoneNumber", member.get().getPhoneNumber());
-            return "redirect:/member/signUpNew";
+            return "redirect:/member/phoneAuthNew";
         }
         // 이미 가입된 번호 없음 -> 새로 가입
         else {
@@ -60,14 +60,14 @@ public class CtlMemberLogin {
             }
             session.setAttribute("rand", code);
             session.setAttribute("phoneNumber", phoneNumber);
-            session.setAttribute("from", "signUpNew");
-            return "redirect:/member/signUpAuth";
+            session.setAttribute("from", "phoneAuthNew");
+            return "redirect:/member/phoneAuthCheck";
         }
     }
 
-    @GetMapping("/signUpAuth")
-    public String signUpAuth() {return "member/signUpAuth";}
-    @PostMapping("/signUpAuth")
+    @GetMapping("/phoneAuthCheck")
+    public String phoneAuthCheck() {return "member/phoneAuthCheck";}
+    @PostMapping("/phoneAuthCheck")
     public String authCheck(HttpSession session, String authCode, RedirectAttributes attributes) {
         //TODO 인증번호 검사하는거 좀 더 정교하게
         String rand = (String) session.getAttribute("rand");
@@ -80,25 +80,25 @@ public class CtlMemberLogin {
         if (rand.equals(authCode)) {
             session.removeAttribute("rand");
             session.removeAttribute("from");
-            if(from.equals("signUpNew")) return "redirect:/member/signUpForm";
-            else if(from.equals("signUpOld")) return "redirect:/member/signUpPinOld";
+            if(from.equals("phoneAuthNew")) return "redirect:/member/signUpPinNew";
+            else if(from.equals("phoneAuthOld")) return "redirect:/member/signUpPinOld";
             else return "redirect:/home";
         } else {
             attributes.addFlashAttribute("wrong", true);
-            return "redirect:/member/signUpAuth";
+            return "redirect:/member/phoneAuthCheck";
         }
     }
-    @GetMapping("/signUpForm")
-    public String signUpForm(Model model) {
+    @GetMapping("/signUpPinNew")
+    public String signUpPinNew(Model model) {
         model.addAttribute("req", new SignUpPinNewDTOReq());
-        return "member/signUpForm";
+        return "member/signUpPinNew";
     }
-    @PostMapping("/signUpForm")
-    public String signUpForm(HttpSession session, @ModelAttribute("req") @Valid SignUpPinNewDTOReq req, BindingResult result) {
+    @PostMapping("/signUpPinNew")
+    public String signUpPinNew(HttpSession session, @ModelAttribute("req") @Valid SignUpPinNewDTOReq req, BindingResult result) {
         if (result.hasErrors()) {
-            return "member/signUpForm";
+            return "member/signUpPinNew";
         }
-        Json.stringToJson(req, "post-signUpForm");
+        Json.stringToJson(req, "post-signUpPinNew");
         String phoneNumber = (String) session.getAttribute("phoneNumber");
         System.out.println("phoneNumber : " + phoneNumber);
 
@@ -111,19 +111,19 @@ public class CtlMemberLogin {
         return "member/login";
     }
 
-    @GetMapping("/signUpOld")
-    public String signUpOld() {
-        return "member/signUpOld";
+    @GetMapping("/phoneAuthOld")
+    public String phoneAuthOld() {
+        return "member/phoneAuthOld";
     }
-    @PostMapping("/signUpOld")
-    public String signUpOld(HttpSession session, String phoneNumber, RedirectAttributes attributes) {
+    @PostMapping("/phoneAuthOld")
+    public String phoneAuthOld(HttpSession session, String phoneNumber, RedirectAttributes attributes) {
         Optional<Member> member = memberService.findByPhoneNumber(phoneNumber);
 
         // 이미 가입된 전화번호 없음 -> 안돼 돌아가
         if(!member.isPresent()) {
             //flash를 사용하기 위해서, 일단 redirect 처리로 해결
             attributes.addFlashAttribute("phoneNumber", phoneNumber);
-            return "redirect:/member/signUpOld";
+            return "redirect:/member/phoneAuthOld";
         }
         // 이미 가입된 번호 있음 -> 폰번호 찾기
         else {
@@ -135,8 +135,8 @@ public class CtlMemberLogin {
             }
             session.setAttribute("rand", code);
             session.setAttribute("phoneNumber", phoneNumber);
-            session.setAttribute("from", "signUpOld");
-            return "member/signUpAuth";
+            session.setAttribute("from", "phoneAuthOld");
+            return "member/phoneAuthCheck";
         }
     }
 
@@ -150,7 +150,7 @@ public class CtlMemberLogin {
         if (result.hasErrors()) {
             return "member/signUpPinOld";
         }
-        Json.stringToJson(req, "post-signUpForm");
+        Json.stringToJson(req, "post-signUpPinNew");
         String phoneNumber = (String) session.getAttribute("phoneNumber");
         System.out.println("phoneNumber : " + phoneNumber);
 

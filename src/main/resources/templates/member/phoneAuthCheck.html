@@ -16,7 +16,7 @@
     <h1>📱 인증번호 입력</h1>
     <p class="loginGuide">인증번호를 입력해 주세요.</p>
 
-    <form action="/member/signUpAuth" method="post">
+    <form action="/member/phoneAuthCheck" method="post">
         <input placeholder="인증번호" type="number" class="authCode" name="authCode">
         <div th:if="${wrong}" class="fieldError" style="margin:5px 0 0 10px">인증번호를 다시 입력해주세요.</div>
         <button class="submitButton submitButtonLabel">인증 완료</button>

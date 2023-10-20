@@ -16,27 +16,19 @@
         이미 등록된 휴대폰번호는 핀번호 찾기를 이용해주세요.
     </p>
 
-    <form action="/member/signUpNew" method="post">
-        <input type="tel" placeholder="휴대폰번호 ex) 010-1234-5678" class="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" oninput="oninputPhone(this)" required>
+    <form action="/member/phoneAuthNew" method="post">
+        <input placeholder="휴대폰번호 ex) 010-1234-5678" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" name="phoneNumber" id="phoneNumber" class="phoneNumber" maxlength="13" oninput="oninputPhoneOrPassword(this, true)" required/>
         <button class="submitButton submitButtonLabel" id="phoneSubmitButton">인증번호 받기</button>
     </form>
 
-    <a href="/member/signUpOld" class="aButton homeButton">🅿 핀번호 찾기</a>
+    <a href="/member/phoneAuthOld" class="aButton homeButton">🅿 핀번호 찾기</a>
     <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
 
     <script th:inline="javascript">
         const phoneNumber = [[${phoneNumber}]];
-        console.log("phoneNumber : ", phoneNumber)
-        if(phoneNumber!=null) {
-            alert("중복된 폰 번호 입니다.\n휴대폰번호 : " + phoneNumber)
-        }
-
-        function oninputPhone(target) {
-            target.value = target.value
-                .replace(/[^0-9]/g, '')
-                .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-        }
+        if(phoneNumber!=null) alert("중복된 폰 번호 입니다.\n휴대폰번호 : " + phoneNumber)
     </script>
+    <script src="/js/member/memberInput.js"></script>
 </body>
 </html>
 
