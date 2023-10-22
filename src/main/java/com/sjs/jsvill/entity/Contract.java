@@ -95,7 +95,7 @@ public class Contract extends BaseEntity {
 
     //하나의 계약에 각종 리스트들을 넣어줄것임
     public static ContractDTO entityToDTO(Contract contarct, List<TenantDTO> tenantDTOList, List<CarDTO> carDTOList, OptionDTO optionDTO, List<PhotoDTO> photoDTOList) {
-        ContractDTO contractDTO = ContractDTO.builder()
+        return ContractDTO.builder()
                 .contractRowid(contarct.getContract_rowid())
                 .unitRowid(contarct.getUnit().getUnit_rowid())
                 .ContractTypeRowid(contarct.get_contracttype().get_contracttype_rowid())
@@ -111,7 +111,6 @@ public class Contract extends BaseEntity {
                 .dDay(contarct.dDayOperator(contarct.getEnddate()))
                 .photoDTOList(photoDTOList)
                 .build();
-        return contractDTO;
     }
 //
 //    //contract 여러개일 때

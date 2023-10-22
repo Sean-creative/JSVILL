@@ -47,7 +47,7 @@ public class TenantDTO {
         LocalDate currentDate = LocalDate.now();
         // 현재 연도 가져오기
         int currentYear = currentDate.getYear();
-        // 나이 계산
-        return currentYear - Integer.parseInt(birthYear);
+        // 나이 계산 (만나이가 아니라서 -> +1을함)
+        return currentYear - Integer.parseInt(birthYear) + 1;
     }
 }
