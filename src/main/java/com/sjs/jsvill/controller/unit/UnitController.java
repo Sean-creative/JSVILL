@@ -1,6 +1,7 @@
 package com.sjs.jsvill.controller.unit;
 
 import com.sjs.jsvill.dto.UnitDTO;
+import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.service.contract.ContractService;
 import com.sjs.jsvill.service.unit.UnitService;
 import com.sjs.jsvill.service.sms.NaverSmsService;
@@ -23,6 +24,17 @@ public class UnitController {
     private final UnitService unitService;
     private final ContractService contractService;
     private final NaverSmsService naverSmsService;
+    @GetMapping("/register")
+    public String register(int groupRowid, Model model) {
+        model.addAttribute("groupRowid", groupRowid);
+        return "unit/register";
+    }
+
+    @PostMapping("/register")
+    public String register(UnitDTO dto) {
+        Long gno = unitService.register(dto);
+        return "redirect:/group/list";
+    }
 
     @GetMapping("/read")
     public String String(Long unitRowid, Model model) {
@@ -32,34 +44,18 @@ public class UnitController {
         return "unit/read";
     }
 
-    @GetMapping("/register")
-    public String register(int groupRowid, Model model) {
-        model.addAttribute("groupRowid", groupRowid);
-        return "unit/register";
-    }
-
-    @PostMapping("/register")
-    public String register(UnitDTO dto) {
-        //TODO 로그인이 유지가 되면 컨트롤러에서 넣어줘도 상관없음
-
-//        // Member id로 조회하는 메소드 존재한다고 가정하에 진행
-//        Member member = memberService.searchMemberById(
-//                Long.parseLong(boardFileVO.getId()));
-
-        Long gno = unitService.register(dto);
-        return "redirect:/group/list";
-    }
-
     @GetMapping("/edit")
     public String edit(long unitRowid, Model model) {
-        model.addAttribute("result" , unitService.get(unitRowid));
+        //entityToDTO를 여기서 하는게 맞나 싶어
+        model.addAttribute("result", Unit.entityToDTO(unitService.get(unitRowid)));
         return "unit/edit";
     }
 
     @PostMapping("/edit")
     public String edit(UnitDTO unitDTO, RedirectAttributes redirectAttributes) {
         unitService.modify(unitDTO);
-        return "redirect:/unit/read?unitRowid="+unitDTO.getUnitRowid();
+        redirectAttributes.addAttribute("unitRowid", unitDTO.getUnitRowid());
+        return "redirect:/unit/read";
     }
 
     @GetMapping("/communityWrite")

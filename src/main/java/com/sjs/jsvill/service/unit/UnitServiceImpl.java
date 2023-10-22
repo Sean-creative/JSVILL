@@ -80,11 +80,9 @@ public class UnitServiceImpl implements UnitService {
         Unit unit = unitRepository.getById(unitDTO.getUnitRowid());
         System.out.println("unitDTO.getdetailAddr() : " + unitDTO.getDetailAddr());
 
-        if (unit != null) {
-            unit.changedetailAddr(unitDTO.getDetailAddr());
-            unit.changeMemo(unitDTO.getMemo());
-            unitRepository.save(unit);
-        }
+        unit.changedetailAddr(unitDTO.getDetailAddr()+"호");
+        unit.changeMemo(unitDTO.getMemo());
+        unitRepository.save(unit);
     }
 
     @Override

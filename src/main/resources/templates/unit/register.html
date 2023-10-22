@@ -13,33 +13,24 @@
         <form action="/unit/register" method="post">
             <div class="info">
                 <label for="detailAddr" class="subTitle">호수</label>
-                <div>
-                    <input type="number" name="detailAddr" placeholder="ex) 101" id="detailAddr" class="check" style="width:100%;height:30px;border:none;background:#F6F6F6">
-                </div>
+                <input type="number" name="detailAddr" placeholder="ex) 101" id="detailAddr" class="check" style="width:98%;height:30px;border:none;background:#F6F6F6">
             </div>
 
             <div class="info">
                 <label for="memo" class="subTitle">비고</label>
-                <div>
-                    <textarea name="memo" id="memo" placeholder="(선택사항)" style="width:100%;height:100px;border:none;background:#F6F6F6"></textarea>
-                </div>
+                <textarea name="memo" id="memo" placeholder="(선택사항)" style="width:98%;height:100px;border:none;background:#F6F6F6"></textarea>
             </div>
 
             <div style="margin-top:20px">
                 <input type="hidden" name="groupRowid" th:value="${groupRowid}">
-                <button type="reset" class="cancelBtn">취소</button>
+                <button type="reset" class="cancelBtn" onclick="history.back()">취소</button>
                 <button type="button" class="registerBtn">등록</button>
             </div>
         </form>
         <script>
-            const scriptTag = /[~^&()|<>?]/;
             const actionForm = $("form"); //form 태그 객체
-            $(".cancelBtn").click(function () {
-                history.back()
-            });
             $(".registerBtn").click(function () {
-                //TODO 클릭 했을 때는 class인 애들을 다 모아서 반복문 돌리면서 p태그에 공백인지 확인해야함?
-                if($("input[name=detailAddr]").val()=="") window.alert('호수를 입력해주세요!')
+                if($("input[name=detailAddr]").val()==="") window.alert('호수를 입력해주세요!')
                 else actionForm.submit()
             });
         </script>

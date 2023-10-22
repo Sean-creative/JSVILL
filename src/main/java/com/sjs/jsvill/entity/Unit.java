@@ -1,5 +1,6 @@
 package com.sjs.jsvill.entity;
 
+import com.sjs.jsvill.dto.UnitDTO;
 import com.sjs.jsvill.entity.common.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -33,6 +34,17 @@ public class Unit extends BaseEntity {
 
     @Column(nullable = false)
     private String memo; // 메모 (선택적)
+
+    public static UnitDTO entityToDTO(Unit unit) {
+        return UnitDTO.builder()
+                .unitRowid(unit.getUnit_rowid())
+                .groupRowid(unit.getGroup().getGroup_rowid())
+                .detailAddr(unit.getDetailaddr().replace("호", ""))
+                .memo(unit.getMemo())
+//                .groupTitle(unit.group.getTitle())
+//                .groupAddr(unit.group.getLandaddr())
+                .build();
+    }
 
 
     public void changedetailAddr(String detailAddr) { this.detailaddr = detailAddr; }
