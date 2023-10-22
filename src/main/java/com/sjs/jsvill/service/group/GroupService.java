@@ -7,6 +7,9 @@ import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.defaultType._GroupType;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,8 +77,9 @@ public interface GroupService {
                     .memo(unit.getMemo())
                     .build()
             ).collect(Collectors.toList());
-            groupDTO.setUnitDTOList(unitDTOList);
 
+            unitDTOList.sort(Comparator.comparing(UnitDTO::getDetailAddr));
+            groupDTO.setUnitDTOList(unitDTOList);
             groupDTO.setTotalDeposit(contractList.stream().mapToLong(Contract::getDeposit).sum());
             groupDTO.setTotalRentFee(contractList.stream().mapToLong(Contract::getRentfee).sum());
             groupDTO.setTotalManagementFees(contractList.stream().mapToLong(Contract::getManagementfees).sum());

@@ -10,7 +10,7 @@
     </style>
     <!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="/css/manage.css"/>
+    <link rel="stylesheet" href="/css/groupManage.css"/>
     <link rel="stylesheet" href="/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
@@ -18,7 +18,6 @@
 </head>
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <div th:text="${name}"></div>
         <div class="pageTitle">건물관리</div>
 
         <div style="display:flex;justify-content:space-between">
@@ -38,8 +37,8 @@
                         <div style="float:right">
                             <form action="/group/remove" method="post">
                                 <input type="hidden" name="groupRowid" th:value="${dto.groupRowid}">
-                                <button formmethod="get" th:formaction="@{/group/edit}">수정</button>
-                                <button>삭제</button>
+                                <button formmethod="get" th:formaction="@{/group/edit}" class="updateBtn">수정</button>
+                                <button class="removeBtn">삭제</button>
                             </form>
                         </div>
                     </div>
@@ -62,8 +61,8 @@
                             호실등록
                         </a>
                     </div>
-                    <div style="display:flex;flex-flow:row wrap;justify-content:space-between">
-                        <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(unitRowid=${unit.unitRowid})}" class="unit">
+                    <div style="display:flex;flex-flow:row wrap">
+                        <a th:each="unit:${dto.unitDTOList}" th:href="@{/unit/read(unitRowid=${unit.unitRowid})}" class="unit" style="margin-left:10px">
                             [[${unit.detailAddr}]]
                         </a>
                     </div>
@@ -213,6 +212,16 @@
     const size = [[${result.size}]]*1
     let groupRowid
     if(size!==0) groupRowid = $.parseJSON('[[ ${result[0].groupRowid} ]]'); //calendar에서 사용할 값
+
+    $(".removeBtn").click(function(e) {
+        e.preventDefault(); // 버튼의 기본 동작을 취소합니다.
+
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            $("form").submit();
+        } else {
+            return false;
+        }
+    });
 </script>
 <script src="/vendor/js/jquery.min.js"></script>
 <script src="/vendor/js/bootstrap.min.js"></script>

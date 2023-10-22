@@ -44,10 +44,6 @@ public class GroupServiceImpl implements GroupService {
             List<Contract> progressContractList = new ArrayList<>();
             Long totalTenantCnt = 0L;
 
-            System.out.println("unitList.size() : " + unitList.size());
-            unitList.forEach(i -> {
-                System.out.println("i.getUnit_rowid() : " + i.getUnit_rowid());
-            });
             if(!unitList.isEmpty()){
                 //호실의 개수만큼 DB를 조회하는것이 부담스러움 -> 조회해야하는 호실 rowid를 한번에 던져서 현재 진행중인 계약의 리스트를 가져옴
                 List<Long> unitRowidList = unitList.stream().map(Unit::getUnit_rowid).toList();

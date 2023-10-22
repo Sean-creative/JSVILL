@@ -25,7 +25,7 @@
             <div class="info">
                 <span class="subTitle">건물 주소</span>
                 <input th:value="${result.postNum}" type="text" id="postNum" name="postNum" placeholder="우편번호" style="width:45%;background-color:#f6f6f6;padding-left:10px">
-                <input type="button" onclick="execDaumPostcode()" value="주소 검색" style="margin-left:10px;background-color:grey;color:white;font-size:15px;padding:5px 5px">
+                <input type="button" onclick="execDaumPostcode()" value="주소 검색" style="cursor:pointer;margin-left:10px;background-color:grey;color:white;font-size:15px;padding:5px 5px">
                 <div style="margin-top:15px">
                     <input type="text" th:value="${result.landaddr}" id="landAddress" name="landAddr" placeholder="지번 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px"/>
                     <input type="text" th:value="${result.roadaddr}" id="roadAddress" name="roadAddr" placeholder="도로명 주소" style="width:82%;background-color:#f6f6f6;font-size:12px;padding-left:10px;margin-top:15px"/>
