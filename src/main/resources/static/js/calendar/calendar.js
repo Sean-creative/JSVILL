@@ -12,7 +12,7 @@ let calendar = $('#calendar').fullCalendar({
     nextDayThreshold: "09:00:00",
     allDaySlot: true,
     displayEventTime: true,
-    displayEventEnd: true,
+    displayEventEnd: false,
     firstDay: 0, //월요일이 먼저 오게 하려면 1
     weekNumbers: false,
     selectable: true,
@@ -141,7 +141,7 @@ let calendar = $('#calendar').fullCalendar({
     },
 
     eventAfterAllRender: function (view) {
-        if (view.name == "month") $(".fc-content").css('height', 'auto');
+        if (view.name === "month") $(".fc-content").css('height', 'auto');
     },
 
     //일정 리사이즈
@@ -244,7 +244,7 @@ function getDisplayEventDate(event) {
 
     let displayEventDate;
 
-    if (event.allDay == false) {
+    if (event.allDay === false) {
         let startTimeEventInfo = moment(event.start).format('HH:mm');
         let endTimeEventInfo = moment(event.end).format('HH:mm');
         displayEventDate = startTimeEventInfo + " - " + endTimeEventInfo;
