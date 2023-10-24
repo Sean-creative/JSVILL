@@ -68,8 +68,20 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
+### _v1.9.0 Release [latest] [23.10.20]_
+- PIN 번호 타입 수정 & 계약 수정 시 날짜 오류 수정 [#1](https://github.com/Sean-creative/JSVILL/issues/1)
+- 계약서(photo) 업로드의 다양한 기능 구현 [#2](https://github.com/Sean-creative/JSVILL/issues/2)
+  - 북마크 기능 구현
+  - 사진 삭제 기능 구현
+    - DB 뿐만아니라 s3에서도 삭제가 되어야함
+  - 사진 업로드시, 기존 사진 둘 다 적용
+  - 사진 업로드 이미지 크기 늘림
+- 달력의 내용 수정 & 호실수정 시 '호'제거 & 호실의 오름차순 및 레이아웃 수정 [#3](https://github.com/Sean-creative/JSVILL/issues/3)
+- 호실 이름 오류 수정 & 만나이가 아닌 실제나이 사용으로 수정 [#4](https://github.com/Sean-creative/JSVILL/issues/4)
 
-### _v1.8.0 Release [latest] [23.09.20]_
+---
+
+### _v1.8.0 Release [23.09.20]_
 - s3를 활용한 계약서 사진등록 기능 추가
   - 여러개의 사진 첨부도 가능 
   - 파일 선택 or 드래그앤 드롭 기능 
