@@ -19,14 +19,14 @@ public class CarDTO {
     private Long tenantRowid;
     private String title;
     private String number;
-    private String phone;
+    private String tenantName;
 
-    public static CarDTO entityToDTO(Car car, String phone) {
+    public static CarDTO entityToDTO(Car car, String tenantName) {
         return CarDTO.builder()
                 .title(car.getTitle())
                 .number(car.getNumber())
                 .tenantRowid(car.getTenant().getTenant_rowid())
-                .phone(phone)
+                .tenantName(tenantName)
                 .build();
     }
 
@@ -39,6 +39,7 @@ public class CarDTO {
                     .tenantRowid(car.getTenant().getTenant_rowid())
                     .title(car.getTitle())
                     .number(car.getNumber())
+                    .tenantName(car.getTenant().getTitle())
                     .build()
             ).collect(Collectors.toList());
         }

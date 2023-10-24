@@ -8,7 +8,7 @@
 </head>
 <th:block th:replace="~{layouts/includeNavLayout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <div style="width:1221px">
+        <div>
             <div style="display:flex;align-items:center">
                 <div class="pageTitle">건물관리 / [[${unitDTO.groupAddr}]] [[${unitDTO.groupTitle}]] / [[${unitDTO.detailAddr}]]</div>
                 <a th:href="@{/memo/register(unitRowid=${unitDTO.unitRowid})}" class="btn" style="display:block;margin-left:8px;padding:5px">메모 등록</a>
@@ -16,8 +16,8 @@
             <a th:if="${#lists.size(unitDTO.contractDTOList)}!=2" th:href="@{/contract/register(unitRowid=${unitDTO.unitRowid})}"
                style="float:right;line-height:25px;font-size:15px;padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약등록</a>
             <div style="display:flex;margin-top:40px">
-                <div>
-                    <div class="info" style="flex:1">
+                <div style="flex:1;min-width:490px">
+                    <div class="info" style="">
                         <div class="subTitle">호실 정보</div>
                         <div style="display:flex;justify-content:space-between">
                             <div style="font-size:11px;color:gray">현재 계약 기준에 의거한 정보입니다.</div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="info" style="width:650px;margin-left:40px">
+                <div class="info" style="flex:1.3;min-width:730px;margin-left:40px">
                     <div class="subTitle">계약정보</div>
                     <div th:if="${#lists.size(unitDTO.contractDTOList)}==0">계약정보가 없습니다.</div>
                     <ul th:unless="${#lists.size(unitDTO.contractDTOList)}==0">
@@ -90,7 +90,7 @@
                                     padding:0px 10px;background-color:#7F7F7F;font-weight:bold;color:white;border-radius:3px">계약즉시만료</a>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;margin-top:15px">
-                                    <div class="infoInner" style="flex:3;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
+                                    <div class="infoInner" style="flex:1.4;text-align:left;height:fit-content;line-height:25px;padding:0 8px">
                                         <div style="position:relative">
                                             <div style="font-weight:bold;padding:5px 10px">[[${#lists.size(contractDTO.tenantDTOList)}]]명의 입주자</div>
                                             <a th:href="@{/car/register(contractRowid=${contractDTO.contractRowid})}" class="btn" style="position:absolute;padding:0 8px;top:4px;right:0">차량 등록</a>
@@ -115,7 +115,7 @@
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content;font-size:14px" th:if="${#lists.size(contractDTO.carDTOList)}==0">차량이 없습니다.</div>
                                         <div style="font-weight:bold;padding:5px 10px;height:fit-content" th:unless="${#lists.size(contractDTO.carDTOList)}==0" th:text="${#lists.size(contractDTO.carDTOList)} + '개의 차량'"></div>
                                         <ul>
-                                            <li th:each="carDTO:${contractDTO.carDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${carDTO.number}]]</li>
+                                            <li th:each="carDTO:${contractDTO.carDTOList}" style="border-top:2px solid gray;padding:5px 10px">[[${carDTO.number}]] - [[${carDTO.title}]] - [[${carDTO.tenantName}]]</li>
                                         </ul>
                                     </div>
                                 </div>
