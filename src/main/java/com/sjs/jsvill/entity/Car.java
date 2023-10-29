@@ -34,14 +34,10 @@ public class Car extends BaseEntity {
 
     public static Car DTOToEntity(CarDTO carDTO) {
         Tenant tenant = Tenant.builder().tenant_rowid(carDTO.getTenantRowid()).build();
-        if(carDTO==null) return null;
-        else {
-            Car car = Car.builder()
-                    .tenant(tenant)
-                    .title(carDTO.getTitle())
-                    .number(carDTO.getNumber())
-                    .build();
-            return  car;
-        }
+        return Car.builder()
+                .tenant(tenant)
+                .title(carDTO.getTitle())
+                .number(carDTO.getNumber())
+                .build();
     }
 }

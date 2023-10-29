@@ -31,9 +31,6 @@ public class CarController {
 
     @PostMapping("/register")
     public String register(RegisterCarReqDTO registerCarReqDTO) {
-//        registerCarReqDTO.getCarDTOList().forEach(carDTO -> {
-//            System.out.println("carDTO : "  + carDTO);
-//        });
         carService.register(registerCarReqDTO.getCarDTOList());
         return "redirect:/unit/read?unitRowid=" + registerCarReqDTO.getUnitRowid();
     }
