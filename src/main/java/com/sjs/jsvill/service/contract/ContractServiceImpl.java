@@ -8,6 +8,7 @@ import com.sjs.jsvill.repository.*;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,8 +74,8 @@ public class ContractServiceImpl implements ContractService {
         dto.setIsAsc(isAsc);
 
         List<Contract> contractList;
-        if(isAsc) contractList = contractRepository.findContractByUnitOldAsc(unitRowid);
-        else contractList = contractRepository.findContractByUnitOldDesc(unitRowid);
+        if(isAsc) contractList = contractRepository.findContractByUnitOld(unitRowid, Sort.by(Sort.Direction.ASC, "enddate"));
+        else contractList = contractRepository.findContractByUnitOld(unitRowid, Sort.by(Sort.Direction.DESC, "enddate"));
 
         contractList.forEach(contract -> {
             //TODO 요거 static 말고 다른 방법 없나???

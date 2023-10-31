@@ -7,6 +7,9 @@ import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.util.StopWatch;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,11 +42,18 @@ public class ContractRepositoryTests {
     }
 
     @Test
-    public void findContarctByUnitNotOld() {
-        List<Contract> result = contractRepository.findContarctByUnitNotOldLimit2(2L);
-        System.out.println("result.length : " + result.size());
+    public void findContractByUnitNewLimit() {
+        // 시간 측정 시작
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
 
-        result.forEach(i -> System.out.println(i));
+        //특정 호실의 2개의 계약 (진행중+바로다음 계약)을 가져온다.
+        List<Contract> result = contractRepository.findContractByUnitNewLimit(17L, PageRequest.of(0, 2));
+
+        // 시간 측정 종료 및 로그 출력
+        stopWatch.stop();
+        System.out.println("Execution time: " + stopWatch.getTotalTimeMillis() + "ms");
+        result.forEach(System.out::println);
     }
 
     @Test
@@ -64,7 +74,8 @@ public class ContractRepositoryTests {
 
     @Test
     public void findAllByUnit() {
-        System.out.println("contractRepository.findAllByUnit(1L) : " + contractRepository.findContractByUnitOldAsc(14L));
+        Long unitRowid = 17L;
+        System.out.println("contractRepository.findAllByUnit(unitRowid) : " + contractRepository.findContractByUnitOld(unitRowid, Sort.by(Sort.Direction.ASC, "enddate")));
     }
 
     @Test

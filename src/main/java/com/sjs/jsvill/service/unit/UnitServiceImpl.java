@@ -5,6 +5,7 @@ import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,7 +43,7 @@ public class UnitServiceImpl implements UnitService {
         List<ContractDTO> contractDTOList = new ArrayList<>();
 
         //기간이 지나지 않은 계약들을 가져온다. 현재꺼+미래꺼
-        List<Contract> contarctList = contractRepository.findContarctByUnitNotOldLimit2(unitRowid);
+        List<Contract> contarctList = contractRepository.findContractByUnitNewLimit(unitRowid, PageRequest.of(0, 2));
         for (Contract contract : contarctList) {
             Option option = optionRepository.findByContract(contract);
             List<Tenant> tenantList = new ArrayList<>();
