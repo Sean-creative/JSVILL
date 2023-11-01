@@ -23,3 +23,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     @Query("SELECT c FROM Contract c LEFT JOIN c.unit u WHERE c.enddate >= CURRENT_DATE And c.startdate <= CURRENT_DATE AND c.unit.unit_rowid IN :unitRowids")
     List<Contract> findProgressContractsByUnits(@Param("unitRowids") List<Long> unitRowids);
 }
+
+
