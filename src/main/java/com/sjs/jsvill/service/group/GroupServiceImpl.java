@@ -3,6 +3,7 @@ package com.sjs.jsvill.service.group;
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.*;
+import com.sjs.jsvill.repository.contract.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2

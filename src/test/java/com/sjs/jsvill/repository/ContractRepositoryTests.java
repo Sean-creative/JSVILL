@@ -3,6 +3,7 @@ package com.sjs.jsvill.repository;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Unit;
 import com.sjs.jsvill.entity.defaultType._ContractType;
+import com.sjs.jsvill.repository.contract.ContractRepository;
 import com.sjs.jsvill.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

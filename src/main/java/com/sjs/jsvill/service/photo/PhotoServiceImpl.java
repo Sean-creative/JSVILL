@@ -3,7 +3,7 @@ package com.sjs.jsvill.service.photo;
 import com.sjs.jsvill.dto.PhotoDTO;
 import com.sjs.jsvill.entity.Contract;
 import com.sjs.jsvill.entity.Photo;
-import com.sjs.jsvill.repository.ContractRepository;
+import com.sjs.jsvill.repository.contract.ContractRepository;
 import com.sjs.jsvill.repository.PhotoRepository;
 import com.sjs.jsvill.util.AWSFileHandler;
 import lombok.RequiredArgsConstructor;

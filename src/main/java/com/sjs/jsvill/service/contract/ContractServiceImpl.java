@@ -5,6 +5,7 @@ import com.sjs.jsvill.dto.*;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.entity.defaultType._LivingType;
 import com.sjs.jsvill.repository.*;
+import com.sjs.jsvill.repository.contract.ContractRepository;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
