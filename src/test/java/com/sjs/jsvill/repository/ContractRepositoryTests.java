@@ -74,17 +74,16 @@ public class ContractRepositoryTests {
     }
 
     @Test
-    public void findAllByUnit() {
+    public void findContractByUnitOld() {
         Long unitRowid = 17L;
         System.out.println("contractRepository.findAllByUnit(unitRowid) : " + contractRepository.findContractByUnitOld(unitRowid, Sort.by(Sort.Direction.ASC, "enddate")));
     }
 
     @Test
     public void findProgressContractsByUnits() {
-        List<Long> unitRowids = List.of(2L, 43L );
+        List<Long> unitRowids = List.of(12L, 17L );
         List<Contract> contractList = contractRepository.findProgressContractsByUnits(unitRowids);
         System.out.println("size :" + contractList.size());
         Json.stringToJson(contractList, "findProgressContractsByUnits Test");
     }
-
 }
