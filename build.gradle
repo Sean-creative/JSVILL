@@ -12,6 +12,9 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 16
 targetCompatibility = 16
 
+jar {
+	enabled = false
+}
 
 configurations {
 	compileOnly {
@@ -64,7 +67,6 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa:5.0.0" // JPA 지원
 	implementation "com.querydsl:querydsl-core:5.0.0" // QueryDSL 코드 생성
 	implementation "com.querydsl:querydsl-apt:5.0.0" // Annotation Process Tool
-
 }
 test {
 	useJUnitPlatform()
