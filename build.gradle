@@ -12,6 +12,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 16
 targetCompatibility = 16
 
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
