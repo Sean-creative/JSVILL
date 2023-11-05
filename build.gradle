@@ -12,6 +12,9 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 16
 targetCompatibility = 16
 
+jar {
+	enabled = false
+}
 
 configurations {
 	compileOnly {
