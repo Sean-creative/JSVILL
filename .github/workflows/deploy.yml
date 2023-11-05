@@ -26,12 +26,12 @@ jobs:
         java-version: '16'
         distribution: 'corretto'
 
-    - name: Create application.properties
-      working-directory: ./src/main/resources
-      run: |
-        touch application.properties
-        echo '${{ secrets.APPLICATION_PROPERTIES }}' >> application.properties
-        echo '${{ secrets.APPLICATION_PROPERTIES_DEPLOY }}' >> application-deploy.properties
+#    - name: Create application.properties
+#      working-directory: ./src/main/resources
+#      run: |
+#        touch application.properties
+#        echo '${{ secrets.APPLICATION_PROPERTIES }}' >> application.properties
+#        echo '${{ secrets.APPLICATION_PROPERTIES_DEPLOY }}' >> application-deploy.properties
 
     - name: gradlew에 실행 권한 부여
       run: chmod +x ./gradlew
