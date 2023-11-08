@@ -15,7 +15,7 @@ jobs:
   build-with-gradle:
     runs-on: ubuntu-22.04
     steps:
-    - name: 체크아웃
+    - name: checkout
       uses: actions/checkout@v3
 
     - name: JDK 16 설치
