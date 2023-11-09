@@ -2,12 +2,14 @@
 
 #!/bin/bash
 
-PROJECT_ROOT="/home/ubuntu/spring-github-action" # 프로젝트 루트
+ROOT_PATH="/home/ubuntu/spring-github-action" # 프로젝트 루트
 JAR="$ROOT_PATH/application.jar"
 
 APP_LOG="$ROOT_PATH/application.log"
 ERROR_LOG="$ROOT_PATH/error.log"
 START_LOG="$ROOT_PATH/start.log"
+
+NOW=$(date +%c)
 
 # service_url.inc 에서 현재 서비스를 하고 있는 WAS의 포트 번호 가져오기
 CURRENT_PORT=$(cat /home/ec2-user/service_url.inc | grep -Po '[0-9]+' | tail -1)
@@ -35,12 +37,12 @@ fi
 echo "[$NOW] $JAR 복사" >> $START_LOG
 cp $ROOT_PATH/build/libs/*.jar $JAR
 
-iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
-iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 81 -j REDIRECT --to-port 8081
+iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 81 -j REDIRECT --to-port 8081
+iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 82 -j REDIRECT --to-port 8082
 
 # 타켓 포트에 jar파일을 이용해 새로운 서버 실행
 echo "[$NOW] > $JAR 실행 $TARGET_PORT Port" >> $START_LOG
-nohup java -jar -Dserver.port=${TARGET_PORT} ${JAR_FILE} > $APP_LOG 2> $ERROR_LOG &
+nohup java -jar -Dserver.port=${TARGET_PORT} ${JAR} > $APP_LOG 2> $ERROR_LOG &
 
 SERVICE_PID=$(pgrep -f $JAR)
 echo "[$NOW] > 서비스 PID: $SERVICE_PID" >> $START_LOG
