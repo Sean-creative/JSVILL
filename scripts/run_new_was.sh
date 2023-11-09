@@ -26,7 +26,7 @@ else
 fi
 
 # 현재 포트의 PID를 불러온다
-TARGET_PID=$(lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
+TARGET_PID=$(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
 
 # PID를 이용해 해당 포트 서버 Kill
 if [ ! -z ${TARGET_PID} ]; then
@@ -37,8 +37,8 @@ fi
 echo "[$NOW] $JAR 복사" >> $START_LOG
 cp $ROOT_PATH/build/libs/*.jar $JAR
 
-iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 81 -j REDIRECT --to-port 8081
-iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 82 -j REDIRECT --to-port 8082
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 81 -j REDIRECT --to-port 8081
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 82 -j REDIRECT --to-port 8082
 
 # 타켓 포트에 jar파일을 이용해 새로운 서버 실행
 echo "[$NOW] > $JAR 실행 $TARGET_PORT Port" >> $START_LOG
