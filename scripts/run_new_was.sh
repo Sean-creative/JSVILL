@@ -30,8 +30,8 @@ TARGET_PID=$(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po
 
 # PID를 이용해 해당 포트 서버 Kill
 if [ ! -z ${TARGET_PID} ]; then
-  echo "> Kill ${TARGET_PORT}."
-  sudo kill ${TARGET_PID}
+  echo "> Kill -9 ${TARGET_PORT}."
+  sudo kill -9 ${TARGET_PID}
 fi
 
 echo "[$NOW] $JAR 복사" >> $START_LOG
