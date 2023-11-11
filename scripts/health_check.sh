@@ -24,11 +24,15 @@ echo "Start health check of WAS at 'http://127.0.0.1:${TARGET_PORT}' ..." >> $ST
 # 아래 커맨드들을 새로 열린 서버가 정상적으로 작동하는지 확인
 
 # 해당 커맨드들을 10번씩 반복
-for RETRY_COUNT in {1..10}
+# 원래는 for RETRY_COUNT in {1..10}였으나, Bash 버전의 문제인지 1번만 실행되는 오류가 있음
+for RETRY_COUNT in 1 2 3 4 5 6 7 8 9 10
 do
     echo "#${RETRY_COUNT} trying..." >> $START_LOG
     # 테스트할 API 주소를 통해 http 상태 코드 가져오기
-    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login)
+    echo "curl -s -o /dev/null -w \"%{http_code}\"  http://127.0.0.1:${TARGET_PORT}/member/login" >> START_LOG
+#    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login)
+    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login 2>> $START_LOG)
+
     echo "RESPONSE_CODE $RESPONSE_CODE" >> $START_LOG
 
 	# RESPONSE_CODE의 http 상태가 200번인 경우
@@ -41,5 +45,5 @@ do
     fi
     # 아직 열려있지 않았다면 sleep
     echo "Not yet...sleep 15" >> START_LOG
-    sleep 15
+    sleep 10
 done

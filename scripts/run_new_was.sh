@@ -26,6 +26,9 @@ else
 fi
 
 # 현재 포트의 PID를 불러온다
+1. TARGET_PID = sudo lsof -i :TARGET_PORT
+2. TARGET_PID = $(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
+3. TARGET_PID = $(lsof -ti tcp:${TARGET_PORT})
 TARGET_PID=$(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
 echo "[$NOW] TARGET_PID : $TARGET_PID" >> $START_LOG
 
