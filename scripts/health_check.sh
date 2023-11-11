@@ -19,6 +19,7 @@ else
     exit 1
 fi
 
+
 # 위 커맨드들을 통해 현재 타겟포트 가져오기
 echo "[$NOW] Start health check of WAS at 'http://127.0.0.1:${TARGET_PORT}' ..." >> $START_LOG
 
