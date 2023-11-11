@@ -27,7 +27,7 @@ fi
 
 # 현재 포트의 PID를 불러온다
 TARGET_PID=$(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
-echo "TARGET_PID : $TARGET_PID" >> $START_LOG
+echo "[$NOW] TARGET_PID : $TARGET_PID" >> $START_LOG
 
 # PID를 이용해 해당 포트 서버 Kill
 if [ ! -z ${TARGET_PID} ]; then
