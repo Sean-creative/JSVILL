@@ -5,6 +5,7 @@
 ROOT_PATH="/home/ubuntu/spring-github-action" # 프로젝트 루트
 JAR="$ROOT_PATH/application.jar"
 
+SERVICE_URL="$ROOT_PATH/service_url.inc"
 APP_LOG="$ROOT_PATH/application.log"
 ERROR_LOG="$ROOT_PATH/error.log"
 START_LOG="$ROOT_PATH/start.log"
@@ -12,7 +13,7 @@ START_LOG="$ROOT_PATH/start.log"
 NOW=$(date +%c)
 
 # service_url.inc 에서 현재 서비스를 하고 있는 WAS의 포트 번호 가져오기
-CURRENT_PORT=$(cat /home/ec2-user/service_url.inc | grep -Po '[0-9]+' | tail -1)
+CURRENT_PORT=$(cat $SERVICE_URL | grep -Po '[0-9]+' | tail -1)
 TARGET_PORT=0
 
 echo "[$NOW] Current port of running WAS is ${CURRENT_PORT}." >> $START_LOG
@@ -26,10 +27,7 @@ else
 fi
 
 # 현재 포트의 PID를 불러온다
-1. TARGET_PID = sudo lsof -i :TARGET_PORT
-2. TARGET_PID = $(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
-3. TARGET_PID = $(lsof -ti tcp:${TARGET_PORT})
-TARGET_PID=$(sudo lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
+TARGET_PID = $(sudo lsof -ti tcp:${TARGET_PORT})
 echo "[$NOW] TARGET_PID : $TARGET_PID" >> $START_LOG
 
 # PID를 이용해 해당 포트 서버 Kill
