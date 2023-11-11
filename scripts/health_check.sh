@@ -13,7 +13,7 @@ if [ ${CURRENT_PORT} -eq 8081 ]; then
 elif [ ${CURRENT_PORT} -eq 8082 ]; then
     TARGET_PORT=8081
 else
-    echo "No WAS is connected to nginx" >> ERROR_LOG
+    echo "No WAS is connected to nginx" >> $ERROR_LOG
     exit 1
 fi
 
@@ -29,7 +29,7 @@ for RETRY_COUNT in 1 2 3 4 5 6 7 8 9 10
 do
     echo "#${RETRY_COUNT} trying..." >> $START_LOG
     # 테스트할 API 주소를 통해 http 상태 코드 가져오기
-    echo "curl -s -o /dev/null -w \"%{http_code}\"  http://127.0.0.1:${TARGET_PORT}/member/login" >> START_LOG
+    echo "curl -s -o /dev/null -w \"%{http_code}\"  http://127.0.0.1:${TARGET_PORT}/member/login" >> $START_LOG
 #    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login)
     RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login 2>> $START_LOG)
 
@@ -44,6 +44,6 @@ do
         exit 1 #exit 1이 호출되면 스크립트의 실행이 중단되고, 이에 따라 switch.sh 스크립트도 실행되지 않습니다.
     fi
     # 아직 열려있지 않았다면 sleep
-    echo "Not yet...sleep 15" >> START_LOG
+    echo "Not yet...sleep 10" >> $START_LOG
     sleep 10
 done
