@@ -28,6 +28,7 @@ echo "[$NOW] Start health check of WAS at 'http://127.0.0.1:${TARGET_PORT}' ..."
 for RETRY_COUNT in 1 2 3 4 5 6 7 8 9 10
 do
     echo "[$NOW] #${RETRY_COUNT} trying..." >> $START_LOG
+    sleep 40 #스레드 기아문제를 해결하기 위해 처음부터 기다렸다가 시작
     # 테스트할 API 주소를 통해 http 상태 코드 가져오기
     RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/member/login 2>> $START_LOG)
 
@@ -41,5 +42,4 @@ do
     fi
     # 아직 열려있지 않았다면 sleep
     echo "[$NOW] RESPONSE_CODE $RESPONSE_CODE / Not yet...sleep 40" >> $START_LOG
-    sleep 40
 done
