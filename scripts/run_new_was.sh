@@ -36,12 +36,11 @@ if [ ! -z ${TARGET_PID} ]; then
 fi
 
 cp $ROOT_PATH/build/libs/*.jar $JAR
-
 sudo iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 81 -j REDIRECT --to-port 8081
 sudo iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 82 -j REDIRECT --to-port 8082
 
 # 타켓 포트에 jar파일을 이용해 새로운 서버 실행
-nohup java -jar -Dserver.port=${TARGET_PORT} ${JAR} > $APP_LOG 2> $ERROR_LOG &
+sudo nohup java -jar -Dserver.port=${TARGET_PORT} ${JAR} > $APP_LOG 2> $ERROR_LOG &
 SERVICE_PID=$(pgrep -f $JAR)
 echo "[$NOW] > $JAR 실행 $TARGET_PORT Port / 서비스 PID: $SERVICE_PID" >> $START_LOG
 exit 0
