@@ -21,6 +21,16 @@ else
     exit 1
 fi
 
+#2개의 application이 실행되는것은 과부하 일수도?
+# 과거 포트의 PID를 불러온다
+OLD_PID = $(sudo lsof -ti tcp:${CURRENT_PORT})
+
+# PID를 이용해 해당 포트 서버 Kill
+if [ ! -z ${OLD_PID} ]; then
+  echo "[$NOW] Kill -9 ${CURRENT_PORT}." >> $START_LOG
+  sudo kill -9 ${OLD_PID}
+fi
+
 # 위 커맨드들을 통해 현재 타겟포트 가져오기
 # $ service_url.inc 파일을 현재 바뀐 서버의 포트로 변경
 echo "set \$service_url http://127.0.0.1:${TARGET_PORT};" | tee $SERVICE_URL
