@@ -21,6 +21,7 @@ else
     exit 1
 fi
 
+
 #2개의 application이 실행되는것은 과부하 일수도?
 # 과거 포트의 PID를 불러온다
 OLD_PID = $(sudo lsof -ti tcp:${CURRENT_PORT})
