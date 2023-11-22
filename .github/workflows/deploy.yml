@@ -24,6 +24,7 @@ jobs:
         java-version: '16'
         distribution: 'corretto'
 
+
     - name: application.properties 파일 생성
       run: touch ./src/main/resources/application.properties
     - name: application.properties에 작성
