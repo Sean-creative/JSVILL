@@ -1,3 +1,30 @@
+#version: 0.0
+#os: linux
+#
+#files:
+#  - source:  /
+#    destination: /home/ubuntu/spring-github-action
+#    overwrite: yes
+#
+#permissions:
+#  - object: /
+#    owner: ubuntu
+#    group: ubuntu
+#
+#
+#hooks:
+#  ApplicationStart:
+#    - location: scripts/run_new_was.sh
+#      timeout: 60
+#
+#    - location: scripts/health_check.sh
+#      timeout: 60
+#
+#    - location: scripts/switch.sh
+#      timeout: 60
+
+
+
 version: 0.0
 os: linux
 
@@ -11,14 +38,10 @@ permissions:
     owner: ubuntu
     group: ubuntu
 
-
 hooks:
+  AfterInstall:
+    - location: scripts/stop.sh
+      timeout: 60
   ApplicationStart:
-    - location: scripts/run_new_was.sh
-      timeout: 60
-
-    - location: scripts/health_check.sh
-      timeout: 60
-
-    - location: scripts/switch.sh
+    - location: scripts/start.sh
       timeout: 60
