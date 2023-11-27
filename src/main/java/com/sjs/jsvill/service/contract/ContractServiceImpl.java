@@ -38,7 +38,7 @@ public class ContractServiceImpl implements ContractService {
     public String phoneCheck(List<UserDuplicateCheck> duplicateCheckList) {
         //1. tenant를 전부 가져온다
         //2. 이름과 폰번호가 중복 or 중복된게 없으면 -> 정상적인 플로우 -> "" 리턴
-        //3. 번호만 중복인데 이름이 다르면 오류! -> 폰번호 리턴
+        //3. 번호만 중복인데 이름이 다르면 오류! -> 폰번호 리턴해서, 중복된 번호 템플릿에게 전달
         String result = "";
         List<Tenant> tenantList = tenantRepository.findAll();
 //        System.out.println("duplicateCheckList : " + duplicateCheckList);
@@ -116,7 +116,8 @@ public class ContractServiceImpl implements ContractService {
         List<Tenant> tenantList = Tenant.DTOToEntities(contractDTO.getTenantDTOList());
         for (Tenant tenant : tenantList) {
             final String PHONE = tenant.getPhone();
-            //세입자를 등록하기전에, 폰번호로 검사를해서 또 등록하는것을 막야아한다.
+            //세입자를 등록하기전에, 폰번호로 검사를해서 다시 insert 되는것을 막아야한다.
+            //기존에 있는 세입자라면 insert는 안함
             if (!tenantRepository.existsByPhone(PHONE)) tenantRepository.save(tenant);
             //새로등록한 세입자든 기존에 있던 세입자든 -> 폰번호로 세입자를 다시 찾아서 tenantRowid를 알아내야한다.
             Tenant tenantFromDB = tenantRepository.findByPhone(PHONE);

@@ -61,6 +61,10 @@ public class ContractController {
         redirectAttributes.addFlashAttribute("msg", contractRowid);
         return "redirect:/unit/read?unitRowid="+unitRowid;
     }
+    /**
+     * 이미 사용하고 있는 번호인지 검사
+     * 같은 번호를 같은 사람이 쓰는건 OK, 같은 번호를 다른 사람이 또 쓰면 에러!
+     */
     @PostMapping("/phoneValiCheck")
     @ResponseBody
     public String phoneValiCheck(@RequestParam(value = "titleList[]") List<String> titleList, @RequestParam(value = "phoneList[]") List<String> phoneList) {
