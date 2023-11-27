@@ -41,7 +41,7 @@ public class CtlApiBoard {
     @RequestMapping("/get")
     public String appBoardW() {
         log.info("user board w");
-        return "/app/letter";
+        return "app/letter";
     }
 
     @RequestMapping("/board")

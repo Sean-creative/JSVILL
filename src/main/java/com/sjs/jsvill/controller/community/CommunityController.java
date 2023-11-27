@@ -60,12 +60,12 @@ public class CommunityController {
         model.addAttribute("total", list.getTotalElements());
         model.addAttribute("currentPage", pageable.getPageNumber());
 
-        return "/community/community.html";
+        return "community/community.html";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "/community/register.html";
+        return "community/register.html";
     }
 
     @PostMapping("/insert")
@@ -80,7 +80,7 @@ public class CommunityController {
     @GetMapping("/read")
     public String read(@RequestParam("id") Long comRowid, Model model) {
         model.addAttribute("dto", communityService.findByComRowid(comRowid));
-        return "/community/read.html";
+        return "community/read.html";
     }
 
     @ResponseBody
@@ -101,7 +101,7 @@ public class CommunityController {
     @GetMapping("/edit")
     public String edit(@RequestParam("id") Long comRowid, Model model) {
         model.addAttribute("dto", communityService.findByComRowid(comRowid));
-        return "/community/edit.html";
+        return "community/edit.html";
     }
 
 }

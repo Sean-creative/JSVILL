@@ -16,7 +16,7 @@ public class CtlApiLetterW {
     @RequestMapping("/letter/w")
     public String appLetter() {
         log.info("user letter");
-        return "/app/letter";
+        return "app/letter";
     }
 
 

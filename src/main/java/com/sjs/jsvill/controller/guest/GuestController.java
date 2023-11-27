@@ -14,25 +14,25 @@ public class GuestController {
     //입실 시 가이드
     @GetMapping("/guestGuide1")
     public String guestGuide1() {
-        return "/guest/guestGuide1.html";
+        return "guest/guestGuide1.html";
     }
     @GetMapping("/guestGuide2")
     public String guestGuide2() {
-        return "/guest/guestGuide2.html";
+        return "guest/guestGuide2.html";
     }
     @GetMapping("/guestGuide3")
     public String guestGuide3() {
-        return "/guest/guestGuide3.html";
+        return "guest/guestGuide3.html";
     }
     @GetMapping("/guestGuide4")
     public String guestGuide4() {
-        return "/guest/guestGuide4.html";
+        return "guest/guestGuide4.html";
     }
 
     //퇴실 시 가이드
     @GetMapping("/guestGuide5")
     public String guestGuide5() {
-        return "/guest/guestGuide5.html";
+        return "guest/guestGuide5.html";
     }
 
 }

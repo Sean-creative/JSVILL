@@ -45,7 +45,7 @@ public class ContractController {
         model.addAttribute("contractDTO", contractDTO);
         model.addAttribute("unitDTO", unitDTO);
         Json.stringToJson(contractDTO, "ContractController-edit/get");
-        return "/contract/edit";
+        return "contract/edit";
     }
     @PostMapping("/edit")
     public String edit(ContractDTO contractDTO, RedirectAttributes redirectAttributes){
