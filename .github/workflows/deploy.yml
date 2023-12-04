@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+
 env:
   AWS_REGION: ap-northeast-2
   AWS_S3_BUCKET: cicd-sean-bucket
