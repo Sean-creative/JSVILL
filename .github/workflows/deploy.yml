@@ -33,14 +33,14 @@ jobs:
           aws-access-key-id: ${{ secrets.CICD_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CICD_SECRET_KEY }}
 
+  #          mkdir -p ./src/main/resources/ # 디렉토리가 없을 경우를 대비하여 생성
+  #          $GITHUB_WORKSPACE는 GitHub Actions 환경에서 체크아웃된 코드의 위치를 가리키는 환경 변수
   build:
     needs: setup-environment
     runs-on: ubuntu-22.04
     steps:
       - name: application.properties 파일 생성
         run: |
-#          mkdir -p ./src/main/resources/ # 디렉토리가 없을 경우를 대비하여 생성
-#          $GITHUB_WORKSPACE는 GitHub Actions 환경에서 체크아웃된 코드의 위치를 가리키는 환경 변수
           cd $GITHUB_WORKSPACE
           touch ./src/main/resources/application.properties
       - name: application.properties에 작성
