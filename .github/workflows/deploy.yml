@@ -41,8 +41,9 @@ jobs:
     steps:
       - name: application.properties 파일 생성
         run: |
-          cd $GITHUB_WORKSPACE
-          touch ./src/main/resources/application.properties
+            cd $GITHUB_WORKSPACE
+            mkdir -p ./src/main/resources/
+            touch ./src/main/resources/application.properties
       - name: application.properties에 작성
         run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
       - name: application.properties 내용 표시
