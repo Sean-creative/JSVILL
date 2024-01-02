@@ -46,20 +46,20 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test
 
+    - name: Authenticate with Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GKE_KEY }}
+
       # Setup gcloud CLI
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@latest
+      uses: 'google-github-actions/setup-gcloud@v2'
       with:
         version: '370.0.0'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_email: ${{ secrets.GKE_EMAIL }}
         service_account_key: ${{ secrets.GKE_KEY }}
 
-
-    - name: Authenticate with Google Cloud
-      uses: google-github-actions/auth@latest
-      with:
-        credentials_json: ${{ secrets.GKE_KEY }}
 
     - name: Configure Docker
       run: gcloud auth configure-docker
