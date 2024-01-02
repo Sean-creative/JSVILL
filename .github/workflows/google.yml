@@ -46,25 +46,23 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test
 
-    - name: Authenticate with Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        credentials_file: ${{ secrets.GKE_KEY }}
-
       # Setup gcloud CLI
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@main
+      uses: google-github-actions/setup-gcloud@latest
       with:
         version: '370.0.0'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_email: ${{ secrets.GKE_EMAIL }}
         service_account_key: ${{ secrets.GKE_KEY }}
 
-    # Configure docker to use the gcloud command-line tool as a credential helper
-    - run: |
-        # Set up docker to authenticate
-        # via gcloud command-line tool.
-        gcloud auth configure-docker
+
+    - name: Authenticate with Google Cloud
+      uses: google-github-actions/auth@latest
+      with:
+        credentials_json: ${{ secrets.GKE_KEY }}
+
+    - name: Configure Docker
+      run: gcloud auth configure-docker
 
 
       # Build the Docker image
