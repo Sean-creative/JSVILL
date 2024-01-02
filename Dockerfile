@@ -12,7 +12,7 @@ RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 
 # 3. 애플리케이션 JAR 파일의 위치를 인자로 받음
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=build/libs/jsvill-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # 4. 애플리케이션 실행
