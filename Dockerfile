@@ -5,7 +5,7 @@
 
 
 # 1. 기본 이미지 선택
-FROM openjdk:16-alpine
+FROM openjdk:17-alpine
 
 # 2. root 권한으로 실행되지 않도록 사용자 그룹 추가.
 RUN addgroup -S spring && adduser -S spring -G spring

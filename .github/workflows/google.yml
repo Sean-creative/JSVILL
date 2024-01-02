@@ -50,7 +50,6 @@ jobs:
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
-
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
