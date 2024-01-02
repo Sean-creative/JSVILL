@@ -40,6 +40,12 @@ jobs:
         java-version: '16'
         distribution: 'corretto'
 
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew clean build -x test
+
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@main
       with:
@@ -54,12 +60,6 @@ jobs:
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
-
-    - name: Build with Gradle
-      run: ./gradlew clean build -x test
-
 
       # Build the Docker image
     - name: Build
@@ -71,6 +71,8 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
+        gcloud auth login
+        gcloud auth configure-docker
         docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
 
     # Set up kustomize
