@@ -50,6 +50,10 @@ jobs:
         # via gcloud command-line tool.
         gcloud auth configure-docker
 
+      # 그래들 빌드
+    - name: Build Gradle
+      run: |
+        ./gradlew build
 
     # Build the Docker image
     - name: Build
