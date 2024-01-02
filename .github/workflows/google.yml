@@ -54,8 +54,9 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_email: ${{ secrets.GKE_EMAIL }}
         service_account_key: ${{ secrets.GKE_KEY }}
-      # Configure docker to use the gcloud command-line tool as a credential helper
-      run: |
+
+    # Configure docker to use the gcloud command-line tool as a credential helper
+    - run: |
         # Set up docker to authenticate
         # via gcloud command-line tool.
         gcloud auth configure-docker
@@ -70,8 +71,7 @@ jobs:
 
     # Push the Docker image to Google Container Registry
     - name: Publish
-      run: |    
-        docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
+      run: docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
 
     # Set up kustomize
     - name: Set up Kustomize
