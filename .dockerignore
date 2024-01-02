@@ -9,9 +9,12 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# 빌드 폴더 무시
+# dist 폴더 무시
 dist/
-build/
+
+# build 폴더 내부의 모든 것을 무시하되, libs 폴더는 제외
+build/*
+!build/libs/
 
 # 개인 설정 파일 및 로컬 개발 환경 설정 무시
 .env.local
