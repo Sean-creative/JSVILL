@@ -8,8 +8,8 @@
 FROM openjdk:16-alpine
 
 # 2. root 권한으로 실행되지 않도록 사용자 그룹 추가.
-#RUN addgroup -S spring && adduser -S spring -G spring
-#USER spring:spring
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 
 # 3. 애플리케이션 JAR 파일의 위치를 인자로 받음
 COPY build/libs/jsvill-0.0.1-SNAPSHOT.jar app.jar
