@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo
+  name: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo
+    spec:
+      containers:
+      - image: gcr.io/hybrid-autonomy-409717/demo
+        name: demo
+        resources: {}
+        ports:
+        - containerPort: 8080
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+spec:
+  selector:
+    app: demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
