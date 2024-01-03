@@ -85,18 +85,14 @@ jobs:
 
       # Set up kustomize
       - name: Set up Kustomize
-        run: |
-          curl -LO "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.4.1/kustomize_kustomize.v4.4.1_linux_amd64.tar.gz"
-          tar xzf kustomize_kustomize.v4.4.1_linux_amd64.tar.gz
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ./kustomize
-
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
-        run: |
-          # 클러스터 인증 정보 가져오기
-          gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT        
-          # 이미지 업데이트 및 배포
-          ./kustomize edit set image $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
+        run: |-
+          # replacing the image name in the k8s template
+          ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
