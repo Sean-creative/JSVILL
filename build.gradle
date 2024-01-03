@@ -41,6 +41,7 @@ dependencies {
 				exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 			}
 	testImplementation 'org.springframework.security:spring-security-test'
+
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 

@@ -23,7 +23,13 @@ spec:
       containers:
         - image: gcr.io/hybrid-autonomy-409717/demo:latest
           name: demo
-          resources: { }
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://jsvilldb.cgnxttobywmq.ap-northeast-2.rds.amazonaws.com:3306/jsvill
+            - name: SPRING_DATASOURCE_USERNAME
+              value: admin
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: seanVill9677#
 status: { }

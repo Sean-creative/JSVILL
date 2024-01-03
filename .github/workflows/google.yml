@@ -73,7 +73,7 @@ jobs:
 
         # Build the Docker image
       - name: Build
-        run: |
+        run: |-
           docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" .
@@ -90,7 +90,7 @@ jobs:
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
-        run: |        
+        run: |-
           # 이미지 업데이트 및 배포
           ./kustomize edit set image $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
           ./kustomize build . | kubectl apply -f -
