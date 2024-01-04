@@ -39,6 +39,13 @@ jobs:
           java-version: '16'
           distribution: 'corretto'
 
+      - name: application.properties 파일 생성
+        run: touch ./src/main/resources/application.properties
+      - name: application.properties에 작성
+        run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
+      - name: application.properties 내용 표시
+        run: cat ./src/main/resources/application.properties
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
