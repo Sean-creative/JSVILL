@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MemberServiceImpl memberService;
+
     @Override
     // js, css, image 설정은 보안 설정의 영향 밖에 있도록 만들어주는 설정.
     public void configure(WebSecurity web) throws Exception {
@@ -30,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    // BCryptPasswordEncoder는 Spring Security에서 제공하는 비밀번호 암호화 객체
-    // Service에서 비밀번호를 암호화할 수 있도록 Bean으로 등록합니다.
+        // BCryptPasswordEncoder는 Spring Security에서 제공하는 비밀번호 암호화 객체
+        // Service에서 비밀번호를 암호화할 수 있도록 Bean으로 등록합니다.
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -42,11 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 24 * 3).userDetailsService(userDetailsService); //3days
         http.csrf().disable();  //음.. 나중에 적용하면 좋나?
 
+        http.authorizeRequests()
+            .antMatchers("/**").permitAll() // 모든 요청을 허용
+            .anyRequest().authenticated(); // 그 외 요청은 인증 필요
 
         //antMatchers -> 요게 리소스에 들어가기 보다는 컨트롤러 mapping 할 때 걸리는걸 말하는듯?
-        http.authorizeRequests()
-                .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
-                .anyRequest().authenticated(); //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
+//        http.authorizeRequests()
+//                .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
+//                .anyRequest().authenticated(); //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
 
         http.formLogin()
                 .loginPage("/member/login") //불러올 로그인 페이지
