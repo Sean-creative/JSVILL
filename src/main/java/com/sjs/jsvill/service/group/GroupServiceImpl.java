@@ -4,6 +4,10 @@ import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.entity.*;
 import com.sjs.jsvill.repository.*;
 import com.sjs.jsvill.repository.contract.ContractRepository;
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,8 @@ public class GroupServiceImpl implements GroupService {
     private final ContractRepository contractRepository;
     private final ContractTenantRepository contractTenantRepository;
 
+    private final MeterRegistry registry;
+
     @Override
     @Transactional
     public Long register(GroupDTO groupDTO, Long memberRowid) {
@@ -35,6 +41,8 @@ public class GroupServiceImpl implements GroupService {
         return group.getGroup_rowid();
     }
 
+    @Counted("my.group2")
+    @Timed("my.group2")
     @Override
     public List<GroupDTO> getList(Long memberRowid) {
         List<GroupDTO> groupDTOList = new ArrayList<>();

@@ -19,8 +19,8 @@ env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: asia-east1
-  GKE_CLUSTER: jsvill-autopilot-cluster-1
+  GKE_ZONE: asia-east1-a
+  GKE_CLUSTER: jsvill-cluster
   IMAGE: demo
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: demo
