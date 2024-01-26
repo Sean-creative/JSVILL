@@ -13,6 +13,8 @@ RUN mkdir -p /logs && touch /logs/sean.log && chown -R spring:spring /logs && ch
 
 USER spring:spring
 
+
+
 # 3. 애플리케이션 JAR 파일의 위치를 인자로 받음
 COPY build/libs/jsvill-0.0.1-SNAPSHOT.jar app.jar
 
