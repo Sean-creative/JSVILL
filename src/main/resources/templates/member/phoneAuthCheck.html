@@ -1,26 +1,0 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/mobile.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <title>인증번호 입력</title>
-    <style>
-        .fieldError {color:#bd2130}
-    </style>
-</head>
-<body>
-    <h1>📱 인증번호 입력</h1>
-    <p class="loginGuide">인증번호를 입력해 주세요.</p>
-
-    <form action="/member/phoneAuthCheck" method="post">
-        <input placeholder="인증번호" type="number" class="authCode" name="authCode">
-        <div th:if="${wrong}" class="fieldError" style="margin:5px 0 0 10px">인증번호를 다시 입력해주세요.</div>
-        <button class="submitButton submitButtonLabel">인증 완료</button>
-    </form>
-    <a href="/member/login" class="aButton homeButton">🏠 로그인 화면 돌아가기</a>
-</body>
-</html>

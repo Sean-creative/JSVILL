@@ -1,9 +1,0 @@
-
-/*공통으로 사용하는 CSS*/
-
-/*ellipsis*/
-.ellipsis{ text-overflow:ellipsis;white-space:nowrap;overflow:hidden }
-.ellipsis2{word-break:break-all;word-wrap:break-word;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;line-height:1.2em;max-height:2.5em}
-.ellipsis3{word-break:break-all;word-wrap:break-word;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;white-space:normal;line-height:1.2em;max-height:3.6em}
-
-button {cursor:pointer}
