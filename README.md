@@ -18,9 +18,9 @@ git push
 
 # helm 차트 사용방법
 ```shell
-helm repo add my-repo https://build-deploy-pipeline.github.io/helm-charts/
+helm repo add sean-repo https://sean-creative.github.io/JSVILL/
 helm repo update
-helm search repo my-repo
+helm search repo sean-repo
 ```
 
 # 참고자료
