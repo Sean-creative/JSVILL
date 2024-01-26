@@ -48,17 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            .anyRequest().authenticated(); // 그 외 요청은 인증 필요
 
         //antMatchers -> 요게 리소스에 들어가기 보다는 컨트롤러 mapping 할 때 걸리는걸 말하는듯?
-        http.authorizeRequests()
-                .antMatchers("/actuator/prometheus", "/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
-                .anyRequest().authenticated(); //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
-
-        http.formLogin()
+        http
+            .authorizeRequests()
+                .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
+                .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+                .anyRequest().authenticated() //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
+        .and()
+            .formLogin()
                 .loginPage("/member/login") //불러올 로그인 페이지
                 .usernameParameter("phoneNumber")
                 .passwordParameter("pinNumber")
-                .defaultSuccessUrl("/home"); //로그인 성공 시 보낼 페이지
-
-        http.logout() //로그아웃 했을 때 지정해놓은 페이지 볼 수 있음
+                .defaultSuccessUrl("/home") //로그인 성공 시 보낼 페이지
+        .and()
+            .logout() //로그아웃 했을 때 지정해놓은 페이지 볼 수 있음
                 .logoutSuccessUrl("/member/login")
                 .invalidateHttpSession(true);
     }

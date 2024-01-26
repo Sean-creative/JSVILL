@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.0'
+	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	// Q 클래스 생성 플러그인
@@ -72,6 +72,8 @@ dependencies {
 	implementation 'io.micrometer:micrometer-core'
 	implementation 'io.micrometer:micrometer-registry-prometheus'
 
+	// Spring Boot 로깅 스타터 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
 }
 
 test {

@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jsvill-helm 
+  labels:
+    app: jsvill-helm 
+    release: prometheus  
+  namespace: default
+spec:
+  endpoints:
+    - port: http #Kubernetes 서비스에서 노출하는 포트 이름
+      interval: 10s
+      path: "/sean/monitoring/prometheus"  # 수정된 경로
+  selector:
+    matchLabels:
+      app: jsvill-helm 
+ 

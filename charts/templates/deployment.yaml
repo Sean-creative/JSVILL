@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jsvill-helm  
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jsvill-helm 
+  template:
+    metadata:      
+      labels:
+        app: jsvill-helm 
+    spec:      
+      containers:
+        - name: jsvill-helm
+          image: {{ .Values.image }}
+          ports:
+            - name: http
+              containerPort: 8080            
+          volumeMounts:
+            - name: log-volume
+              mountPath: /logsean  # 컨테이너 내부의 logs 경로를 볼륨에 마운트
+      volumes:
+        - name: log-volume
+          hostPath:
+            path: /var/log/contains  # 호스트 시스템의 로그를 저장할 경로
