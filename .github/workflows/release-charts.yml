@@ -20,7 +20,12 @@ jobs:
         with:
           fetch-depth: 0
 
-        # 차트 버전 업데이트 스텝
+      - name: Configure Git
+        run: |
+          git config --local user.email "ksw6125000@naver.com"
+          git config --local user.name "Sean-creative"
+
+      # 차트 버전 업데이트 스텝
       - name: Update chart version
         run: |
           CHART_DIR=charts/jsvill-chart
@@ -29,7 +34,7 @@ jobs:
           sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
           git add $CHART_DIR/Chart.yaml
           git commit -m "Bump chart version to $NEW_VERSION"
-          git push origin HEAD
+          git push origin HEAD            
 
       - name: Configure Git
         run: |
