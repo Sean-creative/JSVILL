@@ -9,11 +9,11 @@ on:
 
 jobs:
   release:
-    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
-    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.bump-version.outputs.new-version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -25,17 +25,17 @@ jobs:
           git config --local user.email "ksw6125000@naver.com"
           git config --local user.name "Sean-creative"
 
-      # 차트 버전 업데이트 스텝
-      - name: Update chart version
+      - name: Bump chart version
+        id: bump-version
         run: |
           CHART_DIR=charts/jsvill-chart
           VERSION=$(grep 'version:' $CHART_DIR/Chart.yaml | awk '{print $2}')
           NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
+          echo "::set-output name=new-version::$NEW_VERSION"
           git add $CHART_DIR/Chart.yaml
           git commit -m "Bump chart version to $NEW_VERSION"
-          git push origin HEAD            
-
+          git push origin HEAD
 
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -46,3 +46,18 @@ jobs:
           charts_dir: charts
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+
+  update-kustomization:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update kustomization version
+        run: |
+          NEW_VERSION=${{ needs.release.outputs.new-version }}
+          sed -i "s/version: .*/version: $NEW_VERSION/" kustomization.yaml
+          git add kustomization.yaml
+          git commit -m "Update kustomization version to $NEW_VERSION"
+          git push origin HEAD
