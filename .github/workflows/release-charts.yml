@@ -63,6 +63,7 @@ jobs:
           pwd
           ls -l
 
+
       - name: Update kustomization version
         run: |
           cd kustomize
