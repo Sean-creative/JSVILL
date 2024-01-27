@@ -59,12 +59,9 @@ jobs:
           git config --local user.email "ksw6125000@naver.com"
           git config --local user.name "Sean-creative"
 
-      - name: Change to kustomize directory
-        run: |
-          cd kustomize
-
       - name: Update kustomization version
         run: |
+          cd kustomize
           NEW_VERSION=${{ needs.release.outputs.new-version }}
           sed -i "s/version: .*/version: $NEW_VERSION/" kustomization.yaml
           git add kustomization.yaml
