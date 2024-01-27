@@ -52,10 +52,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Configure Git
-        run: |
-          git config --local user.email "ksw6125000@naver.com"
-          git config --local user.name "Sean-creative"
 
       - name: Update kustomization version
         run: |
