@@ -64,6 +64,7 @@ jobs:
           cd kustomize
           NEW_VERSION=${{ needs.release.outputs.new-version }}
           sed -i "s/version: .*/version: $NEW_VERSION/" kustomization.yaml
+          git pull origin main
           git add kustomization.yaml
           git commit -m "Update kustomization version to $NEW_VERSION"
           git push origin HEAD
