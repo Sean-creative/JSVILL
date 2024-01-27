@@ -11,7 +11,8 @@ spec:
   template:
     metadata:      
       labels:
-        app: jsvill-helm 
+        app: jsvill-helm
+
     spec:      
       containers:
         - name: jsvill-helm
