@@ -20,6 +20,17 @@ jobs:
         with:
           fetch-depth: 0
 
+        # 차트 버전 업데이트 스텝
+      - name: Update chart version
+        run: |
+          CHART_DIR=charts/jsvill-chart
+          VERSION=$(grep 'version:' $CHART_DIR/Chart.yaml | awk '{print $2}')
+          NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+          sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
+          git add $CHART_DIR/Chart.yaml
+          git commit -m "Bump chart version to $NEW_VERSION"
+          git push origin HEAD
+
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"

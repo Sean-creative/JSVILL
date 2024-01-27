@@ -1,12 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - ./deployment.yml
-  - ./service.yml
 helmCharts:
-  - name: nginx
-    repo: https://build-deploy-pipeline.github.io/helm-charts
-    version: 0.1.0
-    releaseName: example
+  - name: jsvill
+    repo: https://sean-creative.github.io/JSVILL
+    version: 0.0.2
+    releaseName: jsvill
     namespace: default
     valuesFile: values.yaml
