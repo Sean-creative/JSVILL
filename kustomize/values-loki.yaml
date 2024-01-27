@@ -1,0 +1,4 @@
+minio:
+  enabled: true
+loki:
+  namespace: monitoring
