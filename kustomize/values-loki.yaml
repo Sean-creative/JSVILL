@@ -2,3 +2,4 @@ minio:
   enabled: true
 loki:
   namespace: monitoring
+  auth_enabled: false
