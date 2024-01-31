@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
-                .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+//                .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+                .antMatchers("/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
                 .anyRequest().authenticated() //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
         .and()
             .formLogin()
