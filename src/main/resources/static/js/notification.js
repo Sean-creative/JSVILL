@@ -10,6 +10,25 @@ $(() => {
             startSSE();
         }
     })
+
+    $("#notice").on("click", () => {
+        $('#notificationList').slideToggle();
+        $(".notification-dot").remove();
+    });
+
+    // $("#notificationList .list-group-item").on("click", (e) => {
+    //     const target = $(e.currentTarget);
+    //     const id = target.find(".fw-bold").data("id")
+    //     axios({
+    //         url: "api/v1/notifications/read",
+    //         method: "post",
+    //         data: { notificationsId: id },
+    //         dataType: "json",
+    //         headers: {'Content-Type': 'application/json'}
+    //     }).then(res => {
+    //         window.location.href = `/user/review/${res.data}`;
+    //     })
+    // });
 });
 
 function startSSE() {

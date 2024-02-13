@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class NotiMessageDTO {
     private String userPhone;
     private String message;
+    private String createdHours;
 
     public static NotiMessageDTO entityToDTO(NotiMessage message) {
         return NotiMessageDTO.builder()

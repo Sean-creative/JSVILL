@@ -3,20 +3,35 @@
 <header th:fragment="headerFragment">
     <head>
         <link rel="stylesheet" href="/css/header.css"/>
-<!--        <link rel="stylesheet" href="/css/modal.css"/>-->
+        <link th:href="@{/css/tailwind-out.css}" rel="stylesheet" />
     </head>
     <div class="header">
         <div style="font-size:25px;font-weight:bold"><a href="/home">JS Vill</a></div>
-        <div style="display:flex;align-items:center">
-            <div style="display:flex;margin-right:5px">
-                <input id="keyword" type="text" style="width:150px;border:1px solid #1dc078;font-size:22px;border-radius:6px;margin-right:7px">
-                <img title="검색" id="search" src="/image/search.svg" style="width:35px;height:35px;margin-right:10px;cursor:pointer">
-            </div>
-            <img title="알림" id="notice" src="/image/bell.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
-            <img title="내 정보" id="myInfo" src="/image/myInfo.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
-            <img title="로그아웃" onClick="logoutPost()" src="/image/logout.svg" style="width:37px;height:37px;margin-right:5px;cursor:pointer">
+        <ul style="display:flex;align-items:center">
+            <li style="display:flex;margin-right:5px">
+                <label for="keyword"></label><input id="keyword" type="text" style="width:150px;border:1px solid #1dc078;font-size:22px;border-radius:6px;margin-right:7px">
+                <img title="검색" id="search" src="/image/search.svg" style="width:35px;height:35px;margin-right:10px;cursor:pointer" alt="">
+            </li>
+            <li>
+                <img title="알림" id="notice" src="/image/bell.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer" alt="">
+                    <ol class="absolute z-10" id="notificationList" style="display:none;">
+                        <li class="flex items-center justify-between bg-blue-100 p-4 mb-2 rounded-lg shadow-md" th:each="notification : ${notificationsList}">
+                            <div class="flex-grow">
+                                <div class="font-bold" th:data-id="${notification.userPhone}">답글알림</div>
+                                <div th:text="${notification.message}">알림 메시지 내용</div>
+                            </div>
+                            <span class="text-sm text-gray-600" th:text="|약${notification.createdHours}시간 전|">약 3시간 전</span>
+                        </li>
+                    </ol>
 
-        </div>
+            </li>
+            <li>
+                <img title="내 정보" id="myInfo" src="/image/myInfo.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer" alt="">
+            </li>
+            <li>
+                <img title="로그아웃" onClick="logoutPost()" src="/image/logout.svg" style="width:37px;height:37px;margin-right:5px;cursor:pointer" alt="">
+            </li>
+        </ul>
     </div>
 
     <!-- 모달 영역 -->
@@ -38,11 +53,17 @@
     <form id="sms" action="/sms/send" method="get"></form>
 
     <script>
+        // 모달 안의 취소 버튼에 이벤트를 건다.
+        $('#closeModalBtn').on('click', function(){
+            $('#modalBox').modal('hide');
+        });
+        // 모달 안의 확인 버튼에 이벤트를 건다.
+        $('#checkModalBtn').on('click', function(){
+            $('#sms').submit();
+        });
+
         $('#search').on('click', function(){
             alert("검색은 준비 중입니다.")
-        });
-        $('#notice').on('click', function(){
-            alert("알림은 준비 중입니다.")
         });
         $('#myInfo').on('click', function(){
             alert("내 정보는 준비 중입니다.")
@@ -57,16 +78,6 @@
                 f.submit();
             }
         }
-
-        // 모달 안의 취소 버튼에 이벤트를 건다.
-        $('#closeModalBtn').on('click', function(){
-            $('#modalBox').modal('hide');
-        });
-        // 모달 안의 확인 버튼에 이벤트를 건다.
-        $('#checkModalBtn').on('click', function(){
-            $('#sms').submit();
-        });
     </script>
-
 </header>
 </html>

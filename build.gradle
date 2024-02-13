@@ -4,6 +4,8 @@ plugins {
 	id 'java'
 	// Q 클래스 생성 플러그인
 	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+	//node를 빌드-tailwinds
+	id("com.github.node-gradle.node") version "7.0.1"
 }
 
 group = 'com.sjs'
@@ -130,3 +132,28 @@ tasks.named('compileJava') {
 	dependsOn tasks.named('compileQuerydsl')
 }
 /**Querydsl 설정 끝*/
+
+node {
+	download = true
+	/**
+	 * node version
+	 */
+	version = "20.10.0"
+
+	/**
+	 * npm version
+	 */
+	npmVersion = "10.2.3"
+	nodeProjectDir = file("${projectDir}/src/main/resources/static")
+}
+
+task tailwindCss(type: NpxTask) {
+	command = "tailwind"
+	args = ["-i", "${projectDir}/src/main/resources/static/tailwinds.css", "-o", "${projectDir}/src/main/resources/static/css/tailwind-out.css"]
+	dependsOn 'npmInstall'
+}
+
+
+tasks.processResources {
+	dependsOn(tailwindCss)
+}
