@@ -1,0 +1,116 @@
+# spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+# spring.datasource.url=jdbc:mariadb://localhost:3306/jsvill
+# spring.datasource.username=jsvillSean
+# spring.datasource.password=0000
+# cloud.aws.s3.bucket=jsvill-local
+spring:
+  #Github에서 Actions secrets and variables -> Repository secrets -> APPLICATION의 부분가서 확인
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://jsvilldb.cgnxttobywmq.ap-northeast-2.rds.amazonaws.com:3306/jsvill
+    username: admin
+    password: seanVill9677#
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show_sql: true
+      format_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  #JSON 출력을 보기 쉽게 들여쓰기하여 표시
+  jackson:
+    serialization:
+      indent_output: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      group-id: foo, group_1
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # 수정
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer # 수정
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+
+
+logging:
+  level:
+    org.springframework.security.web: off
+    com.sjs.security: off
+    #AWS EC2 메타데이터 관련 유틸리티에서 발생하는 로그 메시지 중에서 오류 수준의 메시지만 기록
+    com.amazonaws.util.EC2MetadataUtils: error
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# redis 관련 설정
+# spring.redis.lettuce.pool.max-active=10
+# spring.redis.lettuce.pool.max-idle=10
+# spring.redis.lettuce.pool.min-idle=10
+# spring.redis.port=6379
+# spring.redis.host=127.0.0.1
+# spring.redis.password='abcde'
+
+cloud:
+  aws:
+    s3:
+      bucket: jsvill
+    credentials:
+      accessKey: AKIAUTZ7UOHWEDR7HKHQ
+      secretKey: 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
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+management:
+  endpoints:
+    # Endpoint all disable
+    enabled-by-default: false
+    web:
+      exposure:
+        include: prometheus, health, logfile
+      # Change Actuator Default path
+      base-path: /sean/monitoring
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      enabled: true
+      # 애플리케이션의 상태를 더 자세하게 표현
+      show-components: always
+    logfile:
+      enabled: true
+      # Actuator의 logfile 엔드포인트가 참조할 외부 로그 파일의 경로를 지정
+      external-file: ./logs/sean.log
+  metrics:
+    tags:
+      application: ${spring.application.name}

@@ -51,8 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
-//                .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
-                .antMatchers("/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+                .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+                .antMatchers("/api/v1/login-status").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락
+                //지금은 로그파일을 아무나 볼 수가 있는게 문제인듯 (그라파나에서 해당 데이터를 수집할 때 로그인을 안하면 어떻게 수집할 수 있는거지?)
                 .anyRequest().authenticated() //anyRequest는 antMatchers로 지정한 url 이외의 모든 url을 지정하는 메소드, else같은 느낌임
         .and()
             .formLogin()

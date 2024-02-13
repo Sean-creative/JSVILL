@@ -11,14 +11,14 @@
 </head>
 <body>
     <h1>
-        🔑 로그인 🔑
+        🔑 🔑로그인🔑 🔑
     </h1>
     <p class="loginGuide">
         최초 로그인 시에는 휴대폰번호 인증이 필요합니다.
     </p>
     <form action="/member/login" method="post">
         <div th:if="${param.error}" class="fieldMsgError">사용자ID 또는 비밀번호를 확인해 주세요.</div>
-        <input placeholder="휴대폰번호 ex) 010-1234-5678" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" name="phoneNumber" id="phoneNumber" class="phoneNumber" maxlength="13" oninput="oninputPhoneOrPassword(this, true)" required/>
+            <input placeholder="휴대폰번호 ex) 010-1234-5678" type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" name="phoneNumber" id="phoneNumber" class="phoneNumber" maxlength="13" oninput="oninputPhoneOrPassword(this, true)" required/>
         <input placeholder="핀번호 (4자리)" type="password" name="pinNumber" id="pinNumber" class="pinNumber" maxlength="4" oninput="oninputPhoneOrPassword(this, false)" required/>
         <button class="submitButton" id="loginSubmitButton">
             <span class="submitButtonLabel">로그인</span>

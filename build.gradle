@@ -74,6 +74,9 @@ dependencies {
 
 	// Spring Boot 로깅 스타터 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+	/* kafka */
+	implementation 'org.springframework.kafka:spring-kafka'
 }
 
 test {
