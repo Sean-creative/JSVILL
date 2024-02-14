@@ -3,6 +3,7 @@ package com.sjs.jsvill.controller.group;
 import com.sjs.jsvill.dto.GroupDTO;
 import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.service.group.GroupService;
+import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
@@ -40,6 +41,7 @@ public class GroupController {
     }
     @GetMapping("/list")
     public String list(@AuthenticationPrincipal MemberDTO memberDTO, Model model) {
+        Json.stringToJson(memberDTO, "group-list");
         model.addAttribute("result", groupService.getList(memberDTO.getMemberRowid()));
         return "group/list";
     }

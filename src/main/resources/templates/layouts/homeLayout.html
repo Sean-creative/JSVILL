@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-    <div class="container" style="display:flex;flex-direction:column;height:100vh">
+    <div class="custom-container" style="display:flex;flex-direction:column;height:100vh">
 <!--        <header th:replace="fragments/header :: headerFragment" style="flex:1"></header>-->
         <header th:include="fragments/header :: headerFragment" style="flex:1"></header>
         <div th:include="${content}" class="content" style="flex:18;display:flex;flex-direction:column"></div>

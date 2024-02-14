@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @Configuration
@@ -49,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //antMatchers -> 요게 리소스에 들어가기 보다는 컨트롤러 mapping 할 때 걸리는걸 말하는듯?
         http
+            .addFilterBefore(new AutoLoginFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
                 .antMatchers("/login", "/member/login", "/member/phoneAuthNew", "/member/phoneAuthOld", "/member/phoneAuthCheck", "/member/signUpPinNew", "/member/signUpPinOld").permitAll()
                 .antMatchers("/sean/monitoring/**").permitAll() //7070포트 + k8s에서 metrics 수집 할 때 문제떄매 일단 락

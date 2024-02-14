@@ -2,14 +2,18 @@ package com.sjs.jsvill.dto.member;
 
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.enm.MemberRole;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,7 +35,17 @@ public class MemberDTO extends User {
     private Set<MemberRole> roleSet;
 
 
-//    public MemberDTO(String phoneNumber, String pinNumber, Collection<? extends GrantedAuthority> authorities) {
+
+    public MemberDTO(Long memberRowid, String phoneNumber, String pinNumber, Collection<? extends GrantedAuthority> authorities) {
+        super(phoneNumber, pinNumber, authorities);
+        this.phoneNumber = phoneNumber;
+        this.pinNumber = pinNumber;
+        this.memberRowid = memberRowid;
+    }
+
+
+
+    //    public MemberDTO(String phoneNumber, String pinNumber, Collection<? extends GrantedAuthority> authorities) {
     public MemberDTO(Member member) {
         super(member.getPhoneNumber(), member.getPinNumber(), member.getRoleSet().stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
