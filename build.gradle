@@ -148,12 +148,18 @@ node {
 }
 
 task tailwindCss(type: NpxTask) {
+	doFirst {
+		logger.lifecycle("tailwindCss task is starting...")
+	}
 	command = "tailwind"
 	args = ["-i", "${projectDir}/src/main/resources/static/tailwinds.css", "-o", "${projectDir}/src/main/resources/static/css/tailwind-out.css"]
 	dependsOn 'npmInstall'
+	doLast {
+		logger.lifecycle("tailwindCss task has completed.")
+	}
 }
 
-
-tasks.processResources {
-	dependsOn(tailwindCss)
-}
+//tasks.processResources {
+//	//processResources가 불리지 않아..
+//	dependsOn(tailwindCss)
+//}
