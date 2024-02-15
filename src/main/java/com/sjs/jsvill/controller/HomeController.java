@@ -20,6 +20,7 @@ public class HomeController {
 
     @GetMapping({ "/", "/home"})
     public String home(Model model) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -32,8 +33,8 @@ public class HomeController {
                 NotiMessageDTO.builder().userPhone("010-5007-0617").message("zzzz").createdHours("2").build(),
                 NotiMessageDTO.builder().userPhone("010-5007-069").message("eeee").createdHours("3").build()
         );
-
         model.addAttribute("notificationsList", notificationsList);
+
         return "home/home";
     }
 }

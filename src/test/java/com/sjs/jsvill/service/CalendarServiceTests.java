@@ -20,6 +20,11 @@ public class CalendarServiceTests {
         List<CalendarDTO> list =  calendarService.getList(3L);
         list.forEach(i-> Json.stringToJson(i, "CalendarServiceTests-getList"));
     }
+    @Test
+    public void findEventsWithinNextWeek() {
+        List<CalendarDTO> list =  calendarService.findEventsWithinNextWeek();
+        list.forEach(i-> Json.stringToJson(i, "CalendarServiceTests-findEventsWithinNextWeek"));
+    }
 
    /*
     @Test

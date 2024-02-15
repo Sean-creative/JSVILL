@@ -18,7 +18,4 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     @Modifying
     @Query("delete from Calendar c where c.bundleid=:bundleId")
     void deleteByBundleId(@Param("bundleId") Long bundleId);
-
-
-
 }

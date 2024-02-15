@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class NotiMessageDTO {
+    private Long memberRowid;
     private String userPhone;
     private String message;
     private String createdHours;
