@@ -1,7 +1,7 @@
 package com.sjs.jsvill.controller.kafka;
 
-import com.sjs.jsvill.dto.NotiMessageDTO;
-import com.sjs.jsvill.service.kafka.KafkaProdNotiService;
+import com.sjs.jsvill.service.kafka.NotiMessage;
+import com.sjs.jsvill.service.kafka.ProdNotiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/kafka")
 @Slf4j
 public class KafkaController {
-    private final KafkaProdNotiService producer;
+    private final ProdNotiService producer;
 
     @Autowired
-    KafkaController(KafkaProdNotiService producer) {
+    KafkaController(ProdNotiService producer) {
         this.producer = producer;
     }
 
@@ -28,14 +28,14 @@ public class KafkaController {
     }
 
     @PostMapping("/api/v1/reply/notifications")
-    public ResponseEntity<?> sendReplyNotifications(@RequestBody NotiMessageDTO dto) {
+    public ResponseEntity<?> sendReplyNotifications(@RequestBody NotiMessage notiMessage) {
 //        Long userPhone = reviewService.selectUserIdByReviewId(dto.getReviewId());
-        String userPhone = dto.getUserPhone();
-        String message = userPhone + "의 일정이 "+dto.getMessage()+" 남았습니다.";
+        String userPhone = notiMessage.getUserPhone();
+        String message = userPhone + "의 일정이 "+notiMessage.getMessage()+" 남았습니다.";
 
         log.info("sendReplyNotifications");
         //알림이 오면 카프카 producer로 처리
-        this.producer.commentNotificationCreate(userPhone.toString(), message);
+        this.producer.sendToProducer(userPhone.toString(), message);
         return ResponseEntity.ok().build();
     }
 }

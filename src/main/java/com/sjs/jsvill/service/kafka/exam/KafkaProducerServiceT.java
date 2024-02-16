@@ -1,4 +1,4 @@
-package com.sjs.jsvill.service.kafka;
+package com.sjs.jsvill.service.kafka.exam;
 
 
 import lombok.extern.slf4j.Slf4j;

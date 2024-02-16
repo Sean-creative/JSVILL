@@ -6,13 +6,17 @@ import com.sjs.jsvill.entity.Calendar;
 import com.sjs.jsvill.entity.Group;
 import com.sjs.jsvill.entity.QCalendar;
 import com.sjs.jsvill.repository.CalendarRepository;
+import com.sjs.jsvill.service.kafka.NotiMessage;
+import com.sjs.jsvill.service.kafka.ProdNotiService;
 import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -50,10 +54,8 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public void register(CalendarDTO calendarDTO) {
         log.info("calendarDTO-register: " + calendarDTO);
-
         List<Calendar> calendarList = Calendar.dtoToEntities(calendarDTO, true);
         Json.stringToJson(calendarList, "service-register");
-
         //loopDays 루프로 등록
         calendarRepository.saveAll(calendarList);
     }

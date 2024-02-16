@@ -1,6 +1,6 @@
 package com.sjs.jsvill.controller;
 
-import com.sjs.jsvill.dto.NotiMessageDTO;
+import com.sjs.jsvill.service.kafka.NotiMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
@@ -28,10 +28,10 @@ public class HomeController {
                 log.info("권한: " + authority.getAuthority());
             }
         }
-        List<NotiMessageDTO> notificationsList = List.of(
-                NotiMessageDTO.builder().userPhone("010-5007-0615").message("hehehe").createdHours("1").build(),
-                NotiMessageDTO.builder().userPhone("010-5007-0617").message("zzzz").createdHours("2").build(),
-                NotiMessageDTO.builder().userPhone("010-5007-069").message("eeee").createdHours("3").build()
+        List<NotiMessage> notificationsList = List.of(
+                NotiMessage.builder().userPhone("010-5007-0615").message("hehehe").createdHours("1").build(),
+                NotiMessage.builder().userPhone("010-5007-0617").message("zzzz").createdHours("2").build(),
+                NotiMessage.builder().userPhone("010-5007-069").message("eeee").createdHours("3").build()
         );
         model.addAttribute("notificationsList", notificationsList);
 

@@ -8,19 +8,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class KafkaProdNotiService {
+public class ProdNotiService {
     private final KafkaTemplate<String, NotiMessage> kafkaTemplate;
 
     @Autowired
-    public KafkaProdNotiService(KafkaTemplate<String, NotiMessage> kafkaTemplate) {
+    public ProdNotiService(KafkaTemplate<String, NotiMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void commentNotificationCreate(String userId, String message) {
-        log.info("commentNotificationCreate-1");
-        NotiMessage notiMessage = new NotiMessage(userId , message);
-        log.info("리뷰 답글 알림 전송. userId : {}, message : {}",userId, message);
-        kafkaTemplate.send("comment-notifications", notiMessage);
+    public void sendToProducer(String userId, String message) {
+        log.info("sendToProducer-1");
+        NotiMessage notiMessage = new NotiMessage(1L, userId , message, "5");
+        kafkaTemplate.send("calendar-noti", notiMessage);
     }
 
     public void sendMessageWithKey(String topic, String key, String message) {
