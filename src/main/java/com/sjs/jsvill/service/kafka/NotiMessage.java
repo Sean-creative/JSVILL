@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class NotiMessage {
     private Long memberRowid;
-    private String userPhone;
-    private String message;
-    private String createdHours;
+    private String userPhone; //emitter에서 rowid는 사용할 수 없어서 핸드폰으로 사용
+    private String contents;
+    private Integer daysAgo;
 }

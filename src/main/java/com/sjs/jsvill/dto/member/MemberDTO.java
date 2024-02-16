@@ -2,7 +2,6 @@ package com.sjs.jsvill.dto.member;
 
 import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.enm.MemberRole;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;

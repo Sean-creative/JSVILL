@@ -3,11 +3,8 @@ package com.sjs.jsvill.entity;
 import com.sjs.jsvill.entity.common.BaseEntity;
 import com.sjs.jsvill.entity.enm.MemberRole;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity

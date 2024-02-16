@@ -29,13 +29,7 @@ public class KafkaController {
 
     @PostMapping("/api/v1/reply/notifications")
     public ResponseEntity<?> sendReplyNotifications(@RequestBody NotiMessage notiMessage) {
-//        Long userPhone = reviewService.selectUserIdByReviewId(dto.getReviewId());
-        String userPhone = notiMessage.getUserPhone();
-        String message = userPhone + "의 일정이 "+notiMessage.getMessage()+" 남았습니다.";
-
-        log.info("sendReplyNotifications");
-        //알림이 오면 카프카 producer로 처리
-        this.producer.sendToProducer(userPhone.toString(), message);
+        this.producer.sendToProducer(notiMessage, false);
         return ResponseEntity.ok().build();
     }
 }

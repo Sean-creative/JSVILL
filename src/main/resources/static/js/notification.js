@@ -6,29 +6,14 @@ $(() => {
         url: "/api/v1/login-status"
     }).then(res => {
         if (res.data===true) {
-            console.log("go startSSE(), res.data : ", res.data)
             startSSE();
         }
     })
 
     $("#notice").on("click", () => {
         $('#notificationList').slideToggle();
-        $(".notification-dot").remove();
+        $(".notification-dot").hide()
     });
-
-    // $("#notificationList .list-group-item").on("click", (e) => {
-    //     const target = $(e.currentTarget);
-    //     const id = target.find(".fw-bold").data("id")
-    //     axios({
-    //         url: "api/v1/notifications/read",
-    //         method: "post",
-    //         data: { notificationsId: id },
-    //         dataType: "json",
-    //         headers: {'Content-Type': 'application/json'}
-    //     }).then(res => {
-    //         window.location.href = `/user/review/${res.data}`;
-    //     })
-    // });
 });
 
 function startSSE() {
@@ -43,8 +28,28 @@ function startSSE() {
         console.log("New message:", event);
         if (event.data !== "connected!") {
             console.log(2)
-            $("#showNotifications").append('<span class="notification-dot"></span>');
+            $(".notification-dot").show()
             console.log(3)
+
+            const notification = JSON.parse(event.data); // 이벤트 데이터를 JSON으로 파싱
+            // 새로운 <li> 요소 생성
+            const daysAgoText = notification.daysAgo == 0 ? '당일' : notification.daysAgo + '일 전';
+            const newNotification = `
+                <li class="rounded p-3 shadow-md">
+                    <div class="flex justify-between mb-1">
+                        <div class="mt-1 text-xs text-gray-500" data-id="${notification.userPhone}">일정알림</div>
+                        <div class="flex h-5 w-16 items-center justify-center rounded-full bg-blue-500 text-xs shadow-md text-white font-bold">
+                            ${daysAgoText}
+                        </div>                   
+                    </div>
+                    <p>${notification.contents}</p>
+                </li>
+            `;
+            // 생성된 <li> 요소를 notificationList에 추가
+            $("#notificationList").append(newNotification);
+        }
+        else {
+            $(".notification-dot").hide()
         }
     };
 

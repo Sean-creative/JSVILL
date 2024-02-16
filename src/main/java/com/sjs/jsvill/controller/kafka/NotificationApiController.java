@@ -1,7 +1,7 @@
 package com.sjs.jsvill.controller.kafka;
 
 import com.sjs.jsvill.dto.member.MemberDTO;
-import com.sjs.jsvill.service.kafka.EmitterService;
+import com.sjs.jsvill.service.kafka.ConsNotiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class NotificationApiController {
 
-    private final EmitterService emitterService;
+    private final ConsNotiService emitterService;
 //    private final NotificationsService notificationsService;
     public static final Long DEFAULT_TIMEOUT = 1800L * 1000;
 

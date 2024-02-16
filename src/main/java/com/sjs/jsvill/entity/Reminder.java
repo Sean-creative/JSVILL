@@ -26,7 +26,5 @@ public class Reminder extends BaseEntity {
     private String contents; //일정내용
 
     @Column
-    private String daysAgo;  //며칠전인지
-
-
+    private Integer daysAgo;  //며칠전인지
 }

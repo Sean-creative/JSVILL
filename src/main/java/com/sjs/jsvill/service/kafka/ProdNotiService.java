@@ -16,10 +16,11 @@ public class ProdNotiService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendToProducer(String userId, String message) {
+    public void sendToProducer(NotiMessage notiMessage, boolean isSchedule) {
         log.info("sendToProducer-1");
-        NotiMessage notiMessage = new NotiMessage(1L, userId , message, "5");
-        kafkaTemplate.send("calendar-noti", notiMessage);
+
+        if(isSchedule) kafkaTemplate.send("calendar-noti-schedule", notiMessage);
+        else kafkaTemplate.send("calendar-noti-emitter", notiMessage);
     }
 
     public void sendMessageWithKey(String topic, String key, String message) {

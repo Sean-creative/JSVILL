@@ -3,6 +3,7 @@ package com.sjs.jsvill.controller.calendar;
 import com.sjs.jsvill.dto.CalendarDTO;
 import com.sjs.jsvill.dto.member.MemberDTO;
 import com.sjs.jsvill.service.calendar.CalendarService;
+import com.sjs.jsvill.service.kafka.NotiMessage;
 import com.sjs.jsvill.service.kafka.ProdNotiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -36,7 +37,8 @@ public class CalendarController {
         log.info("calendarDTO-register - paramStartDate.equals(LocalDate.now()) :{}", paramStartDate.equals(LocalDate.now()));
         if(paramStartDate.equals(LocalDate.now())) {
             //start가 오늘이라면(시간은 상관없음), 카프카에게 메세지 보내기
-            this.producer.sendToProducer(memberDTO.getPhoneNumber(), calendarDTO.getTitle()+"에 대한 일정이 있습니다.");
+            NotiMessage notiMessage = new NotiMessage(memberDTO.getMemberRowid(), memberDTO.getPhoneNumber() , calendarDTO.getTitle(), 0);
+            this.producer.sendToProducer(notiMessage, false);
         }
         calendarService.register(calendarDTO);
     }

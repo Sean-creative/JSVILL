@@ -4,6 +4,17 @@
     <head>
         <link rel="stylesheet" href="/css/header.css"/>
         <link th:href="@{/css/tailwind-out.css}" rel="stylesheet" />
+        <style>
+            .notification-dot {
+                position: absolute;
+                top: 2px;
+                right: 5px;
+                width: 7px;
+                height: 7px;
+                background-color: #bd1c1c;
+                border-radius: 50%;
+            }
+        </style>
     </head>
     <div class="header">
         <div style="font-size:25px;font-weight:bold"><a href="/home">JS Vill</a></div>
@@ -13,16 +24,20 @@
                 <img title="검색" id="search" src="/image/search.svg" style="width:35px;height:35px;margin-right:10px;cursor:pointer" alt="">
             </li>
             <li>
-                <img title="알림" id="notice" src="/image/bell.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer" alt="">
-                    <ul class="w-72 absolute right-0 z-10 rounded bg-white" id="notificationList" style="display:none;right:-50px;top:72px">
-                        <li class="rounded p-3 shadow-md" th:each="notification : ${notificationsList}">
-                            <div class="flex justify-between mb-1">
-                                <div class="mt-1 text-xs text-gray-500" th:data-id="${notification.userPhone}">답글알림</div>
-                                <div class="flex h-5 w-20 items-center justify-center rounded-full bg-blue-500 text-xs shadow-md text-white font-bold" th:text="|약${notification.createdHours}시간 전|">약3시간 전</div>
-                            </div>
-                            <p th:text="${notification.message}">안녕하세요 상품의 리뷰에 댓글자가 달려있는지 확인합니다.</p>
-                        </li>
-                    </ul>
+                <div style="position: relative; display: inline-block; cursor: pointer;">
+                    <img title="알림" id="notice" src="/image/bell.png" style="width:37px; height:37px; margin-right:5px;cursor:pointer" alt="알림" />
+                    <span class="notification-dot" style="display:none"></span>
+                </div>
+                <ul class="w-72 absolute right-0 z-10 rounded bg-white overflow-y-auto max-h-96" id="notificationList" style="display:none;right:-50px;top:72px">
+                    <li class="rounded p-3 shadow-md" th:each="notification : ${notificationsList}">
+                        <div class="flex justify-between mb-1">
+                            <div class="mt-1 text-xs text-gray-500" th:data-id="${notification.userPhone}">일정알림</div>
+                            <div class="flex h-5 w-16 items-center justify-center rounded-full bg-blue-500 text-xs shadow-md text-white font-bold"
+                                 th:text="${notification.daysAgo == 0} ? '당일' : ${notification.daysAgo} + '일 전'"></div>
+                        </div>
+                        <p th:text="${notification.contents}"></p>
+                    </li>
+                </ul>
             </li>
             <li>
                 <img title="내 정보" id="myInfo" src="/image/myInfo.png" style="width:37px;height:37px;margin-right:5px;cursor:pointer" alt="">
