@@ -5,7 +5,6 @@ import com.sjs.jsvill.entity.Member;
 import com.sjs.jsvill.entity.Reminder;
 import com.sjs.jsvill.repository.EmitterRepository;
 import com.sjs.jsvill.service.reminder.member.ReminderService;
-import com.sjs.jsvill.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -25,19 +24,14 @@ import static com.sjs.jsvill.controller.kafka.NotificationApiController.DEFAULT_
 public class ConsNotiService {
     private final ReminderService reminderService;
     private final EmitterRepository emitterRepository;
-
-    private static final int MAX_NOTIFICATIONS_COUNT = 6;
-
     @KafkaListener(topics = "calendar-noti-schedule", groupId = "group_1")
     public void listenForSchedule(NotiMessage notiMessage) {
-        //인위적으로 폴링 간격을 늘림
-        log.info("인위적으로 폴링 간격을 늘림 -- 5초 지연");
         try {
-            Thread.sleep(5000); // 10초 지연
+            log.info("인위적으로 폴링 간격을 늘림 -- 5초 지연");
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Json.stringToJson(notiMessage, "KafkaListener-listenForSchedule");
 
         //스케줄로 메세지를 컨슘하려면 -> 리마인더에 넣어야함
         Reminder reminder = Reminder.builder()
@@ -45,22 +39,19 @@ public class ConsNotiService {
                 .contents(notiMessage.getContents())
                 .daysAgo(notiMessage.getDaysAgo())
                 .build();
-        Json.stringToJson(reminderService.createReminder(reminder), "listenForSchedule");
+        reminderService.createReminder(reminder);
     }
 
     //Emitter는 데이터 스트림을 클라이언트로 보내는 역할을 하는 객체이다.
     //SSE 연결된 클라이언트에게 실시간으로 알림을 전달한다.
     @KafkaListener(topics = "calendar-noti-emitter", groupId = "group_1")
     public void listenForEmitter(NotiMessage notiMessage) {
-        //인위적으로 폴링 간격을 늘림
-        log.info("인위적으로 폴링 간격을 늘림 -- 5초 지연");
         try {
-            Thread.sleep(5000); // 10초 지연
+            log.info("인위적으로 폴링 간격을 늘림 -- 5초 지연");
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Json.stringToJson(notiMessage, "KafkaListener-listenForEmitter");
-
 
         //1. 리마인더에 등록도 해줘야한다.
         Reminder reminder = Reminder.builder()
@@ -68,19 +59,9 @@ public class ConsNotiService {
             .contents(notiMessage.getContents())
             .daysAgo(notiMessage.getDaysAgo())
             .build();
-        Json.stringToJson(reminderService.createReminder(reminder), "listenForEmitter");
-
+        reminderService.createReminder(reminder);
 
         //2.비동기적으로 emiiter에도 전해줘야하고
-
-// 알림이 어차피 스케줄링 작업에서 하루단위로 초기화 되기 때문에 일단은 따로 지울 필요는 없을듯.
-//        notificationsService.insertNotifications(notifications);
-//        int curCnt = notificationsService.countNotificationsByUserId(Long.valueOf(userPhone));
-//        if (curCnt > MAX_NOTIFICATIONS_COUNT) {
-//            int delCount = curCnt - MAX_NOTIFICATIONS_COUNT;
-//            notificationsService.deleteOldestNotificationsByUserId(Long.valueOf(userPhone), delCount);
-//        }
-
         Map<String, SseEmitter> sseEmitters = emitterRepository.findAllEmitterStartWithById(notiMessage.getUserPhone());
         log.info("sseEmitters.size() : " + sseEmitters.size());
         sseEmitters.forEach(
@@ -153,3 +134,12 @@ public class ConsNotiService {
         });
     }
 }
+
+//    private static final int MAX_NOTIFICATIONS_COUNT = 6;
+// 알림이 어차피 스케줄링 작업에서 하루단위로 초기화 되기 때문에 일단은 따로 지울 필요는 없을듯.
+//        notificationsService.insertNotifications(notifications);
+//        int curCnt = notificationsService.countNotificationsByUserId(Long.valueOf(userPhone));
+//        if (curCnt > MAX_NOTIFICATIONS_COUNT) {
+//            int delCount = curCnt - MAX_NOTIFICATIONS_COUNT;
+//            notificationsService.deleteOldestNotificationsByUserId(Long.valueOf(userPhone), delCount);
+//        }

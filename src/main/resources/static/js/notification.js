@@ -27,12 +27,9 @@ function startSSE() {
     sse.onmessage = (event) => {
         console.log("New message:", event);
         if (event.data !== "connected!") {
-            console.log(2)
             $(".notification-dot").show()
-            console.log(3)
 
             const notification = JSON.parse(event.data); // 이벤트 데이터를 JSON으로 파싱
-            // 새로운 <li> 요소 생성
             const daysAgoText = notification.daysAgo == 0 ? '당일' : notification.daysAgo + '일 전';
             const newNotification = `
                 <li class="rounded p-3 shadow-md">
@@ -48,9 +45,7 @@ function startSSE() {
             // 생성된 <li> 요소를 notificationList에 추가
             $("#notificationList").append(newNotification);
         }
-        else {
-            $(".notification-dot").hide()
-        }
+        else $(".notification-dot").hide()
     };
 
     //서버에서 "heartbeat" 이라는 이름으로 보내진 이벤트를 수신할 때 실행될 콜백 함수를 정의하

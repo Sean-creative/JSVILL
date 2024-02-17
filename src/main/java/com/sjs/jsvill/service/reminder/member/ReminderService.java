@@ -10,4 +10,5 @@ public interface ReminderService {
     List<Reminder> findAllRemindersByMember(Long memberRowid);
     Reminder updateReminder(Long id, Reminder reminderDetails);
     void deleteReminder(Long id);
+    void deleteAllByMember(Long memberRowid);
 }

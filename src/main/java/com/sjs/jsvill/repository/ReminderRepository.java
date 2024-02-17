@@ -13,5 +13,6 @@ import java.util.List;
 
 public interface ReminderRepository extends JpaRepository<Reminder, Long> {
     List<Reminder> findAllByMember_MemberRowid(Long memberRowid);
+    void deleteAllByMember_MemberRowid(Long memberRowid);
 
 }

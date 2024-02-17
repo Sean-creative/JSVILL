@@ -18,7 +18,6 @@ import java.io.IOException;
 public class NotificationApiController {
 
     private final ConsNotiService emitterService;
-//    private final NotificationsService notificationsService;
     public static final Long DEFAULT_TIMEOUT = 1800L * 1000;
 
     @GetMapping(value = "/api/sse-connection", produces = "text/event-stream")

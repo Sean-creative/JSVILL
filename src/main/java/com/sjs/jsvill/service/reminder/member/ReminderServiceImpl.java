@@ -6,6 +6,7 @@ import com.sjs.jsvill.repository.ReminderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,5 +57,11 @@ public class ReminderServiceImpl implements ReminderService {
     public void deleteReminder(Long id) {
         // reminderRepository를 사용하여 주어진 id에 해당하는 Reminder를 삭제합니다.
         reminderRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByMember(Long memberRowid) {
+        reminderRepository.deleteAllByMember_MemberRowid(memberRowid);
     }
 }

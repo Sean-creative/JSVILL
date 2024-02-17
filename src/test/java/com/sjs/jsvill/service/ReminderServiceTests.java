@@ -21,4 +21,8 @@ public class ReminderServiceTests {
     public void findAllRemindersByMember() {
         Json.stringToJson(reminderService.findAllRemindersByMember(1L), "ReminderServiceTests - findAllRemindersByMember");
     }
+    @Test
+    public void deleteAllByMember() {
+        reminderService.deleteAllByMember(1L);
+    }
 }
