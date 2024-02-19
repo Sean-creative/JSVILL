@@ -9,11 +9,12 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke-kustomize
 
-name: Build and Deploy to GKE
+#기존 gke 구성에서 gke kustomize 배포기능을 제외함 (Argo CD)가 그 역하을 대신함
+name: Build and Deploy to GKE For Argo CD
 
 on:
   push:
-    branches: release2
+    branches: main
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
@@ -88,18 +89,3 @@ jobs:
       # Push the Docker image to Google Container Registry
       - name: Publish
         run: docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
-
-      # Set up kustomize
-      - name: Set up Kustomize
-        run: |-
-          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-          chmod u+x ./kustomize
-
-      # Deploy the Docker image to the GKE cluster
-      - name: Deploy
-        run: |-
-          # 이미지 업데이트 및 배포
-          ./kustomize edit set image $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
-          ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/$DEPLOYMENT_NAME
-          kubectl get services -o wide
