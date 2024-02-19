@@ -1,3 +1,4 @@
+# Helm 차트 버전을 증가시키고, 변경사항을 Git에 커밋 및 푸시한 후, 차트 릴리스를 진행
 name: Release Charts
 on:
   push:
@@ -6,7 +7,6 @@ on:
     paths:
       - 'charts/**'
       - 'kustomize/**'
-
 
 jobs:
   release:

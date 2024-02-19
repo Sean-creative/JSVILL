@@ -92,3 +92,16 @@ jobs:
       - name: Publish
         run: docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$IMAGE_TAG
 
+  #헬름차트나 kustomize에 변경사항이 있었을 때만 배포
+  check_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      charts_changed: ${{ steps.filter.outputs.charts }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            charts:
+              - 'charts/**'
