@@ -15,7 +15,7 @@ name: Build and Deploy to GKE For Argo CD
 on:
   push:
     branches:
-      - release2
+      - release
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
