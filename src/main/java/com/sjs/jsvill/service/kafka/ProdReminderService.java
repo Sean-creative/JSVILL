@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class ProdNotiService {
-    private final KafkaTemplate<String, NotiMessage> kafkaTemplate;
+public class ProdReminderService {
+    private final KafkaTemplate<String, ReminderMessage> kafkaTemplate;
 
     @Autowired
-    public ProdNotiService(KafkaTemplate<String, NotiMessage> kafkaTemplate) {
+    public ProdReminderService(KafkaTemplate<String, ReminderMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendToProducer(NotiMessage notiMessage, boolean isSchedule) {
+    public void sendToProducer(ReminderMessage reminderMessage, boolean isSchedule) {
         log.info("sendToProducer-1");
 
-        if(isSchedule) kafkaTemplate.send("calendar-noti-schedule", notiMessage);
-        else kafkaTemplate.send("calendar-noti-emitter", notiMessage);
+        if(isSchedule) kafkaTemplate.send("calendar-reminder-schedule", reminderMessage);
+        else kafkaTemplate.send("calendar-reminder-emitter", reminderMessage);
     }
 
     public void sendMessageWithKey(String topic, String key, String message) {

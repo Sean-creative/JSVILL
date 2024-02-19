@@ -10,15 +10,15 @@ $(() => {
         }
     })
 
-    $("#notice").on("click", () => {
-        $('#notificationList').slideToggle();
-        $(".notification-dot").hide()
+    $("#reminder").on("click", () => {
+        $('#reminderList').slideToggle();
+        $(".reminder-dot").hide()
     });
 });
 
 function startSSE() {
     console.log("it's startSSE")
-    let sse = new EventSource("/api/sse-connection");
+    let sse = new EventSource("/kafka/api/sse-connection");
 
     sse.onopen = function() {
         console.log("SSE Connection opened.");
@@ -27,25 +27,24 @@ function startSSE() {
     sse.onmessage = (event) => {
         console.log("New message:", event);
         if (event.data !== "connected!") {
-            $(".notification-dot").show()
+            $(".reminder-dot").show()
 
-            const notification = JSON.parse(event.data); // 이벤트 데이터를 JSON으로 파싱
-            const daysAgoText = notification.daysAgo == 0 ? '당일' : notification.daysAgo + '일 전';
-            const newNotification = `
+            const reminder = JSON.parse(event.data); // 이벤트 데이터를 JSON으로 파싱
+            const daysAgoText = reminder.daysAgo == 0 ? '당일' : reminder.daysAgo + '일 전';
+            const newReminder = `
                 <li class="rounded p-3 shadow-md">
                     <div class="flex justify-between mb-1">
-                        <div class="mt-1 text-xs text-gray-500" data-id="${notification.userPhone}">일정알림</div>
+                        <div class="mt-1 text-xs text-gray-500" data-id="${reminder.userPhone}">일정알림</div>
                         <div class="flex h-5 w-16 items-center justify-center rounded-full bg-blue-500 text-xs shadow-md text-white font-bold">
                             ${daysAgoText}
                         </div>                   
                     </div>
-                    <p>${notification.contents}</p>
+                    <p>${reminder.contents}</p>
                 </li>
             `;
-            // 생성된 <li> 요소를 notificationList에 추가
-            $("#notificationList").append(newNotification);
+            $("#reminderList").append(newReminder);
         }
-        else $(".notification-dot").hide()
+        else $(".reminder-dot").hide()
     };
 
     //서버에서 "heartbeat" 이라는 이름으로 보내진 이벤트를 수신할 때 실행될 콜백 함수를 정의하
