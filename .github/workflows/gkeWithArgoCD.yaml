@@ -22,9 +22,9 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GKE_ZONE: asia-east1-a
   GKE_CLUSTER: jsvill-cluster
-  IMAGE: demo
+  IMAGE: jsvill
   REGISTRY_HOSTNAME: gcr.io
-  DEPLOYMENT_NAME: demo
+  DEPLOYMENT_NAME: jsvill
 
 jobs:
   #job을 여러개로 나누면, job마다 checkout을 중복으로 해줘야함해서 하나로함
