@@ -14,7 +14,7 @@ name: Build and Deploy to GKE For Argo CD
 
 on:
   push:
-    branches: main
+    branches: release
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
@@ -90,3 +90,4 @@ jobs:
       # Push the Docker image to Google Container Registry
       - name: Publish
         run: docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$IMAGE_TAG
+

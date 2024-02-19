@@ -3,7 +3,7 @@ name: Release Charts
 on:
   push:
     branches:
-      - main2
+      - release
     paths:
       - 'charts/**'
       - 'kustomize/**'
@@ -69,4 +69,3 @@ jobs:
           git add kustomization.yaml
           git commit -m "Update jsvill-charts version to $NEW_VERSION"
           git push origin HEAD
-

@@ -9,6 +9,7 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke-kustomize
 
+#GKE를 통해 완전 배포까지 (Argo CD는 사용 안하고)
 name: Build and Deploy to GKE
 
 on:
