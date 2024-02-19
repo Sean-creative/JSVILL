@@ -94,6 +94,7 @@ jobs:
 
   #헬름차트나 kustomize에 변경사항이 있었을 때만 배포
   check_changes:
+    needs: setup-build-publish-deploy
     runs-on: ubuntu-latest
     outputs:
       charts_changed: ${{ steps.filter.outputs.charts }}
@@ -105,6 +106,9 @@ jobs:
           filters: |
             charts:
               - 'charts/**'
+              - 'kustomize/**'
+      - name: Echo charts_changed output
+        run: echo "The charts_changed output is ${{ steps.filter.outputs.charts }}"
 
   release:
     needs: check_changes
