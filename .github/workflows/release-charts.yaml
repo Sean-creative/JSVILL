@@ -64,7 +64,7 @@ jobs:
           cd kustomize
           NEW_VERSION=${{ needs.release.outputs.new-version }}
           sed -i "/jsvill-charts/,/version:/s/version: .*/version: $NEW_VERSION/" kustomization.yaml
-          git pull origin main
+          git pull origin release
           git add kustomization.yaml
           git commit -m "Update jsvill-charts version to $NEW_VERSION"
           git push origin HEAD
