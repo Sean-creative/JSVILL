@@ -83,7 +83,7 @@ jobs:
         # Build the Docker image
       - name: Build
         run: |-
-          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
+          docker build -t "$REGISTRY_HOSTNAME"/"$GKE_PROJECT"/"$IMAGE":"$IMAGE_TAG" \
             --build-arg IMAGE_TAG="$IMAGE_TAG" \
             --build-arg GITHUB_REF="$GITHUB_REF" .
 
