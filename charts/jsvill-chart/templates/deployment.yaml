@@ -4,7 +4,6 @@ metadata:
   name: jsvill-helm  
   namespace: default
 
-
 spec:
   replicas: 2
   selector:
@@ -14,7 +13,6 @@ spec:
     metadata:      
       labels:
         app: jsvill-helm
-
     spec:      
       containers:
         - name: jsvill-helm
