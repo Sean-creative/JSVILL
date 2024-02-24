@@ -1,5 +1,6 @@
 minio:
   enabled: true
+  size: 3Gi
 loki:
   namespace: monitoring
   auth_enabled: false

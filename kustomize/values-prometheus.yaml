@@ -6,7 +6,7 @@ prometheus:
           accessModes: [ "ReadWriteOnce" ]
           resources:
             requests:
-              storage: 10Gi
+              storage: 3Gi
 
 alertmanager:
   config:
@@ -47,6 +47,6 @@ grafana:
     enabled: true
     accessModes:
       - ReadWriteOnce
-    size: 10Gi
+    size: 3Gi
     finalizers:
       - kubernetes.io/pvc-protection
