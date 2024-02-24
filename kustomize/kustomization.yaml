@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
   - name: jsvill-charts
     repo: https://sean-creative.github.io/JSVILL
-    version: 0.0.44
+    version: 0.0.45
     releaseName: jsvill
     namespace: default
 
