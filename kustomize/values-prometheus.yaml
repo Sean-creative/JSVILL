@@ -39,6 +39,7 @@ grafana:
   replicas: 1
   service:
     type: LoadBalancer
+    loadBalancerIP: 34.80.56.98
   adminUser: sean
   adminPassword: '1730'
   persistence:
