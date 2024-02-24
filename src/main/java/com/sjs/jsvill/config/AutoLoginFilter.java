@@ -20,7 +20,7 @@ public class AutoLoginFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        autoLogin();
+//        autoLogin();
         chain.doFilter(request, response);
     }
 

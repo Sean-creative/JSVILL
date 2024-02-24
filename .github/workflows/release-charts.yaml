@@ -3,7 +3,7 @@ name: Release Charts
 on:
   push:
     branches:
-      - release2
+      - release
     paths:
       - 'charts/**'
       - 'kustomize/**'
