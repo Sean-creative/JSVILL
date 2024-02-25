@@ -14,7 +14,7 @@ env:
   GKE_ZONE: asia-east1-a
   GKE_CLUSTER: jsvill-cluster-1
   IMAGE: jsvill
-  IMAGE_TAG: aaa
+  IMAGE_TAG: latest
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: jsvill
 
@@ -35,12 +35,12 @@ jobs:
           java-version: '16'
           distribution: 'corretto'
 
-      - name: application.properties 파일 생성
-        run: touch ./src/main/resources/application.properties
-      - name: application.properties에 작성
-        run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
-      - name: application.properties 내용 표시
-        run: cat ./src/main/resources/application.properties
+      - name: application.yaml 파일 생성
+        run: touch ./src/main/resources/application.yaml
+      - name: application.yaml에 작성
+        run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yaml
+      - name: application.yaml 내용 표시
+        run: cat ./src/main/resources/application.yaml
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
