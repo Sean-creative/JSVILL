@@ -16,4 +16,7 @@ backend:
 monitoring:
   selfMonitoring:
     grafanaAgent:
-      namespace: monitoring
+      installOperator: false
+
+
+      
