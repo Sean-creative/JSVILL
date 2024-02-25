@@ -5,7 +5,7 @@ name: Build and Deploy to GKE For Argo CD
 on:
   push:
     branches:
-      - release2
+      - release
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
@@ -82,3 +82,67 @@ jobs:
       - name: Publish
         run: docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$IMAGE_TAG
 
+  bump-version-and-release-charts:
+    needs: setup-build-publish-deploy
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.bump-version.outputs.new-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: release
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "ksw6125000@naver.com"
+          git config --local user.name "Sean-creative"
+
+      - name: Bump chart version
+        id: bump-version
+        run: |
+          CHART_DIR=charts/jsvill-chart
+          VERSION=$(grep 'version:' $CHART_DIR/Chart.yaml | awk '{print $2}')
+          NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+          sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
+          echo "::set-output name=new-version::$NEW_VERSION"
+          git add $CHART_DIR/Chart.yaml
+          git commit -m "Bump chart version to $NEW_VERSION"
+          git push origin HEAD
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+
+  update-kustomization:
+    needs: bump-version-and-release-charts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: release
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "ksw6125000@naver.com"
+          git config --local user.name "Sean-creative"
+
+      - name: Update kustomization version
+        run: |
+          cd kustomize
+          NEW_VERSION=${{ needs.release.outputs.new-version }}
+          sed -i "/jsvill-charts/,/version:/s/version: .*/version: $NEW_VERSION/" kustomization.yaml
+          git pull origin release
+          git add kustomization.yaml
+          git commit -m "Update jsvill-charts version to $NEW_VERSION"
+          git push origin HEAD
