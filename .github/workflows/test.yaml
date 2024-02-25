@@ -7,8 +7,6 @@ on:
     branches:
       - release
 
-
-
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
@@ -142,7 +140,7 @@ jobs:
       - name: Update kustomization version
         run: |
           cd kustomize
-          NEW_VERSION=${{ needs.release.outputs.new-version }}
+          NEW_VERSION=${{ needs.bump-version-and-release-charts.outputs.new-version }}
           sed -i "/jsvill-charts/,/version:/s/version: .*/version: $NEW_VERSION/" kustomization.yaml
           git pull origin release
           git add kustomization.yaml
