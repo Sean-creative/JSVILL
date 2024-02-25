@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: release
 
       - name: JDK 16 설치
         uses: actions/setup-java@v3
