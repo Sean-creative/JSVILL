@@ -2,7 +2,6 @@ minio:
   enabled: true
   size: 3Gi
 loki:
-  namespace: monitoring
   auth_enabled: false
 write:
   persistence:
@@ -13,3 +12,8 @@ read:
 backend:
   persistence:
     size: 3Gi
+
+monitoring:
+  selfMonitoring:
+    tenant:
+      secretNamespace: monitoring

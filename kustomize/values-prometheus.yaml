@@ -7,25 +7,6 @@ prometheus:
           resources:
             requests:
               storage: 3Gi
-
-alertmanager:
-  config:
-    global:
-      resolve_timeout: 1m      
-      smtp_auth_username: ksw6125000@gmail.com
-      smtp_auth_password: 'ilijedjdyntcjrxd'
-      smtp_auth_identity: ksw6125000@gmail.com
-    route:
-      receiver: 'gmail-notifications'
-    receivers:
-    - name: 'gmail-notifications'
-      email_configs:
-      - to: ksw6125000@gmail.com
-        from: ksw6125000@gmail.com
-        smarthost: smtp.gmail.com:587
-        auth_username: ksw6125000@gmail.com
-        auth_identity: ksw6125000@gmail.com
-        auth_password: 'ilijedjdyntcjrxd'            
     
 grafana:
   grafana.ini:
