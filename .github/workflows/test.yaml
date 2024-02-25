@@ -14,7 +14,7 @@ env:
   GKE_ZONE: asia-east1-a
   GKE_CLUSTER: jsvill-cluster-1
   IMAGE: jsvill
-  IMAGE_TAG: latest
+  IMAGE_TAG: aaa
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: jsvill
 

@@ -17,7 +17,6 @@ spec:
       containers:
         - name: jsvill-helm
           image: {{ .Values.image }}
-          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080            
