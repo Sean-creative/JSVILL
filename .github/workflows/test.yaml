@@ -38,8 +38,7 @@ jobs:
       - name: application.yaml 파일 생성
         run: touch ./src/main/resources/application.yaml
       - name: application.yaml에 작성
-        run: |
-          printf '%s\n' "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yaml
+        run: echo "${{ secrets.APPLICATION }}" | base64 -d > ./src/main/resources/application.yaml
       - name: application.yaml 내용 표시
         run: cat ./src/main/resources/application.yaml
 
