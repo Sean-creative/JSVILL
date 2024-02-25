@@ -15,5 +15,4 @@ backend:
 
 monitoring:
   selfMonitoring:
-    tenant:
-      secretNamespace: monitoring
+    enabled: false
