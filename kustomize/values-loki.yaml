@@ -15,4 +15,5 @@ backend:
 
 monitoring:
   selfMonitoring:
-    enabled: false
+    grafanaAgent:
+      namespace: monitoring
