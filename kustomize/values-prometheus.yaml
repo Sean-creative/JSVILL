@@ -9,7 +9,9 @@ prometheus:
               storage: 3Gi
 grafana:
   grafana.ini:
-#    여기서 grafana Settings 내용을 적어야함 ex) domain
+    server:
+#      그라파나 주소
+      domain: 34.80.56.98
   service:
     type: LoadBalancer
     loadBalancerIP: 34.80.56.98
