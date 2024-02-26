@@ -13,7 +13,6 @@ backend:
   persistence:
     size: 3Gi
 
-
 monitoring:
   selfMonitoring:
     grafanaAgent:

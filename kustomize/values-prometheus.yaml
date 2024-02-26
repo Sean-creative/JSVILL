@@ -7,17 +7,9 @@ prometheus:
           resources:
             requests:
               storage: 3Gi
-    
 grafana:
   grafana.ini:
-    smtp:
-      enabled: true
-      skip_verify: true
-      host: smtp.gmail.com:587
-      existingSecret: "my-grafana-smtp-secret"      
-      userKey: "user"
-      passwordKey: "password"
-  replicas: 1
+#    여기서 grafana Settings 내용을 적어야함 ex) domain
   service:
     type: LoadBalancer
     loadBalancerIP: 34.80.56.98
