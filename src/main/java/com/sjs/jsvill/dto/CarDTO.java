@@ -21,6 +21,8 @@ public class CarDTO {
     private String number;
     private String tenantName;
 
+    //이부분 통일시켜야하는데??
+
     public static CarDTO entityToDTO(Car car, String tenantName) {
         return CarDTO.builder()
                 .title(car.getTitle())
