@@ -94,7 +94,7 @@
 터링 시스템을 구축
   - Kubernetes 환경의 분산 로그를 LogBack과 Promtail을 통해 Loki로 중앙집중화
   - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
-  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링 [#2](https://github.com/Sean-creative/JSVILL/issues/12)
+  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링 [#12](https://github.com/Sean-creative/JSVILL/issues/12)
 
 
 ### _v1.9.0 Release [23.10.20]_
