@@ -29,7 +29,7 @@
   - 커뮤니티 기능
 
 
-- ### 🏠 구현된 아키텍처 (2024.03 기준)
+- ### 🏗️ 구현된 아키텍처 (2024.03 기준)
   - AWS EC2 기반에서 GKE를 이용한 Kubernetes 환경으로 전환
   - Helm과 Kustomize를 이용해 매니페스트 파일을 중앙 집중식으로 관리
   - GitHub Actions와 Argo CD를 사용한 CI/CD 파이프라인을 재구성
@@ -37,7 +37,7 @@
 터링 시스템을 구축
   - Kubernetes 환경의 분산 로그를 LogBack과 Promtail을 통해 Loki로 중앙집중화
   - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
-  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리하고, KafkaUI로 관리를 최적화한 신뢰성 및 확장성 높은 알림 시스템 구축
+  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링
   - total 아키텍처 사진!!!!!
   
 
@@ -78,6 +78,7 @@
     <img width="440" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/07b69a31-9678-4a18-a4a3-9a33258e9d82">
     <img width="350" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/ad86e5fd-5a28-4e9e-abcd-a3143dd9897f" style="margin-left:26px">
   </div>
+  <img width="820" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/400d0bf4-915b-4165-9d1d-27170f2f15b5" style="margin-top:10px">
 </div>
 
 
@@ -85,12 +86,23 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
-### _v1.9.0 Release [latest] [23.10.20]_
+### _v2.0.0 Release [latest] [24.03.09]_
+  - AWS EC2 기반에서 GKE를 이용한 Kubernetes 환경으로 전환
+  - Helm과 Kustomize를 이용해 매니페스트 파일을 중앙 집중식으로 관리
+  - GitHub Actions와 Argo CD를 사용한 CI/CD 파이프라인을 재구성
+  - Prometheus, Prometheus Operator, Grafana, 및 Spring Actuator를 사용해 서버 상태 시각화 및 실시간 모니
+터링 시스템을 구축
+  - Kubernetes 환경의 분산 로그를 LogBack과 Promtail을 통해 Loki로 중앙집중화
+  - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
+  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링 [#2](https://github.com/Sean-creative/JSVILL/issues/12)
+
+
+### _v1.9.0 Release [23.10.20]_
 - PIN 번호 타입 수정 & 계약 수정 시 날짜 오류 수정 [#1](https://github.com/Sean-creative/JSVILL/issues/1)
 - 계약서(photo) 업로드의 다양한 기능 구현 [#2](https://github.com/Sean-creative/JSVILL/issues/2)
   - 북마크 기능 구현
   - 사진 삭제 기능 구현
-    - DB 뿐만아니라 s3에서도 삭제가 되어야함
+    - DB 뿐만아니라 s3에서도 삭제
   - 사진 업로드시, 기존 사진 둘 다 적용
   - 사진 업로드 이미지 크기 늘림
 - 달력의 내용 수정 & 호실수정 시 '호'제거 & 호실의 오름차순 및 레이아웃 수정 [#3](https://github.com/Sean-creative/JSVILL/issues/3)
