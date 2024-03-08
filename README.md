@@ -6,46 +6,57 @@
 
 
 - ### 🔊 저희 JSVILL은요... (프로젝트 소개)
-  - 임대인과 임차인의 필요한 기능 제공 및 불편함을 해소해주는 임대관리 서비스입니다.
-  - 건물관리, 공실관리, 계약서 관리 등의 기능을 지원하고 있습니다.
-  - 실제 임차인으로서 사용하기 위해 기획 부터 개발까지 혼자서 진행하고 있습니다.
-  - 사용자와 데모버전을 사용한 미팅을 통해 엔드 유저의 요구 사항 분석해 가며 애자일하게 개발하고 있습니다.
-    - 요구사항 분석능력 향상 및 프로젝트의 개발시간 단축에 많은 도움을 주고 있습니다.
+  - 임대인과 임차인에게 필요한 기능을 제공하고 불편함을 해소해 주는 임대 관리 서비스입니다.
+  - 실제 임대인으로서 사용하기 위해 혼자서 모든개발을 진행하고 있습니다.
+  - 이 서비스는 건물관리, 일정관리, 공실관리, 계약서 관리 등의 기능을 지원합니다.
+  - 사용자 요구 분석 및 프로젝트 개발 기간 단축을 위해 데모 버전을 활용한 사용자와의 정기 미팅 진행하여 애자일하게 개발하고 있습니다.
+  - Kubernetes, Monitoring(Prometheus, Grafana, Promtail, Loki), Argo CD, Kafka와 같은 다양한 기술을 접목시켰습니다.
 
 
 
 
-- ### 🏠 구현된 기능 (2023.09 기준)
+- ### 🏠 구현된 기능 (2024.03 기준)
   - 로그인, 핸드폰 인증을 통한 회원가입, 핀번호 찾기, 로그아웃
   - 건물 관리
-    - 해당 건물에 대한 일정관리 (반복일정 등록, 미완료 일정 확인 등)
-    - 카카오맵을 활용한 주소검색
+    - 해당 건물의 일정 관리 (반복 일정 등록, 미완료 일정 확인 등)
+    - 캘린더 일정 마감 알림 (앞으로 다가올 일정에 대한 알림)
+    - 카카오맵을 사용한 주소 검색
   - 호실 관리
-    - 해당 호실에 대한 메모, 차량, 사진(계약서) 관리
-    - 입주자에게 sms 보내기
-    - 계약 즉시 만료
-    - 이전 계약 내역 보기
+    - 특정 호실에 대한 메모, 차량, 사진(계약서) 관리
+    - 입주자에게 SMS 전송
+    - 계약 즉시 만료 기능
+    - 이전 계약 내역 조회
   - 커뮤니티 기능
-    
 
 
+- ### 🏠 구현된 아키텍처 (2024.03 기준)
+  - AWS EC2 기반에서 GKE를 이용한 Kubernetes 환경으로 전환
+  - Helm과 Kustomize를 이용해 매니페스트 파일을 중앙 집중식으로 관리
+  - GitHub Actions와 Argo CD를 사용한 CI/CD 파이프라인을 재구성
+  - Prometheus, Prometheus Operator, Grafana, 및 Spring Actuator를 사용해 서버 상태 시각화 및 실시간 모니
+터링 시스템을 구축
+  - Kubernetes 환경의 분산 로그를 LogBack과 Promtail을 통해 Loki로 중앙집중화
+  - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
+  - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리하고, KafkaUI로 관리를 최적화한 신뢰성 및 확장성 높은 알림 시스템 구축
+  - total 아키텍처 사진!!!!!
+  
+
+  
 
 - ### 😊 구현될 기능 & 방향
-  - 캘린더의 일정 알림 (앞으로 다가올 일정에 대한 알림)
   - 주차관리 (기획&개발)
   - 코프링으로의 전환 (SpringBoot + Kotlin)
   - 연체관리
-  - Spring Batch
     
 
 
 
 - ### 🛠️사용기술
-  - Java17, Spring Boot, Spring Security, Spring Data JPA, querydsl
-  - MySQL, MariaDB
-  - HTML, JavaScript, CSS
-  - Junit5, Mockito, Spock
-  - AWS EC2, AWS Route 53
+  - Java, Spring Boot, Spring Security, JPA, QueryDSL, MariaDB
+  - Kubernetes(GKE), Helm, Kustomize, Argo CD, GitHub Actions, AWS Route 53
+  - Prometheus, Grafana, Promtail, Loki
+  - Thymeleaf, HTML, JavaScript, CSS
+  - Junit5, Mockito
   - 도메인 - HOSTING.KR
 
 
