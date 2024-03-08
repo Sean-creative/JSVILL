@@ -66,14 +66,18 @@
 
 
 <div style="text-align:center">
+  <div>
     <img width="400" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_40.png">
     <img width="400" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_41.png" style="margin-left:10px">
+  </div>
     <img width="820" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_44.png" style="margin-top:10px">
     <img width="820" height="700" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_42.png" style="margin-top:10px">
     <img width="820" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_43.png" style="margin-top:10px">
   <img width="820" alt="image" src="https://jsvill.s3.ap-northeast-2.amazonaws.com/git/Screenshot_43.png" style="margin-top:10px">
-  <img width="440" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/07b69a31-9678-4a18-a4a3-9a33258e9d82" style="margin-top:10px">
-  <img width="350" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/d9d216f4-202f-44b1-aa6c-0e06fae3f103" style="margin-left:26px">
+  <div style="margin-top:10px">
+    <img width="440" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/07b69a31-9678-4a18-a4a3-9a33258e9d82">
+    <img width="350" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/d9d216f4-202f-44b1-aa6c-0e06fae3f103" style="margin-left:26px">
+  </div>
 </div>
 
 
