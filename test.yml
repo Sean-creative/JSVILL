@@ -21,7 +21,7 @@ spec:
         app: demo
     spec:
       containers:
-        - image: gcr.io/hybrid-autonomy-409717/demo:latest
+        - image: gcr.io/arboreal-lyceum-415005/demo:latest
           name: demo
           resources: { }
           ports:

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-ui
+  template:
+    metadata:
+      labels:
+        app: kafka-ui
+    spec:
+      containers:
+        - name: kafka-ui
+          image: provectuslabs/kafka-ui
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KAFKA_CLUSTERS_0_NAME
+              value: "sean-kafka"
+            - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
+              value: "kafka-broker-1:9092,kafka-broker-2:9093,kafka-broker-3:9094"
+            - name: KAFKA_CLUSTERS_0_ZOOKEEPER
+              value: "zookeeper-1:32181"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-ui
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 34.80.70.137
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: kafka-ui

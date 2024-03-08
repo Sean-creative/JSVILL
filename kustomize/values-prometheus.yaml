@@ -6,39 +6,15 @@ prometheus:
           accessModes: [ "ReadWriteOnce" ]
           resources:
             requests:
-              storage: 10Gi
-
-alertmanager:
-  config:
-    global:
-      resolve_timeout: 1m      
-      smtp_auth_username: ksw6125000@gmail.com
-      smtp_auth_password: 'ilijedjdyntcjrxd'
-      smtp_auth_identity: ksw6125000@gmail.com
-    route:
-      receiver: 'gmail-notifications'
-    receivers:
-    - name: 'gmail-notifications'
-      email_configs:
-      - to: ksw6125000@gmail.com
-        from: ksw6125000@gmail.com
-        smarthost: smtp.gmail.com:587
-        auth_username: ksw6125000@gmail.com
-        auth_identity: ksw6125000@gmail.com
-        auth_password: 'ilijedjdyntcjrxd'            
-    
+              storage: 3Gi
 grafana:
   grafana.ini:
-    smtp:
-      enabled: true
-      skip_verify: true
-      host: smtp.gmail.com:587
-      existingSecret: "my-grafana-smtp-secret"      
-      userKey: "user"
-      passwordKey: "password"
-  replicas: 1
+    server:
+#      그라파나 주소
+      domain: 34.80.56.98
   service:
     type: LoadBalancer
+    loadBalancerIP: 34.80.56.98
   adminUser: sean
   adminPassword: '1730'
   persistence:
@@ -46,6 +22,6 @@ grafana:
     enabled: true
     accessModes:
       - ReadWriteOnce
-    size: 10Gi
+    size: 3Gi
     finalizers:
       - kubernetes.io/pvc-protection
