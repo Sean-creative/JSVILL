@@ -10,9 +10,7 @@
   - 실제 임대인으로서 사용하기 위해 혼자서 모든개발을 진행하고 있습니다.
   - 이 서비스는 건물관리, 일정관리, 공실관리, 계약서 관리 등의 기능을 지원합니다.
   - 사용자 요구 분석 및 프로젝트 개발 기간 단축을 위해 데모 버전을 활용한 사용자와의 정기 미팅 진행하여 애자일하게 개발하고 있습니다.
-  - Kubernetes, Monitoring(Prometheus, Grafana, Promtail, Loki), Argo CD, Kafka와 같은 다양한 기술을 접목시켰습니다.
-
-
+  - Kubernetes, Monitoring(Prometheus, Grafana, Promtail, Loki), Argo CD, Kafka와 같은 다양한 기술을 접목시켰습니다.  
 
 
 - ### 🏠 구현된 기능 (2024.03 기준)
@@ -38,7 +36,8 @@
   - Kubernetes 환경의 분산 로그를 LogBack과 Promtail을 통해 Loki로 중앙집중화
   - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
   - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링
-  - total 아키텍처 사진!!!!!
+  - CI/CD pipeline <br>
+    <img width="820" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/755fa209-e200-4c0d-aa4b-e21d76ffee2e">
   
 
   
@@ -63,7 +62,6 @@
 
   
 - 💻구동화면 (실제 데이터가 아닙니다)
-
 
 <div style="text-align:center">
   <div>
