@@ -1,4 +1,4 @@
-# JSVill
+![jsvill-pipeline-jsvill-ci_cd drawio](https://github.com/Sean-creative/JSVILL/assets/49125201/af0e1813-b255-4e05-9597-8b35216fa212)# JSVill
 
 ## Description
 
@@ -37,8 +37,8 @@
   - Grafana의 Alert과 Discord를 연동해 실시간 시스템 이슈 감지 및 경고 시스템 구현
   - Spring Scheduled, Kafka, 및 SSE-Emitter를 사용하여 대량 캘린더 일정 마감 알림을 처리, Kafka-UI로 Kafka 클러스터를 관리 및 모니터링
   - CI/CD pipeline <br>
-    <img width="820" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/755fa209-e200-4c0d-aa4b-e21d76ffee2e">
-  
+    <img width="820" alt="image" src="https://github.com/Sean-creative/JSVILL/assets/49125201/9913447d-e203-4e9b-b283-620fee753a8d">
+
 
   
 
