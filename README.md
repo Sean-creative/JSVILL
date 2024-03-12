@@ -1,4 +1,4 @@
-![jsvill-pipeline-jsvill-ci_cd drawio](https://github.com/Sean-creative/JSVILL/assets/49125201/af0e1813-b255-4e05-9597-8b35216fa212)# JSVill
+# JSVill
 
 ## Description
 
