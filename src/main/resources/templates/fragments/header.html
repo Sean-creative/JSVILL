@@ -35,7 +35,7 @@
                             <div class="flex h-5 w-16 items-center justify-center rounded-full bg-blue-500 text-xs shadow-md text-white font-bold"
                                  th:text="${reminder.daysAgo == 0} ? '당일' : ${reminder.daysAgo} + '일 전'"></div>
                         </div>
-                        <p th:text="${reminder.contents}"></p>
+                        <p style="margin:8px 0 0 0" th:text="${reminder.contents}"></p>
                     </li>
                 </ul>
             </li>

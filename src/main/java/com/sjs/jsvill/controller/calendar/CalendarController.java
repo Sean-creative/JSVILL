@@ -7,10 +7,15 @@ import com.sjs.jsvill.service.kafka.ReminderMessage;
 import com.sjs.jsvill.service.kafka.ProdReminderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.errors.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/calendar")
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class CalendarController {
     private final CalendarService calendarService;
@@ -39,19 +44,27 @@ public class CalendarController {
         long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), paramStartDate);
         log.info("daysBetween :{}", daysBetween);
         if(daysBetween<7) {
-            //start가 오늘이라면, 카프카에게 메세지 보내기
             //start가 7일 이내라면, 카프카에게 메세지 보내기
-            ReminderMessage reminderMessage = new ReminderMessage(memberDTO.getMemberRowid(), memberDTO.getPhoneNumber() , calendarDTO.getTitle(), 0);
+            ReminderMessage reminderMessage = new ReminderMessage(memberDTO.getMemberRowid(), memberDTO.getPhoneNumber() , calendarDTO.getTitle(), (int)daysBetween);
             this.producer.sendToProducer(reminderMessage, false);
         }
         calendarService.register(calendarDTO);
     }
 
-    @PostMapping("/modify")
-    @ResponseBody
-    public void modify(CalendarDTO calendarDTO) {
-        System.out.println("calendar - modify calendarRowid: " + calendarDTO.getCalendarRowid());
-        calendarService.modify(calendarDTO);
+    @PatchMapping("/{calendarRowid}")
+    public ResponseEntity<String> modifyCalendar(@PathVariable("calendarRowid") Long calendarRowid, @Valid @RequestBody CalendarDTO calendarDTO) {
+        log.info("Modifying calendar with ID: {}", calendarRowid);
+
+        try {
+            calendarService.modify(calendarDTO);
+            return new ResponseEntity<>("Calendar modified successfully", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            log.error("Failed to modify calendar, ID not found: {}", calendarRowid, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            log.error("Error modifying calendar with ID: {}", calendarRowid, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/remove")

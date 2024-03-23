@@ -1,6 +1,5 @@
 
-#기존 gke 구성에서 gke kustomize 배포기능을 제외함 (Argo CD)가 그 역할을 대신함
-#Docker 이미지를 빌드하고, Google Container Registry(GCR)에 푸시한 후, 추가적으로 Argo CD를 사용하여 GKE(Google Kubernetes Engine)에 배포
+#차트 배포까지 하는중
 name: Build and Deploy to GKE For Argo CD
 on:
   push:
@@ -13,9 +12,9 @@ env:
 #  GITHUB_SHA: ${{ github.sha }}
   GKE_ZONE: asia-east1-a
   GKE_CLUSTER: jsvill-cluster-1
+  REGISTRY_HOSTNAME: gcr.io
   IMAGE: jsvill
   IMAGE_TAG: latest
-  REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: jsvill
 
 jobs:

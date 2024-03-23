@@ -174,31 +174,36 @@ let editEvent = function (event, element, view) {
         $("#calendar").fullCalendar('updateEvent', event);
         //일정 업데이트
         $.ajax({
-            type: "post",
-            url: "/calendar/modify",
-            data: {
-                groupRowid:groupRowid,
-                calendarRowid:event.calendarRowid,
-                bundleId:event.bundleId,
-                title:event.title,
-                description:event.description,
-                start:event.start,
-                end:event.end,
-                repetition:event.repetition,
+            type: "PATCH", // HTTP 메소드는 "PATCH"로 명시
+            url: "/calendar/" + event.calendarRowid, // URL 경로에 calendarRowid 포함
+            contentType: "application/json", // 내용 유형을 JSON으로 설정
+            data: JSON.stringify({ // data 객체를 JSON 문자열로 변환
+                groupRowid: groupRowid,
+                calendarRowid: event.calendarRowid,
+                bundleId: event.bundleId,
+                title: event.title,
+                description: event.description,
+                start: event.start,
+                end: event.end,
+                repetition: event.repetition,
                 startLoopDays: startLoopDays,
                 endLoopDays: endLoopDays,
-                repetitionEnd:event.repetitionEnd,
-                backgroundColor:event.backgroundColor,
-                textColor:event.textColor,
-                isallday:event.allDay,
-                typeNo:typeNo,
+                repetitionEnd: event.repetitionEnd,
+                backgroundColor: event.backgroundColor,
+                textColor: event.textColor,
+                isallday: event.allDay,
+                typeNo: typeNo,
+            }),
+            success: function(response) {
+                if (typeNo === 4) alert('반복일정이 모두 수정되었습니다.');
+                else alert('수정되었습니다.');
+                location.reload(); // 페이지 새로고침
             },
-            success: function (response) {
-                if(typeNo===4) alert('반복일정이 모두 수정되었습니다.')
-                else alert('수정되었습니다.')
-                location.reload()
+            error: function(xhr, status, error) {
+                alert("오류 발생: " + xhr.responseText);
             }
         });
+
     });
 };
 

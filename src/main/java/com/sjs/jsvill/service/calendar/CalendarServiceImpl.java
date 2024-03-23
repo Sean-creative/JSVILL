@@ -38,7 +38,6 @@ public class CalendarServiceImpl implements CalendarService {
         LocalDate nextWeek = today.plusDays(7);
 
         // JPQL과는 달리, QueryDSL에서는 타입 안전성을 제공하며, 컴파일 타임에 쿼리의 문법 오류를 잡을 수 있습니다.
-
         return CalendarDTO.entityToDTOList(queryFactory
                 .selectFrom(calendar)
                 .where(calendar.start.between(

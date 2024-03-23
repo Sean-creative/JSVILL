@@ -39,7 +39,7 @@ function startSSE() {
                             ${daysAgoText}
                         </div>                   
                     </div>
-                    <p>${reminder.contents}</p>
+                    <p style="margin:8px 0 0 0">${reminder.contents}</p>
                 </li>
             `;
             $("#reminderList").append(newReminder);

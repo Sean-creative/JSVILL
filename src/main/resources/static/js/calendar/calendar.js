@@ -190,9 +190,10 @@ let calendar = $('#calendar').fullCalendar({
 
         //드롭한 일정 업데이트
         $.ajax({
-            type: "post",
-            url: "/calendar/modify",
-            data: {
+            type: "PATCH", // HTTP 메소드를 PATCH로 변경
+            url: "/calendar/" + event.calendarRowid, // 동적으로 calendarRowid를 URL에 포함
+            contentType: "application/json", // 내용 유형을 JSON으로 설정
+            data: JSON.stringify({ // data 객체를 JSON 문자열로 변환
                 groupRowid: groupRowid,
                 calendarRowid: event.calendarRowid,
                 title: event.title,
@@ -202,12 +203,15 @@ let calendar = $('#calendar').fullCalendar({
                 backgroundColor: event.backgroundColor,
                 textColor: event.textColor,
                 isallday: event.allDay
-            },
-            success: function (response) {
+            }),
+            success: function(response) {
                 alert('반복일정 중 해당일정만 수정됩니다.\n수정 후: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                alert("오류가 발생했습니다: " + error);
             }
         });
-
     },
 
     select: function (startDate, endDate, jsEvent, view) {
