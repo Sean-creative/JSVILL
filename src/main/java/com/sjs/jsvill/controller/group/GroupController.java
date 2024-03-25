@@ -32,7 +32,7 @@ public class GroupController {
 
     @PostMapping("/register")
     public String register(GroupDTO groupDTO, @AuthenticationPrincipal MemberDTO memberDTO) {
-        //일단 멤버는 이걸로 고정;
+        //일단 멤버는 이걸로 고정; 요부분 수정해야하는데!!
         log.info("dto..." + groupDTO);
 
         Long gno = groupService.register(groupDTO, memberDTO.getMemberRowid());

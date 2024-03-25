@@ -18,10 +18,8 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor //의존성 자동 주입 -> repository가 자동 주입
 public class CalendarServiceImpl implements CalendarService {
-
     private final CalendarRepository calendarRepository; //반드시 final로 선언
     private final JPAQueryFactory queryFactory;
-
     @Override
     public List<CalendarDTO> getList(Long groupRowid) {
         List<Calendar> calendarList = calendarRepository.findAllByGroup(Group.builder().group_rowid(groupRowid).build());
