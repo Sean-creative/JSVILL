@@ -21,7 +21,7 @@ spec:
         app: demo
     spec:
       containers:
-        - image: gcr.io/arboreal-lyceum-415005/demo:latest
+        - image: gcr.io/lucid-sonar-418815/jsvill:latest
           name: demo
           resources: { }
           ports:
