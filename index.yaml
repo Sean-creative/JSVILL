@@ -2,6 +2,13 @@ apiVersion: v1
 entries:
   jsvill-charts:
   - apiVersion: v2
+    created: "2024-03-31T06:30:58.067165106Z"
+    digest: 3739651aee8c7f829b17bc7b7ad75c1e787e64a9b3e7cdf3c09c4d046225d68b
+    name: jsvill-charts
+    urls:
+    - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.69/jsvill-charts-0.0.69.tgz
+    version: 0.0.69
+  - apiVersion: v2
     created: "2024-03-30T19:12:28.393483516Z"
     digest: 776503c633cc0281a7cf93cad49c914d794ee25a78ff2f858546f87f2f411421
     name: jsvill-charts
@@ -393,4 +400,4 @@ entries:
     urls:
     - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.1/jsvill-charts-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-30T19:12:28.393735415Z"
+generated: "2024-03-31T06:30:58.067484688Z"
