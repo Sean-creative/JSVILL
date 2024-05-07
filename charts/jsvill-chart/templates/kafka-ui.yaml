@@ -32,7 +32,7 @@ metadata:
   name: kafka-ui
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.80.70.137
+  loadBalancerIP: 34.80.155.221
   ports:
     - port: 80
       targetPort: 8080

@@ -1,1 +1,36 @@
 image: gcr.io/single-quanta-422507-f2/jsvill-fullstack:latest
+
+prometheus:
+  grafana:
+    adminUser: sean
+    adminPassword: '1730'
+
+loki:
+  minio:
+    enabled: true
+    size: 3Gi
+  loki:
+    auth_enabled: false
+  write:
+    persistence:
+      size: 3Gi
+  read:
+    persistence:
+      size: 3Gi
+  backend:
+    persistence:
+      size: 3Gi
+  monitoring:
+    selfMonitoring:
+      grafanaAgent:
+        installOperator: false
+
+promtail:
+  scrape_configs:
+    - job_name: jsvill-logs
+      static_configs:
+        - targets:
+            - localhost
+          labels:
+            job: jsvill-helm
+            __path__: /var/log/contains/*.log

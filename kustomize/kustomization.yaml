@@ -4,26 +4,26 @@ helmCharts:
   - name: jsvill-charts
     repo: https://sean-creative.github.io/JSVILL
     version: 0.0.71
-    releaseName: jsvill
+    releaseName: jsvill-helm
     namespace: default
 
   - name: kube-prometheus-stack
     repo: https://prometheus-community.github.io/helm-charts
     version: 56.2.0
+    valuesFile: values-prometheus.yaml
     releaseName: prometheus
     namespace: monitoring
-    valuesFile: values-prometheus.yaml
 
   - name: loki
     repo: https://grafana.github.io/helm-charts
     version: 5.41.8
+    valuesFile: values-loki.yaml
     releaseName: loki
     namespace: monitoring
-    valuesFile: values-loki.yaml
 
   - name: promtail
     repo: https://grafana.github.io/helm-charts
     version: 6.15.4
+    valuesFile: values-promtail.yaml
     releaseName: promtail
     namespace: monitoring
-    valuesFile: values-promtail.yaml
