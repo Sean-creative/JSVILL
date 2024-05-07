@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   jsvill-charts:
   - apiVersion: v2
+    created: "2024-05-07T08:03:06.408717233Z"
+    dependencies:
+    - name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 58.4.0
+    digest: bf833e5ff41594067ed55dee0f1c587be40286596fd2dafa36351850a99bf27a
+    name: jsvill-charts
+    urls:
+    - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.76/jsvill-charts-0.0.76.tgz
+    version: 0.0.76
+  - apiVersion: v2
     created: "2024-05-07T07:56:46.664147397Z"
     dependencies:
     - name: kube-prometheus-stack
@@ -482,4 +493,4 @@ entries:
     urls:
     - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.1/jsvill-charts-0.0.1.tgz
     version: 0.0.1
-generated: "2024-05-07T07:56:46.664360171Z"
+generated: "2024-05-07T08:03:06.408917347Z"
