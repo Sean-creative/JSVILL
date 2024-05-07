@@ -125,27 +125,3 @@ jobs:
           charts_dir: charts
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
-
-#  update-kustomization:
-#    needs: bump-version-and-release-charts
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#        with:
-#          ref: release
-#
-#      - name: Configure Git
-#        run: |
-#          git config --local user.email "ksw6125000@naver.com"
-#          git config --local user.name "Sean-creative"
-#
-#      - name: Update kustomization version
-#        run: |
-#          cd kustomize
-#          NEW_VERSION=${{ needs.bump-version-and-release-charts.outputs.new-version }}
-#          sed -i "/jsvill-charts/,/version:/s/version: .*/version: $NEW_VERSION/" kustomization.yaml
-#          git pull origin release
-#          git add kustomization.yaml
-#          git commit -m "Update jsvill-charts version to $NEW_VERSION"
-#          git push origin HEAD
