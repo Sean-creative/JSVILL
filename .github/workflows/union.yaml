@@ -107,15 +107,16 @@ jobs:
         id: bump-version
         run: |
           CHART_DIR=charts/jsvill-chart
-          VERSION=$(grep 'version:' $CHART_DIR/Chart.yaml | awk '{print $2}')
-          NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+          VERSION=$(awk '/^version: /{print $2}' $CHART_DIR/Chart.yaml)  
+          NEW_VERSION=$(echo $VERSION | awk -F. '{++$NF}1' | tr ' ' '.')  
           echo "Current VERSION: $VERSION"
           echo "New VERSION: $NEW_VERSION"
-          sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
+          sed -i "s/^version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml 
           echo "::set-output name=new-version::$NEW_VERSION"
           git add $CHART_DIR/Chart.yaml
           git commit -m "Bump chart version to $NEW_VERSION"
           git push origin HEAD
+
 
       - name: Install Helm
         uses: azure/setup-helm@v3
