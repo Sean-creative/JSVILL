@@ -27,7 +27,6 @@ public class ReminderApiController {
 
     @GetMapping(value = "/api/sse-connection", produces = "text/event-stream")
     public SseEmitter stream(@AuthenticationPrincipal MemberDTO memberDTO, @RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) throws IOException {
-        log.info("stream-1");
         return consReminderService.addEmitter(String.valueOf(memberDTO.getPhoneNumber()), lastEventId);
     }
 

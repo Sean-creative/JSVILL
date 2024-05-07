@@ -1,5 +1,5 @@
 
-#차트 배포까지 하는중
+#두개를 하나로 합쳐서 빌드 후 차트 배포까지 하는중
 name: Build and Deploy to GKE For Argo CD
 on:
   push:
@@ -12,12 +12,12 @@ env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
 #  GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: asia-east1-a
-  GKE_CLUSTER: jsvill-cluster-1
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   REGISTRY_HOSTNAME: gcr.io
-  IMAGE: jsvill
+  IMAGE: jsvill-fullstack
   IMAGE_TAG: latest
-  DEPLOYMENT_NAME: jsvill
+  DEPLOYMENT_NAME: jsvill-fullstack
 
 jobs:
   #job을 여러개로 나누면, job마다 checkout을 중복으로 해줘야함해서 하나로함

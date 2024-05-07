@@ -24,22 +24,36 @@ import static com.sjs.jsvill.controller.kafka.ReminderApiController.DEFAULT_TIME
 public class ConsReminderService {
     private final ReminderService reminderService;
     private final EmitterRepository emitterRepository;
-    @KafkaListener(topics = "calendar-reminder-schedule", groupId = "group_1")
-    public void listenForSchedule(ReminderMessage reminderMessage) {
-        try {
-            log.info("인위적으로 폴링 간격을 늘림 -- 2초 지연");
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        //스케줄로 메세지를 컨슘하려면 -> 리마인더에 넣어야함
-        Reminder reminder = Reminder.builder()
-                .member(Member.builder().memberRowid(reminderMessage.getMemberRowid()).build())
-                .contents(reminderMessage.getContents())
-                .daysAgo(reminderMessage.getDaysAgo())
-                .build();
-        reminderService.createReminder(reminder);
+    //브라우저에 연결
+    public SseEmitter addEmitter(String userPhone, String lastEventId) {
+        log.info("addEmitter-1 userPhone : {}, lastEventId : {}", userPhone, lastEventId);
+        String emitterId = userPhone + "_" + System.currentTimeMillis();
+        SseEmitter emitter = emitterRepository.save(emitterId, new SseEmitter(DEFAULT_TIMEOUT));
+        log.info("emitterId : {} 사용자 emitter 연결 ", emitterId);
+
+        emitter.onCompletion(() -> {
+            log.info("onCompletion callback");
+            emitterRepository.deleteById(emitterId);
+        });
+        emitter.onTimeout(() -> {
+            log.info("onTimeout callback");
+            emitterRepository.deleteById(emitterId);
+        });
+
+        sendToClient(emitter, emitterId, "connected!"); // 503 에러방지 더미 데이터
+
+        log.info("!lastEventId.isEmpty() : {}",!lastEventId.isEmpty());
+        if (!lastEventId.isEmpty()) {
+            //서버-클라이언트 간에 연결이 끊겼을 때, 클라이언트가 마지막으로 수신한 이벤트 ID를 서버에 알려주어 서버가 해당 지점부터 이벤트를 다시 전송할 수 있도록
+            Map<String, Object> events = emitterRepository.findAllEventCacheStartWithById(userPhone);
+            events.entrySet().stream()
+                    .filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
+                    .forEach(entry -> {
+                        sendToClient(emitter, entry.getKey(), entry.getValue());
+                    });
+        }
+        return emitter;
     }
 
     //Emitter는 데이터 스트림을 클라이언트로 보내는 역할을 하는 객체이다.
@@ -47,7 +61,7 @@ public class ConsReminderService {
     @KafkaListener(topics = "calendar-reminder-emitter", groupId = "group_1")
     public void listenForEmitter(ReminderMessage reminderMessage) {
         try {
-            log.info("인위적으로 폴링 간격을 늘림 -- 2초 지연");
+            log.info("calendar-reminder-emitter, 인위적으로 폴링 간격을 늘림 -- 2초 지연");
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -88,36 +102,25 @@ public class ConsReminderService {
         }
     }
 
-    //브라우저에 대한 연결
-    public SseEmitter addEmitter(String userPhone, String lastEventId) {
-        log.info("addEmitter-1 userPhone : {}, lastEventId : {}", userPhone, lastEventId);
-        String emitterId = userPhone + "_" + System.currentTimeMillis();
-        SseEmitter emitter = emitterRepository.save(emitterId, new SseEmitter(DEFAULT_TIMEOUT));
-        log.info("emitterId : {} 사용자 emitter 연결 ", emitterId);
 
-        emitter.onCompletion(() -> {
-            log.info("onCompletion callback");
-            emitterRepository.deleteById(emitterId);
-        });
-        emitter.onTimeout(() -> {
-            log.info("onTimeout callback");
-            emitterRepository.deleteById(emitterId);
-        });
-
-        sendToClient(emitter, emitterId, "connected!"); // 503 에러방지 더미 데이터
-
-        log.info("!lastEventId.isEmpty() : {}",!lastEventId.isEmpty());
-        if (!lastEventId.isEmpty()) {
-            //서버-클라이언트 간에 연결이 끊겼을 때, 클라이언트가 마지막으로 수신한 이벤트 ID를 서버에 알려주어 서버가 해당 지점부터 이벤트를 다시 전송할 수 있도록
-            Map<String, Object> events = emitterRepository.findAllEventCacheStartWithById(userPhone);
-            events.entrySet().stream()
-                    .filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
-                    .forEach(entry -> {
-                        sendToClient(emitter, entry.getKey(), entry.getValue());
-                    });
+    @KafkaListener(topics = "calendar-reminder-schedule", groupId = "group_1")
+    public void listenForSchedule(ReminderMessage reminderMessage) {
+        try {
+            log.info("calendar-reminder-schedule, 인위적으로 폴링 간격을 늘림 -- 2초 지연");
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return emitter;
+
+        //스케줄로 메세지를 컨슘하려면 -> 리마인더에 넣어야함
+        Reminder reminder = Reminder.builder()
+                .member(Member.builder().memberRowid(reminderMessage.getMemberRowid()).build())
+                .contents(reminderMessage.getContents())
+                .daysAgo(reminderMessage.getDaysAgo())
+                .build();
+        reminderService.createReminder(reminder);
     }
+
 
     @Scheduled(fixedRate = 180000) // 3분마다 heartbeat 메세지 전달.
     public void sendHeartbeat() {

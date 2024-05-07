@@ -48,7 +48,6 @@ public class CalendarServiceImpl implements CalendarService {
     public void register(CalendarDTO calendarDTO) {
         log.info("calendarDTO-register: " + calendarDTO);
         List<Calendar> calendarList = Calendar.dtoToEntities(calendarDTO, true);
-        Json.stringToJson(calendarList, "service-register");
         //loopDays 루프로 등록
         calendarRepository.saveAll(calendarList);
     }

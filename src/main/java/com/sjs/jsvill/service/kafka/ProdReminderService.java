@@ -17,8 +17,6 @@ public class ProdReminderService {
     }
 
     public void sendToProducer(ReminderMessage reminderMessage, boolean isSchedule) {
-        log.info("sendToProducer-1");
-
         if(isSchedule) kafkaTemplate.send("calendar-reminder-schedule", reminderMessage);
         else kafkaTemplate.send("calendar-reminder-emitter", reminderMessage);
     }

@@ -41,7 +41,6 @@ public class GroupController {
     }
     @GetMapping("/list")
     public String list(@AuthenticationPrincipal MemberDTO memberDTO, Model model) {
-        Json.stringToJson(memberDTO, "group-list");
         model.addAttribute("result", groupService.getList(memberDTO.getMemberRowid()));
         return "group/list";
     }
