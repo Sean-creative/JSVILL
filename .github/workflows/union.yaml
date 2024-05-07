@@ -10,13 +10,12 @@ on:
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
-#  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_SHA: ${{ github.sha }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   REGISTRY_HOSTNAME: gcr.io
   IMAGE: jsvill-fullstack
   IMAGE_TAG: latest
-  DEPLOYMENT_NAME: jsvill-fullstack
 
 jobs:
   #job을 여러개로 나누면, job마다 checkout을 중복으로 해줘야함해서 하나로함
@@ -110,6 +109,8 @@ jobs:
           CHART_DIR=charts/jsvill-chart
           VERSION=$(grep 'version:' $CHART_DIR/Chart.yaml | awk '{print $2}')
           NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+          echo "Current VERSION: $VERSION"
+          echo "New VERSION: $NEW_VERSION"
           sed -i "s/version: $VERSION/version: $NEW_VERSION/" $CHART_DIR/Chart.yaml
           echo "::set-output name=new-version::$NEW_VERSION"
           git add $CHART_DIR/Chart.yaml

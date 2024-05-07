@@ -1,5 +1,5 @@
 apiVersion: v2
-name: jsvill-charts-umbrella
+name: jsvill-charts
 version: 0.0.71
 dependencies:
   - name: kube-prometheus-stack
