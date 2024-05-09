@@ -40,40 +40,45 @@ promtail:
             job: jsvill-helm
             __path__: /var/log/contains/*.log
 
-loki:
-  namespaceOverride: "monitoring"
-  enabled: true
-  storage:
-    bucketNames:
-      chunks: "test-bucket"
-  schemaConfig:
-    configs:
-      - from: "2020-07-31"
-        index:
-          period: 24h
-          prefix: loki_ops_index_
-        object_store: gcs
-        schema: v11
-        store: tsdb
-      - from: "2022-01-20"
-        index:
-          period: 24h
-          prefix: loki_ops_index_
-        object_store: gcs
-        schema: v13
-        store: tsdb
-  write:
-    persistence:
-      size: 3Gi
-  read:
-    persistence:
-      size: 3Gi
-  backend:
-    persistence:
-      size: 3Gi
-  loki:
-    auth_enabled: false
-  monitoring:
-    selfMonitoring:
-      grafanaAgent:
-        installOperator: false
+#loki:
+#  commonConfig:
+#    replication_factor: 1
+#    storage:
+#      type: 'filesystem'
+#  singleBinary:
+#    replicas: 1
+#  namespaceOverride: "monitoring"
+#  storage:
+#    bucketNames:
+#      chunks: "test-bucket"
+#  schemaConfig:
+#    configs:
+#      - from: "2020-07-31"
+#        index:
+#          period: 24h
+#          prefix: loki_ops_index_
+#        object_store: gcs
+#        schema: v11
+#        store: tsdb
+#      - from: "2022-01-20"
+#        index:
+#          period: 24h
+#          prefix: loki_ops_index_
+#        object_store: gcs
+#        schema: v13
+#        store: tsdb
+#  write:
+#    persistence:
+#      size: 3Gi
+#  read:
+#    persistence:
+#      size: 3Gi
+#  backend:
+#    persistence:
+#      size: 3Gi
+#  loki:
+#    auth_enabled: false
+#  monitoring:
+#    selfMonitoring:
+#      grafanaAgent:
+#        installOperator: false
