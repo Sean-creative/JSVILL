@@ -2,6 +2,13 @@ apiVersion: v1
 entries:
   jsvill-charts:
   - apiVersion: v2
+    created: "2024-05-09T09:07:16.697341652Z"
+    digest: d9c3894d6c8b1c31366e7ab12139b03ad7ddc9660c672f1136221cd2570d261e
+    name: jsvill-charts
+    urls:
+    - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.82/jsvill-charts-0.0.82.tgz
+    version: 0.0.82
+  - apiVersion: v2
     created: "2024-05-09T07:18:11.407544092Z"
     dependencies:
     - name: kube-prometheus-stack
@@ -569,4 +576,4 @@ entries:
     urls:
     - https://github.com/Sean-creative/JSVILL/releases/download/jsvill-charts-0.0.1/jsvill-charts-0.0.1.tgz
     version: 0.0.1
-generated: "2024-05-09T07:18:11.407786413Z"
+generated: "2024-05-09T09:07:16.697534633Z"
