@@ -1,6 +1,7 @@
 image: gcr.io/single-quanta-422507-f2/jsvill-fullstack:latest
 
 kube-prometheus-stack:
+  namespaceOverride: "monitoring"
   prometheus:
     prometheusSpec:
       storageSpec:
@@ -28,8 +29,23 @@ kube-prometheus-stack:
       finalizers:
         - kubernetes.io/pvc-protection
 
+promtail:
+  namespaceOverride: "monitoring"
+  scrape_configs:
+    - job_name: jsvill-logs
+      static_configs:
+        - targets:
+            - localhost
+          labels:
+            job: jsvill-helm
+            __path__: /var/log/contains/*.log
+
 loki:
+  namespaceOverride: "monitoring"
   enabled: true
+  storage:
+    bucketNames:
+      chunks: "test-bucket"
   schemaConfig:
     configs:
       - from: "2020-07-31"
@@ -46,10 +62,6 @@ loki:
         object_store: gcs
         schema: v13
         store: tsdb
-  minio:
-    enabled: false
-  loki:
-    auth_enabled: false
   write:
     persistence:
       size: 3Gi
@@ -59,17 +71,9 @@ loki:
   backend:
     persistence:
       size: 3Gi
+  loki:
+    auth_enabled: false
   monitoring:
     selfMonitoring:
       grafanaAgent:
         installOperator: false
-
-promtail:
-  scrape_configs:
-    - job_name: jsvill-logs
-      static_configs:
-        - targets:
-            - localhost
-          labels:
-            job: jsvill-helm
-            __path__: /var/log/contains/*.log
