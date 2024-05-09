@@ -1,72 +1,51 @@
 image: gcr.io/single-quanta-422507-f2/jsvill-fullstack:latest
 
-kube-prometheus-stack:
-  namespaceOverride: "monitoring"
-  prometheus:
-    prometheusSpec:
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            accessModes: [ "ReadWriteOnce" ]
-            resources:
-              requests:
-                storage: 3Gi
-  grafana:
-    grafana.ini:
-      server:
-        domain: 35.221.202.91
-    service:
-      type: LoadBalancer
-      loadBalancerIP: 35.221.202.91
-    adminUser: sean
-    adminPassword: '1730'
-    persistence:
-      type: pvc
-      enabled: true
-      accessModes:
-        - ReadWriteOnce
-      size: 3Gi
-      finalizers:
-        - kubernetes.io/pvc-protection
-
-promtail:
-  namespaceOverride: "monitoring"
-  scrape_configs:
-    - job_name: jsvill-logs
-      static_configs:
-        - targets:
-            - localhost
-          labels:
-            job: jsvill-helm
-            __path__: /var/log/contains/*.log
-
-#loki:
-#  commonConfig:
-#    replication_factor: 1
-#    storage:
-#      type: 'filesystem'
-#  singleBinary:
-#    replicas: 1
+#kube-prometheus-stack:
 #  namespaceOverride: "monitoring"
-#  storage:
-#    bucketNames:
-#      chunks: "test-bucket"
-#  schemaConfig:
-#    configs:
-#      - from: "2020-07-31"
-#        index:
-#          period: 24h
-#          prefix: loki_ops_index_
-#        object_store: gcs
-#        schema: v11
-#        store: tsdb
-#      - from: "2022-01-20"
-#        index:
-#          period: 24h
-#          prefix: loki_ops_index_
-#        object_store: gcs
-#        schema: v13
-#        store: tsdb
+#  prometheus:
+#    prometheusSpec:
+#      storageSpec:
+#        volumeClaimTemplate:
+#          spec:
+#            accessModes: [ "ReadWriteOnce" ]
+#            resources:
+#              requests:
+#                storage: 3Gi
+#  grafana:
+#    grafana.ini:
+#      server:
+#        domain: 35.221.202.91
+#    service:
+#      type: LoadBalancer
+#      loadBalancerIP: 35.221.202.91
+#    adminUser: sean
+#    adminPassword: '1730'
+#    persistence:
+#      type: pvc
+#      enabled: true
+#      accessModes:
+#        - ReadWriteOnce
+#      size: 3Gi
+#      finalizers:
+#        - kubernetes.io/pvc-protection
+#
+#promtail:
+#  namespaceOverride: "monitoring"
+#  scrape_configs:
+#    - job_name: jsvill-logs
+#      static_configs:
+#        - targets:
+#            - localhost
+#          labels:
+#            job: jsvill-helm
+#            __path__: /var/log/contains/*.log
+#
+#loki:
+#  minio:
+#    enabled: true
+#    size: 3Gi
+#  loki:
+#    auth_enabled: false
 #  write:
 #    persistence:
 #      size: 3Gi
@@ -76,8 +55,7 @@ promtail:
 #  backend:
 #    persistence:
 #      size: 3Gi
-#  loki:
-#    auth_enabled: false
+#
 #  monitoring:
 #    selfMonitoring:
 #      grafanaAgent:

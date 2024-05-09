@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
   - name: jsvill-charts
     repo: https://sean-creative.github.io/JSVILL
-    version: 0.0.71
+    version: 0.0.81
     releaseName: jsvill-helm
     namespace: default
 
@@ -16,7 +16,7 @@ helmCharts:
 
   - name: loki
     repo: https://grafana.github.io/helm-charts
-    version: 5.41.8
+    version: 5.41.0
     valuesFile: values-loki.yaml
     releaseName: loki
     namespace: monitoring
