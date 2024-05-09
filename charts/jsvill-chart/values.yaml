@@ -1,9 +1,32 @@
 image: gcr.io/single-quanta-422507-f2/jsvill-fullstack:latest
 
-prometheus:
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 3Gi
   grafana:
+    grafana.ini:
+      server:
+        domain: 35.221.202.91
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 35.221.202.91
     adminUser: sean
     adminPassword: '1730'
+    persistence:
+      type: pvc
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 3Gi
+      finalizers:
+        - kubernetes.io/pvc-protection
 
 #loki:
 #  enabled: true
